@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField]
-    private float speed = 5.0f;
+    public static Player Instance;
+
+    public float MaxHp { get; set; }
+    public float Hp { get; set; }
+    public float Speed { get; set; }
+
 
     private Rigidbody2D rb;
     //private SpriteRenderer spriteRenderer;
     //private Animator anim;
-
+    
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        //spriteRenderer = GetComponent<SpriteRenderer>();
-        //anim = GetComponent<Animator>();
+        
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        //DontDestroyOnLoad(gameObject); 가게 안과 파밍 때의 캐릭터 분리 할 지 고민할 필요가 있을 듯?
+        Instance = this;
+        rb = GetComponent<Rigidbody2D>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+        //anim = GetComponent<Animator>();
+        Speed = SaveManager.Instance.Speed;
+        Hp = SaveManager.Instance.Hp;
+        MaxHp = SaveManager.Instance.MaxHp;
     }
 
     // Update is called once per frame
@@ -40,6 +48,6 @@ public class Player : Singleton<Player>
         float dx = Input.GetAxisRaw("Horizontal");
         float dy = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = new Vector2(dx * speed, dy * speed);
+        rb.velocity = new Vector2(dx * Speed, dy * Speed);
     }
 }
