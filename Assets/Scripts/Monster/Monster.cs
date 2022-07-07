@@ -13,6 +13,10 @@ public class Monster : MonoBehaviour
     protected Rigidbody2D rb;
     protected bool isAttacked; // 공격 당했는가. 후공의 경우 이 여부로 플레이어 따라오는 루틴 만들어도 될듯
 
+    protected GameObject dropItem;
+    [SerializeField]
+    protected GameObject dropItemPrefab;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -48,7 +52,12 @@ public class Monster : MonoBehaviour
     protected virtual void Die()
     {
         // 여기서 드롭 아이템 떨구는 함수 호출
+        DropItem();
         Destroy(gameObject);
     }
         
+    protected virtual void DropItem()
+    {
+        dropItem = Instantiate(dropItemPrefab, transform.position, transform.rotation);
+    }
 }

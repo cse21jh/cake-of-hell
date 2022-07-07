@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4009017994747825480}
   - component: {fileID: 4009017994747825481}
   m_Layer: 0
-  m_Name: TestMonster
+  m_Name: TestMonsterIcing
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,3 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ffd4cae61d6b04ea2ff25c2ba0438b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropItemPrefab: {fileID: 8974538195301364898, guid: 6dc1d75d0a1604c4aa18811bdcd610fd, type: 3}

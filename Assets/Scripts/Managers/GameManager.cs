@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ToppingIndex { TestTopping,Number};
+public enum IcingIndex { TestIcing, Number};
+public enum BaseIndex { TestBase, Number};
+
 public class GameManager : Singleton<GameManager>
 {
     void Awake()

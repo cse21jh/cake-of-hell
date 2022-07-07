@@ -17,6 +17,12 @@ public class SaveManager : Singleton<SaveManager>
 
     public float AttackRange { get; set; } = 1.0f;
 
+    public int[] NumberOfIcing = new int[(int)IcingIndex.Number];
+
+    public int[] NumberOfTopping = new int[(int) ToppingIndex.Number];
+
+    public int[] NumberOfBase = new int[(int)BaseIndex.Number];
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
