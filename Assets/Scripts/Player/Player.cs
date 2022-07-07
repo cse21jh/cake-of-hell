@@ -9,7 +9,11 @@ public class Player : Singleton<Player>
     public float MaxHp { get; set; }
     public float Hp { get; set; }
     public float Speed { get; set; }
+    public float AttackDamage { get; set; }
+    public float AttackRange { get; set; }
 
+    protected float coolTime = 1.0f;
+    protected float curCoolTime = 0;
 
     private Rigidbody2D rb;
     //private SpriteRenderer spriteRenderer;
@@ -30,6 +34,8 @@ public class Player : Singleton<Player>
         Speed = SaveManager.Instance.Speed;
         Hp = SaveManager.Instance.Hp;
         MaxHp = SaveManager.Instance.MaxHp;
+        AttackDamage = SaveManager.Instance.AttackDamage;
+        AttackRange = SaveManager.Instance.AttackRange;
     }
 
     // Update is called once per frame

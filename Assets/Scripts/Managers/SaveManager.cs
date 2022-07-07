@@ -13,6 +13,10 @@ public class SaveManager : Singleton<SaveManager>
     //private float speed = 5f;
     public float Speed { get; set; } = 5f;
 
+    public float AttackDamage { get; set; } = 10f;
+
+    public float AttackRange { get; set; } = 1.0f;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

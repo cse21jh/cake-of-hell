@@ -38,6 +38,7 @@ public class Monster : MonoBehaviour
     {
         // 타격 효과, 체력바 등 여기서 호출
         Hp -= damage;
+        Debug.Log(Hp);
         if(Hp<=0)
         {
             Die();
@@ -47,7 +48,7 @@ public class Monster : MonoBehaviour
     protected virtual void Die()
     {
         // 여기서 드롭 아이템 떨구는 함수 호출
-        Destroy(this);
+        Destroy(gameObject);
     }
         
 }
