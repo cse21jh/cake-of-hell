@@ -21,13 +21,14 @@ public class PlayerInForest : Player
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)&&curCoolTime <=0)
+        if (Input.GetMouseButtonDown(0)&&curCoolTime <=0&& !openItemList)
             StartCoroutine(Attack());
 
         if (curCoolTime > 0)
         {
             curCoolTime = Mathf.Max(curCoolTime - Time.deltaTime, 0);
-        }    
+        }
+        base.Update();
     }
 
     private IEnumerator Attack()

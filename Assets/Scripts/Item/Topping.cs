@@ -5,7 +5,7 @@ using UnityEngine;
 public class Topping : MonoBehaviour
 {
     [SerializeField]
-    protected ToppingIndex topping;
+    protected RToppingIndex topping;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class Topping : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            SaveManager.Instance.NumberOfTopping[(int)topping] += 1;
+            SaveManager.Instance.NumberOfRTopping[(int)topping] += 1;
             Destroy(gameObject);
         }
     }

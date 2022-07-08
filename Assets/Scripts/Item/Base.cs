@@ -5,11 +5,11 @@ using UnityEngine;
 public class Base : MonoBehaviour
 {
     [SerializeField]
-    protected BaseIndex bas;
+    protected RBaseIndex bas;
+
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class Base : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SaveManager.Instance.NumberOfBase[(int)bas] += 1;
+            SaveManager.Instance.NumberOfRBase[(int)bas] += 1;
             Destroy(gameObject);
         }
     }

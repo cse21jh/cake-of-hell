@@ -17,11 +17,19 @@ public class SaveManager : Singleton<SaveManager>
 
     public float AttackRange { get; set; } = 1.0f;
 
+
     public int[] NumberOfIcing = new int[(int)IcingIndex.Number];
 
     public int[] NumberOfTopping = new int[(int) ToppingIndex.Number];
 
     public int[] NumberOfBase = new int[(int)BaseIndex.Number];
+
+
+    public int[] NumberOfRIcing = new int[(int)RIcingIndex.Number];
+
+    public int[] NumberOfRTopping = new int[(int)RToppingIndex.Number];
+
+    public int[] NumberOfRBase = new int[(int)RBaseIndex.Number];
 
     void Awake()
     {

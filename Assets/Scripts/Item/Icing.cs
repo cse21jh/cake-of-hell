@@ -5,7 +5,7 @@ using UnityEngine;
 public class Icing : MonoBehaviour
 {
     [SerializeField]
-    protected IcingIndex icing;
+    protected RIcingIndex icing;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class Icing : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SaveManager.Instance.NumberOfIcing[(int)icing] += 1;
+            SaveManager.Instance.NumberOfRIcing[(int)icing] += 1;
             Destroy(gameObject);
         }
     }
