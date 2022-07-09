@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Singleton<Player>
+public class Player : MonoBehaviour
 {
     public float MaxHp { get; set; }
     public float Hp { get; set; }
@@ -13,18 +13,14 @@ public class Player : Singleton<Player>
     protected float coolTime = 1.0f;
     protected float curCoolTime = 0;
 
-    public bool openItemList = false;
-    public bool alreadyOpenItemList = false; // 사냥꾼 등을 통해 열렸을 때에는 i눌러도 템창 안 열리도록
-
+    
     private Rigidbody2D rb;
     private Canvas canvas;
     //private SpriteRenderer spriteRenderer;
     //private Animator anim;
 
     [SerializeField]
-    private GameObject itemListPrefab;
-
-    private GameObject itemList;
+    public GameObject itemListPrefab;
 
     void Awake()
     {
@@ -34,7 +30,7 @@ public class Player : Singleton<Player>
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        openItemList = false;
+        UiManager.Instance.openItemList = false;
         rb = GetComponent<Rigidbody2D>();
         canvas = FindObjectOfType<Canvas>();
         //spriteRenderer = GetComponent<SpriteRenderer>();
@@ -49,23 +45,17 @@ public class Player : Singleton<Player>
     // Update is called once per frame
     protected virtual void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I)&& !alreadyOpenItemList)
-        {
-            if (!openItemList)
-            {
-                
-                OpenItemList();
-            }
-            else if(openItemList)
-            { 
-                CloseItemList();
-            }
-        }
+        
     }
 
     void FixedUpdate()
     {
-        Move();
+        if(GameManager.Instance.canMove)
+            Move();
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
     }
 
     void Move()
@@ -76,15 +66,4 @@ public class Player : Singleton<Player>
         rb.velocity = new Vector2(dx * Speed, dy * Speed);
     }
 
-    public void OpenItemList()
-    {
-        openItemList = true;
-        itemList = Instantiate(itemListPrefab, canvas.transform);
-    }
-
-    public void CloseItemList()
-    {
-        openItemList = false;
-        Destroy(itemList);
-    }
 }

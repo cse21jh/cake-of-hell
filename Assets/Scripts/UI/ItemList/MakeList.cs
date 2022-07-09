@@ -42,6 +42,8 @@ public class MakeList : MonoBehaviour
         for(int i=0;i<(int)RBaseIndex.Number;i++)
         {
             GameObject information = Instantiate(informationPrefab, this.transform);
+            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
+            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
             string n = "X" + SaveManager.Instance.NumberOfRBase[i].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.RBaseInformation[i].sprite;
             information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.RBaseInformation[i].explanation;
@@ -56,6 +58,8 @@ public class MakeList : MonoBehaviour
         for (int i = 0; i < (int)RToppingIndex.Number; i++)
         {
             GameObject information = Instantiate(informationPrefab, this.transform);
+            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
+            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
             string n = "X" + SaveManager.Instance.NumberOfRTopping[i].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.RToppingInformation[i].sprite;
             information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.RToppingInformation[i].explanation;
@@ -70,6 +74,8 @@ public class MakeList : MonoBehaviour
         for (int i = 0; i < (int)RIcingIndex.Number; i++)
         {
             GameObject information = Instantiate(informationPrefab, this.transform);
+            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
+            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
             string n = "X" + SaveManager.Instance.NumberOfRIcing[i].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.RIcingInformation[i].sprite;
             information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.RIcingInformation[i].explanation;
@@ -84,6 +90,8 @@ public class MakeList : MonoBehaviour
         for (int i = 0; i < (int)BaseIndex.Number; i++)
         {
             GameObject information = Instantiate(informationPrefab, this.transform);
+            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
+            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
             string n = "X" + SaveManager.Instance.NumberOfBase[i].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.BaseInformation[i].sprite;
             information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.BaseInformation[i].explanation;
@@ -98,6 +106,8 @@ public class MakeList : MonoBehaviour
         for (int i = 0; i < (int)ToppingIndex.Number; i++)
         {
             GameObject information = Instantiate(informationPrefab, this.transform);
+            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
+            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
             string n = "X" + SaveManager.Instance.NumberOfTopping[i].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.ToppingInformation[i].sprite;
             information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.ToppingInformation[i].explanation;
@@ -112,6 +122,8 @@ public class MakeList : MonoBehaviour
         for (int i = 0; i < (int)IcingIndex.Number; i++)
         {
             GameObject information = Instantiate(informationPrefab, this.transform);
+            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
+            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
             string n = "X" + SaveManager.Instance.NumberOfIcing[i].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.IcingInformation[i].sprite;
             information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.IcingInformation[i].explanation;

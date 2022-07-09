@@ -21,7 +21,7 @@ public class PlayerInForest : Player
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)&&curCoolTime <=0&& !openItemList)
+        if (Input.GetMouseButtonDown(0)&&curCoolTime <=0)
             StartCoroutine(Attack());
 
         if (curCoolTime > 0)

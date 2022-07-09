@@ -38,7 +38,9 @@ public class SaveManager : Singleton<SaveManager>
 
     void Start()
     {
-        
+        NumberOfIcing[0] = 1;
+        NumberOfTopping[0] = 1;
+        NumberOfBase[0] = 1;
     }
 
     // Update is called once per frame
