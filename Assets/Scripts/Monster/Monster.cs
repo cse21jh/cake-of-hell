@@ -33,7 +33,7 @@ public class Monster : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameManager.Instance.GetDamage(AttackDamage);
+            PlayerManager.Instance.GetDamage(AttackDamage);
             Debug.Log(SaveManager.Instance.Hp);
         }
     }
