@@ -10,11 +10,13 @@ public class UiManager : Singleton<UiManager>
     private Player player;
 
     public bool openItemList = false;
-    public bool alreadyOpenItemList = false; // »ç³É²Û µîÀ» ÅëÇØ ¿­·ÈÀ» ¶§¿¡´Â i´­·¯µµ ÅÛÃ¢ ¾È ¿­¸®µµ·Ï
+    public bool alreadyOpenItemList = false; // ï¿½ï¿½É²ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¢ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public bool openByMaking = false;
     public bool openByMagician = false;
     public bool openByHunter = false;
+
+    public bool UIOpened { get; private set; } = false;
 
     void Awake()
     {
@@ -48,5 +50,25 @@ public class UiManager : Singleton<UiManager>
     {
         openItemList = false;
         Destroy(itemList);
+    }
+
+    public void OpenUI(BaseUI ui) 
+    {
+        if(!UIOpened) 
+        {
+            UIOpened = true;
+            GameManager.Instance.canMove = false;
+            ui.Open();
+        }
+    }
+
+    public void CloseUI(BaseUI ui) 
+    {
+        if(UIOpened)
+        {
+            UIOpened = false;
+            GameManager.Instance.canMove = true;
+            ui.Close();
+        }
     }
 }

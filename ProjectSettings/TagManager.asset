@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - Magician
+  - MagicianUI
   layers:
   - Default
   - TransparentFX
