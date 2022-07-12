@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class MagicianUI : BaseUI
 { 
+    private _Item item;
+    private GameObject itemSlotPrefab; 
+    private ItemSlotComponent isc;
+
+    void Awake() 
+    {
+        item = new _Item(101, "Mud", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "진흙이다.");
+        itemSlotPrefab = Resources.Load<GameObject>("Prefabs/ItemSlotPrefab");
+    }
+
     void Start()
     {
         
@@ -17,14 +27,15 @@ public class MagicianUI : BaseUI
     public override void Open()
     {
         gameObject.SetActive(true);
-        _Item item = new _Item(101, "Mud", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "진흙이다.");
-        ItemSlotComponent isc = new ItemSlotComponent(gameObject, item, 1);
+        Debug.Log(itemSlotPrefab);
+        isc = new ItemSlotComponent(gameObject, itemSlotPrefab, item, 1);
         Debug.Log("Magician UI Opened!");
     }
 
     public override void Close()
     {
         gameObject.SetActive(false);
+        isc.Destroy();
         Debug.Log("Magician UI Closed!");
     }
 }
