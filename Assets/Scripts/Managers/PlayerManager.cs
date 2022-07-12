@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerManager : Singleton<PlayerManager>
 {
     private Player player;
+    private GameObject imageHit;
 
     void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
         DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
@@ -43,9 +45,16 @@ public class PlayerManager : Singleton<PlayerManager>
         SaveManager.Instance.MaxHp += value;
     }
 
+    public IEnumerator DamagedEffect()
+    {
+        imageHit.SetActive(true);
+        yield return new WaitForSeconds(0.4f);
+        imageHit.SetActive(false);
+    }
+
     public void GetDamage(float value)
     {
-        // 만약 피격 효과 넣는다면 여기에 삽입
+        StartCoroutine("DamagedEffect");
         player.Hp -= value;
         SaveManager.Instance.Hp -= value;
         if (player.Hp <= 0)
