@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class UIComponent
 {
-    private GameObject gameObject;
+    public GameObject gameObject { get; set; }
 
-    public UIComponent(GameObject parent, GameObject prefab)
+    public UIComponent(Transform parent, GameObject prefab)
     {
-        gameObject = Object.Instantiate(prefab, parent.transform);
-        gameObject.transform.SetParent(parent.transform);
+        gameObject = Object.Instantiate(prefab, parent);
+        gameObject.transform.SetParent(parent);
     }
 
-    public GameObject getObject() 
+    public void SetActive(bool active) 
     {
-        return gameObject;
+        gameObject.SetActive(active);
     }
 }

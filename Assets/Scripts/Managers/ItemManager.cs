@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 
 
-// °¡°ø Àü
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 public enum RToppingIndex
 {
     Cucumber,
@@ -28,7 +28,7 @@ public enum RBaseIndex
 };
 
 
-//°¡°ø ÈÄ
+//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 public enum ToppingIndex 
 { 
     Cucumber, 
