@@ -6,17 +6,17 @@ using TMPro;
 
 public class ItemSlotComponent : UIComponent
 {
-    private GameObject obj;
+    private GameObject gameObject;
 
-    public ItemSlotComponent(GameObject parent, GameObject prefab, _Item item, int itemCount) 
+    public ItemSlotComponent(GameObject parent, GameObject prefab, _Item item, int itemCount) : base(parent, prefab)
     {
-        obj = Object.Instantiate(prefab, parent.transform);
-        obj.transform.GetChild(0).GetComponent<Image>().sprite = item.SpriteImage;
-        obj.transform.GetChild(1).GetComponent<TMP_Text>().text = itemCount.ToString();
+        gameObject = base.getObject();
+        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = item.SpriteImage;
+        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = itemCount.ToString();
     }
 
-    public void Destroy() 
+    public void SetActive(bool active) 
     {
-        Object.Destroy(obj);
+        gameObject.SetActive(active);
     }
 }

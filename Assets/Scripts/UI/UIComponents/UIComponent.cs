@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class UIComponent
 {
-    
+    private GameObject gameObject;
 
-    // Start is called before the first frame update
-    void Start()
+    public UIComponent(GameObject parent, GameObject prefab)
     {
-        
+        gameObject = Object.Instantiate(prefab, parent.transform);
+        gameObject.transform.SetParent(parent.transform);
     }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject getObject() 
     {
-        
+        return gameObject;
     }
 }
