@@ -11,7 +11,7 @@ public class Monster : MonoBehaviour
     public float Speed { get; set; }
 
     protected Rigidbody2D rb;
-    protected bool isAttacked; // °ø°Ý ´çÇß´Â°¡. ÈÄ°øÀÇ °æ¿ì ÀÌ ¿©ºÎ·Î ÇÃ·¹ÀÌ¾î µû¶ó¿À´Â ·çÆ¾ ¸¸µé¾îµµ µÉµí
+    protected bool isAttacked; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Â°ï¿½. ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Î·ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½îµµ ï¿½Éµï¿½
 
     protected GameObject dropItem;
     [SerializeField]
@@ -40,7 +40,7 @@ public class Monster : MonoBehaviour
 
     public virtual void GetDamage(float damage)
     {
-        // Å¸°Ý È¿°ú, Ã¼·Â¹Ù µî ¿©±â¼­ È£Ãâ
+        // Å¸ï¿½ï¿½ È¿ï¿½ï¿½, Ã¼ï¿½Â¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ È£ï¿½ï¿½
         Hp -= damage;
         Debug.Log(Hp);
         if(Hp<=0)
@@ -51,8 +51,10 @@ public class Monster : MonoBehaviour
 
     protected virtual void Die()
     {
-        // ¿©±â¼­ µå·Ó ¾ÆÀÌÅÛ ¶³±¸´Â ÇÔ¼ö È£Ãâ
-        DropItem();
+        // ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
+        for(int itemCount = Random.Range(1,4); itemCount > 0; itemCount--){
+            DropItem();
+        }
         Destroy(gameObject);
     }
         
