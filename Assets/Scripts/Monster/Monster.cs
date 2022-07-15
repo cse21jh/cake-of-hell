@@ -52,14 +52,17 @@ public class Monster : MonoBehaviour
     protected virtual void Die()
     {
         // ���⼭ ��� ������ ������ �Լ� ȣ��
-        for(int itemCount = Random.Range(1,4); itemCount > 0; itemCount--){
-            DropItem();
-        }
+        DropItem(Random.Range(1,4));
         Destroy(gameObject);
     }
         
-    protected virtual void DropItem()
-    {
-        dropItem = Instantiate(dropItemPrefab, transform.position, transform.rotation);
+    protected virtual void DropItem(int itemCount)
+    {   
+        Vector3 itemPosition = transform.position + new Vector3(+0.5f, 0.0f, 0.0f);
+        for(int i = itemCount; i > 0; i--) {
+            dropItem = Instantiate(dropItemPrefab, itemPosition, transform.rotation);
+            itemPosition = itemPosition - new Vector3(-0.5f, 0.0f, 0.0f);
+        }
+        
     }
 }

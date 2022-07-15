@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56892cdcbe61a43538ae9be16431cc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemPrefab: {fileID: 1649072983}
+  dropItemPrefab: {fileID: 8974538195301364898, guid: 108d0ac978cf2064cbeac21409c3bf2e, type: 3}
 --- !u!50 &316543148
 Rigidbody2D:
   serializedVersion: 4
@@ -1373,11 +1373,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1649072983 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4009017994747825526, guid: 81db93e538e490445bccffc7254c10aa, type: 3}
-  m_PrefabInstance: {fileID: 2133558302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1777222224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1600,7 +1595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9afc846a4a9f440d946d3276eda2b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemPrefab: {fileID: 1649072983}
+  dropItemPrefab: {fileID: 8974538195301364898, guid: 108d0ac978cf2064cbeac21409c3bf2e, type: 3}
 --- !u!212 &2128921039
 SpriteRenderer:
   m_ObjectHideFlags: 0
