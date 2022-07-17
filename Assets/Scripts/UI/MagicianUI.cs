@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MagicianUI : BaseUI
 { 
-    private _Item item, item2;
+    private _Item item;
+    private ItemSlotComponent input, output;
     private List<ItemSlotComponent> iscs;
 
     void Awake() 
@@ -35,10 +36,19 @@ public class MagicianUI : BaseUI
             PageComponent[] pgs = new PageComponent[3] { page, page2, page3 };
             PaginationComponent pgc = new PaginationComponent(gameObject.transform, pgs);
             ItemSlotComponent isc;
+
+            item = new _Item(304, "Test Topping", ItemLevel.A, Resources.Load<Sprite>("Sprites/Cucumber"), "It is Test Topping.");
+
+            input = new ItemSlotComponent(gameObject.transform, item, 2);
+            input.SetPosition(120.0f, 80.0f);
+            output = new ItemSlotComponent(gameObject.transform, item, 1);
+            output.SetPosition(280.0f, 80.0f);
+
             for(int i=0; i<SaveManager.Instance.NumberOfRBase.Length; i++)
             {
                 item = new _Item(100 + i, "Test Base", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "It is Test Base.");
-                isc = new ItemSlotComponent(page.Container, item, SaveManager.Instance.NumberOfRBase[i]);
+                isc = new ItemSlotComponent(page.Container, item, SaveManager.Instance.NumberOfRBase[i], true);
+                isc.SetOnClick(() => input.LoadItem(new _Item(100 + i, "Test Base", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "It is Test Base."), 1));
                 iscs.Add(isc);
             }
             for(int i=0; i<SaveManager.Instance.NumberOfRIcing.Length; i++)
@@ -54,23 +64,12 @@ public class MagicianUI : BaseUI
                 iscs.Add(isc);
             }
         }
-        else 
-        {
-            foreach(var isc in iscs) 
-            {
-                isc.SetActive(true);
-            }
-        }
         
         Debug.Log("Magician UI Opened!");
     }
 
     public override void Close()
     {
-        foreach(var isc in iscs) 
-        {
-            isc.SetActive(false);
-        }
         gameObject.SetActive(false);
         Debug.Log("Magician UI Closed!");
     }

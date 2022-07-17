@@ -16,4 +16,9 @@ public class UIComponent
     {
         gameObject.SetActive(active);
     }
+
+    public void SetPosition(float x, float y)
+    {
+        gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0.0f);
+    }
 }
