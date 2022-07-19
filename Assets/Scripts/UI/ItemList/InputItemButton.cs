@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputItemButton : MonoBehaviour
 {
-    public string listCategory;
+    /*public string listCategory;
 
     public int itemIndex;
     
@@ -12,14 +12,8 @@ public class InputItemButton : MonoBehaviour
     {
         switch(listCategory)
         {
-            case "RBase":
-                RBaseInput();
-                break;
-            case "RTopping":
-                RToppingInput();
-                break;
-            case "RIcing":
-                RIcingInput();
+            case "Raw":
+                RawInput();
                 break;
             case "Base":
                 BaseInput();
@@ -33,21 +27,10 @@ public class InputItemButton : MonoBehaviour
         }
     }
 
-    private void RBaseInput()
-    {
-        // »ç³É²Û¿¡¼­ ´­·¶À» ¶§ ´ëÀÔ µÇµµ·Ï ±¸Çö ÇÊ¿ä
-        Debug.Log("Can not input");
-    }
 
-    private void RIcingInput()
+    private void RawInput()
     {
-        // »ç³É²Û¿¡¼­ ´­·¶À» ¶§ ´ëÀÔ µÇµµ·Ï ±¸Çö ÇÊ¿ä
-        Debug.Log("Can not input");
-    }
-
-    private void RToppingInput()
-    {
-        // »ç³É²Û¿¡¼­ ´­·¶À» ¶§ ´ëÀÔ µÇµµ·Ï ±¸Çö ÇÊ¿ä
+        // ì‚¬ëƒ¥ê¾¼ì—ì„œ ëˆŒë €ì„ ë•Œ ëŒ€ì… ë˜ë„ë¡ êµ¬í˜„ í•„ìš”
         Debug.Log("Can not input");
     }
 
@@ -92,5 +75,5 @@ public class InputItemButton : MonoBehaviour
             Debug.Log("Can not input");
 
         }
-    }
+    }*/
 }

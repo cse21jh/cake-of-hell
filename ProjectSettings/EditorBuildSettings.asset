@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/JHScene/JHSampleShop.unity
+    path: Assets/Scenes/JHScene/JHSampleMagicianHouse.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/JHScene/JHSampleForest.unity
     guid: 9d32c30c9fbed5e4e87d2036504f1702
+  - enabled: 1
+    path: Assets/Scenes/JHScene/JHSampleShop.unity
+    guid: 6e3fa16481a74574497a59e760ab3e8e
   m_configObjects: {}

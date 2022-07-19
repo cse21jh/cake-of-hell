@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Topping : MonoBehaviour
 {
+    /*
     [SerializeField]
     protected RToppingIndex topping;
     // Start is called before the first frame update
@@ -26,4 +27,5 @@ public class Topping : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 }

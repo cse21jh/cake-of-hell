@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Icing : MonoBehaviour
 {
+    /*
     [SerializeField]
     protected RIcingIndex icing;
     // Start is called before the first frame update
@@ -26,4 +27,5 @@ public class Icing : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 }

@@ -7,7 +7,6 @@ public class MakeList : MonoBehaviour
 {
     [SerializeField]
     private string category;
-    // Start is called before the first frame update
 
     [SerializeField]
     private GameObject informationPrefab;
@@ -16,14 +15,8 @@ public class MakeList : MonoBehaviour
     {
         switch(category)
         {
-            case "RBase":
-                RBaseList();
-                break;
-            case "RTopping":
-                RToppingList();
-                break;
-            case "RIcing":
-                RIcingList();
+            case "Raw":
+                RawList();
                 break;
             case "Base":
                 BaseList();
@@ -37,99 +30,75 @@ public class MakeList : MonoBehaviour
         }
     }
 
-    void RBaseList()
+    
+    void RawList()
     {
-        for(int i=0;i<(int)RBaseIndex.Number;i++)
-        {
+        int j = 1;
+        foreach (var pair in ItemManager.Instance.RawItemList)
+        { 
             GameObject information = Instantiate(informationPrefab, this.transform);
-            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
-            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
-            string n = "X" + SaveManager.Instance.NumberOfRBase[i].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.RBaseInformation[i].sprite;
-            information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.RBaseInformation[i].explanation;
+            string n = "X" + SaveManager.Instance.NumberOfRaw[j].ToString();
+            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
             information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Rank").gameObject.GetComponent<Text>().text = ItemManager.Instance.RBaseInformation[i].rank;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = ItemManager.Instance.RBaseInformation[i].itemName;
-        }
-    }
-
-    void RToppingList()
-    {
-        for (int i = 0; i < (int)RToppingIndex.Number; i++)
-        {
-            GameObject information = Instantiate(informationPrefab, this.transform);
-            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
-            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
-            string n = "X" + SaveManager.Instance.NumberOfRTopping[i].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.RToppingInformation[i].sprite;
-            information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.RToppingInformation[i].explanation;
-            information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Rank").gameObject.GetComponent<Text>().text = ItemManager.Instance.RToppingInformation[i].rank;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = ItemManager.Instance.RToppingInformation[i].itemName;
-        }
-    }
-
-    void RIcingList()
-    {
-        for (int i = 0; i < (int)RIcingIndex.Number; i++)
-        {
-            GameObject information = Instantiate(informationPrefab, this.transform);
-            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
-            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
-            string n = "X" + SaveManager.Instance.NumberOfRIcing[i].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.RIcingInformation[i].sprite;
-            information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.RIcingInformation[i].explanation;
-            information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Rank").gameObject.GetComponent<Text>().text = ItemManager.Instance.RIcingInformation[i].rank;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = ItemManager.Instance.RIcingInformation[i].itemName;
+            information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+            j++;
         }
     }
 
     void BaseList()
     {
-        for (int i = 0; i < (int)BaseIndex.Number; i++)
+        int j = 1;
+        foreach (var pair in ItemManager.Instance.ItemList)
         {
-            GameObject information = Instantiate(informationPrefab, this.transform);
-            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
-            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
-            string n = "X" + SaveManager.Instance.NumberOfBase[i].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.BaseInformation[i].sprite;
-            information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.BaseInformation[i].explanation;
-            information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Rank").gameObject.GetComponent<Text>().text = ItemManager.Instance.BaseInformation[i].rank;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = ItemManager.Instance.BaseInformation[i].itemName;
+            if (((pair.Key)/10000) == 1)
+            {
+                GameObject information = Instantiate(informationPrefab, this.transform);
+                string n = "X" + SaveManager.Instance.NumberOfBase[j].ToString();
+                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
+                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
+                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+                j++;
+            }
         }
     }
 
     void ToppingList()
     {
-        for (int i = 0; i < (int)ToppingIndex.Number; i++)
+        int j = 1;
+        foreach (var pair in ItemManager.Instance.ItemList)
         {
-            GameObject information = Instantiate(informationPrefab, this.transform);
-            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
-            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
-            string n = "X" + SaveManager.Instance.NumberOfTopping[i].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.ToppingInformation[i].sprite;
-            information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.ToppingInformation[i].explanation;
-            information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Rank").gameObject.GetComponent<Text>().text = ItemManager.Instance.ToppingInformation[i].rank;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = ItemManager.Instance.ToppingInformation[i].itemName;
+            if (((pair.Key) / 10000) == 2)
+            {
+                GameObject information = Instantiate(informationPrefab, this.transform);
+                string n = "X" + SaveManager.Instance.NumberOfTopping[j].ToString();
+                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
+                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
+                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+                j++;
+            }
         }
     }
 
     void IcingList()
     {
-        for (int i = 0; i < (int)IcingIndex.Number; i++)
+        int j = 1;
+        foreach (var pair in ItemManager.Instance.ItemList)
         {
-            GameObject information = Instantiate(informationPrefab, this.transform);
-            information.gameObject.GetComponent<InputItemButton>().listCategory = category;
-            information.gameObject.GetComponent<InputItemButton>().itemIndex = i;
-            string n = "X" + SaveManager.Instance.NumberOfIcing[i].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = ItemManager.Instance.IcingInformation[i].sprite;
-            information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = ItemManager.Instance.IcingInformation[i].explanation;
-            information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Rank").gameObject.GetComponent<Text>().text = ItemManager.Instance.IcingInformation[i].rank;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = ItemManager.Instance.IcingInformation[i].itemName;
+            if (((pair.Key) / 10000) == 4)
+            {
+                GameObject information = Instantiate(informationPrefab, this.transform);
+                string n = "X" + SaveManager.Instance.NumberOfIcing[j].ToString();
+                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
+                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
+                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+                j++;
+            }
         }
     }
 }

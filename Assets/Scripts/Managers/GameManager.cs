@@ -8,9 +8,9 @@ public class GameManager : Singleton<GameManager>
 
     public bool canMove = true;
 
-    public BaseIndex inputBase = BaseIndex.Null;
-    public IcingIndex inputIcing = IcingIndex.Null;
-    public ToppingIndex inputTopping = ToppingIndex.Null;
+    public Item inputBase = null;
+    public Item inputIcing = null;
+    public Item inputTopping = null;
 
     void Awake()
     {
@@ -29,11 +29,11 @@ public class GameManager : Singleton<GameManager>
     {
         
     }
-
-    public void MakeCake()
+    public int MakeCake()
     {
+        /*
         CakeIndex cakeIndex = ItemManager.Instance.ReturnCake(inputBase, inputIcing, inputTopping);
-        if(cakeIndex != CakeIndex.Null)
+        if (cakeIndex != CakeIndex.Null)
         {
             SaveManager.Instance.NumberOfBase[(int)inputBase] -= 1;
             SaveManager.Instance.NumberOfIcing[(int)inputIcing] -= 1;
@@ -44,5 +44,8 @@ public class GameManager : Singleton<GameManager>
             inputTopping = ToppingIndex.Null;
         }
         Debug.Log(cakeIndex.ToString());
+        */
+        return 1;
     }
+    
 }

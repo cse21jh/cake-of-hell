@@ -17,19 +17,15 @@ public class SaveManager : Singleton<SaveManager>
 
     public float AttackRange { get; set; } = 1.0f;
 
+    public int Money { get; set; } = 0;
 
-    public int[] NumberOfIcing = new int[(int)IcingIndex.Number];
+    public List<int> NumberOfIcing { get; set; } = new List<int>();
 
-    public int[] NumberOfTopping = new int[(int) ToppingIndex.Number];
+    public List<int> NumberOfTopping { get; set; } = new List<int>();
 
-    public int[] NumberOfBase = new int[(int)BaseIndex.Number];
+    public List<int> NumberOfBase { get; set; } = new List<int>();
 
-
-    public int[] NumberOfRIcing = new int[(int)RIcingIndex.Number];
-
-    public int[] NumberOfRTopping = new int[(int)RToppingIndex.Number];
-
-    public int[] NumberOfRBase = new int[(int)RBaseIndex.Number];
+    public List<int> NumberOfRaw { get; set; } = new List<int>();
 
     void Awake()
     {
@@ -38,14 +34,127 @@ public class SaveManager : Singleton<SaveManager>
 
     void Start()
     {
-        NumberOfIcing[0] = 1;
-        NumberOfTopping[0] = 1;
-        NumberOfBase[0] = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public int GetNumberOfItem(int code)
+    {
+        if (code / 10000 == 8)
+        {
+            RawItem item = ItemManager.Instance.GetRawItem(code);
+            int order = item.GetOrder();
+            return NumberOfRaw[order];
+        }
+        else
+        {
+            Item item = ItemManager.Instance.GetItem(code);
+            int order = item.GetOrder();
+            switch (code%10000)
+            {
+                case (1):
+                    return NumberOfBase[order];
+                    break;
+                case (2):
+                    return NumberOfTopping[order];
+                    break;
+                case (4):
+                    return NumberOfIcing[order];
+                    break;
+            }
+        }
+        return -1;
+    }
+
+    public void SetNumberOfItem(int code, int number)
+    {
+        if (code / 10000 == 8)
+        {
+            RawItem item = ItemManager.Instance.GetRawItem(code);
+            int order = item.GetOrder();
+            NumberOfRaw[order] = number;
+            return;
+        }
+        else
+        {
+            Item item = ItemManager.Instance.GetItem(code);
+            int order = item.GetOrder();
+            switch (code % 10000)
+            {
+                case (1):
+                    NumberOfBase[order] = number;
+                    break;
+                case (2):
+                    NumberOfTopping[order] = number;
+                    break;
+                case (4):
+                    NumberOfIcing[order] = number;
+                    break;
+            }
+            return;
+        }
+    }
+
+    public void AddNumberOfItem(int code)
+    {
+        if (code / 10000 == 8)
+        {
+            RawItem item = ItemManager.Instance.GetRawItem(code);
+            int order = item.GetOrder();
+            NumberOfRaw[order] = NumberOfRaw[order]+ 1;
+            return;
+        }
+        else
+        {
+            Item item = ItemManager.Instance.GetItem(code);
+            int order = item.GetOrder();
+            switch (code%10000)
+            {
+                case (1):
+                    NumberOfBase[order] = NumberOfBase[order]+1;
+                    Debug.Log(NumberOfBase[order]);
+                    break;
+                case (2):
+                    NumberOfTopping[order] = NumberOfTopping[order]+ 1;
+                    break;
+                case (4):
+                    NumberOfIcing[order] = NumberOfIcing[order]+ 1;
+                    break;
+            }
+            return;
+        }
+    }
+
+    public void UseNumberOfItem(int code)
+    {
+        if (code / 10000 == 8)
+        {
+            RawItem item = ItemManager.Instance.GetRawItem(code);
+            int order = item.GetOrder();
+            NumberOfRaw[order] = NumberOfRaw[order]- 1;
+            return;
+        }
+        else
+        {
+            Item item = ItemManager.Instance.GetItem(code);
+            int order = item.GetOrder();
+            switch (code % 10000)
+            {
+                case (1):
+                    NumberOfBase[order] = NumberOfBase[order]- 1;
+                    break;
+                case (2):
+                    NumberOfTopping[order] = NumberOfTopping[order]- 1;
+                    break;
+                case (4):
+                    NumberOfIcing[order] = NumberOfIcing[order]- 1;
+                    break;
+            }
+            return;
+        }
     }
 }

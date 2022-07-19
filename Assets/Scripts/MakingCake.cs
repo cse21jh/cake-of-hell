@@ -66,8 +66,8 @@ public class MakingCake : MonoBehaviour
         GameManager.Instance.canMove = true;
         Destroy(makingPanel);
 
-        GameManager.Instance.inputBase = BaseIndex.Null;
-        GameManager.Instance.inputIcing = IcingIndex.Null;
-        GameManager.Instance.inputTopping = ToppingIndex.Null;
+        GameManager.Instance.inputBase = null;
+        GameManager.Instance.inputIcing = null;
+        GameManager.Instance.inputTopping = null;
     }
 }

@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Base : MonoBehaviour
+public class DropItem : MonoBehaviour
 {
-    /*
     [SerializeField]
-    protected RBaseIndex bas;
+    private int itemCode;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +22,8 @@ public class Base : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SaveManager.Instance.NumberOfRBase[(int)bas] += 1;
+            SaveManager.Instance.AddNumberOfItem(itemCode);
             Destroy(gameObject);
         }
     }
-
-    */
 }

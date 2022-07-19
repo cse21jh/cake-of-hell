@@ -44,7 +44,7 @@ public class MagicianUI : BaseUI
             output = new ItemSlotComponent(gameObject.transform, item, 1);
             output.SetPosition(280.0f, 80.0f);
 
-            for(int i=0; i<SaveManager.Instance.NumberOfRBase.Length; i++)
+           /* for(int i=0; i<SaveManager.Instance.NumberOfRBase.Length; i++)
             {
                 item = new _Item(100 + i, "Test Base", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "It is Test Base.");
                 isc = new ItemSlotComponent(page.Container, item, SaveManager.Instance.NumberOfRBase[i], true);
@@ -62,7 +62,7 @@ public class MagicianUI : BaseUI
                 item = new _Item(300 + i, "Test Topping", ItemLevel.A, Resources.Load<Sprite>("Sprites/Cucumber"), "It is Test Topping.");
                 isc = new ItemSlotComponent(page3.Container, item, SaveManager.Instance.NumberOfRTopping[i]);
                 iscs.Add(isc);
-            }
+            }*/
         }
         
         Debug.Log("Magician UI Opened!");

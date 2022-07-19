@@ -6,7 +6,7 @@ public class MakeCakeButton : MonoBehaviour
 {
     public void OnClickExit()
     {
-        if (GameManager.Instance.inputBase != BaseIndex.Null && GameManager.Instance.inputIcing != IcingIndex.Null && GameManager.Instance.inputTopping != ToppingIndex.Null)
+        if (GameManager.Instance.inputBase != null && GameManager.Instance.inputIcing != null && GameManager.Instance.inputTopping != null)
         {
             GameManager.Instance.MakeCake();
         }

@@ -2,86 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using UnityEngine.UI;
-
-
-// ���� ��
-public enum RToppingIndex
-{
-    Cucumber,
-    Number,
-    Null
-};
-
-public enum RIcingIndex
-{
-    MintChoco,
-    Number,
-    Null
-};
-
-public enum RBaseIndex
-{
-    Mud,
-    Number,
-    Null
-};
-
-
-//���� ��
-public enum ToppingIndex 
-{ 
-    Cucumber, 
-    Number,
-    Null
-};
-
-public enum IcingIndex 
-{ 
-    MintChoco, 
-    Number,
-    Null
-};
-
-public enum BaseIndex 
-{ 
-    Mud, 
-    Number,
-    Null
-};
-
-
-
-
-public enum CakeIndex
-{ 
-    MudMintChocoCucumber,
-    Number,
-    Null
-}
-
-
-[Serializable]
-public struct Item
-{
-    public string itemName;
-    public Sprite sprite;
-    public string explanation;
-    public string rank;
-}
-
 
 public class ItemManager : Singleton<ItemManager>
 {
-    public Item[] ToppingInformation = new Item[(int)ToppingIndex.Number];
-    public Item[] IcingInformation = new Item[(int)IcingIndex.Number];
-    public Item[] BaseInformation = new Item[(int)BaseIndex.Number];
-    
-    public Item[] RToppingInformation = new Item[(int)RToppingIndex.Number];
-    public Item[] RIcingInformation = new Item[(int)RIcingIndex.Number];
-    public Item[] RBaseInformation = new Item[(int)RBaseIndex.Number];
+    public Dictionary<int, Item>ItemList = new Dictionary<int, Item>();
+    public Dictionary<int, RawItem>RawItemList = new Dictionary<int, RawItem>();
+
 
     private GameObject check = null;
+
 
     void Awake()
     {
@@ -90,25 +21,92 @@ public class ItemManager : Singleton<ItemManager>
     // Start is called before the first frame update
     void Start()
     {
+        SaveManager.Instance.NumberOfBase.Add(0);
+        SaveManager.Instance.NumberOfTopping.Add(0);
+        SaveManager.Instance.NumberOfIcing.Add(0);
+        SaveManager.Instance.NumberOfRaw.Add(0);
+        // NumberOf~[0] = 0. Start at index 1
+        AddBases();
+        AddToppings();
+        AddIcings();
+        AddRawItems();
         
     }
 
-    // Update is called once per frame
-    void Update()
+
+   public void AddBases()
+    {
+        AddItem(10001, "저주받은 흙", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "촉촉한 빵", "흙이 부드럽다니... 좀 이상하긴 해", 10);
+        AddItem(10002, "진화한 흙", ItemLevel.B, Resources.Load<Sprite>("Sprites/Mud"), "쫄깃한 빵", "쫀드기 아닙니다. 구워 먹지 말 것", 20);
+    }
+
+    public void AddToppings()
+    {
+       
+    }
+
+    public void AddIcings()
     {
         
     }
 
-    public CakeIndex ReturnCake(BaseIndex baseIndex, IcingIndex icingIndex, ToppingIndex toppingIndex)
+    public void AddRawItems()
     {
-        if(baseIndex == BaseIndex.Mud && icingIndex == IcingIndex.MintChoco && toppingIndex == ToppingIndex.Cucumber)
+        List <int> code = new List<int> { 10001, 10002 };
+        List<int> price = new List<int> { 2, 3 };
+        List<float> duration = new List<float> { 1.0f, 2.0f };
+        AddRawItem(81001, "진흙", Resources.Load<Sprite>("Sprites/Mud"),code,price,duration );
+    }
+
+
+
+    public void AddItem(int code, string name, ItemLevel level, Sprite spriteimage, string keyword, string flavorText, int price)
+    {
+        Item item = new Item(code, name, level, spriteimage, keyword, flavorText, price);
+        ItemList.Add(code, item);
+        int itemType = (code / 10000);
+        if (itemType == 1)
         {
-            return CakeIndex.MudMintChocoCucumber;
+            SaveManager.Instance.NumberOfBase.Add(0);
         }
-        else
-        {
-            return CakeIndex.Null;
+        else if (itemType == 2)
+        { 
+            SaveManager.Instance.NumberOfTopping.Add(0);
         }
-        
+        else if (itemType == 4)
+        { 
+            SaveManager.Instance.NumberOfIcing.Add(0);
+        }
+
+    }
+
+    public void AddRawItem(int code, string name, Sprite spriteimage, List<int> outputCode, List<int> price, List<float> duration)
+    {
+        RawItem rawItem = new RawItem(code, name, spriteimage, outputCode, price, duration);
+        RawItemList.Add(code, rawItem);
+        SaveManager.Instance.NumberOfRaw.Add(0);
+    }
+
+
+    //Fix me. 
+    public string ReturnCake(int baseCode, int toppinCode, int icingcode)
+    {
+        string a = "민초케이크";
+        return a;
+    }
+
+    public Item GetItem(int code)
+    {
+        return ItemList[code];
+    }
+
+    public RawItem GetRawItem(int code)
+    {
+        return RawItemList[code];
+    }
+
+    public int GetOrder(int code)
+    {
+        return code % 10;
     }
 }
