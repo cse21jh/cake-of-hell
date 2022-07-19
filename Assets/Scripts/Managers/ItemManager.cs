@@ -22,11 +22,6 @@ public class ItemManager : Singleton<ItemManager>
     // Start is called before the first frame update
     void Start()
     {
-        SaveManager.Instance.NumberOfBase.Add(0);
-        SaveManager.Instance.NumberOfTopping.Add(0);
-        SaveManager.Instance.NumberOfIcing.Add(0);
-        SaveManager.Instance.NumberOfRaw.Add(0);
-        // NumberOf~[0] = 0. Start at index 1
         AddBases();
         AddToppings();
         AddIcings();
@@ -67,15 +62,15 @@ public class ItemManager : Singleton<ItemManager>
         int itemType = (code / 10000);
         if (itemType == 1)
         {
-            SaveManager.Instance.NumberOfBase.Add(0);
+            SaveManager.Instance.NumberOfBase.Add(code,0);
         }
         else if (itemType == 2)
         { 
-            SaveManager.Instance.NumberOfTopping.Add(0);
+            SaveManager.Instance.NumberOfTopping.Add(code, 0);
         }
         else if (itemType == 4)
         { 
-            SaveManager.Instance.NumberOfIcing.Add(0);
+            SaveManager.Instance.NumberOfIcing.Add(code, 0);
         }
 
     }
@@ -85,7 +80,7 @@ public class ItemManager : Singleton<ItemManager>
         ItemCodeList.Add(code);
         RawItem rawItem = new RawItem(code, name, spriteimage, outputCode, price, duration);
         RawItemList.Add(code, rawItem);
-        SaveManager.Instance.NumberOfRaw.Add(0);
+        SaveManager.Instance.NumberOfRaw.Add(code, 0);
     }
 
 
@@ -110,4 +105,16 @@ public class ItemManager : Singleton<ItemManager>
     {
         return code % 10;
     }
+
+    public int GetPriceOfProcessedItem(int code)
+    {
+        return ProcessedItemList[code].Price;
+    }
+
+    public int GetPriceOfRawItem(int code, int n)
+    {
+        return RawItemList[code].Price[n];
+    }
+
+
 }

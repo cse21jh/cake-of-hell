@@ -33,71 +33,71 @@ public class MakeList : MonoBehaviour
     
     void RawList()
     {
-        int j = 1;
+        
         foreach (var pair in ItemManager.Instance.RawItemList)
         { 
             GameObject information = Instantiate(informationPrefab, this.transform);
-            string n = "X" + SaveManager.Instance.NumberOfRaw[j].ToString();
+            string n = "X" + SaveManager.Instance.NumberOfRaw[pair.Key].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
             information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
             information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-            j++;
+            
         }
     }
 
     void BaseList()
     {
-        int j = 1;
+        
         foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
             if (((pair.Key)/10000) == 1)
             {
                 GameObject information = Instantiate(informationPrefab, this.transform);
-                string n = "X" + SaveManager.Instance.NumberOfBase[j].ToString();
+                string n = "X" + SaveManager.Instance.NumberOfBase[pair.Key].ToString();
                 information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
                 information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
                 information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
                 information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
                 information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-                j++;
+                
             }
         }
     }
 
     void ToppingList()
     {
-        int j = 1;
+        
         foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
             if (((pair.Key) / 10000) == 2)
             {
                 GameObject information = Instantiate(informationPrefab, this.transform);
-                string n = "X" + SaveManager.Instance.NumberOfTopping[j].ToString();
+                string n = "X" + SaveManager.Instance.NumberOfTopping[pair.Key].ToString();
                 information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
                 information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
                 information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
                 information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
                 information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-                j++;
+                
             }
         }
     }
 
     void IcingList()
     {
-        int j = 1;
+        
         foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
             if (((pair.Key) / 10000) == 4)
             {
                 GameObject information = Instantiate(informationPrefab, this.transform);
-                string n = "X" + SaveManager.Instance.NumberOfIcing[j].ToString();
+                string n = "X" + SaveManager.Instance.NumberOfIcing[pair.Key].ToString();
                 information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
                 information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
                 information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
                 information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
                 information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-                j++;
+                
             }
         }
     }

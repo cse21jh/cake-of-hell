@@ -19,13 +19,13 @@ public class SaveManager : Singleton<SaveManager>
 
     public int Money { get; set; } = 0;
 
-    public List<int> NumberOfIcing { get; set; } = new List<int>();
+    public Dictionary<int,int> NumberOfIcing { get; set; } = new Dictionary<int,int>();
 
-    public List<int> NumberOfTopping { get; set; } = new List<int>();
+    public Dictionary<int,int> NumberOfTopping { get; set; } = new Dictionary<int,int>();
 
-    public List<int> NumberOfBase { get; set; } = new List<int>();
+    public Dictionary<int,int> NumberOfBase { get; set; } = new Dictionary<int,int>();
 
-    public List<int> NumberOfRaw { get; set; } = new List<int>();
+    public Dictionary<int,int> NumberOfRaw { get; set; } = new Dictionary<int,int>();
 
     void Awake()
     {
@@ -48,7 +48,7 @@ public class SaveManager : Singleton<SaveManager>
         {
             RawItem item = ItemManager.Instance.GetRawItem(code);
             int order = item.GetOrder();
-            return NumberOfRaw[order];
+            return NumberOfRaw[code];
         }
         else
         {
@@ -57,13 +57,13 @@ public class SaveManager : Singleton<SaveManager>
             switch (code/10000)
             {
                 case (1):
-                    return NumberOfBase[order];
+                    return NumberOfBase[code];
                     break;
                 case (2):
-                    return NumberOfTopping[order];
+                    return NumberOfTopping[code];
                     break;
                 case (4):
-                    return NumberOfIcing[order];
+                    return NumberOfIcing[code];
                     break;
             }
         }
@@ -76,7 +76,7 @@ public class SaveManager : Singleton<SaveManager>
         {
             RawItem item = ItemManager.Instance.GetRawItem(code);
             int order = item.GetOrder();
-            NumberOfRaw[order] = number;
+            NumberOfRaw[code] = number;
             return;
         }
         else
@@ -86,13 +86,13 @@ public class SaveManager : Singleton<SaveManager>
             switch (code / 10000)
             {
                 case (1):
-                    NumberOfBase[order] = number;
+                    NumberOfBase[code] = number;
                     break;
                 case (2):
-                    NumberOfTopping[order] = number;
+                    NumberOfTopping[code] = number;
                     break;
                 case (4):
-                    NumberOfIcing[order] = number;
+                    NumberOfIcing[code] = number;
                     break;
             }
             return;
@@ -105,7 +105,7 @@ public class SaveManager : Singleton<SaveManager>
         {
             RawItem item = ItemManager.Instance.GetRawItem(code);
             int order = item.GetOrder();
-            NumberOfRaw[order] = NumberOfRaw[order]+ 1;
+            NumberOfRaw[code] = NumberOfRaw[code] + 1;
             return;
         }
         else
@@ -115,13 +115,13 @@ public class SaveManager : Singleton<SaveManager>
             switch (code/10000)
             {
                 case (1):
-                    NumberOfBase[order] = NumberOfBase[order]+1;
+                    NumberOfBase[code] = NumberOfBase[code] +1;
                     break;
                 case (2):
-                    NumberOfTopping[order] = NumberOfTopping[order]+ 1;
+                    NumberOfTopping[code] = NumberOfTopping[code] + 1;
                     break;
                 case (4):
-                    NumberOfIcing[order] = NumberOfIcing[order]+ 1;
+                    NumberOfIcing[code] = NumberOfIcing[code] + 1;
                     break;
             }
             return;
@@ -134,7 +134,7 @@ public class SaveManager : Singleton<SaveManager>
         {
             RawItem item = ItemManager.Instance.GetRawItem(code);
             int order = item.GetOrder();
-            NumberOfRaw[order] = NumberOfRaw[order]- 1;
+            NumberOfRaw[code] = NumberOfRaw[code] - 1;
             return;
         }
         else
@@ -144,13 +144,13 @@ public class SaveManager : Singleton<SaveManager>
             switch (code / 10000)
             {
                 case (1):
-                    NumberOfBase[order] = NumberOfBase[order]- 1;
+                    NumberOfBase[code] = NumberOfBase[code] - 1;
                     break;
                 case (2):
-                    NumberOfTopping[order] = NumberOfTopping[order]- 1;
+                    NumberOfTopping[code] = NumberOfTopping[code] - 1;
                     break;
                 case (4):
-                    NumberOfIcing[order] = NumberOfIcing[order]- 1;
+                    NumberOfIcing[code] = NumberOfIcing[code] - 1;
                     break;
             }
             return;
