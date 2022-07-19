@@ -48,7 +48,7 @@ public class MakeList : MonoBehaviour
     void BaseList()
     {
         int j = 1;
-        foreach (var pair in ItemManager.Instance.ItemList)
+        foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
             if (((pair.Key)/10000) == 1)
             {
@@ -67,7 +67,7 @@ public class MakeList : MonoBehaviour
     void ToppingList()
     {
         int j = 1;
-        foreach (var pair in ItemManager.Instance.ItemList)
+        foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
             if (((pair.Key) / 10000) == 2)
             {
@@ -86,7 +86,7 @@ public class MakeList : MonoBehaviour
     void IcingList()
     {
         int j = 1;
-        foreach (var pair in ItemManager.Instance.ItemList)
+        foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
             if (((pair.Key) / 10000) == 4)
             {

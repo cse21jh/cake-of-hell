@@ -6,7 +6,7 @@ public class Util
 {
     public static Item GetItem(int code)
     {
-        return ItemManager.Instance.GetItem(code);
+        return ItemManager.Instance.GetProcessedItem(code);
     }
 
     public static int CountItem(int code) 

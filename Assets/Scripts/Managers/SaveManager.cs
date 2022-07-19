@@ -52,9 +52,9 @@ public class SaveManager : Singleton<SaveManager>
         }
         else
         {
-            Item item = ItemManager.Instance.GetItem(code);
-            int order = item.GetOrder();
-            switch (code%10000)
+            ProcessedItem processedItem = ItemManager.Instance.GetProcessedItem(code);
+            int order = processedItem.GetOrder();
+            switch (code/10000)
             {
                 case (1):
                     return NumberOfBase[order];
@@ -81,9 +81,9 @@ public class SaveManager : Singleton<SaveManager>
         }
         else
         {
-            Item item = ItemManager.Instance.GetItem(code);
-            int order = item.GetOrder();
-            switch (code % 10000)
+            ProcessedItem processedItem = ItemManager.Instance.GetProcessedItem(code);
+            int order = processedItem.GetOrder();
+            switch (code / 10000)
             {
                 case (1):
                     NumberOfBase[order] = number;
@@ -110,13 +110,12 @@ public class SaveManager : Singleton<SaveManager>
         }
         else
         {
-            Item item = ItemManager.Instance.GetItem(code);
-            int order = item.GetOrder();
-            switch (code%10000)
+            ProcessedItem processedItem = ItemManager.Instance.GetProcessedItem(code);
+            int order = processedItem.GetOrder();
+            switch (code/10000)
             {
                 case (1):
                     NumberOfBase[order] = NumberOfBase[order]+1;
-                    Debug.Log(NumberOfBase[order]);
                     break;
                 case (2):
                     NumberOfTopping[order] = NumberOfTopping[order]+ 1;
@@ -140,9 +139,9 @@ public class SaveManager : Singleton<SaveManager>
         }
         else
         {
-            Item item = ItemManager.Instance.GetItem(code);
-            int order = item.GetOrder();
-            switch (code % 10000)
+            ProcessedItem processedItem = ItemManager.Instance.GetProcessedItem(code);
+            int order = processedItem.GetOrder();
+            switch (code / 10000)
             {
                 case (1):
                     NumberOfBase[order] = NumberOfBase[order]- 1;
