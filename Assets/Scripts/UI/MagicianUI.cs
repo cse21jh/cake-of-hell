@@ -37,14 +37,14 @@ public class MagicianUI : BaseUI
             PaginationComponent pgc = new PaginationComponent(gameObject.transform, pgs);
             ItemSlotComponent isc;
 
-            item = new _Item(304, "Test Topping", ItemLevel.A, Resources.Load<Sprite>("Sprites/Cucumber"), "It is Test Topping.");
+            //item = new _Item(304, "Test Topping", ItemLevel.A, Resources.Load<Sprite>("Sprites/Cucumber"), "It is Test Topping.");
 
-            input = new ItemSlotComponent(gameObject.transform, item, 2);
+            input = new ItemSlotComponent(gameObject.transform, 10001, 2);
             input.SetPosition(120.0f, 80.0f);
-            output = new ItemSlotComponent(gameObject.transform, item, 1);
+            output = new ItemSlotComponent(gameObject.transform, 10002, 1);
             output.SetPosition(280.0f, 80.0f);
 
-           /* for(int i=0; i<SaveManager.Instance.NumberOfRBase.Length; i++)
+            /*for(int i=0; i<SaveManager.Instance.NumberOfRBase.Length; i++)
             {
                 item = new _Item(100 + i, "Test Base", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "It is Test Base.");
                 isc = new ItemSlotComponent(page.Container, item, SaveManager.Instance.NumberOfRBase[i], true);

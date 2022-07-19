@@ -6,17 +6,16 @@ using TMPro;
 
 public class ItemSlotComponent : UIComponent
 {
+    public int ItemCode { get; set; }
+    public int ItemCount { get; set; }
     public bool IsClickable { get; set; }
-    public _Item SlotItem { get; set; }
     public GameObject ItemSlotButton { get; set; }
 
-    public ItemSlotComponent(Transform parent, _Item item, int itemCount, bool isClickable = false) 
+    public ItemSlotComponent(Transform parent, int itemCode, int itemCount, bool isClickable = false) 
     : base(parent, Resources.Load<GameObject>("Prefabs/ItemSlotPrefab"))
     {
-        SlotItem = item;
+        LoadItem(itemCode, itemCount);
         IsClickable = isClickable;
-        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = SlotItem.SpriteImage;
-        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = itemCount.ToString();
         if(isClickable) {
             ItemSlotButton = Object.Instantiate(Resources.Load<GameObject>("Prefabs/ItemSlotButtonPrefab"), gameObject.transform);
             ItemSlotButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
@@ -24,12 +23,12 @@ public class ItemSlotComponent : UIComponent
         }
     }
 
-    public void LoadItem(_Item item, int itemCount) 
+    public void LoadItem(int itemCode, int itemCount) 
     {
-        Debug.Log("Loaded!");
-        SlotItem = item;
-        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = SlotItem.SpriteImage;
-        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = itemCount.ToString();
+        ItemCode = itemCode;
+        ItemCount = itemCount;
+        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Util.GetItem(itemCode).SpriteImage;
+        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount.ToString();
     }
 
     public void SetOnClick(System.Action onClick) 
