@@ -27,6 +27,8 @@ public class SaveManager : Singleton<SaveManager>
 
     public Dictionary<int,int> NumberOfRaw { get; set; } = new Dictionary<int,int>();
 
+    public Cake[] CakeList { get; set; } = new Cake[5];
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -134,6 +136,11 @@ public class SaveManager : Singleton<SaveManager>
         {
             RawItem item = ItemManager.Instance.GetRawItem(code);
             int order = item.GetOrder();
+            if(NumberOfRaw[code]<=0)
+            {
+                Debug.Log("보유한 아이템이 없습니다.");
+                return;
+            }
             NumberOfRaw[code] = NumberOfRaw[code] - 1;
             return;
         }
@@ -144,16 +151,63 @@ public class SaveManager : Singleton<SaveManager>
             switch (code / 10000)
             {
                 case (1):
+                    if (NumberOfBase[code] <= 0)
+                    {
+                        Debug.Log("보유한 아이템이 없습니다.");
+                        return;
+                    }
                     NumberOfBase[code] = NumberOfBase[code] - 1;
                     break;
                 case (2):
+                    if (NumberOfTopping[code] <= 0)
+                    {
+                        Debug.Log("보유한 아이템이 없습니다.");
+                        return;
+                    }
                     NumberOfTopping[code] = NumberOfTopping[code] - 1;
                     break;
                 case (4):
+                    if (NumberOfIcing[code] <= 0)
+                    {
+                        Debug.Log("보유한 아이템이 없습니다.");
+                        return;
+                    }
                     NumberOfIcing[code] = NumberOfIcing[code] - 1;
                     break;
             }
             return;
         }
+    }
+
+    public void AddCake(Cake inputCake)
+    {
+        for(int i= 0;i<5;i++)
+        {
+            if(CakeList[i]==null)
+            {
+                CakeList[i] = inputCake;
+                return;
+            }
+        }
+        return;
+    }
+
+    public Cake UseCake(int index)
+    {
+        Cake useCake = CakeList[index];
+        CakeList[index] = null;
+        return useCake;
+    }
+
+    public bool CanMake()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (CakeList[i] == null)
+            {
+                 return true;
+            }
+        }
+        return false;
     }
 }
