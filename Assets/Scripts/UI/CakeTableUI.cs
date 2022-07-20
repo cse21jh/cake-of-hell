@@ -67,9 +67,26 @@ public class CakeTableUI : BaseUI
         baseInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
         icingInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
         toppingInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
-        baseInput.SetOnClick(() => { baseInput.Clear(); bigImgBase.sprite = spriteNull; });
-        icingInput.SetOnClick(() => { icingInput.Clear(); bigImgIcing.sprite = spriteNull; });
-        toppingInput.SetOnClick(() => { toppingInput.Clear(); bigImgTopping.sprite = spriteNull; });
+        baseInput.SetOnClick(() => 
+        { 
+            if(!toppingInput.HasItem() && !icingInput.HasItem()) 
+            { 
+                baseInput.Clear(); 
+                bigImgBase.sprite = spriteNull; 
+            }
+        });
+        icingInput.SetOnClick(() => 
+        { 
+            if(!toppingInput.HasItem()) { 
+                icingInput.Clear(); 
+                bigImgIcing.sprite = spriteNull; 
+            } 
+        });
+        toppingInput.SetOnClick(() =>
+        { 
+            toppingInput.Clear(); 
+            bigImgTopping.sprite = spriteNull; 
+        });
         baseInput.SetPosition(-275, -50);
         icingInput.SetPosition(-200, -50);
         toppingInput.SetPosition(-125, -50);
@@ -95,10 +112,12 @@ public class CakeTableUI : BaseUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[1].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    icingInput.LoadItem(pair.Key, -1);
-                    bigImgIcing.sprite = spriteIcing;
-                    matName.text = Util.GetItem(pair.Key).Name;
-                    matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                    if(baseInput.HasItem()) {
+                        icingInput.LoadItem(pair.Key, -1);
+                        bigImgIcing.sprite = spriteIcing;
+                        matName.text = Util.GetItem(pair.Key).Name;
+                        matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                    }
                 });
             }
         }
@@ -109,10 +128,12 @@ public class CakeTableUI : BaseUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[2].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    toppingInput.LoadItem(pair.Key, -1);
-                    bigImgTopping.sprite = spriteTopping;
-                    matName.text = Util.GetItem(pair.Key).Name;
-                    matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                    if(baseInput.HasItem() && icingInput.HasItem()) {
+                        toppingInput.LoadItem(pair.Key, -1);
+                        bigImgTopping.sprite = spriteTopping;
+                        matName.text = Util.GetItem(pair.Key).Name;
+                        matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                    }
                 });
             }
         }

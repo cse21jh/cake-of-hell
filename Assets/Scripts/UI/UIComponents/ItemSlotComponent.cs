@@ -31,6 +31,11 @@ public class ItemSlotComponent : UIComponent
         gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount == -1 ? "" : ItemCount.ToString();
     }
 
+    public bool HasItem()
+    {
+        return ItemCode > 0;
+    }
+
     public void Clear()
     {
         LoadItem(0, -1);
