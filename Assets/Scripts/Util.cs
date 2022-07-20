@@ -6,7 +6,8 @@ public class Util
 {
     public static Item GetItem(int code)
     {
-        return ItemManager.Instance.GetProcessedItem(code);
+        if(code / 10000 == 8) return ItemManager.Instance.GetRawItem(code);
+        else return ItemManager.Instance.GetProcessedItem(code);
     }
 
     public static int CountItem(int code) 
