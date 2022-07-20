@@ -28,7 +28,7 @@ public class ItemSlotComponent : UIComponent
         ItemCode = itemCode;
         ItemCount = itemCount;
         gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Util.GetItem(itemCode).SpriteImage;
-        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount.ToString();
+        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount == -1 ? "" : ItemCount.ToString();
     }
 
     public void SetOnClick(System.Action onClick) 

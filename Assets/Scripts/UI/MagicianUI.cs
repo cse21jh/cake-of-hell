@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class MagicianUI : BaseUI
 { 
-    private _Item item;
     private ItemSlotComponent input, output;
     private List<ItemSlotComponent> iscs;
     private GameObject processButton;
@@ -38,6 +37,7 @@ public class MagicianUI : BaseUI
             PageComponent page3 = new PageComponent(gameObject.transform, "Topping");
             PageComponent[] pgs = new PageComponent[3] { page, page2, page3 };
             PaginationComponent pgc = new PaginationComponent(gameObject.transform, pgs);
+            pgc.SetPosition(-230, 145);
             ItemSlotComponent isc;
 
             //item = new _Item(304, "Test Topping", ItemLevel.A, Resources.Load<Sprite>("Sprites/Cucumber"), "It is Test Topping.");
