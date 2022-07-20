@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float Speed { get; set; }
     public float AttackDamage { get; set; }
     public float AttackRange { get; set; }
+    public int Money { get; set; }
 
     protected float coolTime = 1.0f;
     protected float curCoolTime = 0;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         MaxHp = SaveManager.Instance.MaxHp;
         AttackDamage = SaveManager.Instance.AttackDamage;
         AttackRange = SaveManager.Instance.AttackRange;
+        Money = SaveManager.Instance.Money;
     }
 
     // Update is called once per frame

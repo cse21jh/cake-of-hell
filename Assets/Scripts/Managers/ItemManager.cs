@@ -33,6 +33,7 @@ public class ItemManager : Singleton<ItemManager>
 
    public void AddBases()
     {
+        //code / name / level/ sprite / keyword / flavor text / price
         AddProcessedItem(10001, "저주받은 흙", ItemLevel.C, Resources.Load<Sprite>("Sprites/Mud"), "촉촉한 빵", "흙이 부드럽다니... 좀 이상하긴 해", 10);
         AddProcessedItem(10002, "진화한 흙", ItemLevel.B, Resources.Load<Sprite>("Sprites/Mud"), "쫄깃한 빵", "쫀드기 아닙니다. 구워 먹지 말 것", 20);
     }
@@ -49,6 +50,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public void AddRawItems()
     {
+        // code / name/ sprite/ processedItemCode/ process price/ process time
         AddRawItem(81001, "진흙", Resources.Load<Sprite>("Sprites/Mud"), new List<int> { 10001, 10002 }, new List<int> { 2, 3 }, new List<float> { 1.0f, 2.0f }  );
     }
 
