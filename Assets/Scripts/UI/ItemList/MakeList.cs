@@ -35,7 +35,9 @@ public class MakeList : MonoBehaviour
     {
         
         foreach (var pair in ItemManager.Instance.RawItemList)
-        { 
+        {
+            if (pair.Key == 0)
+                continue;
             GameObject information = Instantiate(informationPrefab, this.transform);
             string n = "X" + SaveManager.Instance.NumberOfRaw[pair.Key].ToString();
             information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
