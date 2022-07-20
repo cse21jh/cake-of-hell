@@ -64,9 +64,12 @@ public class CakeTableUI : BaseUI
         pagination = new PaginationComponent(inventoryPanel.transform, pages);
         pagination.SetPosition(0, 165);
 
-        baseInput = new ItemSlotComponent(gameObject.transform, 0, -1);
-        icingInput = new ItemSlotComponent(gameObject.transform, 0, -1);
-        toppingInput = new ItemSlotComponent(gameObject.transform, 0, -1);
+        baseInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
+        icingInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
+        toppingInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
+        baseInput.SetOnClick(() => { baseInput.Clear(); bigImgBase.sprite = spriteNull; });
+        icingInput.SetOnClick(() => { icingInput.Clear(); bigImgIcing.sprite = spriteNull; });
+        toppingInput.SetOnClick(() => { toppingInput.Clear(); bigImgTopping.sprite = spriteNull; });
         baseInput.SetPosition(-275, -50);
         icingInput.SetPosition(-200, -50);
         toppingInput.SetPosition(-125, -50);
@@ -166,9 +169,9 @@ public class CakeTableUI : BaseUI
                 itemSlots.Remove(toppingInput.ItemCode);
             }
 
-            baseInput.LoadItem(0, -1);
-            icingInput.LoadItem(0, -1);
-            toppingInput.LoadItem(0, -1);
+            baseInput.Clear();
+            icingInput.Clear();
+            toppingInput.Clear();
 
             bigImgBase.sprite = spriteNull;
             bigImgIcing.sprite = spriteNull;
