@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MagicianUI : BaseUI
 { 
     private _Item item;
     private ItemSlotComponent input, output;
     private List<ItemSlotComponent> iscs;
+    private GameObject processButton;
 
     void Awake() 
     {
@@ -16,7 +18,8 @@ public class MagicianUI : BaseUI
 
     void Start()
     {
-        
+        processButton = GameObject.Find("ProcessButtonMagician");
+        processButton.GetComponent<Button>().onClick.AddListener(Process);
     }
 
     void Update()
@@ -30,7 +33,7 @@ public class MagicianUI : BaseUI
         if(iscs == null)
         {
             iscs = new List<ItemSlotComponent>();
-            PageComponent page = new PageComponent(gameObject.transform, "Base");
+            PageComponent page = new PageComponent(gameObject.transform, "Base", 4);
             PageComponent page2 = new PageComponent(gameObject.transform, "Icing");
             PageComponent page3 = new PageComponent(gameObject.transform, "Topping");
             PageComponent[] pgs = new PageComponent[3] { page, page2, page3 };
@@ -39,10 +42,17 @@ public class MagicianUI : BaseUI
 
             //item = new _Item(304, "Test Topping", ItemLevel.A, Resources.Load<Sprite>("Sprites/Cucumber"), "It is Test Topping.");
 
-            input = new ItemSlotComponent(gameObject.transform, 10001, 2);
+            input = new ItemSlotComponent(gameObject.transform, 10001, 1);
             input.SetPosition(120.0f, 80.0f);
-            output = new ItemSlotComponent(gameObject.transform, 10002, 1);
+            output = new ItemSlotComponent(gameObject.transform, 10002, 2);
             output.SetPosition(280.0f, 80.0f);
+
+            isc = new ItemSlotComponent(page.Container, 81001, 1, true);
+            isc = new ItemSlotComponent(page.Container, 81001, 2, true);
+            isc = new ItemSlotComponent(page.Container, 81001, 3, true);
+            isc = new ItemSlotComponent(page.Container, 81001, 4, true);
+            isc = new ItemSlotComponent(page.Container, 81001, 5, true);
+            isc = new ItemSlotComponent(page.Container, 81001, 6, true);
 
             /*for(int i=0; i<SaveManager.Instance.NumberOfRBase.Length; i++)
             {
@@ -72,5 +82,14 @@ public class MagicianUI : BaseUI
     {
         gameObject.SetActive(false);
         Debug.Log("Magician UI Closed!");
+    }
+
+    private void Process() 
+    {
+        if(Util.CountItem(input.ItemCode) >= input.ItemCount) 
+        {
+            Util.UseItem(input.ItemCode, input.ItemCount);
+            Util.AddItem(output.ItemCode, output.ItemCount);
+        }
     }
 }
