@@ -13,6 +13,7 @@ public class ProcessedItem : Item
     {
         Code = code;
         Name = name;
+        Level = level;
         SpriteImage = spriteImage;
         Keyword = keyword;
         FlavorText = flavorText;

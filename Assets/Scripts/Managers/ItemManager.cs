@@ -17,17 +17,18 @@ public class ItemManager : Singleton<ItemManager>
 
     void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        DontDestroyOnLoad(gameObject);
         AddProcessedItem(0, "민 초 좋 아", ItemLevel.SS, null, "민 초 좋 아", "민 초 좋 아", 9999);
         AddRawItem(0, "민 초 좋 아", null, new List<int> { 0 }, new List<int> { 9999 }, new List<float> { 9999.0f });
         AddBases();
         AddToppings();
         AddIcings();
         AddRawItems();
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
 
