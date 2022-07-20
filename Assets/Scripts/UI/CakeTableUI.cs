@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CakeTableUI : BaseUI
 { 
@@ -9,7 +10,11 @@ public class CakeTableUI : BaseUI
     private PaginationComponent pagination;
     private PageComponent[] pages;
     private CakeSlotComponent[] cakes;
-    private GameObject inventoryPanel, bakeButton, matName, matDesc;
+    private GameObject inventoryPanel, bakeButton;
+    private TMP_Text matName, matDesc;
+    private Sprite spriteBase, spriteIcing, spriteTopping, spriteNull;
+    private Image bigImgBase, bigImgIcing, bigImgTopping;
+    private Dictionary<int, ItemSlotComponent> itemSlots;
 
     void Awake() 
     {
@@ -18,12 +23,26 @@ public class CakeTableUI : BaseUI
 
     void Start()
     {
+        Util.AddItem(10001, 10);
+        Util.AddItem(20003, 10);
+        Util.AddItem(40006, 10);
+        itemSlots = new Dictionary<int, ItemSlotComponent>();
+
         inventoryPanel = GameObject.Find("CakeInventoryPanel");
         bakeButton = GameObject.Find("BakeButton");
-        matName = GameObject.Find("MaterialName");
-        matDesc = GameObject.Find("MaterialDesc");
+        matName = GameObject.Find("MaterialName").GetComponent<TMP_Text>();
+        matDesc = GameObject.Find("MaterialDesc").GetComponent<TMP_Text>();
+        bigImgBase = GameObject.Find("BaseBigImage").GetComponent<Image>();
+        bigImgIcing = GameObject.Find("IcingBigImage").GetComponent<Image>();
+        bigImgTopping = GameObject.Find("ToppingBigImage").GetComponent<Image>();
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
+
+        spriteBase = Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud");
+        spriteIcing = Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison");
+        spriteTopping = Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone");
+
+        spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
     }
 
     void Update()
@@ -52,28 +71,54 @@ public class CakeTableUI : BaseUI
         icingInput.SetPosition(-200, -50);
         toppingInput.SetPosition(-125, -50);
 
-        ItemSlotComponent isc;
         foreach(var pair in SaveManager.Instance.NumberOfBase) 
         {
-            isc = new ItemSlotComponent(pages[0].Container, pair.Key, pair.Value, true);
-            isc.SetOnClick(() => baseInput.LoadItem(pair.Key, -1));
+            if(pair.Value > 0)
+            {
+                itemSlots.Add(pair.Key, new ItemSlotComponent(pages[0].Container, pair.Key, pair.Value, true));
+                itemSlots[pair.Key].SetOnClick(() => 
+                {
+                    baseInput.LoadItem(pair.Key, -1);
+                    bigImgBase.sprite = spriteBase;
+                    matName.text = Util.GetItem(pair.Key).Name;
+                    matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                });
+            }
         }
         foreach(var pair in SaveManager.Instance.NumberOfIcing) 
         {
-            isc = new ItemSlotComponent(pages[1].Container, pair.Key, pair.Value, true);
-            isc.SetOnClick(() => icingInput.LoadItem(pair.Key, -1));
+            if(pair.Value > 0)
+            {
+                itemSlots.Add(pair.Key, new ItemSlotComponent(pages[1].Container, pair.Key, pair.Value, true));
+                itemSlots[pair.Key].SetOnClick(() => 
+                {
+                    icingInput.LoadItem(pair.Key, -1);
+                    bigImgIcing.sprite = spriteIcing;
+                    matName.text = Util.GetItem(pair.Key).Name;
+                    matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                });
+            }
         }
         foreach(var pair in SaveManager.Instance.NumberOfTopping) 
         {
-            isc = new ItemSlotComponent(pages[2].Container, pair.Key, pair.Value, true);
-            isc.SetOnClick(() => toppingInput.LoadItem(pair.Key, -1));
+            if(pair.Value > 0)
+            {
+                itemSlots.Add(pair.Key, new ItemSlotComponent(pages[2].Container, pair.Key, pair.Value, true));
+                itemSlots[pair.Key].SetOnClick(() => 
+                {
+                    toppingInput.LoadItem(pair.Key, -1);
+                    bigImgTopping.sprite = spriteTopping;
+                    matName.text = Util.GetItem(pair.Key).Name;
+                    matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                });
+            }
         }
 
         cakes = new CakeSlotComponent[5];
         for(int i=0; i<5; i++)
         {
-            int ypos = -100 + 50 * i;
-            cakes[i] = new CakeSlotComponent(gameObject.transform, 0, 0, 0);
+            int ypos = 100 - 50 * i;
+            cakes[i] = new CakeSlotComponent(gameObject.transform);
             cakes[i].SetPosition(-375, ypos);
         }
     }
@@ -92,6 +137,49 @@ public class CakeTableUI : BaseUI
 
     private void Bake() 
     {
-        Debug.Log("Cake Baked!");
+        if(SaveManager.Instance.CanMake() && baseInput.ItemCode > 0 && icingInput.ItemCode > 0 && toppingInput.ItemCode > 0) 
+        {
+            Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, spriteBase, spriteTopping, spriteIcing);
+            for(int i=0; i<5; i++) 
+            {
+                if(SaveManager.Instance.CakeList[i] == null) 
+                {
+                    cakes[i].SetCake(cake);
+                    break;
+                }
+            }
+
+            itemSlots[baseInput.ItemCode].UseItem();
+            itemSlots[icingInput.ItemCode].UseItem();
+            itemSlots[toppingInput.ItemCode].UseItem();
+
+            if(Util.CountItem(baseInput.ItemCode) == 0) 
+            {
+                itemSlots.Remove(baseInput.ItemCode);
+            }
+            if(Util.CountItem(icingInput.ItemCode) == 0) 
+            {
+                itemSlots.Remove(icingInput.ItemCode);
+            }
+            if(Util.CountItem(toppingInput.ItemCode) == 0) 
+            {
+                itemSlots.Remove(toppingInput.ItemCode);
+            }
+
+            baseInput.LoadItem(0, -1);
+            icingInput.LoadItem(0, -1);
+            toppingInput.LoadItem(0, -1);
+
+            bigImgBase.sprite = spriteNull;
+            bigImgIcing.sprite = spriteNull;
+            bigImgTopping.sprite = spriteNull;
+
+            SaveManager.Instance.AddCake(cake);
+            Debug.Log("Cake Baked!");
+        }
+        else 
+        {
+            Debug.Log("Cannot bake a cake.");
+        }
     }
 }

@@ -31,6 +31,24 @@ public class ItemSlotComponent : UIComponent
         gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount == -1 ? "" : ItemCount.ToString();
     }
 
+    public void AddItem(int addCount = 1) 
+    {
+        Util.AddItem(ItemCode, addCount);
+        ItemCount += addCount;
+        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount.ToString();
+    }
+
+    public void UseItem(int useCount = 1)
+    {
+        Util.UseItem(ItemCode, useCount);
+        ItemCount -= useCount;
+        gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount.ToString();
+        if(ItemCount <= 0) 
+        {
+            Object.Destroy(gameObject);
+        }
+    }
+
     public void SetOnClick(System.Action onClick) 
     {
         ItemSlotButton.GetComponent<Button>().onClick.AddListener(() => onClick());
