@@ -5,9 +5,9 @@ using System.Linq;
 
 public class RawItem : Item
 {
-    public new List<int> OutputCode { get; }
-    public new List<int> Price { get; }
-    public new List<float> Duration { get; }
+    public List<int> OutputCode { get; }
+    public List<int> Price { get; }
+    public List<float> Duration { get; }
 
     public RawItem(int code, string name, Sprite spriteImage, List<int> outputCode, List<int> price, List<float> duration )
     {

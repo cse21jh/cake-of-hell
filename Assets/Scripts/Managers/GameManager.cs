@@ -29,23 +29,4 @@ public class GameManager : Singleton<GameManager>
     {
         
     }
-    public int MakeCake()
-    {
-        /*
-        CakeIndex cakeIndex = ItemManager.Instance.ReturnCake(inputBase, inputIcing, inputTopping);
-        if (cakeIndex != CakeIndex.Null)
-        {
-            SaveManager.Instance.NumberOfBase[(int)inputBase] -= 1;
-            SaveManager.Instance.NumberOfIcing[(int)inputIcing] -= 1;
-            SaveManager.Instance.NumberOfTopping[(int)inputTopping] -= 1;
-
-            inputBase = BaseIndex.Null;
-            inputIcing = IcingIndex.Null;
-            inputTopping = ToppingIndex.Null;
-        }
-        Debug.Log(cakeIndex.ToString());
-        */
-        return 1;
-    }
-    
 }

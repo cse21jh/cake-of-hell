@@ -60,13 +60,10 @@ public class SaveManager : Singleton<SaveManager>
             {
                 case (1):
                     return NumberOfBase[code];
-                    break;
                 case (2):
                     return NumberOfTopping[code];
-                    break;
                 case (4):
                     return NumberOfIcing[code];
-                    break;
             }
         }
         return -1;

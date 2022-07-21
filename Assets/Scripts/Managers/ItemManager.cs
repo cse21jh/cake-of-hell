@@ -12,7 +12,6 @@ public class ItemManager : Singleton<ItemManager>
 
     public List<int> ItemCodeList = new List<int>();
 
-    private GameObject check = null;
 
 
     void Awake()

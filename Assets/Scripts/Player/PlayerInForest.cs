@@ -12,14 +12,14 @@ public class PlayerInForest : Player
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         hitBox = transform.Find("HitBox").gameObject;
         base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         if (Input.GetMouseButtonDown(0)&&curCoolTime <=0)
             StartCoroutine(Attack());

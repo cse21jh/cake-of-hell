@@ -8,9 +8,9 @@ public class Item
     public string Name { get; set; }
     public Sprite SpriteImage { get; set; }
 
-    public ItemType GetType()
+    public new ItemType GetType()
     {
-        return ((ItemType)((Code / 1000) % 10));
+        return (ItemType)(Code / 10000);
     }
 
     public int GetOrder()
