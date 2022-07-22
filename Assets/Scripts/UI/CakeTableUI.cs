@@ -12,8 +12,9 @@ public class CakeTableUI : BaseUI
     private CakeSlotComponent[] cakes;
     private GameObject inventoryPanel, bakeButton;
     private TMP_Text matName, matDesc;
-    private Sprite spriteBase, spriteIcing, spriteTopping, spriteNull;
+    private Sprite spriteNull;
     private Image bigImgBase, bigImgIcing, bigImgTopping;
+    private Dictionary<int, Sprite> spriteBase, spriteIcing, spriteTopping;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
     void Start()
@@ -21,6 +22,12 @@ public class CakeTableUI : BaseUI
         Util.AddItem(10001, 10);
         Util.AddItem(20003, 10);
         Util.AddItem(40006, 10);
+        Util.AddItem(10006, 10);
+        Util.AddItem(20006, 10);
+        Util.AddItem(40001, 10);
+        spriteBase = new Dictionary<int, Sprite>();
+        spriteIcing = new Dictionary<int, Sprite>();
+        spriteTopping = new Dictionary<int, Sprite>();
         itemSlots = new Dictionary<int, ItemSlotComponent>();
 
         inventoryPanel = GameObject.Find("CakeInventoryPanel");
@@ -33,9 +40,12 @@ public class CakeTableUI : BaseUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
-        spriteBase = Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud");
-        spriteIcing = Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison");
-        spriteTopping = Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone");
+        spriteBase.Add(10001, Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud"));
+        spriteBase.Add(10006, Resources.Load<Sprite>("Sprites/Cake/Base/Base_redheart"));
+        spriteIcing.Add(40006, Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison"));
+        spriteIcing.Add(40001, Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_storm"));
+        spriteTopping.Add(20003, Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone"));
+        spriteTopping.Add(20006, Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_teeth"));
 
         spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
     }
@@ -95,7 +105,7 @@ public class CakeTableUI : BaseUI
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
                     baseInput.LoadItem(pair.Key);
-                    bigImgBase.sprite = spriteBase;
+                    bigImgBase.sprite = spriteBase[pair.Key];
                     matName.text = Util.GetItem(pair.Key).Name;
                     matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
                 });
@@ -111,7 +121,7 @@ public class CakeTableUI : BaseUI
                     if(baseInput.HasItem()) 
                     {
                         icingInput.LoadItem(pair.Key);
-                        bigImgIcing.sprite = spriteIcing;
+                        bigImgIcing.sprite = spriteIcing[pair.Key];
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
                     }
@@ -128,7 +138,7 @@ public class CakeTableUI : BaseUI
                     if(baseInput.HasItem() && icingInput.HasItem()) 
                     {
                         toppingInput.LoadItem(pair.Key);
-                        bigImgTopping.sprite = spriteTopping;
+                        bigImgTopping.sprite = spriteTopping[pair.Key];
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
                     }
@@ -161,7 +171,8 @@ public class CakeTableUI : BaseUI
     {
         if(SaveManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem()) 
         {
-            Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, spriteBase, spriteTopping, spriteIcing);
+            Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, 
+            spriteBase[baseInput.ItemCode], spriteTopping[toppingInput.ItemCode], spriteIcing[icingInput.ItemCode]);
             for(int i=0; i<5; i++) 
             {
                 if(SaveManager.Instance.CakeList[i] == null) 
