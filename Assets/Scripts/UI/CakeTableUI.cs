@@ -33,9 +33,9 @@ public class CakeTableUI : BaseUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
-        spriteBase = Resources.Load<Sprite>("Cake/Base/Base_mud");
-        spriteIcing = Resources.Load<Sprite>("Cake/Icing/Icing_poison");
-        spriteTopping = Resources.Load<Sprite>("Cake/Topping/Topping_redcone");
+        spriteBase = Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud");
+        spriteIcing = Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison");
+        spriteTopping = Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone");
 
         spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
     }
