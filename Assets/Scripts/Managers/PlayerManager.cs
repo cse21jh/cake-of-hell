@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    private Player player;
+    //Fix me
+    public Player player;
     private GameObject imageHit;
-    private HpUI hpUI;
+    public HpUI hpUI;
+    public MoneyUI moneyUI;
 
     void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
-        hpUI = GameObject.Find("Canvas").transform.Find("HpBar").GetComponent<HpUI>();
         DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
@@ -49,6 +49,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public IEnumerator DamagedEffect()
     {
+        imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
         imageHit.SetActive(true);
         yield return new WaitForSeconds(0.4f);
         imageHit.SetActive(false);
@@ -57,9 +58,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void GetDamage(float value)
     {
         StartCoroutine("DamagedEffect");
-        player.Hp -= value;
-        SaveManager.Instance.Hp -= value;
-        hpUI.HpBarUpdate(GetMaxHp(), GetHp());
+        SetHp(player.Hp - value);
         if (player.Hp <= 0)
         {
             Debug.Log("Die");
@@ -72,13 +71,33 @@ public class PlayerManager : Singleton<PlayerManager>
         return player.Hp;
     }
 
+    public void SetHp(float hp)
+    {
+        player.Hp = hp;
+        SaveManager.Instance.Hp = hp;
+        hpUI.HpBarUpdate(GetMaxHp(), GetHp());
+    }
+
     public float GetMaxHp()
     {
         return player.MaxHp;
     }
 
+    public void SetMaxHp(float maxHp)
+    {
+        player.MaxHp = maxHp;
+        SaveManager.Instance.MaxHp = maxHp;
+    }
+
     public float GetMoney()
     {
         return player.Money;
+    }
+
+    public void SetMoney(float money)
+    {
+        player.Money = money;
+        SaveManager.Instance.Money = money;
+        moneyUI.MoneyTextUpdate(money);
     }
 }

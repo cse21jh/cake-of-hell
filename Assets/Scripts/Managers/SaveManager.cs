@@ -17,7 +17,7 @@ public class SaveManager : Singleton<SaveManager>
 
     public float AttackRange { get; set; } = 1.0f;
 
-    public int Money { get; set; } = 0;
+    public float Money { get; set; } = 0;
 
     public Dictionary<int,int> NumberOfIcing { get; set; } = new Dictionary<int,int>();
 

@@ -10,6 +10,7 @@ public class HpUI : MonoBehaviour
     void Start()
     {
         hpBar = gameObject.GetComponent<Slider>();
+        PlayerManager.Instance.hpUI = this;
     }
 
     public void HpBarUpdate(float maxHp, float hp)

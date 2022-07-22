@@ -52,7 +52,7 @@ public class Util
 
     public static void EarnMoney(int amount)
     {
-        SaveManager.Instance.Money += amount;
+        PlayerManager.Instance.SetMoney(SaveManager.Instance.Money+amount);
     }
 
     public static void SpendMoney(int amount)

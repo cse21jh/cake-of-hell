@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     public float Speed { get; set; }
     public float AttackDamage { get; set; }
     public float AttackRange { get; set; }
-    public int Money { get; set; }
+    public float Money { get; set; }
+    private GameObject hitBox;
 
     protected float coolTime = 1.0f;
     protected float curCoolTime = 0;
@@ -25,11 +26,11 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    void Start()
     {
         UiManager.Instance.openItemList = false;
         rb = GetComponent<Rigidbody2D>();
@@ -42,12 +43,20 @@ public class Player : MonoBehaviour
         AttackDamage = SaveManager.Instance.AttackDamage;
         AttackRange = SaveManager.Instance.AttackRange;
         Money = SaveManager.Instance.Money;
+        PlayerManager.Instance.player = this;
+        hitBox = transform.Find("HitBox").gameObject;
     }
 
     // Update is called once per frame
-    protected virtual void Update()
+    void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0) && curCoolTime <= 0)
+            StartCoroutine(Attack());
+
+        if (curCoolTime > 0)
+        {
+            curCoolTime = Mathf.Max(curCoolTime - Time.deltaTime, 0);
+        }
     }
 
     void FixedUpdate()
@@ -68,4 +77,13 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(dx * Speed, dy * Speed);
     }
 
+    private IEnumerator Attack()
+    {
+        curCoolTime = coolTime;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        hitBox.transform.position = (Vector2)transform.position + (mousePos - (Vector2)transform.position).normalized * AttackRange;
+        hitBox.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        hitBox.gameObject.SetActive(false);
+    }
 }

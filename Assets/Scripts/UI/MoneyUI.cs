@@ -11,7 +11,8 @@ public class MoneyUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moneyText = GetComponent<TextMeshProUGUI>();
+        PlayerManager.Instance.moneyUI = this;
+        moneyText = this.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
