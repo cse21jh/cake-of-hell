@@ -91,7 +91,7 @@ public class CakeTableUI : BaseUI
         icingInput.SetPosition(-200, -50);
         toppingInput.SetPosition(-125, -50);
 
-        foreach(var pair in SaveManager.Instance.NumberOfBase) 
+        foreach(var pair in Util.GetItemNumbers(ItemType.Base)) 
         {
             if(pair.Value > 0)
             {
@@ -105,7 +105,7 @@ public class CakeTableUI : BaseUI
                 });
             }
         }
-        foreach(var pair in SaveManager.Instance.NumberOfIcing) 
+        foreach(var pair in Util.GetItemNumbers(ItemType.Icing)) 
         {
             if(pair.Value > 0)
             {
@@ -121,7 +121,7 @@ public class CakeTableUI : BaseUI
                 });
             }
         }
-        foreach(var pair in SaveManager.Instance.NumberOfTopping) 
+        foreach(var pair in Util.GetItemNumbers(ItemType.Topping)) 
         {
             if(pair.Value > 0)
             {

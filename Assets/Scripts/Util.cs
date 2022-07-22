@@ -31,4 +31,12 @@ public class Util
     {
         SaveManager.Instance.SetNumberOfItem(code, CountItem(code) + count);
     }
+
+    public static Dictionary<int, int> GetItemNumbers(ItemType type) => type switch
+    {
+        ItemType.Raw => SaveManager.Instance.NumberOfRaw,
+        ItemType.Base => SaveManager.Instance.NumberOfBase,
+        ItemType.Icing => SaveManager.Instance.NumberOfIcing,
+        ItemType.Topping => SaveManager.Instance.NumberOfTopping
+    };
 }
