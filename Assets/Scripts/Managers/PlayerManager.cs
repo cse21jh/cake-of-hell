@@ -60,8 +60,22 @@ public class PlayerManager : Singleton<PlayerManager>
         if (player.Hp <= 0)
         {
             Debug.Log("Die");
-            // Ã¼·Â 0 µÇ¾úÀ» ¶§¿¡ ´ëÇÑ ³»¿ë ¿©±â¿¡ ±¸Çö
+            // ì²´ë ¥ 0 ë˜ì—ˆì„ ë•Œì— ëŒ€í•œ ë‚´ìš© ì—¬ê¸°ì— êµ¬í˜„
         }
     }
 
+    public float GetHp()
+    {
+        return player.Hp;
+    }
+
+    public float GetMaxHp()
+    {
+        return player.MaxHp;
+    }
+
+    public float GetMoney()
+    {
+        return player.Money;
+    }
 }
