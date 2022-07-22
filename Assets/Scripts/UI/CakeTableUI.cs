@@ -143,7 +143,7 @@ public class CakeTableUI : BaseUI
         {
             int ypos = 100 - 50 * i;
             cakes[i] = new CakeSlotComponent(gameObject.transform);
-            cakes[i].SetPosition(-375, ypos);
+            cakes[i].SetPosition(-370, ypos);
         }
     }
 

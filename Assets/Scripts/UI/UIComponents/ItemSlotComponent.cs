@@ -6,6 +6,7 @@ using TMPro;
 
 public class ItemSlotComponent : UIComponent
 {
+    private Sprite nullSprite;
     public int ItemCode { get; set; }
     public int ItemCount { get; set; }
     public bool IsClickable { get; set; }
@@ -14,6 +15,7 @@ public class ItemSlotComponent : UIComponent
     public ItemSlotComponent(Transform parent, int itemCode, int itemCount, bool isClickable = false) 
     : base(parent, Resources.Load<GameObject>("Prefabs/ItemSlotPrefab"))
     {
+        nullSprite = Resources.Load<Sprite>("Sprites/Nothing");
         LoadItem(itemCode, itemCount);
         IsClickable = isClickable;
         if(isClickable) {
@@ -27,7 +29,7 @@ public class ItemSlotComponent : UIComponent
     {
         ItemCode = itemCode;
         ItemCount = itemCount;
-        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Util.GetItem(itemCode).SpriteImage;
+        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Util.GetItem(itemCode).SpriteImage ?? nullSprite;
         gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount == -1 ? "" : ItemCount.ToString();
     }
 
