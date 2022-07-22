@@ -47,7 +47,7 @@ public class ItemManager : Singleton<ItemManager>
     {
         AddProcessedItem(20001, "유리 파편", ItemLevel.A, null, "따가운", "개운하네? 오늘은 양치 안 하고 자야지.", 30);
         AddProcessedItem(20002, "유리 조각", ItemLevel.S, null, "치명적인", "", 45);    // edit needed
-        AddProcessedItem(20003, "레드 콘", ItemLevel.A, null, "뾰족뾰족한", "앗 따가! 벌에 쏘인 건 아니에요.", 30);
+        AddProcessedItem(20003, "레드 콘", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/redcone_item"), "뾰족뾰족한", "앗 따가! 벌에 쏘인 건 아니에요.", 30);
         AddProcessedItem(20004, "썩은 거미줄", ItemLevel.SS, null, "썩은", "으... 이 퀴퀴한 건 뭐야..... 사람은 못 먹겠지만.....", 50);
         AddProcessedItem(20005, "비늘 가루", ItemLevel.C, null, "반짝거리는", "생선보다도 비리지만 우리 가게에서 가장 잘나가요.", 10);
         AddProcessedItem(20006, "이빨 초콜릿", ItemLevel.A, null, "날카로운", "너무 달달해서 이가 썩을 것 같아...?", 35);

@@ -33,9 +33,9 @@ public class CakeTableUI : BaseUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
-        spriteBase = Resources.Load<Sprite>("Cake/Base/Base_mud");
-        spriteIcing = Resources.Load<Sprite>("Cake/Icing/Icing_poison");
-        spriteTopping = Resources.Load<Sprite>("Cake/Topping/Topping_redcone");
+        spriteBase = Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud");
+        spriteIcing = Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison");
+        spriteTopping = Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone");
 
         spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
     }
@@ -56,7 +56,7 @@ public class CakeTableUI : BaseUI
             pages[i].SetPosition(0, 25);
         }
 
-        pagination = new PaginationComponent(inventoryPanel.transform, pages);
+        pagination = new PaginationComponent(inventoryPanel.transform, pages, () => ClearText());
         pagination.SetPosition(0, 165);
 
         baseInput = new ItemSlotComponent(gameObject.transform, 0, -1, true);
@@ -72,7 +72,8 @@ public class CakeTableUI : BaseUI
         });
         icingInput.SetOnClick(() => 
         { 
-            if(!toppingInput.HasItem()) { 
+            if(!toppingInput.HasItem()) 
+            { 
                 icingInput.Clear(); 
                 bigImgIcing.sprite = spriteNull; 
             } 
@@ -107,7 +108,8 @@ public class CakeTableUI : BaseUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[1].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    if(baseInput.HasItem()) {
+                    if(baseInput.HasItem()) 
+                    {
                         icingInput.LoadItem(pair.Key);
                         bigImgIcing.sprite = spriteIcing;
                         matName.text = Util.GetItem(pair.Key).Name;
@@ -123,7 +125,8 @@ public class CakeTableUI : BaseUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[2].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    if(baseInput.HasItem() && icingInput.HasItem()) {
+                    if(baseInput.HasItem() && icingInput.HasItem()) 
+                    {
                         toppingInput.LoadItem(pair.Key);
                         bigImgTopping.sprite = spriteTopping;
                         matName.text = Util.GetItem(pair.Key).Name;
@@ -200,5 +203,11 @@ public class CakeTableUI : BaseUI
         {
             Debug.Log("Cannot bake a cake.");
         }
+    }
+
+    public void ClearText()
+    {
+        matName.text = "";
+        matDesc.text = "";
     }
 }

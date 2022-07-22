@@ -10,7 +10,7 @@ public class PaginationComponent : UIComponent
     private PageComponent[] pages;
     private int nowPage = 0;
 
-    public PaginationComponent(Transform parent, PageComponent[] _pages) 
+    public PaginationComponent(Transform parent, PageComponent[] _pages, System.Action additionalFunction = null) 
     : base(parent, Resources.Load<GameObject>("Prefabs/PaginationPrefab"))
     {
         int pageCount = _pages.Length;
@@ -23,7 +23,14 @@ public class PaginationComponent : UIComponent
             pages[j] = _pages[j];
             buttons[j] = Object.Instantiate(buttonPrefab, gameObject.transform);
             buttons[j].transform.GetChild(0).GetComponent<TMP_Text>().text = pages[j].PageName;
-            buttons[j].GetComponent<Button>().onClick.AddListener(() => ShowPage(j));
+            buttons[j].GetComponent<Button>().onClick.AddListener(() => 
+            {
+                ShowPage(j);
+                if(additionalFunction != null) 
+                {
+                    additionalFunction();
+                }
+            });
             if(i > 0) pages[i].SetActive(false);
         }
     }
