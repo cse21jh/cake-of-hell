@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 public class Recipe
 {
-    private float[] durationsByLevel = new float[5] { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f };
+    public int Input { get; private set; }
+    public int Output { get; private set;  }
+    public int Price { get; private set; }
+    public float Duration { get; private set; }
 
-    public string Input { get; set; }
-    public string Output { get; set; }
-    public float Duration { get; set; }
-
-    public Recipe(string input, string output, ItemLevel itemLevel) {
-        this.Input = input;
-        this.Output = output;
-        this.Duration = durationsByLevel[(int)itemLevel];
+    public Recipe(int input, int output, int price, float duration) {
+        Input = input;
+        Output = output;
+        Price = price;
+        Duration = duration;
     }
 }

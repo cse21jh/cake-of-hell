@@ -10,8 +10,8 @@ public class RecipeList
         recipes = new List<Recipe>();
     }
 
-    public void addRecipe(string input, string output, ItemLevel itemLevel) {
-        Recipe recipe = new Recipe(input, output, itemLevel);
+    public void addRecipe(int input, int output, int price, float duration) {
+        Recipe recipe = new Recipe(input, output, price, duration);
         recipes.Add(recipe);
     }
 }

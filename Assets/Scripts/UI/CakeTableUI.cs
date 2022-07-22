@@ -16,11 +16,6 @@ public class CakeTableUI : BaseUI
     private Image bigImgBase, bigImgIcing, bigImgTopping;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
-    void Awake() 
-    {
-        
-    }
-
     void Start()
     {
         Util.AddItem(10001, 10);
@@ -38,9 +33,9 @@ public class CakeTableUI : BaseUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
-        spriteBase = Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud");
-        spriteIcing = Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison");
-        spriteTopping = Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone");
+        spriteBase = Resources.Load<Sprite>("Cake/Base/Base_mud");
+        spriteIcing = Resources.Load<Sprite>("Cake/Icing/Icing_poison");
+        spriteTopping = Resources.Load<Sprite>("Cake/Topping/Topping_redcone");
 
         spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
     }
@@ -53,9 +48,9 @@ public class CakeTableUI : BaseUI
     public void MakeUI() 
     {
         pages = new PageComponent[3];
-        pages[0] = new PageComponent(inventoryPanel.transform, "Base", 4, 250);
-        pages[1] = new PageComponent(inventoryPanel.transform, "Icing", 4, 250);
-        pages[2] = new PageComponent(inventoryPanel.transform, "Topping", 4, 250);
+        pages[0] = new PageComponent(inventoryPanel.transform, "베이스", 4, 250);
+        pages[1] = new PageComponent(inventoryPanel.transform, "아이싱", 4, 250);
+        pages[2] = new PageComponent(inventoryPanel.transform, "토핑", 4, 250);
         for(int i=0; i<3; i++) 
         {
             pages[i].SetPosition(0, 25);
@@ -98,7 +93,7 @@ public class CakeTableUI : BaseUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[0].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    baseInput.LoadItem(pair.Key, -1);
+                    baseInput.LoadItem(pair.Key);
                     bigImgBase.sprite = spriteBase;
                     matName.text = Util.GetItem(pair.Key).Name;
                     matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
@@ -113,7 +108,7 @@ public class CakeTableUI : BaseUI
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
                     if(baseInput.HasItem()) {
-                        icingInput.LoadItem(pair.Key, -1);
+                        icingInput.LoadItem(pair.Key);
                         bigImgIcing.sprite = spriteIcing;
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
@@ -129,7 +124,7 @@ public class CakeTableUI : BaseUI
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
                     if(baseInput.HasItem() && icingInput.HasItem()) {
-                        toppingInput.LoadItem(pair.Key, -1);
+                        toppingInput.LoadItem(pair.Key);
                         bigImgTopping.sprite = spriteTopping;
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
@@ -161,7 +156,7 @@ public class CakeTableUI : BaseUI
 
     private void Bake() 
     {
-        if(SaveManager.Instance.CanMake() && baseInput.ItemCode > 0 && icingInput.ItemCode > 0 && toppingInput.ItemCode > 0) 
+        if(SaveManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem()) 
         {
             Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, spriteBase, spriteTopping, spriteIcing);
             for(int i=0; i<5; i++) 

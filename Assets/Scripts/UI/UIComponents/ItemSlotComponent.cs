@@ -25,7 +25,7 @@ public class ItemSlotComponent : UIComponent
         }
     }
 
-    public void LoadItem(int itemCode, int itemCount) 
+    public void LoadItem(int itemCode, int itemCount = -1) 
     {
         ItemCode = itemCode;
         ItemCount = itemCount;
@@ -40,7 +40,7 @@ public class ItemSlotComponent : UIComponent
 
     public void Clear()
     {
-        LoadItem(0, -1);
+        LoadItem(0);
     }
 
     public void AddItem(int addCount = 1) 

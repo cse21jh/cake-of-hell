@@ -29,6 +29,7 @@ public class RecipeManager : Singleton<RecipeManager>
     }
 
     void AddGameRecipes() {
+        /*
         //Base
         _GameRecipeList.addRecipe("진흙", "저주받은 흙", ItemLevel.C);
         _GameRecipeList.addRecipe("가죽", "광택이 나는 레더", ItemLevel.A);
@@ -50,6 +51,6 @@ public class RecipeManager : Singleton<RecipeManager>
         _GameRecipeList.addRecipe("거미줄", "썩은 거미줄", ItemLevel.SS);
         _GameRecipeList.addRecipe("인어 비늘", "비늘 가루", ItemLevel.C);
         _GameRecipeList.addRecipe("이빨", "이빨 초콜릿", ItemLevel.A);
-        _GameRecipeList.addRecipe("악한 영혼", "악한 영혼의 가루", ItemLevel.S);
+        _GameRecipeList.addRecipe("악한 영혼", "악한 영혼의 가루", ItemLevel.S);*/
     }
 }

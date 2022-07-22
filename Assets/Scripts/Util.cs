@@ -37,6 +37,33 @@ public class Util
         ItemType.Raw => SaveManager.Instance.NumberOfRaw,
         ItemType.Base => SaveManager.Instance.NumberOfBase,
         ItemType.Icing => SaveManager.Instance.NumberOfIcing,
-        ItemType.Topping => SaveManager.Instance.NumberOfTopping
+        ItemType.Topping => SaveManager.Instance.NumberOfTopping,
+        _ => null
     };
+
+    public static List<Recipe> GetRecipesFromInput(int code)
+    {
+        RawItem input = GetItem(code) as RawItem;
+        if(input == null) return null;
+        Recipe recipe = new Recipe(code, input.OutputCode[0], input.Price[0], input.Duration[0]);
+        List<Recipe> lr = new List<Recipe> { recipe };
+        return lr;
+    }
+
+    public static void EarnMoney(int amount)
+    {
+        SaveManager.Instance.Money += amount;
+    }
+
+    public static void SpendMoney(int amount)
+    {
+        if(SaveManager.Instance.Money >= amount) 
+        {
+            SaveManager.Instance.Money -= amount;
+        }
+        else
+        {
+            throw new System.ArgumentOutOfRangeException("amount", System.String.Format("현재 보유한 돈인 {0}보다 많은 {1}의 돈을 쓸 수 없습니다.", SaveManager.Instance.Money, amount));
+        }
+    }
 }
