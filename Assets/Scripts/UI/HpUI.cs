@@ -5,22 +5,10 @@ using UnityEngine.UI;
 
 public class HpUI : MonoBehaviour
 {
-    public Slider HpBar;
-    private float MaxHp;
-    private float Hp;
+    public Slider hpBar;    // edit needed
 
-    // Start is called before the first frame update
-    void Start()
+    public void HpBarUpdate(float maxHp, float hp)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        MaxHp = PlayerManager.Instance.GetMaxHp();
-        Hp = PlayerManager.Instance.GetHp();
-
-        HpBar.value = Hp / MaxHp;
+        hpBar.value = hp / maxHp;
     }
 }
