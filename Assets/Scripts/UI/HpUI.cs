@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class HpUI : MonoBehaviour
 {
-    public Slider hpBar;    // edit needed
+    private Slider hpBar;    // edit needed
+
+    void Start()
+    {
+        hpBar = gameObject.GetComponent<Slider>();
+    }
 
     public void HpBarUpdate(float maxHp, float hp)
     {

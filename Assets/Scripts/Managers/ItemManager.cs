@@ -70,21 +70,21 @@ public class ItemManager : Singleton<ItemManager>
     public void AddRawItems()
     {
         // code / name/ sprite/ processedItemCode/ process price/ process time
-        AddRawItem(81001, "진흙", Resources.Load<Sprite>("Sprites/Item/Mud"), new List<int> { 10001, 10002 }, new List<int> { 2, 3 }, new List<float> { 1.0f, 2.0f }  );
-        AddRawItem(81002, "가죽", null, new List<int> { 10003 }, new List<int> { 4 }, new List<float> { 2.0f });
+        AddRawItem(81001, "진흙", Resources.Load<Sprite>("Sprites/Item/Before Process/Mud"), new List<int> { 10001, 10002 }, new List<int> { 2, 3 }, new List<float> { 1.0f, 2.0f }  );
+        AddRawItem(81002, "가죽", Resources.Load<Sprite>("Sprites/Item/Before Process/rhino_leather"), new List<int> { 10003 }, new List<int> { 4 }, new List<float> { 2.0f });
         AddRawItem(81003, "거미 뼈", null, new List<int> { 10004 }, new List<int> { 7 }, new List<float> { 3.0f });
         AddRawItem(81004, "독버섯", null, new List<int> { 10005 }, new List<int> { 3 }, new List<float> { 2.0f });
         AddRawItem(81005, "악마의 심장", null, new List<int> { 10006, 10007 }, new List<int> { 6, 7 }, new List<float> { 3.0f, 3.0f });
         AddRawItem(84006, "바람 한 병", null, new List<int> { 40001 }, new List<int> { 3 }, new List<float> { 2.0f });
         AddRawItem(84007, "비늘", null, new List<int> { 40002 }, new List<int> { 7 }, new List<float> { 3.0f });
         AddRawItem(84008, "핏방울", null, new List<int> { 40003 }, new List<int> { 5 }, new List<float> { 3.0f });
-        AddRawItem(84009, "목소리", null, new List<int> { 40004, 40005 }, new List<int> { 3, 4 }, new List<float> { 2.0f, 3.0f });
+        AddRawItem(84009, "목소리", Resources.Load<Sprite>("Sprites/Item/Before Process/mermaid_voice"), new List<int> { 40004, 40005 }, new List<int> { 3, 4 }, new List<float> { 2.0f, 3.0f });
         AddRawItem(84010, "독", null, new List<int> { 40006, 40007 }, new List<int> { 4, 6 }, new List<float> { 2.0f, 3.0f });
         AddRawItem(84011, "독버섯", null, new List<int> { 40008 }, new List<int> { 3 }, new List<float> { 2.0f });
         AddRawItem(82012, "모래", null, new List<int> { 20001, 20002 }, new List<int> { 4, 5 }, new List<float> { 2.0f, 3.0f });
-        AddRawItem(82013, "뿔 조각", null, new List<int> { 20003 }, new List<int> { 4 }, new List<float> { 2.0f });
+        AddRawItem(82013, "뿔 조각", Resources.Load<Sprite>("Sprites/Item/Before Process/rhino_horn"), new List<int> { 20003 }, new List<int> { 4 }, new List<float> { 2.0f });
         AddRawItem(82014, "거미줄", null, new List<int> { 20004 }, new List<int> { 7 }, new List<float> { 3.0f });
-        AddRawItem(82015, "인어 비늘", null, new List<int> { 20005 }, new List<int> { 2 }, new List<float> { 1.0f });
+        AddRawItem(82015, "인어 비늘", Resources.Load<Sprite>("Sprites/Item/Before Process/mermaid_scale"), new List<int> { 20005 }, new List<int> { 2 }, new List<float> { 1.0f });
         AddRawItem(82016, "이빨", null, new List<int> { 20006 }, new List<int> { 4 }, new List<float> { 2.0f });
         AddRawItem(82017, "악한 영혼", null, new List<int> { 20007, 20008 }, new List<int> { 6, 7 }, new List<float> { 3.0f, 3.0f });
     }

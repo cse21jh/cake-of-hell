@@ -12,8 +12,8 @@ public class Mermaid : Monster
         base.Start();
 
         MaxHp = 20;
-        Hp = 20;
-        Speed = 5;
+        Hp = 10;
+        Speed = 2;
         AttackDamage = 5;
 
         InvokeRepeating("Move",0f,2.0f);

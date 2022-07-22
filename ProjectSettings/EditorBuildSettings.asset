@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JHScene/JHSampleShop.unity
     guid: 6e3fa16481a74574497a59e760ab3e8e
+  - enabled: 1
+    path: Assets/Scenes/JHScene/JHMainMenu.unity
+    guid: cb273485853b99c479c166328ec4fdea
   m_configObjects: {}

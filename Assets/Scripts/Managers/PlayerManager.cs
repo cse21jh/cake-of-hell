@@ -6,11 +6,13 @@ public class PlayerManager : Singleton<PlayerManager>
 {
     private Player player;
     private GameObject imageHit;
+    private HpUI hpUI;
 
     void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
+        hpUI = GameObject.Find("Canvas").transform.Find("HpBar").GetComponent<HpUI>();
         DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
@@ -57,6 +59,7 @@ public class PlayerManager : Singleton<PlayerManager>
         StartCoroutine("DamagedEffect");
         player.Hp -= value;
         SaveManager.Instance.Hp -= value;
+        hpUI.HpBarUpdate(GetMaxHp(), GetHp());
         if (player.Hp <= 0)
         {
             Debug.Log("Die");
