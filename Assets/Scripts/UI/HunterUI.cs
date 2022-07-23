@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HunterUI : BaseUI
+public class HunterUI : BaseUI, ISingleOpenUI
 { 
     void Start()
     {

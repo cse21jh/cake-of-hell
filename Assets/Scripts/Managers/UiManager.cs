@@ -54,20 +54,32 @@ public class UiManager : Singleton<UiManager>
 
     public void OpenUI(BaseUI ui) 
     {
-        if(!UIOpened) 
+        if(ui is ISingleOpenUI) {
+            if(!UIOpened) 
+            {
+                UIOpened = true;
+                GameManager.Instance.canMove = false;
+                ui.Open();
+            }
+        }
+        else
         {
-            UIOpened = true;
-            GameManager.Instance.canMove = false;
             ui.Open();
         }
     }
 
     public void CloseUI(BaseUI ui) 
     {
-        if(UIOpened)
+        if(ui is ISingleOpenUI) {
+            if(UIOpened) 
+            {
+                UIOpened = false;
+                GameManager.Instance.canMove = true;
+                ui.Close();
+            }
+        }
+        else
         {
-            UIOpened = false;
-            GameManager.Instance.canMove = true;
             ui.Close();
         }
     }

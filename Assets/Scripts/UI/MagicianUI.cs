@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MagicianUI : BaseUI
+public class MagicianUI : BaseUI, ISingleOpenUI
 { 
     private ProcessedItem outputItem;
     private ItemSlotComponent input, outputDefault;

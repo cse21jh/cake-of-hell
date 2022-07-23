@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CakeTableUI : BaseUI
+public class CakeTableUI : BaseUI, ISingleOpenUI
 { 
     private ItemSlotComponent baseInput, icingInput, toppingInput;
     private PaginationComponent pagination;

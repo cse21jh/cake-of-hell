@@ -19,10 +19,6 @@ public class Hunter : NPC
         {
             flag = true;
             UiManager.Instance.OpenUI(ui);
-            /*var grl = RecipeManager.Instance.GameRecipeList;
-            foreach(var recipe in grl) {
-                Debug.Log(recipe.Input + ", " + recipe.Output + ", " + recipe.Duration);
-            }*/
         }
     }
 
