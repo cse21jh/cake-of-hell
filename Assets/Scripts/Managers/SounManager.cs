@@ -69,13 +69,8 @@ public class SoundManager : MonoBehaviour
 
     public void ChangeBgmVolume(float volume)
     {
-        BgmVolume = volume;
         BgmPlayer.volume = volume;
     }
     
-        public void ChangeEffectVolume(float volume)
-    {
-        EffectVolume = volume;
-    }
 
 }
