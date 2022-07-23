@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HpUI : MonoBehaviour
+public class HpUI : BaseUI
 {
     private Slider hpBar;    // edit needed
 
@@ -16,5 +16,15 @@ public class HpUI : MonoBehaviour
     public void HpBarUpdate(float maxHp, float hp)
     {
         hpBar.value = hp / maxHp;
+    }
+
+    public override void Open()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public override void Close()
+    {
+        gameObject.SetActive(false);
     }
 }
