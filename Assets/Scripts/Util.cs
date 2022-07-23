@@ -59,7 +59,7 @@ public class Util
     {
         if(SaveManager.Instance.Money >= amount) 
         {
-            SaveManager.Instance.Money -= amount;
+            PlayerManager.Instance.SetMoney(SaveManager.Instance.Money - amount);
         }
         else
         {

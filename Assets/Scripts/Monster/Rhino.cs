@@ -55,7 +55,6 @@ public class Rhino : Monster
 
     protected override void Die()
     {
-        Debug.Log("TestMonsterDie");
         base.Die();
     }
 

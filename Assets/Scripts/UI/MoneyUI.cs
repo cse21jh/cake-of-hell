@@ -11,6 +11,7 @@ public class MoneyUI : BaseUI
     {
         PlayerManager.Instance.moneyUI = this;
         moneyText = this.GetComponent<TextMeshProUGUI>();
+        MoneyTextUpdate(PlayerManager.Instance.GetMoney());
     }
 
     public void MoneyTextUpdate(float money)

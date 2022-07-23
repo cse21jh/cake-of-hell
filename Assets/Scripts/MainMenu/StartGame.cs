@@ -8,6 +8,12 @@ public class StartGame : MonoBehaviour
     [SerializeField]
     private string nextScene;
     
+    void Start()
+    {
+        UiManager.Instance.alreadyOpenItemList = true;
+        GameManager.Instance.canMove = false;
+    }
+
     public void OnClickExit()
     {
         StartTheGame();
@@ -15,6 +21,8 @@ public class StartGame : MonoBehaviour
 
     private void StartTheGame()
     {
+        UiManager.Instance.alreadyOpenItemList = false;
+        GameManager.Instance.canMove = true;
         SceneManager.LoadScene(nextScene);
     }
 }

@@ -11,6 +11,7 @@ public class HpUI : BaseUI
     {
         hpBar = gameObject.GetComponent<Slider>();
         PlayerManager.Instance.hpUI = this;
+        HpBarUpdate(PlayerManager.Instance.GetMaxHp(), PlayerManager.Instance.GetHp());
     }
 
     public void HpBarUpdate(float maxHp, float hp)
