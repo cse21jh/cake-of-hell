@@ -16,8 +16,6 @@ public class UiManager : Singleton<UiManager>
     public bool openByMagician = false;
     public bool openByHunter = false;
 
-    public bool UIOpened { get; private set; } = false;
-
     void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -55,9 +53,8 @@ public class UiManager : Singleton<UiManager>
     public void OpenUI(BaseUI ui) 
     {
         if(ui is ISingleOpenUI) {
-            if(!UIOpened) 
+            if(!ui.IsActive()) 
             {
-                UIOpened = true;
                 GameManager.Instance.canMove = false;
                 ui.Open();
             }
@@ -71,9 +68,8 @@ public class UiManager : Singleton<UiManager>
     public void CloseUI(BaseUI ui) 
     {
         if(ui is ISingleOpenUI) {
-            if(UIOpened) 
+            if(ui.IsActive()) 
             {
-                UIOpened = false;
                 GameManager.Instance.canMove = true;
                 ui.Close();
             }
