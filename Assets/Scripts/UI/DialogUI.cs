@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DialogUI : BaseUI, ISingleOpenUI
 {
-    void Start()
-    {
+    private TMP_Text dialog;
 
+    void Awake()
+    {
+        dialog = GameObject.Find("DialogText").GetComponent<TMP_Text>();
+    }
+
+    public void SetText(string text)
+    {
+        dialog.text = text;
     }
 
     public override void Open()

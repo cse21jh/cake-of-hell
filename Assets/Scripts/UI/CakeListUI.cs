@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class CakeListUI : BaseUI, ISingleOpenUI
 {
-    void Start()
-    {
-
-    }
-
     public override void Open()
     {
         gameObject.SetActive(true);

@@ -6,7 +6,7 @@ public class Counter : NPC
 {
     private DialogUI dialog; 
     private CakeListUI cakelist;
-    private string order = "";
+    private string order = "주문이요~";
     private bool hasOrder = false;
     private bool flag = false;
 
@@ -47,6 +47,7 @@ public class Counter : NPC
     {
         //random generate order
         UiManager.Instance.OpenUI(dialog);
+        dialog.SetText(order);
     }
 
     public void SellCake()
