@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Counter : NPC
 {
+    private System.Random rand;
     private DialogUI dialog; 
     private CakeListUI cakelist;
-    private string order = "주문이요~";
+    private int orderBase, orderIcing, orderTopping;
     private bool hasOrder = false;
     private bool flag = false;
 
     void Start()
     {
+        rand = new System.Random();
         dialog = GameObject.Find("Canvas").transform.Find("DialogUI").GetComponent<DialogUI>();
         cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
+        cakelist.SellCake = SellCake;
     }
 
     public override void StartInteract() 
@@ -23,12 +26,13 @@ public class Counter : NPC
             flag = true;
             if(!hasOrder)
             {
-                MakeNewOrder();
+                UiManager.Instance.OpenUI(dialog);
                 hasOrder = true;
+                MakeNewOrder();
             }
             else
             {
-                SellCake();
+                UiManager.Instance.OpenUI(cakelist);
             }
         }
     }
@@ -45,13 +49,26 @@ public class Counter : NPC
 
     public void MakeNewOrder() 
     {
-        //random generate order
-        UiManager.Instance.OpenUI(dialog);
-        dialog.SetText(order);
+        orderBase = rand.Next(10001, 10007);
+        orderIcing = rand.Next(40001, 40008);
+        orderTopping = rand.Next(20001, 20008);
+        dialog.SetText(
+            (Util.GetItem(orderTopping) as ProcessedItem).Keyword + " " +
+            (Util.GetItem(orderIcing) as ProcessedItem).Keyword + " " +
+            (Util.GetItem(orderBase) as ProcessedItem).Keyword + " 주세요."
+        );
     }
 
-    public void SellCake()
+    public void SellCake(Cake cake)
     {
-        UiManager.Instance.OpenUI(cakelist);
+        if(cake != null)
+        {
+            SaveManager.Instance.Money += cake.GetPrice(orderBase, orderIcing, orderTopping);
+            hasOrder = false;
+            UiManager.Instance.CloseUI(cakelist);
+            UiManager.Instance.OpenUI(dialog);
+            dialog.SetText("잘 먹겠습니다~");
+            Debug.Log(SaveManager.Instance.Money);
+        }
     }
 }

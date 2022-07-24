@@ -17,7 +17,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     private Dictionary<int, Sprite> spriteBase, spriteIcing, spriteTopping;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
-    void Start()
+    void Awake()
     {
         Util.AddItem(10001, 10);
         Util.AddItem(20003, 10);
@@ -158,6 +158,17 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     public override void Open()
     {
         gameObject.SetActive(true);
+        for(int i=0; i<5; i++)
+        {
+            if(SaveManager.Instance.CakeList[i] != null) 
+            {
+                cakes[i].SetCake(SaveManager.Instance.CakeList[i]);
+            }
+            else 
+            {
+                cakes[i].Clear();
+            }
+        }
         Debug.Log("Cake Table UI Opened!");
     }
 
