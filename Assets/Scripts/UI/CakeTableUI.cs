@@ -158,6 +158,17 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     public override void Open()
     {
         gameObject.SetActive(true);
+        for(int i=0; i<5; i++)
+        {
+            if(PlayerManager.Instance.GetCake(i) != null) 
+            {
+                cakes[i].SetCake(PlayerManager.Instance.GetCake(i));
+            }
+            else 
+            {
+                cakes[i].Clear();
+            }
+        }
         Debug.Log("Cake Table UI Opened!");
     }
 
