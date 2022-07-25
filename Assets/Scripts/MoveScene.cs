@@ -11,7 +11,7 @@ public class MoveScene : MonoBehaviour
     {
         if (other.GetComponent<Player>() != null)
         {
-            SceneManager.LoadScene(nextScene);
+            GameManager.Instance.LoadScene(nextScene);
         }
     }
 

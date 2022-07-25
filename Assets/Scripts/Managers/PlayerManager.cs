@@ -121,6 +121,21 @@ public class PlayerManager : Singleton<PlayerManager>
         }
     }
 
+    public bool GetPlayerInShop()
+    {
+        return player.inShop;
+    }
+
+    public void SetPlayerInShop(bool inShop)
+    {
+        player.inShop = inShop;
+    }
+
+    public Cake GetCake(int index)
+    {
+        return player.CakeList[index];
+    }
+
     public void AddCake(Cake inputCake)
     {
         for (int i = 0; i < 5; i++)
@@ -153,10 +168,6 @@ public class PlayerManager : Singleton<PlayerManager>
         return false;
     }
 
-    public Cake GetCake(int index)
-    {
-        return player.CakeList[index];
-    }
 
     public Player GetPlayer()
     {

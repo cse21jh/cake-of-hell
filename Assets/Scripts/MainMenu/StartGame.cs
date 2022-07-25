@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
@@ -24,6 +23,6 @@ public class StartGame : MonoBehaviour
     {
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
-        SceneManager.LoadScene(nextScene);
+        GameManager.Instance.LoadScene(nextScene);
     }
 }
