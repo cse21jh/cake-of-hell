@@ -31,7 +31,10 @@ public class UiManager : Singleton<UiManager>
             {
                 OpenItemList();
             }
-            else if (openItemList)
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(openItemList)
             {
                 CloseItemList();
             }

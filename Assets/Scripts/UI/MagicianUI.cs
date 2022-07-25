@@ -16,9 +16,9 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     void Start()
     {
-        Util.AddItem(81001, 10);
-        Util.AddItem(84010, 10);
-        Util.AddItem(82013, 10);
+        Util.AddItem(4001, 10);
+        Util.AddItem(4010, 10);
+        Util.AddItem(4013, 10);
         Util.EarnMoney(100);
         itemSlots = new Dictionary<int, ItemSlotComponent>();
         
@@ -27,7 +27,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         outputName = GameObject.Find("OutputItemText").GetComponent<TMP_Text>();
         outputDesc = GameObject.Find("MagicianDesc").GetComponent<TMP_Text>();
         money = GameObject.Find("MagicianMoney").GetComponent<TMP_Text>();
-        money.text = SaveManager.Instance.Money.ToString();
+        money.text = PlayerManager.Instance.GetMoney().ToString();
         processButton.GetComponent<Button>().onClick.AddListener(Process);
         MakeUI();
     }
@@ -79,12 +79,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     private void Process() 
     {
-        if(input.HasItem() && SaveManager.Instance.Money >= outputItem.Price)
+        if(input.HasItem() && PlayerManager.Instance.GetMoney() >= outputItem.Price)
         {
             itemSlots[input.ItemCode].UseItem();
             Util.AddItem(outputDefault.ItemCode);
             Util.SpendMoney(outputItem.Price);
-            money.text = SaveManager.Instance.Money.ToString();
+            money.text = PlayerManager.Instance.GetMoney().ToString();
 
             if(Util.CountItem(input.ItemCode) == 0) 
             {

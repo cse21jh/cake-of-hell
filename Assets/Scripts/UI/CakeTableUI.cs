@@ -17,14 +17,14 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     private Dictionary<int, Sprite> spriteBase, spriteIcing, spriteTopping;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
-    void Awake()
+    void Start()
     {
-        Util.AddItem(10001, 10);
-        Util.AddItem(20003, 10);
-        Util.AddItem(40006, 10);
-        Util.AddItem(10006, 10);
-        Util.AddItem(20006, 10);
-        Util.AddItem(40001, 10);
+        Util.AddItem(1001, 10);
+        Util.AddItem(3003, 10);
+        Util.AddItem(2006, 10);
+        Util.AddItem(1006, 10);
+        Util.AddItem(3006, 10);
+        Util.AddItem(2001, 10);
         spriteBase = new Dictionary<int, Sprite>();
         spriteIcing = new Dictionary<int, Sprite>();
         spriteTopping = new Dictionary<int, Sprite>();
@@ -40,12 +40,12 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
-        spriteBase.Add(10001, Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud"));
-        spriteBase.Add(10006, Resources.Load<Sprite>("Sprites/Cake/Base/Base_redheart"));
-        spriteIcing.Add(40006, Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison"));
-        spriteIcing.Add(40001, Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_storm"));
-        spriteTopping.Add(20003, Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone"));
-        spriteTopping.Add(20006, Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_teeth"));
+        spriteBase.Add(1001, Resources.Load<Sprite>("Sprites/Cake/Base/Base_mud"));
+        spriteBase.Add(1006, Resources.Load<Sprite>("Sprites/Cake/Base/Base_redheart"));
+        spriteIcing.Add(2006, Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_poison"));
+        spriteIcing.Add(2001, Resources.Load<Sprite>("Sprites/Cake/Icing/Icing_storm"));
+        spriteTopping.Add(3003, Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_redcone"));
+        spriteTopping.Add(3006, Resources.Load<Sprite>("Sprites/Cake/Topping/Topping_teeth"));
 
         spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
     }
@@ -158,17 +158,6 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     public override void Open()
     {
         gameObject.SetActive(true);
-        for(int i=0; i<5; i++)
-        {
-            if(SaveManager.Instance.CakeList[i] != null) 
-            {
-                cakes[i].SetCake(SaveManager.Instance.CakeList[i]);
-            }
-            else 
-            {
-                cakes[i].Clear();
-            }
-        }
         Debug.Log("Cake Table UI Opened!");
     }
 
@@ -180,13 +169,13 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
 
     private void Bake() 
     {
-        if(SaveManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem()) 
+        if(PlayerManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem()) 
         {
             Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, 
             spriteBase[baseInput.ItemCode], spriteTopping[toppingInput.ItemCode], spriteIcing[icingInput.ItemCode]);
             for(int i=0; i<5; i++) 
             {
-                if(SaveManager.Instance.CakeList[i] == null) 
+                if(PlayerManager.Instance.GetCake(i) == null) 
                 {
                     cakes[i].SetCake(cake);
                     break;
@@ -218,7 +207,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
             bigImgIcing.sprite = spriteNull;
             bigImgTopping.sprite = spriteNull;
 
-            SaveManager.Instance.AddCake(cake);
+            PlayerManager.Instance.AddCake(cake);
             Debug.Log("Cake Baked!");
         }
         else 

@@ -6,20 +6,20 @@ public class Util
 {
     public static Item GetItem(int code)
     {
-        if(code / 10000 == 8) return ItemManager.Instance.GetRawItem(code);
+        if(code / 1000 == 4) return ItemManager.Instance.GetRawItem(code);
         else return ItemManager.Instance.GetProcessedItem(code);
     }
 
     public static int CountItem(int code) 
     {
-        return SaveManager.Instance.GetNumberOfItem(code);
+        return PlayerManager.Instance.GetNumberOfItem(code);
     }
 
     public static void UseItem(int code, int count = 1)
     {
         if(CountItem(code) >= count) 
         {
-            SaveManager.Instance.SetNumberOfItem(code, CountItem(code) - count);
+            PlayerManager.Instance.SetNumberOfItem(code, CountItem(code) - count);
         }
         else
         {
@@ -29,15 +29,15 @@ public class Util
 
     public static void AddItem(int code, int count = 1)
     {
-        SaveManager.Instance.SetNumberOfItem(code, CountItem(code) + count);
+        PlayerManager.Instance.SetNumberOfItem(code, CountItem(code) + count);
     }
 
     public static Dictionary<int, int> GetItemNumbers(ItemType type) => type switch
     {
-        ItemType.Raw => SaveManager.Instance.NumberOfRaw,
-        ItemType.Base => SaveManager.Instance.NumberOfBase,
-        ItemType.Icing => SaveManager.Instance.NumberOfIcing,
-        ItemType.Topping => SaveManager.Instance.NumberOfTopping,
+        ItemType.Raw => PlayerManager.Instance.GetPlayer().NumberOfRaw,
+        ItemType.Base => PlayerManager.Instance.GetPlayer().NumberOfBase,
+        ItemType.Icing => PlayerManager.Instance.GetPlayer().NumberOfIcing,
+        ItemType.Topping => PlayerManager.Instance.GetPlayer().NumberOfTopping,
         _ => null
     };
 
@@ -50,20 +50,20 @@ public class Util
         return lr;
     }
 
-    public static void EarnMoney(int amount)
+    public static void EarnMoney(float amount)
     {
-        PlayerManager.Instance.SetMoney(SaveManager.Instance.Money+amount);
+        PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney()+amount);
     }
 
-    public static void SpendMoney(int amount)
+    public static void SpendMoney(float amount)
     {
-        if(SaveManager.Instance.Money >= amount) 
+        if(PlayerManager.Instance.GetMoney() >= amount) 
         {
-            PlayerManager.Instance.SetMoney(SaveManager.Instance.Money - amount);
+            PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() - amount);
         }
         else
         {
-            throw new System.ArgumentOutOfRangeException("amount", System.String.Format("현재 보유한 돈인 {0}보다 많은 {1}의 돈을 쓸 수 없습니다.", SaveManager.Instance.Money, amount));
+            throw new System.ArgumentOutOfRangeException("amount", System.String.Format("현재 보유한 돈인 {0}보다 많은 {1}의 돈을 쓸 수 없습니다.", PlayerManager.Instance.GetMoney(), amount));
         }
     }
 }

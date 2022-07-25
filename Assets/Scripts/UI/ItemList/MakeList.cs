@@ -36,14 +36,16 @@ public class MakeList : MonoBehaviour
         
         foreach (var pair in ItemManager.Instance.RawItemList)
         {
-            if (pair.Key == 0)
-                continue;
-            GameObject information = Instantiate(informationPrefab, this.transform);
-            string n = "X" + SaveManager.Instance.NumberOfRaw[pair.Key].ToString();
-            information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
-            information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-            information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-            
+            if(PlayerManager.Instance.GetNumberOfItem(pair.Key)>0)
+            { 
+                if (pair.Key == 0)
+                    continue;
+                GameObject information = Instantiate(informationPrefab, this.transform);
+                string n = "X" + PlayerManager.Instance.GetNumberOfItem(pair.Key).ToString();
+                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+            }
         }
     }
 
@@ -52,16 +54,39 @@ public class MakeList : MonoBehaviour
         
         foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
-            if (((pair.Key)/10000) == 1)
+            if (((pair.Key)/1000) == 1)
             {
-                GameObject information = Instantiate(informationPrefab, this.transform);
-                string n = "X" + SaveManager.Instance.NumberOfBase[pair.Key].ToString();
-                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
-                information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
-                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-                information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
-                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-                
+                if (PlayerManager.Instance.GetNumberOfItem(pair.Key) > 0)
+                {
+                    GameObject information = Instantiate(informationPrefab, this.transform);
+                    string n = "X" + PlayerManager.Instance.GetNumberOfItem(pair.Key).ToString();
+                    information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                    information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.Keyword + "\n\n" + pair.Value.FlavorText;
+                    information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                    information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
+                    information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+                }
+            }
+        }
+    }
+
+    void IcingList()
+    {
+
+        foreach (var pair in ItemManager.Instance.ProcessedItemList)
+        {
+            if (((pair.Key) / 1000) == 2)
+            {
+                if (PlayerManager.Instance.GetNumberOfItem(pair.Key) > 0)
+                {
+                    GameObject information = Instantiate(informationPrefab, this.transform);
+                    string n = "X" + PlayerManager.Instance.GetNumberOfItem(pair.Key).ToString();
+                    information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                    information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.Keyword + "\n\n" + pair.Value.FlavorText;
+                    information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                    information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
+                    information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+                }
             }
         }
     }
@@ -71,36 +96,20 @@ public class MakeList : MonoBehaviour
         
         foreach (var pair in ItemManager.Instance.ProcessedItemList)
         {
-            if (((pair.Key) / 10000) == 2)
+            if (((pair.Key) / 1000) == 3)
             {
-                GameObject information = Instantiate(informationPrefab, this.transform);
-                string n = "X" + SaveManager.Instance.NumberOfTopping[pair.Key].ToString();
-                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
-                information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
-                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-                information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
-                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-                
+                if (PlayerManager.Instance.GetNumberOfItem(pair.Key) > 0)
+                {
+                    GameObject information = Instantiate(informationPrefab, this.transform);
+                    string n = "X" + PlayerManager.Instance.GetNumberOfItem(pair.Key).ToString();
+                    information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
+                    information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.Keyword + "\n\n" + pair.Value.FlavorText;
+                    information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
+                    information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
+                    information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
+                }
             }
         }
     }
 
-    void IcingList()
-    {
-        
-        foreach (var pair in ItemManager.Instance.ProcessedItemList)
-        {
-            if (((pair.Key) / 10000) == 4)
-            {
-                GameObject information = Instantiate(informationPrefab, this.transform);
-                string n = "X" + SaveManager.Instance.NumberOfIcing[pair.Key].ToString();
-                information.transform.Find("Image").gameObject.GetComponent<Image>().sprite = pair.Value.SpriteImage;
-                information.transform.Find("Explanation").gameObject.GetComponent<Text>().text = pair.Value.FlavorText;
-                information.transform.Find("Number").gameObject.GetComponent<Text>().text = n;
-                information.transform.Find("Rank").gameObject.GetComponent<Text>().text = pair.Value.Level.ToString();
-                information.transform.Find("Name").gameObject.GetComponent<Text>().text = pair.Value.Name;
-                
-            }
-        }
-    }
 }

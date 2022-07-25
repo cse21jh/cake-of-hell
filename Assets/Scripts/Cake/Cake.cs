@@ -5,26 +5,27 @@ using UnityEngine;
 public class Cake 
 {
     public int BaseCode { get; }
-    public int ToppingCode { get; }
     public int IcingCode { get; }
+    public int ToppingCode { get; }
 
     public Sprite BaseImage { get; }
-    public Sprite ToppingImage { get; }
     public Sprite IcingImage { get; }
+    public Sprite ToppingImage { get; }
 
-    public Cake(int baseCode, int toppingCode, int icingCode, Sprite baseImage, Sprite toppingImage, Sprite icingImage)
+    public Cake(int baseCode, int icingCode, int toppingCode, Sprite baseImage, Sprite icingImage, Sprite toppingImage)
     {
         BaseCode = baseCode;
-        ToppingCode = toppingCode;
         IcingCode = icingCode;
+        ToppingCode = toppingCode;
+
         BaseImage = baseImage;
-        ToppingImage = toppingImage;
         IcingImage = icingImage;
+        ToppingImage = toppingImage;
     }
 
-    public int GetPrice(int orderBaseCode, int orderToppingCode, int orderIcingCode)
+    public float GetPrice(int orderBaseCode, int orderIcingCode, int orderToppingCode)
     {
-        int price = 0;
+        float price = 0f;
         if (orderBaseCode == BaseCode)
             price += ItemManager.Instance.GetPriceOfProcessedItem(BaseCode);
         if (orderToppingCode == ToppingCode)

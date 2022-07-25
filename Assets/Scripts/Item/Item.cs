@@ -13,8 +13,4 @@ public class Item
         return (ItemType)(Code / 10000);
     }
 
-    public int GetOrder()
-    {
-        return Code % 10;
-    }
 }

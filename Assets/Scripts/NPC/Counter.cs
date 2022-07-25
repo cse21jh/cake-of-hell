@@ -49,9 +49,9 @@ public class Counter : NPC
 
     public void MakeNewOrder() 
     {
-        orderBase = rand.Next(10001, 10007);
-        orderIcing = rand.Next(40001, 40008);
-        orderTopping = rand.Next(20001, 20008);
+        orderBase = rand.Next(1001, 1007);
+        orderIcing = rand.Next(2001, 2008);
+        orderTopping = rand.Next(3001, 3008);
         dialog.SetText(
             (Util.GetItem(orderTopping) as ProcessedItem).Keyword + " " +
             (Util.GetItem(orderIcing) as ProcessedItem).Keyword + " " +
@@ -63,12 +63,13 @@ public class Counter : NPC
     {
         if(cake != null)
         {
-            SaveManager.Instance.Money += cake.GetPrice(orderBase, orderIcing, orderTopping);
+            Util.EarnMoney(cake.GetPrice(orderBase, orderIcing, orderTopping));
+            Debug.Log(cake.GetPrice(orderBase, orderIcing, orderTopping));
             hasOrder = false;
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);
             dialog.SetText("잘 먹겠습니다~");
-            Debug.Log(SaveManager.Instance.Money);
+            Debug.Log(PlayerManager.Instance.GetMoney());
         }
     }
 }

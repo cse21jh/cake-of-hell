@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float MaxHp { get; set; }
-    public float Hp { get; set; }
-    public float Speed { get; set; }
-    public float AttackDamage { get; set; }
-    public float AttackRange { get; set; }
-    public float Money { get; set; }
+    public float MaxHp { get; set; } = 100f;
+    public float Hp { get; set; } = 100f;
+    public float Speed { get; set; } = 5f;
+    public float AttackDamage { get; set; } = 10f;
+    public float AttackRange { get; set; } = 1.0f;
+    public float Money { get; set; } = 0f;
+    
     private GameObject hitBox;
 
     protected float coolTime = 1.0f;
     protected float curCoolTime = 0;
 
-    
+    public Dictionary<int, int> NumberOfBase { get; set; } = new Dictionary<int, int>() ;
+    public Dictionary<int, int> NumberOfIcing { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfTopping { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfRaw { get; set; } = new Dictionary<int, int>();
+
+    public Cake[] CakeList { get; set; } = new Cake[5];
+
     private Rigidbody2D rb;
     private Canvas canvas;
-    //private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
     //private Animator anim;
 
     [SerializeField]
@@ -35,16 +42,14 @@ public class Player : MonoBehaviour
         UiManager.Instance.openItemList = false;
         rb = GetComponent<Rigidbody2D>();
         canvas = FindObjectOfType<Canvas>();
-        //spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //anim = GetComponent<Animator>();
-        Speed = SaveManager.Instance.Speed;
-        Hp = SaveManager.Instance.Hp;
-        MaxHp = SaveManager.Instance.MaxHp;
-        AttackDamage = SaveManager.Instance.AttackDamage;
-        AttackRange = SaveManager.Instance.AttackRange;
-        Money = SaveManager.Instance.Money;
         PlayerManager.Instance.player = this;
         hitBox = transform.Find("HitBox").gameObject;
+        for(int i = 0; i<ItemManager.Instance.ItemCodeList.Count;i++)
+        {
+            InitializationNumberOfItem(ItemManager.Instance.ItemCodeList[i]);
+        }
     }
 
     // Update is called once per frame
@@ -85,5 +90,25 @@ public class Player : MonoBehaviour
         hitBox.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         hitBox.gameObject.SetActive(false);
+    }
+
+    private void InitializationNumberOfItem(int code)
+    {
+        switch(code/1000)
+        { 
+            case 1 :
+                NumberOfBase.Add(code, 0);
+                break;
+            case 2:
+                NumberOfIcing.Add(code, 0);
+                break;
+            case 3:
+                NumberOfTopping.Add(code, 0);
+                break;
+            case 4:
+                NumberOfRaw.Add(code, 0);
+                break;
+                
+        }
     }
 }

@@ -22,7 +22,7 @@ public class DropItem : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SaveManager.Instance.AddNumberOfItem(itemCode);
+            Util.AddItem(itemCode);
             Destroy(gameObject);
         }
     }

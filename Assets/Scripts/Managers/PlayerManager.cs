@@ -10,15 +10,15 @@ public class PlayerManager : Singleton<PlayerManager>
     public HpUI hpUI;
     public MoneyUI moneyUI;
 
+
     void Awake()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -29,23 +29,6 @@ public class PlayerManager : Singleton<PlayerManager>
 
 
 
-    public void ChangeSpeed(float value)
-    {
-        player.Speed += value;
-        SaveManager.Instance.Speed += value;
-    }
-
-    public void ChangeHp(float value)
-    {
-        player.Hp += value;
-        SaveManager.Instance.Hp += value;
-    }
-
-    public void ChangeMaxHp(float value)
-    {
-        player.MaxHp += value;
-        SaveManager.Instance.MaxHp += value;
-    }
 
     public IEnumerator DamagedEffect()
     {
@@ -74,8 +57,8 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetHp(float hp)
     {
         player.Hp = hp;
-        SaveManager.Instance.Hp = hp;
-        hpUI.HpBarUpdate(GetMaxHp(), GetHp());
+        if(hpUI!=null)
+            hpUI.HpBarUpdate(GetMaxHp(), GetHp());
     }
 
     public float GetMaxHp()
@@ -86,7 +69,6 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetMaxHp(float maxHp)
     {
         player.MaxHp = maxHp;
-        SaveManager.Instance.MaxHp = maxHp;
     }
 
     public float GetMoney()
@@ -97,7 +79,86 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetMoney(float money)
     {
         player.Money = money;
-        SaveManager.Instance.Money = money;
-        moneyUI.MoneyTextUpdate(money);
+        if(moneyUI != null)
+            moneyUI.MoneyTextUpdate(money);
+    }
+
+
+
+    public int GetNumberOfItem(int code)
+    {
+        switch(code/1000)
+        {
+            case 1:
+                return player.NumberOfBase[code];
+            case 2:
+                return player.NumberOfIcing[code];
+            case 3:
+                return player.NumberOfTopping[code];
+            case 4:
+                return player.NumberOfRaw[code];
+        }
+        return -1;  
+    }
+
+    public void SetNumberOfItem(int code, int number)
+    {
+        switch (code / 1000)
+        {
+            case 1:
+                player.NumberOfBase[code] = number;
+                break;
+            case 2:
+                player.NumberOfIcing[code] = number;
+                break;
+            case 3:
+                player.NumberOfTopping[code] = number;
+                break;
+            case 4:
+                player.NumberOfRaw[code] = number;
+                break;
+        }
+    }
+
+    public void AddCake(Cake inputCake)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (player.CakeList[i] == null)
+            {
+                player.CakeList[i] = inputCake;
+                return;
+            }
+        }
+        return;
+    }
+
+    public Cake UseCake(int index)
+    {
+        Cake useCake = player.CakeList[index];
+        player.CakeList[index] = null;
+        return useCake;
+    }
+
+    public bool CanMake()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (player.CakeList[i] == null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Cake GetCake(int index)
+    {
+        return player.CakeList[index];
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
     }
 }

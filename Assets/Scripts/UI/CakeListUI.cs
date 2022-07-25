@@ -19,7 +19,7 @@ public class CakeListUI : BaseUI, ISingleOpenUI
             cakes[i].SetOnClick(() => 
             {
                 SellCake(cakes[j].GetCake());
-                SaveManager.Instance.UseCake(j);
+                PlayerManager.Instance.UseCake(j);
             });
         }
     }
@@ -29,9 +29,9 @@ public class CakeListUI : BaseUI, ISingleOpenUI
         gameObject.SetActive(true);
         for(int i=0; i<5; i++)
         {
-            if(SaveManager.Instance.CakeList[i] != null) 
+            if(PlayerManager.Instance.GetCake(i) != null) 
             {
-                cakes[i].SetCake(SaveManager.Instance.CakeList[i]);
+                cakes[i].SetCake(PlayerManager.Instance.GetCake(i));
             }
             else 
             {
