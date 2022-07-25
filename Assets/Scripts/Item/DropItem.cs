@@ -23,6 +23,7 @@ public class DropItem : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Util.AddItem(itemCode);
+            SoundManager.Instance.PlayEffect("GetItem");
             Destroy(gameObject);
         }
     }

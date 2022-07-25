@@ -16,6 +16,7 @@ public class StartGame : MonoBehaviour
 
     public void OnClickExit()
     {
+        SoundManager.Instance.PlayEffect("Click");
         StartTheGame();
     }
 

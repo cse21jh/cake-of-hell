@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8739321726605228970, guid: a778f23e04cbdcc4f8d953048651a5ed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a778f23e04cbdcc4f8d953048651a5ed, type: 3}
 --- !u!1 &409065419
@@ -1244,7 +1248,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1922666820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e44e201bf4e549de9bdf25d9dd38e4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6840565fc9664c443acbb3268db5222a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EffectAudioClips: []

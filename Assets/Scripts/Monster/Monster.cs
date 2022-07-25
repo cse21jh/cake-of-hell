@@ -42,6 +42,7 @@ public class Monster : MonoBehaviour
     {
         // Ÿ�� ȿ��, ü�¹� �� ���⼭ ȣ��
         Hp -= damage;
+        SoundManager.Instance.PlayEffect("MonsterHit");
         Debug.Log(Hp);
         if(Hp<=0)
         {

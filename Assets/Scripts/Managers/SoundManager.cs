@@ -34,7 +34,16 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void PlayEffect(string name, float volume = 1f)
+    private void Start()
+    {
+        EffectSoundDictionary.Add("Click", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-21"));
+        EffectSoundDictionary.Add("MoveScene", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-26"));
+        EffectSoundDictionary.Add("MonsterHit", Resources.Load<AudioClip>("Audio/Shapeforms Audio Free Sound Effects/PUNCH_DESIGNED_HEAVY_23"));
+        EffectSoundDictionary.Add("PlayerHit", Resources.Load<AudioClip>("Audio/Shapeforms Audio Free Sound Effects/PUNCH_INTENSE_HEAVY_03"));
+        EffectSoundDictionary.Add("GetItem", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-45"));
+    }
+
+    public void PlayEffect(string name, float volume = 0.3f)
     {
         EffectPlayer.PlayOneShot(EffectSoundDictionary[name], volume);
     }

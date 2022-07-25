@@ -10,7 +10,10 @@ public class Player : MonoBehaviour
     public float AttackDamage { get; set; } = 10f;
     public float AttackRange { get; set; } = 1.0f;
     public float Money { get; set; } = 0f;
-    
+
+    public bool inShop = true;
+    private Sprite[] playerImage = new Sprite[8];
+
     private GameObject hitBox;
 
     protected float coolTime = 1.0f;
@@ -46,7 +49,8 @@ public class Player : MonoBehaviour
         //anim = GetComponent<Animator>();
         PlayerManager.Instance.player = this;
         hitBox = transform.Find("HitBox").gameObject;
-        for(int i = 0; i<ItemManager.Instance.ItemCodeList.Count;i++)
+        playerImage = Resources.LoadAll<Sprite>("Sprites/Player/player");
+        for (int i = 0; i<ItemManager.Instance.ItemCodeList.Count;i++)
         {
             InitializationNumberOfItem(ItemManager.Instance.ItemCodeList[i]);
         }
@@ -79,6 +83,8 @@ public class Player : MonoBehaviour
         float dx = Input.GetAxisRaw("Horizontal");
         float dy = Input.GetAxisRaw("Vertical");
 
+        spriteRenderer.sprite = PlayerImage(dx, dy);
+
         rb.velocity = new Vector2(dx * Speed, dy * Speed);
     }
 
@@ -109,6 +115,36 @@ public class Player : MonoBehaviour
                 NumberOfRaw.Add(code, 0);
                 break;
                 
+        }
+    }
+
+    private Sprite PlayerImage(float dx, float dy)
+    {
+        if(inShop)
+        {
+            if(dy == -1.0f)
+                return playerImage[0];
+            else if (dy == 1.0f)
+                return playerImage[1];
+            else if (dx == -1.0f)
+                return playerImage[2];
+            else if (dx == 1.0f)
+                return playerImage[3];
+            else 
+                return playerImage[0];
+        }
+        else
+        {
+            if (dy == -1.0f)
+                return playerImage[4];
+            else if (dy == 1.0f)
+                return playerImage[5];
+            else if (dx == -1.0f)
+                return playerImage[6];
+            else if (dx == 1.0f)
+                return playerImage[7];
+            else
+                return playerImage[4];
         }
     }
 }
