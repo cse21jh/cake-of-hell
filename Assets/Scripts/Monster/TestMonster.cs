@@ -5,7 +5,6 @@ using UnityEngine;
 public class TestMonster : Monster
 {
     private int nextMove;
-    private bool stopMove = false;
     // Start is called before the first frame update
     protected override void Start()
     {

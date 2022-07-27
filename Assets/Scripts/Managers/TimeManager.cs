@@ -15,6 +15,9 @@ public class TimeManager : Singleton<TimeManager>
     private bool isOpenTime = false;
     private bool isPrepareTime = true;
 
+    public DayUI dayUI;
+    public TimeUI timeUI;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

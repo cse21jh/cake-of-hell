@@ -5,7 +5,6 @@ using UnityEngine;
 public class Mermaid : Monster
 {
     private int countMove = 0;
-    private bool stopMove = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -73,7 +72,6 @@ public class Mermaid : Monster
 
     protected override void Die()
     {
-        Debug.Log("TestMonsterDie");
         base.Die();
     }
 

@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    protected Coroutine CurrentRoutine { get; private set; }
+    private Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
+
     public float Hp { get; set; }
     public float MaxHp { get; set; }
     public float AttackDamage { get; set; }
     public float AttackRange { get; set; }
     public float Speed { get; set; }
 
+    protected Player player;
     protected Rigidbody2D rb;
     protected bool isAttacked; // ���� ���ߴ°�. �İ��� ��� �� ���η� �÷��̾� ������� ��ƾ ���� �ɵ�
+    protected bool stopMove = false;
 
     protected GameObject dropItem;
     [SerializeField]
@@ -20,6 +25,7 @@ public class Monster : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -46,6 +52,7 @@ public class Monster : MonoBehaviour
         Debug.Log(Hp);
         if(Hp<=0)
         {
+            stopMove = true;
             Die();
         }
     }
@@ -53,8 +60,9 @@ public class Monster : MonoBehaviour
     protected virtual void Die()
     {
         // ���⼭ ��� ������ ������ �Լ� ȣ��
+        StartCoroutine(FadeOut());
         DropItem(Random.Range(1,4));
-        Destroy(gameObject);
+        return;
     }
         
     protected virtual void DropItem(int itemCount)
@@ -65,5 +73,12 @@ public class Monster : MonoBehaviour
             itemPosition = itemPosition - new Vector3(-0.5f, 0.0f, 0.0f);
         }
         
+    }
+
+    private IEnumerator FadeOut()
+    {
+        // work here
+        Destroy(gameObject);
+        yield return null; 
     }
 }
