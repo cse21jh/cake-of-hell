@@ -24,5 +24,6 @@ public class StartGame : MonoBehaviour
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
         GameManager.Instance.LoadScene(nextScene);
+        TimeManager.Instance.StartDay();
     }
 }
