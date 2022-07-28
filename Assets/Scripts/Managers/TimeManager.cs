@@ -80,8 +80,13 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log("Time to Close");
         stopTimer = true;
         StopCoroutine(enumerator);
-        // Insert Ending
         // Open UI. When Close UI, StartDay.
+        
+        if(day == 30)
+        {
+            Ending();
+        }
+        PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
     }
 
     public void Penalty()
@@ -106,5 +111,10 @@ public class TimeManager : Singleton<TimeManager>
     public float GetTime()
     {
         return (timer/oneHour);
+    }
+
+    public void Ending()
+    {
+        Debug.Log("Ending");
     }
 }
