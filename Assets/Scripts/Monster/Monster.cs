@@ -15,6 +15,9 @@ public class Monster : MonoBehaviour
 
     protected Player player;
     protected Rigidbody2D rb;
+    protected SpriteRenderer sr;
+
+
     protected bool isAttacked; // ���� ���ߴ°�. �İ��� ��� �� ���η� �÷��̾� ������� ��ƾ ���� �ɵ�
     protected bool stopMove = false;
 
@@ -27,6 +30,7 @@ public class Monster : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -61,7 +65,6 @@ public class Monster : MonoBehaviour
     {
         // ���⼭ ��� ������ ������ �Լ� ȣ��
         StartCoroutine(FadeOut());
-        DropItem(Random.Range(1,4));
         return;
     }
         
@@ -88,7 +91,15 @@ public class Monster : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        // work here
+        for(int i=10;i>=0;i--)
+        {
+            float f = i / 10.0f;
+            Color c = sr.material.color;
+            c.a = f;
+            sr.material.color = c;
+            yield return new WaitForSeconds(0.1f);
+        }
+        DropItem(Random.Range(1, 4));
         Destroy(gameObject);
         yield return null; 
     }
