@@ -20,6 +20,7 @@ public class Monster : MonoBehaviour
 
     protected bool isAttacked; // ���� ���ߴ°�. �İ��� ��� �� ���η� �÷��̾� ������� ��ƾ ���� �ɵ�
     protected bool stopMove = false;
+    protected bool alreadyDie = false;
 
     protected GameObject dropItem;
     [SerializeField]
@@ -41,7 +42,7 @@ public class Monster : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !alreadyDie)
         {
             PlayerManager.Instance.GetDamage(AttackDamage);
             Debug.Log(PlayerManager.Instance.GetHp());
@@ -91,6 +92,8 @@ public class Monster : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
+        alreadyDie = true;
+        this.gameObject.layer = 6;
         for(int i=10;i>=0;i--)
         {
             float f = i / 10.0f;
