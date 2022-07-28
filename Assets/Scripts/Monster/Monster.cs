@@ -66,11 +66,22 @@ public class Monster : MonoBehaviour
     }
         
     protected virtual void DropItem(int itemCount)
-    {   
-        Vector3 itemPosition = transform.position + new Vector3(+0.5f, 0.0f, 0.0f);
-        for(int i = itemCount; i > 0; i--) {
+    {      
+        Vector3[] eightDirection = new [] {new Vector3(+0.0f, 0.5f, 0.0f), new Vector3(+0.5f, 0.5f, 0.0f), new Vector3(+0.5f, 0.0f, 0.0f), new Vector3(+0.5f, -0.5f, 0.0f), new Vector3(0.0f, -0.5f, 0.0f), new Vector3(-0.5f, -0.5f, 0.0f), new Vector3(-0.5f, 0.0f, 0.0f), new Vector3(-0.5f, 0.5f, 0.0f)};
+        List<int> itemDirection = new List<int>();
+        int newNumber = Random.Range(0,8);
+        for(int i = 0; i < itemCount;){
+            if(itemDirection.Contains(newNumber))
+                newNumber = Random.Range(0,8);
+            else
+            {
+                itemDirection.Add(newNumber);
+                i++;
+            }
+        }
+        for(int i = 0; i < itemCount; i++) {
+            Vector3 itemPosition = transform.position + eightDirection[i];
             dropItem = Instantiate(dropItemPrefab, itemPosition, transform.rotation);
-            itemPosition = itemPosition - new Vector3(-0.5f, 0.0f, 0.0f);
         }
         
     }
