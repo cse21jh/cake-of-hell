@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DayUI : BaseUI
 {
-    // Start is called before the first frame update
+    TextMeshProUGUI dayText;
+
     void Start()
     {
         TimeManager.Instance.dayUI = this;
+        dayText = this.GetComponent<TextMeshProUGUI>();
+        DayTextUpdate(TimeManager.Instance.GetDay());
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DayTextUpdate(int day)
     {
-        
+        dayText.text = "Day " + day.ToString();
     }
 
     public override void Open()

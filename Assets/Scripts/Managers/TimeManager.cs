@@ -16,7 +16,8 @@ public class TimeManager : Singleton<TimeManager>
     private bool isPrepareTime = true;
 
     public DayUI dayUI;
-    public TimeUI timeUI;
+    public HuntTimeUI huntTimeUI;
+    public CookTimeUI cookTimeUI;
 
     void Awake()
     {

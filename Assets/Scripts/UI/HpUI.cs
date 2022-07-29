@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HpUI : BaseUI
 {
-    private Slider hpBar;    // edit needed
+    private Slider hpBar;
 
     void Start()
     {
