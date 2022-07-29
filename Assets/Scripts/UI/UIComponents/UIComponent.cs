@@ -12,7 +12,7 @@ public class UIComponent
         gameObject.transform.SetParent(parent);
     }
 
-    public void SetActive(bool active) 
+    public virtual void SetActive(bool active) 
     {
         gameObject.SetActive(active);
     }

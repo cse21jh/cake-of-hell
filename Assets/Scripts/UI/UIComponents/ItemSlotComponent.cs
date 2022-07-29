@@ -25,7 +25,7 @@ public class ItemSlotComponent : UIComponent
             ItemSlotButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
             ItemSlotButton.transform.SetParent(gameObject.transform);
         }
-
+        
         gameObject.GetComponent<HoverableComponent>().OnMouseEnter = (data) => OnHover(data);
         gameObject.GetComponent<HoverableComponent>().OnMouseExit = (data) => OnExit(data);
         hoverItemName = HoverItemName.Instance.gameObject;
@@ -75,7 +75,7 @@ public class ItemSlotComponent : UIComponent
 
     public void OnHover(PointerEventData data)
     {
-        if(!hoverItemName.activeSelf)
+        if(!hoverItemName.activeSelf && ItemCode > 0)
         {
             hoverItemName.SetActive(true);
             hoverItemName.transform.GetChild(0).GetComponent<TMP_Text>().text = Util.GetItem(ItemCode).Name;
@@ -90,5 +90,11 @@ public class ItemSlotComponent : UIComponent
         {
             hoverItemName.SetActive(false);
         }
+    }
+
+    public virtual void SetActive(bool active) 
+    {
+        gameObject.SetActive(active);
+        hoverItemName.SetActive(active);
     }
 }
