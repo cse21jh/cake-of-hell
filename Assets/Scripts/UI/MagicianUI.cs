@@ -169,7 +169,16 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                 itemSlots.Remove(inputCode);
             }
 
-            yield return new WaitForSeconds(Util.GetRecipesFromInput(inputCode)[0].Duration);
+            float dur = 0;
+            foreach(var recipe in Util.GetRecipesFromInput(inputCode)) 
+            {
+                if(recipe.Output == outputCode)
+                {
+                    dur = recipe.Duration;
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(dur);
 
             Util.AddItem(outputCode);
             processItems[idx].Clear();
