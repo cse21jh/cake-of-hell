@@ -12,6 +12,11 @@ public class UIComponent
         gameObject.transform.SetParent(parent);
     }
 
+    public bool IsActive()
+    {
+        return gameObject.activeSelf;
+    }
+
     public virtual void SetActive(bool active) 
     {
         gameObject.SetActive(active);

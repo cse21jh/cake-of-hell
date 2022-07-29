@@ -45,8 +45,11 @@ public class Util
     {
         RawItem input = GetItem(code) as RawItem;
         if(input == null) return null;
-        Recipe recipe = new Recipe(code, input.OutputCode[0], input.Price[0], input.Duration[0]);
-        List<Recipe> lr = new List<Recipe> { recipe };
+        List<Recipe> lr = new List<Recipe>();
+        for(int i=0; i<input.OutputCode.Count; i++) 
+        {
+            lr.Add(new Recipe(code, input.OutputCode[i], input.Price[i], input.Duration[i]));
+        }
         return lr;
     }
 
