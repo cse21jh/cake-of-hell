@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8764130604599690578}
   - component: {fileID: 2813559648458486666}
   m_Layer: 0
-  m_Name: RhinoTest
+  m_Name: Rhino
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,4 +330,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9afc846a4a9f440d946d3276eda2b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemPrefab: {fileID: 8974538195301364898, guid: e6e151d413faadd409cb7823a6110980, type: 3}

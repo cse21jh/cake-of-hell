@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8075394240669392113}
   - component: {fileID: 1114692815949154687}
   m_Layer: 0
-  m_Name: MermaidTest
+  m_Name: Mermaid
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,4 +340,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56892cdcbe61a43538ae9be16431cc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemPrefab: {fileID: 8974538195301364898, guid: 4d47b2048af3e9e4f88dc17ef348d9c0, type: 3}

@@ -20,6 +20,7 @@ public class Monster : MonoBehaviour
 
     protected GameObject Item;
     protected GameObject dropItem;
+    protected GameObject monsterHitBox;
     protected List<int> itemCode = new List<int>();
 
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class Monster : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         Item = Resources.Load<GameObject>("Prefabs/Item/Item");
+        monsterHitBox = Instantiate(Resources.Load<GameObject>("Prefabs/Monster/MonsterHitBox"), this.transform);
     }
 
     // Update is called once per frame
