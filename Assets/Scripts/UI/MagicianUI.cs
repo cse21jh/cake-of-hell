@@ -8,8 +8,9 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 { 
     private ProcessedItem outputItem;
     private ItemSlotComponent input, outputDefault;
-    private ItemSlotComponent[] outputOthers;
-    private PageComponent page;
+    private ItemSlotComponent[] outputOthers, processItems;
+    private IEnumerator[] processTimes;
+    private PageComponent inventoryPage;
     private GameObject processButton;
     private TMP_Text inputName, outputName, outputDesc, money;
     private Dictionary<int, ItemSlotComponent> itemSlots;
@@ -20,6 +21,8 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         Util.AddItem(4010, 10);
         Util.AddItem(4013, 10);
         Util.EarnMoney(100);
+        processItems = new ItemSlotComponent[8];
+        processTimes = new IEnumerator[8];
         itemSlots = new Dictionary<int, ItemSlotComponent>();
         
         processButton = GameObject.Find("ProcessButtonMagician");
@@ -28,7 +31,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         outputDesc = GameObject.Find("MagicianDesc").GetComponent<TMP_Text>();
         money = GameObject.Find("MagicianMoney").GetComponent<TMP_Text>();
         money.text = PlayerManager.Instance.GetMoney().ToString();
-        processButton.GetComponent<Button>().onClick.AddListener(Process);
+        processButton.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(Process()));
         MakeUI();
     }
 
@@ -39,8 +42,8 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     public void MakeUI() 
     {
-        page = new PageComponent(gameObject.transform, "Raw Item", 4, 350);
-        page.SetPosition(-230, 0);
+        inventoryPage = new PageComponent(gameObject.transform, "Raw Item", 4, 350);
+        inventoryPage.SetPosition(-170, 0);
 
         input = new ItemSlotComponent(gameObject.transform, 0, -1);
         outputDefault = new ItemSlotComponent(gameObject.transform, 0, -1);
@@ -51,7 +54,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         {
             if(pair.Value > 0)
             {
-                itemSlots.Add(pair.Key, new ItemSlotComponent(page.Container, pair.Key, pair.Value, true));
+                itemSlots.Add(pair.Key, new ItemSlotComponent(inventoryPage.Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
                     input.LoadItem(pair.Key, -1);
@@ -62,6 +65,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                     outputDesc.text = outputItem.FlavorText;
                 });
             }
+        }
+
+        for(int i=0; i<8; i++) 
+        {
+            processItems[i] = new ItemSlotComponent(gameObject.transform, 0, -1);
+            processItems[i].SetPosition(-375, 175 - 50 * i);
         }
     }
 
@@ -77,24 +86,44 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         Debug.Log("Magician UI Closed!");
     }
 
-    private void Process() 
+    private int GetAvailableIndex()
     {
-        if(input.HasItem() && PlayerManager.Instance.GetMoney() >= outputItem.Price)
+        for(int i=0; i<8; i++) 
         {
-            itemSlots[input.ItemCode].UseItem();
-            Util.AddItem(outputDefault.ItemCode);
+            if(!processItems[i].HasItem())
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private IEnumerator Process() 
+    {
+        int idx = GetAvailableIndex();
+        if(input.HasItem() && PlayerManager.Instance.GetMoney() >= outputItem.Price && idx != -1)
+        {
+            int inputCode = input.ItemCode;
+            int outputCode = outputDefault.ItemCode;
+            
+            itemSlots[inputCode].UseItem();
+            processItems[idx].LoadItem(inputCode);
             Util.SpendMoney(outputItem.Price);
             money.text = PlayerManager.Instance.GetMoney().ToString();
-
-            if(Util.CountItem(input.ItemCode) == 0) 
+            if(Util.CountItem(inputCode) == 0) 
             {
                 input.Clear();
                 outputDefault.Clear();
                 inputName.text = "";
                 outputName.text = "";
                 outputDesc.text = "";
-                itemSlots.Remove(input.ItemCode);
+                itemSlots.Remove(inputCode);
             }
+
+            yield return new WaitForSeconds(Util.GetRecipesFromInput(inputCode)[0].Duration);
+
+            Util.AddItem(outputCode);
+            processItems[idx].Clear();
 
             Debug.Log("Magician Trade Success!");
         }
