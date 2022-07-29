@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
-    [SerializeField]
     private int itemCode;
 
     // Start is called before the first frame update
@@ -26,5 +25,10 @@ public class DropItem : MonoBehaviour
             SoundManager.Instance.PlayEffect("GetItem");
             Destroy(gameObject);
         }
+    }
+
+    public void SetItemCode(int code)
+    {
+        itemCode = code;
     }
 }

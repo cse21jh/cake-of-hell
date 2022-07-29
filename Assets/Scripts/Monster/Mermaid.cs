@@ -9,7 +9,8 @@ public class Mermaid : Monster
     protected override void Start()
     {
         base.Start();
-
+        itemCode.Add(4009);
+        itemCode.Add(4014);
         MaxHp = 20;
         Hp = 10;
         Speed = 2;

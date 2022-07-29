@@ -9,7 +9,8 @@ public class Rhino : Monster
     protected override void Start()
     {
         base.Start();
-
+        itemCode.Add(4002);
+        itemCode.Add(4012);
         MaxHp = 20;
         Hp = 10;
         Speed = 2;

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    protected Coroutine CurrentRoutine { get; private set; }
-    private Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
-
     public float Hp { get; set; }
     public float MaxHp { get; set; }
     public float AttackDamage { get; set; }
@@ -17,14 +14,13 @@ public class Monster : MonoBehaviour
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
 
-
     protected bool isAttacked; // ���� ���ߴ°�. �İ��� ��� �� ���η� �÷��̾� ������� ��ƾ ���� �ɵ�
     protected bool stopMove = false;
     protected bool alreadyDie = false;
 
+    protected GameObject Item;
     protected GameObject dropItem;
-    [SerializeField]
-    protected GameObject dropItemPrefab;
+    protected List<int> itemCode = new List<int>();
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -32,6 +28,7 @@ public class Monster : MonoBehaviour
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        Item = Resources.Load<GameObject>("Prefabs/Item/Item");
     }
 
     // Update is called once per frame
@@ -74,20 +71,29 @@ public class Monster : MonoBehaviour
         Vector3[] eightDirection = new [] {new Vector3(+0.0f, 0.5f, 0.0f), new Vector3(+0.5f, 0.5f, 0.0f), new Vector3(+0.5f, 0.0f, 0.0f), new Vector3(+0.5f, -0.5f, 0.0f), new Vector3(0.0f, -0.5f, 0.0f), new Vector3(-0.5f, -0.5f, 0.0f), new Vector3(-0.5f, 0.0f, 0.0f), new Vector3(-0.5f, 0.5f, 0.0f)};
         List<int> itemDirection = new List<int>();
         int newNumber = Random.Range(0,8);
-        for(int i = 0; i < itemCount;){
-            if(itemDirection.Contains(newNumber))
-                newNumber = Random.Range(0,8);
-            else
+        int k = 0;
+        Debug.Log(itemCode.Count);
+        for (int j = 0; j < itemCode.Count; j++)
+        {
+            for (int i = 0; i < itemCount;)
             {
+                while(itemDirection.Contains(newNumber))
+                { 
+                    newNumber = Random.Range(0, 8);
+                }
                 itemDirection.Add(newNumber);
                 i++;
             }
+
+            for (int i = 0; i < itemCount; i++)
+            {
+                Vector3 itemPosition = transform.position + eightDirection[itemDirection[i+(k*itemCount)]];
+                dropItem = Instantiate(Item, itemPosition, transform.rotation);
+                dropItem.GetComponent<SpriteRenderer>().sprite = Util.GetItem(itemCode[j]).SpriteImage;
+                dropItem.GetComponent<DropItem>().SetItemCode(itemCode[j]);
+            }
+            k++;
         }
-        for(int i = 0; i < itemCount; i++) {
-            Vector3 itemPosition = transform.position + eightDirection[i];
-            dropItem = Instantiate(dropItemPrefab, itemPosition, transform.rotation);
-        }
-        
     }
 
     private IEnumerator FadeOut()
