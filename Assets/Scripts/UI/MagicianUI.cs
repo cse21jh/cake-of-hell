@@ -15,12 +15,15 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     private TMP_Text inputName, outputName, outputDesc, money;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
+    public int UnlockedSlots { get; set; }
+
     void Start()
     {
         Util.AddItem(4001, 10);
-        Util.AddItem(4010, 10);
-        Util.AddItem(4013, 10);
-        Util.EarnMoney(100);
+        Util.AddItem(4009, 10);
+        Util.AddItem(4012, 10);
+        Util.EarnMoney(1000);
+        UnlockedSlots = 3;
         processItems = new ItemSlotComponent[8];
         processTimes = new IEnumerator[8];
         itemSlots = new Dictionary<int, ItemSlotComponent>();
@@ -88,7 +91,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     private int GetAvailableIndex()
     {
-        for(int i=0; i<8; i++) 
+        for(int i=0; i<UnlockedSlots; i++) 
         {
             if(!processItems[i].HasItem())
             {

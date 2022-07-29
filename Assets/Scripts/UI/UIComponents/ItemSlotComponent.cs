@@ -92,7 +92,7 @@ public class ItemSlotComponent : UIComponent
         }
     }
 
-    public virtual void SetActive(bool active) 
+    public override void SetActive(bool active) 
     {
         gameObject.SetActive(active);
         hoverItemName.SetActive(active);
