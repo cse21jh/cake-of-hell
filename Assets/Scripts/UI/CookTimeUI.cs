@@ -21,7 +21,6 @@ public class CookTimeUI : BaseUI
 
     public void Update()
     {
-        TimeBarUpdate(TimeManager.Instance.GetTime());
     }
 
 

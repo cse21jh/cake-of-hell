@@ -27,11 +27,22 @@ public class TimeManager : Singleton<TimeManager>
     void Update()
     {
         if(!stopTimer)
+        { 
             timer += Time.deltaTime;
+            if(huntTimeUI !=null && cookTimeUI != null)
+            {
+                huntTimeUI.TimeBarUpdate(timer);
+                cookTimeUI.TimeBarUpdate(timer);
+            }
+        }
     }
     public void StartDay()
     {
         day += 1;
+        if(dayUI !=null)
+        {
+            dayUI.DayTextUpdate(day);
+        }
         Debug.Log(day);
         enumerator = StartDayCoroutine();
         timer = 0f;

@@ -21,7 +21,6 @@ public class HuntTimeUI : BaseUI
 
     public void Update()
     {
-        TimeBarUpdate(TimeManager.Instance.GetTime());
     }
 
     public override void Open()
