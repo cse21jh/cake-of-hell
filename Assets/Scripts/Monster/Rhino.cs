@@ -4,65 +4,85 @@ using UnityEngine;
 
 public class Rhino : Monster
 {
-    private int nextMove;
+    private int countMove = 0;
+    private bool attacking = false;
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
         itemCode.Add(4002);
         itemCode.Add(4012);
         MaxHp = 20;
         Hp = 10;
         Speed = 2;
         AttackDamage = 5;
-
-        InvokeRepeating("Move",0f,2.0f);
+        AttackRange = 2f;
+        Eyesight = 5;
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override Queue<IEnumerator> DecideNextRoutine()
     {
-        
-    }
+        Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
 
-    void FixedUpdate()
-    {
-        if(!stopMove)
-            rb.velocity = new Vector2(0, nextMove * Speed) ;
-        else if(stopMove)
-            rb.velocity = new Vector2(0, 0) ;
-    }
-
-    void Move()
-    {
-        if (stopMove) {
-            stopMove = false;
-            nextMove = nextMove == 1 ? -1 : 1;
+        if (CheckPlayer())
+        {
+            if(DistToPlayer()>Eyesight)
+            { 
+                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 2.0f)));
+                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
+            }
+            else
+            {
+                if (!attacking)
+                {
+                    if (DistToPlayer() > AttackRange)
+                    {
+                        nextRoutines.Enqueue(NewActionRoutine(MoveTowardPlayer(Speed)));
+                    }
+                    else
+                    {
+                        nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
+                        nextRoutines.Enqueue(NewActionRoutine(AttackRoutine(GetPlayerPos())));
+                    }
+                }
+                else
+                {
+                    nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
+                }
+            }
         }
-        else if (!stopMove)
-            stopMove = true;
+        else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
 
+        return nextRoutines;
     }
 
-    public override void GetDamage(float damage)
+    private Vector3 MovePosition()
     {
-        CancelInvoke("Move");
-        rb.velocity = new Vector2(0, 0);
-        stopMove = true;
-        InvokeRepeating("Move", 1f, 2.0f);
-        base.GetDamage(damage);
+        Vector3 position;
+        switch (countMove)
+        {
+            case 0:
+                position = new Vector3(GetObjectPos().x , GetObjectPos().y + 2 * Speed, GetObjectPos().z);
+                countMove = 1;
+                return position;
+            case 1:
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y - 2 * Speed, GetObjectPos().z);
+                countMove = 0;
+                return position;
+        }
+        return GetObjectPos();
     }
 
-    protected override void Die()
+    private IEnumerator AttackRoutine(Vector3 currentPlayerPosition)
     {
-        base.Die();
+        attacking = true;
+        monsterHitBox.gameObject.SetActive(true);
+        monsterHitBox.transform.position = (Vector3)transform.position + (currentPlayerPosition - (Vector3)transform.position).normalized * AttackRange;
+        yield return new WaitForSeconds(0.1f);
+        monsterHitBox.transform.position = (Vector3)(GetObjectPos());
+        monsterHitBox.gameObject.SetActive(false);
+        attacking = false;
+        yield return null;
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        CancelInvoke("Move");
-        nextMove = 0;
-        InvokeRepeating("Move", 1f, 1.5f);
-        base.OnCollisionEnter2D(collision);
-    }
 }

@@ -23,7 +23,12 @@ public class TestMonster : Monster
     {
         
     }
+    protected override Queue<IEnumerator> DecideNextRoutine()
+    {
+        Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
 
+        return nextRoutines;
+    }
     void FixedUpdate()
     {
         if(!stopMove)

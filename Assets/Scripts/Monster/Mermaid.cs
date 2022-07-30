@@ -8,78 +8,51 @@ public class Mermaid : Monster
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
         itemCode.Add(4009);
         itemCode.Add(4014);
         MaxHp = 20;
-        Hp = 10;
+        Hp = 20;
         Speed = 2;
         AttackDamage = 5;
-
-        InvokeRepeating("Move",0f,2.0f);
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override Queue<IEnumerator> DecideNextRoutine()
     {
-        
-    }
+        Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
 
-    void FixedUpdate()
-    {
-        if(!stopMove){
-            switch (countMove) {
-                case 0:
-                    rb.velocity = new Vector2(2 * Speed, 0) ;
-                    break;
-                case 1:
-                    rb.velocity = new Vector2(0, 2 * Speed) ;
-                    break;
-                case 2:
-                    rb.velocity = new Vector2(-2 * Speed, 0) ;
-                    break;
-                case 3:
-                    rb.velocity = new Vector2(0, -2 * Speed) ;
-                    break;
-            }
+        if(CheckPlayer())
+        {           
+                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(),2.0f)));
+                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
         }
-            
-        else if(stopMove)
-            rb.velocity = new Vector2(0, 0) ;
+
+        return nextRoutines;
     }
 
-    void Move()
+    private Vector3 MovePosition()
     {
-        if (stopMove) {
-            stopMove = false;
-            countMove++;
+        Vector3 position;
+        switch (countMove) {
+            case 0:
+                position = new Vector3(GetObjectPos().x + 2 * Speed, GetObjectPos().y, GetObjectPos().z);
+                countMove = 1;
+                return position;
+            case 1:
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y + 2 * Speed, GetObjectPos().z);
+                countMove = 2;
+                return position;
+            case 2:
+                position = new Vector3(GetObjectPos().x - 2 * Speed, GetObjectPos().y, GetObjectPos().z);
+                countMove = 3;
+                return position;
+            case 3:
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y - 2 * Speed, GetObjectPos().z);
+                countMove = 0;
+                return position;
         }
-        else if (!stopMove)
-            stopMove = true;
-
-        if (countMove >= 4)
-            countMove = 0;
-
+        return GetObjectPos();
     }
 
-    public override void GetDamage(float damage)
-    {
-        CancelInvoke("Move");
-        rb.velocity = new Vector2(0, 0);
-        stopMove = true;
-        InvokeRepeating("Move", 1f, 2.0f);
-        base.GetDamage(damage);
-    }
 
-    protected override void Die()
-    {
-        base.Die();
-    }
-
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        CancelInvoke("Move");
-        InvokeRepeating("Move", 1f, 1.5f);
-        base.OnCollisionEnter2D(collision);
-    }
 }
