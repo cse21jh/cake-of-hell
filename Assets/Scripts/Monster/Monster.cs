@@ -26,6 +26,7 @@ public abstract class Monster : MonoBehaviour
     protected GameObject Item;
     protected GameObject dropItem;
     protected GameObject monsterHitBox;
+    protected GameObject bullet;
     protected List<int> itemCode = new List<int>();
 
     // Start is called before the first frame update
@@ -36,6 +37,7 @@ public abstract class Monster : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         Item = Resources.Load<GameObject>("Prefabs/Item/Item");
         monsterHitBox = Instantiate(Resources.Load<GameObject>("Prefabs/Monster/MonsterHitBox"), this.transform);
+        bullet = Resources.Load<GameObject>("Prefabs/Monster/Bullet");
         monsterHitBox.GetComponent<MonsterHitBox>().damage = AttackDamage;
     }
 

@@ -25,6 +25,6 @@ public class Bullet : MonoBehaviour
 
     public void ChangeSize(int size)
     {
-        transform.localScale = new Vector3(size, size, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x*size, transform.localScale.y*size, transform.localScale.z);
     }
 }
