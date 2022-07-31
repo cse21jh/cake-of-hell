@@ -13,6 +13,7 @@ public abstract class Monster : MonoBehaviour
     public float AttackRange { get; set; }
     public float Speed { get; set; }
     public float Eyesight { get; set; }
+    public string Rank { get; set; }
 
     protected Player player;
     protected Rigidbody2D rb;

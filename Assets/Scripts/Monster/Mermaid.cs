@@ -14,6 +14,7 @@ public class Mermaid : Monster
         Hp = 20;
         Speed = 2;
         AttackDamage = 5;
+        Rank = "C";
         base.Start();
     }
 
