@@ -79,6 +79,11 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void SetMoney(float money)
     {
+        if(money<0)
+        {
+            Debug.Log("Have no money");
+            return;
+        }
         player.Money = money;
         if(moneyUI != null)
             moneyUI.MoneyTextUpdate(money);
