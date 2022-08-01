@@ -21,12 +21,6 @@ public class PlayerManager : Singleton<PlayerManager>
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
 
 

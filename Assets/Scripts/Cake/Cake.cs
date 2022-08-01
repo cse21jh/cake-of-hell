@@ -26,13 +26,29 @@ public class Cake
     public float GetPrice(int orderBaseCode, int orderIcingCode, int orderToppingCode)
     {
         float price = 0f;
+        int correct = 0;
         if (orderBaseCode == BaseCode)
+        { 
             price += ItemManager.Instance.GetPriceOfProcessedItem(BaseCode);
+            correct++;
+        }
         if (orderToppingCode == ToppingCode)
+        { 
             price += ItemManager.Instance.GetPriceOfProcessedItem(ToppingCode);
+            correct++;
+        }
         if (orderIcingCode == IcingCode)
+        { 
             price += ItemManager.Instance.GetPriceOfProcessedItem(IcingCode);
+            correct++;
+        }
 
-        return price;
+        if(correct==3)
+        {
+            GameManager.Instance.AddNumberOfSatisfiedCustomer();
+        }
+        GameManager.Instance.AddNumberOfSoldCake();
+
+        return price*((correct*0.2f)+1);
     }
 }

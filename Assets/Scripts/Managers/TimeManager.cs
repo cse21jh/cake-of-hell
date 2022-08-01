@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimeManager : Singleton<TimeManager>
 {
-    private int day = -1;
+    private int day = 0;
 
     private float oneHour = 1f;
     private float timer = 0f;
@@ -39,6 +39,7 @@ public class TimeManager : Singleton<TimeManager>
     public void StartDay()
     {
         day += 1;
+        GameManager.Instance.CheckUnlock();
         if(dayUI !=null)
         {
             dayUI.DayTextUpdate(day);
@@ -103,7 +104,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public void Penalty()
     {
-        GameManager.Instance.LoadScene("JHSampleShop");
+        GameManager.Instance.LoadScene("JHSampleShop", true);
         PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() - 50f);
         Debug.Log("isPrepareTimeOver");
     }
