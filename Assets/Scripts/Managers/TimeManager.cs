@@ -18,6 +18,9 @@ public class TimeManager : Singleton<TimeManager>
     public DayUI dayUI;
     public HuntTimeUI huntTimeUI;
     public CookTimeUI cookTimeUI;
+    public GameObject endDayUI;
+
+    private Canvas canvas;
 
     void Awake()
     {
@@ -39,6 +42,7 @@ public class TimeManager : Singleton<TimeManager>
     public void StartDay()
     {
         day += 1;
+        PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         GameManager.Instance.CheckUnlock();
         if(dayUI !=null)
         {
@@ -93,13 +97,14 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log("Time to Close");
         stopTimer = true;
         StopCoroutine(enumerator);
-        // Open UI. When Close UI, StartDay.
-        
-        if(day == 30)
-        {
-            Ending();
+
+        canvas = FindObjectOfType<Canvas>();
+        endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
+
+        if (endDayUI !=null)
+        { 
+            endDayUI.GetComponent<EndDayUI>().Open();
         }
-        PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
     }
 
     public void Penalty()

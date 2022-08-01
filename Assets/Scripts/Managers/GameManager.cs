@@ -47,6 +47,7 @@ public class GameManager : Singleton<GameManager>
     {
         SoundManager.Instance.PlayEffect("MoveScene");
         SceneManager.LoadScene(nextScene);
+        canMove = true;
         if (nextScene.Contains("Shop")) // input ShopName
         {
             PlayerManager.Instance.SetPlayerInShop(true);
@@ -105,4 +106,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void CheckEnding()
+    {
+        Debug.Log("Ending");
+    }
 }
