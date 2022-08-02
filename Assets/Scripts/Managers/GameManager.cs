@@ -40,7 +40,48 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            TimeManager.Instance.SetDay(TimeManager.Instance.GetDay() + 1);
+            Debug.Log("Day" + TimeManager.Instance.GetDay().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            foreach (var pair in ItemManager.Instance.RawItemList)
+            {
+                PlayerManager.Instance.SetNumberOfItem(pair.Key, PlayerManager.Instance.GetNumberOfItem(pair.Key)+99);
+            }
+            foreach (var pair in ItemManager.Instance.ProcessedItemList)
+            {
+                PlayerManager.Instance.SetNumberOfItem(pair.Key, PlayerManager.Instance.GetNumberOfItem(pair.Key) + 99);
+            }
+            Debug.Log("All Item +99");
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            PlayerManager.Instance.SetAttackDamage(PlayerManager.Instance.GetAttackDamage() + 5);
+            Debug.Log("AttackDamage" + PlayerManager.Instance.GetAttackDamage().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            PlayerManager.Instance.SetAttackDamage(PlayerManager.Instance.GetAttackDamage() - 5);
+            Debug.Log("AttackDamage" + PlayerManager.Instance.GetAttackDamage().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetHp() + 5);
+            Debug.Log("Hp" + PlayerManager.Instance.GetHp().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetHp() - 5);
+            Debug.Log("Hp" + PlayerManager.Instance.GetHp().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + 100);
+            Debug.Log("Money" + PlayerManager.Instance.GetMoney().ToString());
+        }
     }
 
     public void LoadScene(string nextScene, bool checkStartPoint = false )

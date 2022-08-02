@@ -41,13 +41,8 @@ public class TimeManager : Singleton<TimeManager>
     }
     public void StartDay()
     {
-        day += 1;
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
-        GameManager.Instance.CheckUnlock();
-        if(dayUI !=null)
-        {
-            dayUI.DayTextUpdate(day);
-        }
+        SetDay(day + 1);
         Debug.Log(day);
         enumerator = StartDayCoroutine();
         timer = 0f;
@@ -123,7 +118,17 @@ public class TimeManager : Singleton<TimeManager>
 
     public void SetDay(int _day)
     {
+        // FixMe
+        if (_day == 31)
+        {
+            Ending();
+        }
         day = _day;
+        GameManager.Instance.CheckUnlock();
+        if (dayUI != null)
+        {
+            dayUI.DayTextUpdate(day);
+        }
     }
 
     public float GetTime()

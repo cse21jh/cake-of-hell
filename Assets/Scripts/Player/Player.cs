@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float MaxHp { get; set; } = 100f;
-    public float Hp { get; set; } = 100f;
+    public float MaxHp { get; set; } = 120f;
+    public float Hp { get; set; } = 120f;
     public float Speed { get; set; } = 5f;
     public float AttackDamage { get; set; } = 10f;
     public float AttackRange { get; set; } = 1.0f;

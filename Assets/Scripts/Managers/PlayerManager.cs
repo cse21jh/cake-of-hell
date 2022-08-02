@@ -39,8 +39,7 @@ public class PlayerManager : Singleton<PlayerManager>
         SetHp(player.Hp - value);
         if (player.Hp <= 0)
         {
-            Debug.Log("Die");
-            // 체력 0 되었을 때에 대한 내용 여기에 구현
+            Die();
         }
     }
 
@@ -83,6 +82,15 @@ public class PlayerManager : Singleton<PlayerManager>
             moneyUI.MoneyTextUpdate(money);
     }
 
+    public float GetAttackDamage()
+    {
+        return player.AttackDamage;
+    }
+
+    public void SetAttackDamage(float attackDamage)
+    {
+        player.AttackDamage = attackDamage;
+    }
 
 
     public int GetNumberOfItem(int code)
@@ -171,5 +179,10 @@ public class PlayerManager : Singleton<PlayerManager>
     public Player GetPlayer()
     {
         return player;
+    }
+
+    public void Die()
+    {
+        Debug.Log("Player Die");
     }
 }
