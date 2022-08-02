@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public float Money { get; set; } = 0f;
 
     public bool inShop = true;
+    private int nowImage;
+
     private Sprite[] playerImage = new Sprite[8];
 
     private GameObject hitBox;
@@ -122,29 +124,69 @@ public class Player : MonoBehaviour
     {
         if(inShop)
         {
-            if(dy == -1.0f)
+            if (dy == -1.0f)
+            {
+                nowImage = 0;
                 return playerImage[0];
+            }
             else if (dy == 1.0f)
+            {
+                nowImage = 1;
                 return playerImage[1];
+            }
             else if (dx == -1.0f)
+            {
+                nowImage = 2;
                 return playerImage[2];
+            }
             else if (dx == 1.0f)
+            {
+                nowImage = 3;
                 return playerImage[3];
-            else 
-                return playerImage[0];
+            }
+            else
+            {
+                if(nowImage>3)
+                {
+                    nowImage = nowImage - 4;
+                    return playerImage[nowImage];
+                }
+                else
+                    return spriteRenderer.sprite;
+            }
         }
         else
         {
             if (dy == -1.0f)
+            {
+                nowImage = 4;
                 return playerImage[4];
+            }
             else if (dy == 1.0f)
+            {
+                nowImage = 5;
                 return playerImage[5];
+            }
             else if (dx == -1.0f)
+            {
+                nowImage = 6;
                 return playerImage[6];
+            }
             else if (dx == 1.0f)
+            {
+                nowImage = 7;
                 return playerImage[7];
+            }
             else
-                return playerImage[4];
+            {
+                if (nowImage < 4)
+                {
+                    nowImage = nowImage + 4;
+                    return playerImage[nowImage];
+                }
+                else
+                    return spriteRenderer.sprite;
+            }
         }
     }
 }
