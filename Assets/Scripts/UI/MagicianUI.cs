@@ -16,6 +16,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     private PageComponent inventoryPage;
     private NumberSelectComponent numberSelect;
     private GameObject processButton;
+    private GameObject[] progressCircles;
     private TMP_Text inputName, outputName, outputDesc, totalCost, totalTime;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
@@ -32,6 +33,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         recipeOthers = new Recipe[3];
         processItems = new ItemSlotComponent[8];
         processTimes = new IEnumerator[8];
+        progressCircles = new GameObject[8];
         itemSlots = new Dictionary<int, ItemSlotComponent>();
         
         processButton = GameObject.Find("ProcessButtonMagician");
@@ -51,6 +53,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     public void MakeUI() 
     {
+        GameObject circ = Resources.Load<GameObject>("Prefabs/ProgressCirclePrefab");
         inventoryPage = new PageComponent(gameObject.transform, "Raw Item", 4, 350);
         inventoryPage.SetPosition(-170, 0);
 
@@ -94,6 +97,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         {
             processItems[i] = new ItemSlotComponent(gameObject.transform, 0, -1);
             processItems[i].SetPosition(-375, 175 - 50 * i);
+            progressCircles[i] = Object.Instantiate(circ, processItems[i].gameObject.transform);
         }
     }
 
@@ -193,15 +197,14 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             float neededTime = System.Convert.ToSingle(totalTime.text);
             
             itemSlots[inputCode].UseItem(inputCount);
-            processItems[idx].LoadItem(outputCode, inputCount);
+            processItems[idx].LoadItem(inputCode, inputCount);
+            progressCircles[idx].GetComponent<ProgressCircle>().StartProgress(neededTime);
             Util.SpendMoney(neededCost);
             
             if(Util.CountItem(inputCode) == 0) 
             {
                 input.Clear();
                 outputDefault.Clear();
-                inputCount = 1;
-                numberSelect.SetNumber(1);
                 inputName.text = "";
                 outputName.text = "";
                 outputDesc.text = "";
@@ -209,8 +212,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                 totalTime.text = "0";
                 itemSlots.Remove(inputCode);
             }
+            inputCount = 1;
+            numberSelect.SetNumber(1);
         
             yield return new WaitForSeconds(neededTime);
+            processItems[idx].LoadItem(outputCode, outputCount);
+            yield return new WaitForSeconds(1.0f); //to be changed
 
             Util.AddItem(outputCode * outputCount);
             processItems[idx].Clear();
