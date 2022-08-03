@@ -10,9 +10,11 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     private ItemSlotComponent input, outputDefault;
     private ItemSlotComponent[] outputOthers, processItems;
     private IEnumerator[] processTimes;
+    private Recipe recipeDefault;
+    private Recipe[] recipeOthers;
     private PageComponent inventoryPage;
     private GameObject processButton;
-    private TMP_Text inputName, outputName, outputDesc, money;
+    private TMP_Text inputName, outputName, outputDesc, totalCost, totalTime;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
     public int UnlockedSlots { get; set; }
@@ -25,6 +27,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         Util.EarnMoney(1000);
         UnlockedSlots = 3;
         outputOthers = new ItemSlotComponent[3];
+        recipeOthers = new Recipe[3];
         processItems = new ItemSlotComponent[8];
         processTimes = new IEnumerator[8];
         itemSlots = new Dictionary<int, ItemSlotComponent>();
@@ -33,8 +36,8 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         inputName = GameObject.Find("InputItemText").GetComponent<TMP_Text>();
         outputName = GameObject.Find("OutputItemText").GetComponent<TMP_Text>();
         outputDesc = GameObject.Find("MagicianDesc").GetComponent<TMP_Text>();
-        money = GameObject.Find("MagicianMoney").GetComponent<TMP_Text>();
-        money.text = PlayerManager.Instance.GetMoney().ToString();
+        totalCost = GameObject.Find("MagicianMoneyText").GetComponent<TMP_Text>();
+        totalTime = GameObject.Find("MagicianTimeText").GetComponent<TMP_Text>();
         processButton.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(Process()));
         MakeUI();
     }
@@ -60,16 +63,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             if(pair.Value > 0)
             {
                 itemSlots.Add(pair.Key, new ItemSlotComponent(inventoryPage.Container, pair.Key, pair.Value, true));
-                var outputRecipes = Util.GetRecipesFromInput(pair.Key);
-                itemSlots[pair.Key].SetOnClick(() => 
-                {
-                    input.LoadItem(pair.Key, -1);
-                    outputDefault.LoadItem(outputRecipes[0].Output, -1);
-                    inputName.text = Util.GetItem(pair.Key).Name;
-                    outputItem = Util.GetItem(outputRecipes[0].Output) as ProcessedItem;
-                    outputName.text = outputItem.Name;
-                    outputDesc.text = outputItem.FlavorText;
-                });
+                itemSlots[pair.Key].SetOnClick(() => SetRecipe(pair.Key));
             }
         }
 
@@ -80,7 +74,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             outputOthers[j].SetPosition(280, 80 - 50 * (i + 1));
             outputOthers[j].SetOnClick(() => 
             {
-                LoadOtherOutput(j);
+                LoadOutput(j);
                 ToggleOutputList();
             });
             outputOthers[j].SetActive(false);
@@ -104,6 +98,25 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         Debug.Log("Magician UI Closed!");
     }
 
+    private void SetRecipe(int codeToSet) 
+    {
+        input.LoadItem(codeToSet, -1);
+        inputName.text = Util.GetItem(codeToSet).Name;
+        LoadOutput(-1);
+    }
+
+    private void LoadOutput(int idx)
+    {
+        var outputRecipes = Util.GetRecipesFromInput(input.ItemCode);
+        recipeDefault = idx == -1 ? outputRecipes[0] : recipeOthers[idx];
+        outputDefault.LoadItem(recipeDefault.Output, -1);
+        outputItem = Util.GetItem(recipeDefault.Output) as ProcessedItem;
+        outputName.text = outputItem.Name;
+        outputDesc.text = outputItem.FlavorText;
+        totalCost.text = recipeDefault.Price.ToString();
+        totalTime.text = recipeDefault.Duration.ToString();
+    }
+
     private void ToggleOutputList() 
     {
         if(!input.HasItem()) return;
@@ -115,6 +128,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             {
                 if(!outputOthers[idx].IsActive()) 
                 {
+                    recipeOthers[idx] = outputRecipe;
                     outputOthers[idx].LoadItem(outputRecipe.Output);
                     outputOthers[idx].SetActive(true);
                 }
@@ -125,14 +139,6 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                 idx++;
             }
         }
-    }
-
-    private void LoadOtherOutput(int idx)
-    {
-        outputDefault.LoadItem(outputOthers[idx].ItemCode, -1);
-        outputItem = Util.GetItem(outputOthers[idx].ItemCode) as ProcessedItem;
-        outputName.text = outputItem.Name;
-        outputDesc.text = outputItem.FlavorText;
     }
 
     private int GetAvailableIndex()
@@ -157,8 +163,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             
             itemSlots[inputCode].UseItem();
             processItems[idx].LoadItem(outputCode);
-            Util.SpendMoney(outputItem.Price);
-            money.text = PlayerManager.Instance.GetMoney().ToString();
+            Util.SpendMoney(System.Convert.ToSingle(totalCost.text));
             if(Util.CountItem(inputCode) == 0) 
             {
                 input.Clear();
@@ -166,19 +171,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                 inputName.text = "";
                 outputName.text = "";
                 outputDesc.text = "";
+                totalCost.text = "0";
+                totalTime.text = "0";
                 itemSlots.Remove(inputCode);
             }
 
-            float dur = 0;
-            foreach(var recipe in Util.GetRecipesFromInput(inputCode)) 
-            {
-                if(recipe.Output == outputCode)
-                {
-                    dur = recipe.Duration;
-                    break;
-                }
-            }
-            yield return new WaitForSeconds(dur);
+            yield return new WaitForSeconds(System.Convert.ToSingle(totalTime.text));
 
             Util.AddItem(outputCode);
             processItems[idx].Clear();
