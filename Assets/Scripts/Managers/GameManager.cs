@@ -8,23 +8,26 @@ public class GameManager : Singleton<GameManager>
 {
     private Player player;
     public Vector3 startPoint;
-
-    // About Ending Or UnLock
-    private int NumberOfSoldCake = 0;
-    private int NumberOfSatisfiedCustomer = 0;
-
     public bool canMove = true;
 
-    //About UnLock
-    public bool UnlockMapC;
-    public bool UnlockMapB;
-    public bool UnlockMapA;
-    public bool UnlockMapS;
-    public bool UnlockMapSS;
+    // About Ending Or UnLock
+    private int numberOfSoldCake = 0;
+    private int numberOfSatisfiedCustomer = 0;
 
-    public bool OrderWithKeyword;
-    public bool OrderWithKeywordOrFlavor;
-    public bool OrderWithKeywordAndFlavor;
+    private int dieCount;
+    private int killMonsterCount;
+    private int killSSMonsterCount; 
+
+    //About UnLock
+    public bool unlockMapC;
+    public bool unlockMapB;
+    public bool unlockMapA;
+    public bool unlockMapS;
+    public bool unlockMapSS;
+
+    public bool orderWithKeyword;
+    public bool orderWithKeywordOrFlavor;
+    public bool orderWithKeywordAndFlavor;
 
     public List<Monster> monsterInMapC = new List<Monster>();
     public List<Monster> monsterInMapB = new List<Monster>();
@@ -32,10 +35,10 @@ public class GameManager : Singleton<GameManager>
     public List<Monster> monsterInMapS = new List<Monster>();
     public List<Monster> monsterInMapSS = new List<Monster>();
 
-    public List<int> UnlockBaseCode = new List<int>();
-    public List<int> UnlockIcingCode = new List<int>();
-    public List<int> UnlockToppingCode = new List<int>();
-    public List<int> UnlockRawCode = new List<int>();
+    public List<int> unlockBaseCode = new List<int>();
+    public List<int> unlockIcingCode = new List<int>();
+    public List<int> unlockToppingCode = new List<int>();
+    public List<int> unlockRawCode = new List<int>();
 
 
     void Awake()
@@ -118,20 +121,38 @@ public class GameManager : Singleton<GameManager>
 
     public void AddNumberOfSoldCake()
     {
-        NumberOfSoldCake += 1;
+        numberOfSoldCake += 1;
         CheckUnlock();
     }
 
     public void AddNumberOfSatisfiedCustomer()
     {
-        NumberOfSatisfiedCustomer++;
+        numberOfSatisfiedCustomer++;
     }
 
     public int GetNumberOfSatisfiedCustomer()
     {
-        return NumberOfSatisfiedCustomer;
+        return numberOfSatisfiedCustomer;
     }
 
+    public void AddDieCount()
+    {
+        dieCount ++ ;
+        if(dieCount ==3)
+        {
+            CheckEnding();
+        }
+    }
+
+    public void AddKillMonsterCount()
+    {
+        killMonsterCount++;
+    }
+
+    public void AddKillSSMonsterCount()
+    {
+        killSSMonsterCount++;
+    }
 
     public void CheckEnding()
     {
@@ -140,26 +161,26 @@ public class GameManager : Singleton<GameManager>
 
     public void CheckUnlock()
     {
-        if (!UnlockMapC && (TimeManager.Instance.GetDay() >= 1))
+        if (!unlockMapC && (TimeManager.Instance.GetDay() >= 1))
         {
-            UnlockMapC = true;
+            unlockMapC = true;
             foreach (var monster in monsterInMapC)
             {
                 foreach (var rawItemCode in monster.GetItemCode())
                 {
-                    UnlockRawCode.Add(rawItemCode);
+                    unlockRawCode.Add(rawItemCode);
                     foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
                     {
                         switch (processedItemCode / 1000)
                         {
                             case 1:
-                                UnlockBaseCode.Add(processedItemCode);
+                                unlockBaseCode.Add(processedItemCode);
                                 break;
                             case 2:
-                                UnlockIcingCode.Add(processedItemCode);
+                                unlockIcingCode.Add(processedItemCode);
                                 break;
                             case 3:
-                                UnlockToppingCode.Add(processedItemCode);
+                                unlockToppingCode.Add(processedItemCode);
                                 break;
                         }
                     }
@@ -167,112 +188,112 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        if (!UnlockMapB && (NumberOfSoldCake >= 60 || TimeManager.Instance.GetDay() >= 3))
+        if (!unlockMapB && (numberOfSoldCake >= 60 || TimeManager.Instance.GetDay() >= 3))
         {
-            UnlockMapB = true;
+            unlockMapB = true;
             foreach (var monster in monsterInMapB)
             {
                 foreach(var rawItemCode in monster.GetItemCode())
                 {
-                    UnlockRawCode.Add(rawItemCode);
+                    unlockRawCode.Add(rawItemCode);
                     foreach(var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
                     {
                         switch(processedItemCode/1000)
                         { 
                             case 1:
-                                UnlockBaseCode.Add(processedItemCode);
+                                unlockBaseCode.Add(processedItemCode);
                                 break;
                             case 2:
-                                UnlockIcingCode.Add(processedItemCode);
+                                unlockIcingCode.Add(processedItemCode);
                                 break;
                             case 3:
-                                UnlockToppingCode.Add(processedItemCode);
+                                unlockToppingCode.Add(processedItemCode);
                                 break;
                         }
                     }
                 }
             }
         }
-        if (!UnlockMapA && (NumberOfSoldCake >= 140 || TimeManager.Instance.GetDay() >= 7))
+        if (!unlockMapA && (numberOfSoldCake >= 140 || TimeManager.Instance.GetDay() >= 7))
         {
-            UnlockMapA = true;
+            unlockMapA = true;
             foreach (var monster in monsterInMapA)
             {
                 foreach (var rawItemCode in monster.GetItemCode())
                 {
-                    UnlockRawCode.Add(rawItemCode);
+                    unlockRawCode.Add(rawItemCode);
                     foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
                     {
                         switch (processedItemCode / 1000)
                         {
                             case 1:
-                                UnlockBaseCode.Add(processedItemCode);
+                                unlockBaseCode.Add(processedItemCode);
                                 break;
                             case 2:
-                                UnlockIcingCode.Add(processedItemCode);
+                                unlockIcingCode.Add(processedItemCode);
                                 break;
                             case 3:
-                                UnlockToppingCode.Add(processedItemCode);
+                                unlockToppingCode.Add(processedItemCode);
                                 break;
                         }
                     }
                 }
             }
         }
-        if (!OrderWithKeywordOrFlavor && (NumberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
+        if (!orderWithKeywordOrFlavor && (numberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
         {
-            OrderWithKeywordOrFlavor = true;
+            orderWithKeywordOrFlavor = true;
         }
-        if (!UnlockMapS && (NumberOfSoldCake >= 300 || TimeManager.Instance.GetDay() >= 14))
+        if (!unlockMapS && (numberOfSoldCake >= 300 || TimeManager.Instance.GetDay() >= 14))
         {
-            UnlockMapS = true;
+            unlockMapS = true;
             foreach (var monster in monsterInMapS)
             {
                 foreach (var rawItemCode in monster.GetItemCode())
                 {
-                    UnlockRawCode.Add(rawItemCode);
+                    unlockRawCode.Add(rawItemCode);
                     foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
                     {
                         switch (processedItemCode / 1000)
                         {
                             case 1:
-                                UnlockBaseCode.Add(processedItemCode);
+                                unlockBaseCode.Add(processedItemCode);
                                 break;
                             case 2:
-                                UnlockIcingCode.Add(processedItemCode);
+                                unlockIcingCode.Add(processedItemCode);
                                 break;
                             case 3:
-                                UnlockToppingCode.Add(processedItemCode);
+                                unlockToppingCode.Add(processedItemCode);
                                 break;
                         }
                     }
                 }
             }
         }
-        if (!OrderWithKeywordAndFlavor && (NumberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
+        if (!orderWithKeywordAndFlavor && (numberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
         {
-            OrderWithKeywordAndFlavor = true;
+            orderWithKeywordAndFlavor = true;
         }
-        if (!UnlockMapSS && (NumberOfSoldCake >= 560 || TimeManager.Instance.GetDay() >= 25))
+        if (!unlockMapSS && (numberOfSoldCake >= 560 || TimeManager.Instance.GetDay() >= 25))
         {
-            UnlockMapSS = true;
+            unlockMapSS = true;
             foreach (var monster in monsterInMapSS)
             {
                 foreach (var rawItemCode in monster.GetItemCode())
                 {
-                    UnlockRawCode.Add(rawItemCode);
+                    unlockRawCode.Add(rawItemCode);
                     foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
                     {
                         switch (processedItemCode / 1000)
                         {
                             case 1:
-                                UnlockBaseCode.Add(processedItemCode);
+                                unlockBaseCode.Add(processedItemCode);
                                 break;
                             case 2:
-                                UnlockIcingCode.Add(processedItemCode);
+                                unlockIcingCode.Add(processedItemCode);
                                 break;
                             case 3:
-                                UnlockToppingCode.Add(processedItemCode);
+                                unlockToppingCode.Add(processedItemCode);
                                 break;
                         }
                     }

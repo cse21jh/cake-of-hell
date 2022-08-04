@@ -144,6 +144,11 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Die()
     {
         // ���⼭ ��� ������ ������ �Լ� ȣ��
+        GameManager.Instance.AddKillMonsterCount();
+        if(Rank == "SS")
+        {
+            GameManager.Instance.AddKillSSMonsterCount();
+        }
         StartCoroutine(FadeOut());
         return;
     }

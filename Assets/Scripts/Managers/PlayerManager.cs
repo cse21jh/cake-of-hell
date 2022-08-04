@@ -183,6 +183,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void Die()
     {
+        GameManager.Instance.AddDieCount();
         Debug.Log("Player Die");
     }
 }
