@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mermaid : Monster
 {
     private int countMove = 0;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -22,10 +23,10 @@ public class Mermaid : Monster
     {
         Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
 
-        if(CheckPlayer())
-        {           
-                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(),2.0f)));
-                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
+        if (CheckPlayer())
+        {
+            nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 2.0f)));
+            nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
         }
 
         return nextRoutines;
@@ -55,5 +56,9 @@ public class Mermaid : Monster
         return GetObjectPos();
     }
 
-
+    public override List<int> GetItemCode()
+    {
+        List<int> item = new List<int>() { 4009, 4014 };
+        return item;
+    }
 }

@@ -64,4 +64,9 @@ public class TestMonster : Monster
         InvokeRepeating("Move", 1f, 1.5f);
         base.OnCollisionEnter2D(collision);
     }
+
+    public override List<int> GetItemCode()
+    {
+        return itemCode;
+    }
 }

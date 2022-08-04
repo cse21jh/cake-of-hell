@@ -194,6 +194,9 @@ public abstract class Monster : MonoBehaviour
         Destroy(gameObject);
         yield return null;
     }
+
+    public abstract List<int> GetItemCode();
+    
 }
 
 

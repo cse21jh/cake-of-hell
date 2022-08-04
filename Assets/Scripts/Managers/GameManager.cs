@@ -26,9 +26,22 @@ public class GameManager : Singleton<GameManager>
     public bool OrderWithKeywordOrFlavor;
     public bool OrderWithKeywordAndFlavor;
 
+    public List<Monster> monsterInMapC = new List<Monster>();
+    public List<Monster> monsterInMapB = new List<Monster>();
+    public List<Monster> monsterInMapA = new List<Monster>();
+    public List<Monster> monsterInMapS = new List<Monster>();
+    public List<Monster> monsterInMapSS = new List<Monster>();
+
+    public List<int> UnlockBaseCode = new List<int>();
+    public List<int> UnlockIcingCode = new List<int>();
+    public List<int> UnlockToppingCode = new List<int>();
+    public List<int> UnlockRawCode = new List<int>();
+
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        AddMonsterInMap();
     }
 
     // Start is called before the first frame update
@@ -119,15 +132,92 @@ public class GameManager : Singleton<GameManager>
         return NumberOfSatisfiedCustomer;
     }
 
+
+    public void CheckEnding()
+    {
+        Debug.Log("Ending");
+    }
+
     public void CheckUnlock()
     {
+        if (!UnlockMapC && (TimeManager.Instance.GetDay() >= 1))
+        {
+            UnlockMapC = true;
+            foreach (var monster in monsterInMapC)
+            {
+                foreach (var rawItemCode in monster.GetItemCode())
+                {
+                    UnlockRawCode.Add(rawItemCode);
+                    foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
+                    {
+                        switch (processedItemCode / 1000)
+                        {
+                            case 1:
+                                UnlockBaseCode.Add(processedItemCode);
+                                break;
+                            case 2:
+                                UnlockIcingCode.Add(processedItemCode);
+                                break;
+                            case 3:
+                                UnlockToppingCode.Add(processedItemCode);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
         if (!UnlockMapB && (NumberOfSoldCake >= 60 || TimeManager.Instance.GetDay() >= 3))
         {
             UnlockMapB = true;
+            foreach (var monster in monsterInMapB)
+            {
+                foreach(var rawItemCode in monster.GetItemCode())
+                {
+                    UnlockRawCode.Add(rawItemCode);
+                    foreach(var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
+                    {
+                        switch(processedItemCode/1000)
+                        { 
+                            case 1:
+                                UnlockBaseCode.Add(processedItemCode);
+                                break;
+                            case 2:
+                                UnlockIcingCode.Add(processedItemCode);
+                                break;
+                            case 3:
+                                UnlockToppingCode.Add(processedItemCode);
+                                break;
+                        }
+                    }
+                }
+            }
         }
         if (!UnlockMapA && (NumberOfSoldCake >= 140 || TimeManager.Instance.GetDay() >= 7))
         {
             UnlockMapA = true;
+            foreach (var monster in monsterInMapA)
+            {
+                foreach (var rawItemCode in monster.GetItemCode())
+                {
+                    UnlockRawCode.Add(rawItemCode);
+                    foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
+                    {
+                        switch (processedItemCode / 1000)
+                        {
+                            case 1:
+                                UnlockBaseCode.Add(processedItemCode);
+                                break;
+                            case 2:
+                                UnlockIcingCode.Add(processedItemCode);
+                                break;
+                            case 3:
+                                UnlockToppingCode.Add(processedItemCode);
+                                break;
+                        }
+                    }
+                }
+            }
         }
         if (!OrderWithKeywordOrFlavor && (NumberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
         {
@@ -136,6 +226,28 @@ public class GameManager : Singleton<GameManager>
         if (!UnlockMapS && (NumberOfSoldCake >= 300 || TimeManager.Instance.GetDay() >= 14))
         {
             UnlockMapS = true;
+            foreach (var monster in monsterInMapS)
+            {
+                foreach (var rawItemCode in monster.GetItemCode())
+                {
+                    UnlockRawCode.Add(rawItemCode);
+                    foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
+                    {
+                        switch (processedItemCode / 1000)
+                        {
+                            case 1:
+                                UnlockBaseCode.Add(processedItemCode);
+                                break;
+                            case 2:
+                                UnlockIcingCode.Add(processedItemCode);
+                                break;
+                            case 3:
+                                UnlockToppingCode.Add(processedItemCode);
+                                break;
+                        }
+                    }
+                }
+            }
         }
         if (!OrderWithKeywordAndFlavor && (NumberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
         {
@@ -144,11 +256,35 @@ public class GameManager : Singleton<GameManager>
         if (!UnlockMapSS && (NumberOfSoldCake >= 560 || TimeManager.Instance.GetDay() >= 25))
         {
             UnlockMapSS = true;
+            foreach (var monster in monsterInMapSS)
+            {
+                foreach (var rawItemCode in monster.GetItemCode())
+                {
+                    UnlockRawCode.Add(rawItemCode);
+                    foreach (var processedItemCode in ItemManager.Instance.GetRawItem(rawItemCode).OutputCode)
+                    {
+                        switch (processedItemCode / 1000)
+                        {
+                            case 1:
+                                UnlockBaseCode.Add(processedItemCode);
+                                break;
+                            case 2:
+                                UnlockIcingCode.Add(processedItemCode);
+                                break;
+                            case 3:
+                                UnlockToppingCode.Add(processedItemCode);
+                                break;
+                        }
+                    }
+                }
+            }
         }
     }
 
-    public void CheckEnding()
+    private void AddMonsterInMap()
     {
-        Debug.Log("Ending");
+        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/Mermaid").GetComponent<Mermaid>());
+
+        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Rhino").GetComponent<Rhino>());
     }
 }

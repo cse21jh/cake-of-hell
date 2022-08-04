@@ -12,11 +12,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public List<int> ItemCodeList = new List<int>();
 
-    public List<int> UnlockBaseCode = new List<int>();
-    public List<int> UnlockIcingCode = new List<int>();
-    public List<int> UnlockToppingCode = new List<int>();
-    public List<int> UnlockRawCode = new List<int>();
-
+    
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

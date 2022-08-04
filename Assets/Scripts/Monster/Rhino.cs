@@ -86,4 +86,9 @@ public class Rhino : Monster
         yield return null;
     }
 
+    public override List<int> GetItemCode()
+    {
+        List<int> item = new List<int>() { 4002, 4012 };
+        return item;
+    }
 }
