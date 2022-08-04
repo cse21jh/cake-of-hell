@@ -13,4 +13,9 @@ public class MonsterHitBox : MonoBehaviour
             PlayerManager.Instance.GetDamage(damage);
         }
     }
+
+    public void ChangeSize(int size)
+    {
+        transform.localScale = new Vector3(transform.localScale.x * size, transform.localScale.y * size, transform.localScale.z);
+    }
 }
