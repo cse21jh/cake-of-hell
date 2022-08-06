@@ -5,14 +5,11 @@ using UnityEngine.UI;
 
 public class ProgressCircle : MonoBehaviour
 {
-    private float nowTime;
     private Image circleImage;
-    public float Time { get; set; }
 
     void Start()
     {
         circleImage = gameObject.GetComponent<Image>();
-        Debug.Log(circleImage);   
     }
 
     void Update()
@@ -20,22 +17,8 @@ public class ProgressCircle : MonoBehaviour
         
     }
 
-    public void StartProgress(float time)
+    public void SetProgress(float percent)
     {
-        Time = time;
-        StartCoroutine(Turn(Time / 100));
-    }
-
-    private IEnumerator Turn(float segment)
-    {
-        while(nowTime <= Time)
-        {
-            nowTime += segment;
-            circleImage.fillAmount = nowTime / Time;
-            yield return new WaitForSeconds(segment);
-        }
-
-        circleImage.fillAmount = 0;
-        nowTime = 0;
+        circleImage.fillAmount = percent > 100 ? 1 : percent / 100.0f;
     }
 }

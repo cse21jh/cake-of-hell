@@ -42,7 +42,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         outputDesc = GameObject.Find("MagicianDesc").GetComponent<TMP_Text>();
         totalCost = GameObject.Find("MagicianMoneyText").GetComponent<TMP_Text>();
         totalTime = GameObject.Find("MagicianTimeText").GetComponent<TMP_Text>();
-        processButton.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(Process()));
+        processButton.GetComponent<Button>().onClick.AddListener(() => Process());
         MakeUI();
     }
 
@@ -95,8 +95,19 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         }
         for(int i=0; i<8; i++) 
         {
-            processItems[i] = new ItemSlotComponent(gameObject.transform, 0, -1);
-            processItems[i].SetPosition(-375, 175 - 50 * i);
+            int j = i;
+            processItems[j] = new ItemSlotComponent(gameObject.transform, 0, -1, true);
+            processItems[j].SetPosition(-375, 175 - 50 * j);
+            processItems[j].SetOnClick(() => 
+            {
+                Debug.Log(Util.GetItem(processItems[j].ItemCode));
+                if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem)
+                {
+                    Util.AddItem(processItems[j].ItemCode * processItems[j].ItemCount);
+                    processItems[j].Clear();
+                }
+            });
+            
             progressCircles[i] = Object.Instantiate(circ, processItems[i].gameObject.transform);
         }
     }
@@ -185,7 +196,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         return false;
     }
 
-    private IEnumerator Process() 
+    private void Process() 
     {
         int idx = GetAvailableIndex();
         if(input.HasItem() && PlayerManager.Instance.GetMoney() >= System.Convert.ToSingle(totalCost.text) && idx != -1)
@@ -198,7 +209,13 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             
             itemSlots[inputCode].UseItem(inputCount);
             processItems[idx].LoadItem(inputCode, inputCount);
-            progressCircles[idx].GetComponent<ProgressCircle>().StartProgress(neededTime);
+            ProcessManager.Instance.AddMagicianProcess(
+                recipeDefault, 
+                inputCount, 
+                processItems[idx],
+                progressCircles[idx].GetComponent<ProgressCircle>()
+            );
+            //progressCircles[idx].GetComponent<ProgressCircle>().StartProgress(neededTime);
             Util.SpendMoney(neededCost);
             
             if(Util.CountItem(inputCode) == 0) 
@@ -214,13 +231,6 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             }
             inputCount = 1;
             numberSelect.SetNumber(1);
-        
-            yield return new WaitForSeconds(neededTime);
-            processItems[idx].LoadItem(outputCode, outputCount);
-            yield return new WaitForSeconds(1.0f); //to be changed
-
-            Util.AddItem(outputCode * outputCount);
-            processItems[idx].Clear();
 
             Debug.Log("Magician Trade Success!");
         }
