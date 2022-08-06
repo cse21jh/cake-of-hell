@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public float MaxHp { get; set; } = 120f;
     public float Hp { get; set; } = 120f;
-    public float Speed { get; set; } = 5f;
+    public float Speed { get; set; } = 4f;
     public float AttackDamage { get; set; } = 10f;
     public float AttackRange { get; set; } = 1.0f;
     public float Money { get; set; } = 0f;
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
 
         spriteRenderer.sprite = PlayerImage(dx, dy);
 
-        rb.velocity = new Vector2(dx * Speed, dy * Speed);
+        rb.velocity = new Vector2(dx * Speed * 1.5f, dy * Speed*1.5f);
     }
 
     private IEnumerator Attack()

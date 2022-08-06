@@ -70,6 +70,11 @@ public class PlayerManager : Singleton<PlayerManager>
         return player.Money;
     }
 
+    public float GetSpeed()
+    {
+        return player.Speed;
+    }
+
     public void SetMoney(float money)
     {
         if(money<0)

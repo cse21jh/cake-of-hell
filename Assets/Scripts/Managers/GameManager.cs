@@ -307,5 +307,8 @@ public class GameManager : Singleton<GameManager>
         monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/Mermaid").GetComponent<Mermaid>());
 
         monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Rhino").GetComponent<Rhino>());
+
+        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Spider").GetComponent<Spider>());
+
     }
 }

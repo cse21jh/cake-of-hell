@@ -91,7 +91,19 @@ public abstract class Monster : MonoBehaviour
         transform.position = Vector3.Lerp(GetObjectPos(), GetPlayerPos(), Time.deltaTime/speedMultiplier);
         yield return null;
     }
-   
+
+    protected IEnumerator MoveTowardPlayer(float speedMultiplier, float time)     // 특정 시간 동안 플레이어를 향해 움직인다
+    {
+        for (float t = 0;t<=time;t+=Time.deltaTime)
+        { 
+            Vector2 direction = (GetPlayerPos() - GetObjectPos()).normalized;
+            transform.position = Vector3.Lerp(GetObjectPos(), GetPlayerPos(), Time.deltaTime / speedMultiplier);
+            yield return null;
+        }
+    }
+
+
+
     protected IEnumerator WaitRoutine(float time)
     {
         yield return new WaitForSeconds(time);

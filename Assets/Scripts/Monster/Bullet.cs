@@ -27,4 +27,21 @@ public class Bullet : MonoBehaviour
     {
         transform.localScale = new Vector3(transform.localScale.x*size, transform.localScale.y*size, transform.localScale.z);
     }
+
+    public IEnumerator ShootBullet(Vector3 playerPos, int size = 1)
+    {
+        AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
+        Vector3 startPosition = transform.position;
+        for (float t = 0; t <= duration-0.1f; t += Time.deltaTime)
+        {
+            transform.position =
+                Vector3.Lerp(startPosition, playerPos, curve.Evaluate(t / duration));
+            yield return null;
+        }
+        transform.position = playerPos;
+        ChangeSize(size);
+        
+        yield return null;
+    }
+
 }

@@ -11,12 +11,12 @@ public class Rhino : Monster
     {
         itemCode.Add(4002);
         itemCode.Add(4012);
-        MaxHp = 20;
-        Hp = 10;
-        Speed = 2;
-        AttackDamage = 5;
-        AttackRange = 2f;
-        Eyesight = 5;
+        MaxHp = 40;
+        Hp = 40;
+        Speed = Util.GetPlayerSpeed();
+        AttackDamage = 40;
+        AttackRange = 1;
+        Eyesight = 2;
         Rank = "A";
         base.Start();
     }
@@ -63,11 +63,11 @@ public class Rhino : Monster
         switch (countMove)
         {
             case 0:
-                position = new Vector3(GetObjectPos().x , GetObjectPos().y + 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x + 2 * Speed, GetObjectPos().y , GetObjectPos().z);
                 countMove = 1;
                 return position;
             case 1:
-                position = new Vector3(GetObjectPos().x, GetObjectPos().y - 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x - 2 * Speed, GetObjectPos().y , GetObjectPos().z);
                 countMove = 0;
                 return position;
         }

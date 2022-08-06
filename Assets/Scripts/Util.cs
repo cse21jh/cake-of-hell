@@ -69,4 +69,9 @@ public class Util
             throw new System.ArgumentOutOfRangeException("amount", System.String.Format("현재 보유한 돈인 {0}보다 많은 {1}의 돈을 쓸 수 없습니다.", PlayerManager.Instance.GetMoney(), amount));
         }
     }
+
+    public static float GetPlayerSpeed()
+    {
+        return PlayerManager.Instance.GetSpeed();
+    }
 }
