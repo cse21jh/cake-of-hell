@@ -18,8 +18,8 @@ public class Player : MonoBehaviour
 
     private GameObject hitBox;
 
-    protected float coolTime = 1.0f;
-    protected float curCoolTime = 0;
+    private float coolTime = 1.0f;
+    private float curCoolTime = 0;
 
     public Dictionary<int, int> NumberOfBase { get; set; } = new Dictionary<int, int>() ;
     public Dictionary<int, int> NumberOfIcing { get; set; } = new Dictionary<int, int>();
@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         UiManager.Instance.openItemList = false;
@@ -52,17 +51,18 @@ public class Player : MonoBehaviour
         PlayerManager.Instance.player = this;
         hitBox = transform.Find("HitBox").gameObject;
         playerImage = Resources.LoadAll<Sprite>("Sprites/Player/player");
-        for (int i = 0; i<ItemManager.Instance.ItemCodeList.Count;i++)
+        for (int i = 0; i<ItemManager.Instance.ItemCodeList.Count; i++)
         {
-            InitializationNumberOfItem(ItemManager.Instance.ItemCodeList[i]);
+            InitializeNumberOfItem(ItemManager.Instance.ItemCodeList[i]);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && curCoolTime <= 0 &&!inShop)
+        if (Input.GetMouseButtonDown(0) && curCoolTime <= 0 && !inShop)
+        {
             StartCoroutine(Attack());
+        }
 
         if (curCoolTime > 0)
         {
@@ -73,21 +73,23 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         if(GameManager.Instance.canMove)
+        {
             Move();
+        }
         else
         {
             rb.velocity = new Vector2(0, 0);
         }
     }
 
-    void Move()
+    private void Move()
     {
         float dx = Input.GetAxisRaw("Horizontal");
         float dy = Input.GetAxisRaw("Vertical");
 
-        spriteRenderer.sprite = PlayerImage(dx, dy);
+        SetPlayerImage(dx, dy);
 
-        rb.velocity = new Vector2(dx * Speed * 1.5f, dy * Speed*1.5f);
+        rb.velocity = new Vector2(dx * Speed * 1.5f, dy * Speed * 1.5f);
     }
 
     private IEnumerator Attack()
@@ -100,11 +102,11 @@ public class Player : MonoBehaviour
         hitBox.gameObject.SetActive(false);
     }
 
-    private void InitializationNumberOfItem(int code)
+    private void InitializeNumberOfItem(int code)
     {
-        switch(code/1000)
+        switch(code / 1000)
         { 
-            case 1 :
+            case 1:
                 NumberOfBase.Add(code, 0);
                 break;
             case 2:
@@ -116,77 +118,15 @@ public class Player : MonoBehaviour
             case 4:
                 NumberOfRaw.Add(code, 0);
                 break;
-                
         }
     }
 
-    private Sprite PlayerImage(float dx, float dy)
+    private void SetPlayerImage(float dx, float dy)
     {
-        if(inShop)
-        {
-            if (dy == -1.0f)
-            {
-                nowImage = 0;
-                return playerImage[0];
-            }
-            else if (dy == 1.0f)
-            {
-                nowImage = 1;
-                return playerImage[1];
-            }
-            else if (dx == -1.0f)
-            {
-                nowImage = 2;
-                return playerImage[2];
-            }
-            else if (dx == 1.0f)
-            {
-                nowImage = 3;
-                return playerImage[3];
-            }
-            else
-            {
-                if(nowImage>3)
-                {
-                    nowImage = nowImage - 4;
-                    return playerImage[nowImage];
-                }
-                else
-                    return spriteRenderer.sprite;
-            }
-        }
-        else
-        {
-            if (dy == -1.0f)
-            {
-                nowImage = 4;
-                return playerImage[4];
-            }
-            else if (dy == 1.0f)
-            {
-                nowImage = 5;
-                return playerImage[5];
-            }
-            else if (dx == -1.0f)
-            {
-                nowImage = 6;
-                return playerImage[6];
-            }
-            else if (dx == 1.0f)
-            {
-                nowImage = 7;
-                return playerImage[7];
-            }
-            else
-            {
-                if (nowImage < 4)
-                {
-                    nowImage = nowImage + 4;
-                    return playerImage[nowImage];
-                }
-                else
-                    return spriteRenderer.sprite;
-            }
-        }
+        int idx = dy < 0 ? 0 : dy > 0 ? 1 : dx < 0 ? 2 : dx > 0 ? 3 : -1;
+        if(idx == -1) return;
+        if(!inShop) idx += 4;
+        nowImage = idx;
+        spriteRenderer.sprite = playerImage[nowImage];
     }
 }
