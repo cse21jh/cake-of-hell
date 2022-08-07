@@ -14,7 +14,7 @@ public class MonsterHitBox : MonoBehaviour
         }
     }
 
-    public void ChangeSize(int size)
+    public void ChangeSize(float size)
     {
         transform.localScale = new Vector3(transform.localScale.x * size, transform.localScale.y * size, transform.localScale.z);
     }
