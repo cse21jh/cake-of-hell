@@ -6,15 +6,16 @@ public class Mermaid : Monster
 {
     private int countMove = 0;
 
-    // Start is called before the first frame update
     protected override void Start()
     {
         itemCode.Add(4009);
         itemCode.Add(4014);
         MaxHp = 20;
         Hp = 20;
-        Speed = 2;
-        AttackDamage = 5;
+        AttackDamage = 0;
+        AttackRange = 0;
+        Speed = Util.GetPlayerSpeed() / 2;
+        Eyesight = 4;
         Rank = "C";
         base.Start();
     }
@@ -25,9 +26,17 @@ public class Mermaid : Monster
 
         if (CheckPlayer())
         {
-            nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 2.0f)));
-            nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
+            if (DistToPlayer() > Eyesight)
+            {
+                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 2.0f)));
+            }
+            else
+            {
+                nextRoutines.Enqueue(NewActionRoutine(MoveAwayFromPlayer(Speed * 1.5f)));
+            }
         }
+
+        else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
 
         return nextRoutines;
     }
@@ -37,23 +46,30 @@ public class Mermaid : Monster
         Vector3 position;
         switch (countMove) {
             case 0:
-                position = new Vector3(GetObjectPos().x + 2 * Speed, GetObjectPos().y, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y + (2 * Speed), GetObjectPos().z);
                 countMove = 1;
                 return position;
             case 1:
-                position = new Vector3(GetObjectPos().x, GetObjectPos().y + 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y - (2 * Speed), GetObjectPos().z);
                 countMove = 2;
                 return position;
             case 2:
-                position = new Vector3(GetObjectPos().x - 2 * Speed, GetObjectPos().y, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y - (2 * Speed), GetObjectPos().z);
                 countMove = 3;
                 return position;
             case 3:
-                position = new Vector3(GetObjectPos().x, GetObjectPos().y - 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y + (2 * Speed), GetObjectPos().z);
                 countMove = 0;
                 return position;
         }
         return GetObjectPos();
+    }
+
+    protected IEnumerator MoveAwayFromPlayer(float speedMultiplier)     // 플레이어로부터 도망친다
+    {
+        Vector3 direction = GetObjectPos() - GetPlayerPos();
+        transform.position = Vector3.Lerp(GetObjectPos(), GetPlayerPos() + direction * 2, Time.deltaTime / speedMultiplier);
+        yield return null;
     }
 
     public override List<int> GetItemCode()
