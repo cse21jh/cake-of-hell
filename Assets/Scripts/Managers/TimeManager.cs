@@ -94,7 +94,7 @@ public class TimeManager : Singleton<TimeManager>
         StopCoroutine(enumerator);
 
         canvas = FindObjectOfType<Canvas>();
-        endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
+        //endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
 
         if (endDayUI !=null)
         { 
@@ -104,7 +104,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public void Penalty()
     {
-        GameManager.Instance.LoadScene("JHSampleShop", true);
+        //GameManager.Instance.LoadScene("JHSampleShop", true);
         PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() - 50f);
         Debug.Log("isPrepareTimeOver");
     }
