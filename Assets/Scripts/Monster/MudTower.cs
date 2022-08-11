@@ -14,8 +14,8 @@ public class MudTower : Monster
         Hp = 20;
         Speed = 0;
         AttackDamage = 24;
-        AttackRange = 1f;
-        Eyesight = 5;
+        AttackRange = 2f;
+        Eyesight = 2;
         Rank = "C";
         base.Start();
     }
@@ -26,20 +26,14 @@ public class MudTower : Monster
 
         if (CheckPlayer())
         {
-            if(DistToPlayer()>Eyesight)
-            { 
+            if (DistToPlayer() > Eyesight)
+            {
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
             }
             else
             {
-                if (!attacking)
-                {
-                    nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));
-                }
-                else
-                {
-                    nextRoutines.Enqueue(NewActionRoutine(CanAttack()));
-                }
+                nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));
+                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(3f)));
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));

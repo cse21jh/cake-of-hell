@@ -12,7 +12,7 @@ public class Dragon : Monster
         itemCode.Add(4007);
         MaxHp = 70;
         Hp = 70;
-        Speed = Util.GetPlayerSpeed()*2;
+        Speed = Util.GetPlayerSpeed();
         AttackDamage = 40;
         AttackRange = 4;
         Eyesight = 4;
@@ -33,15 +33,8 @@ public class Dragon : Monster
             }
             else
             {
-                if (!attacking)
-                {
-                    nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));
-                }
-                else
-                {
-                    nextRoutines.Enqueue(NewActionRoutine(MoveTowardPlayer(Speed,3.0f)));
-                    nextRoutines.Enqueue(NewActionRoutine(CanAttack()));
-                }
+                nextRoutines.Enqueue(NewActionRoutine(MoveTowardPlayer(Speed, 1.0f)));
+                nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));   
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
@@ -55,11 +48,11 @@ public class Dragon : Monster
         switch (countMove)
         {
             case 0:
-                position = new Vector3(GetObjectPos().x, GetObjectPos().y  + 3 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y  + 2 * Speed, GetObjectPos().z);
                 countMove = 1;
                 return position;
             case 1:
-                position = new Vector3(GetObjectPos().x, GetObjectPos().y  - 3 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x, GetObjectPos().y  - 2 * Speed, GetObjectPos().z);
                 countMove = 0;
                 return position;
         }
@@ -76,15 +69,9 @@ public class Dragon : Monster
             temp.host = gameObject;
             temp.dmg = AttackDamage;
             temp.duration = 3.0f;
-            StartCoroutine(temp.ShootBullet(GetPlayerPos(), 3));
-            yield return new WaitForSeconds(2.0f);
+            StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
+            yield return new WaitForSeconds(1.0f);
         }
-        yield return null;
-    }
-
-    private IEnumerator CanAttack()
-    {
-        attacking = false;
         yield return null;
     }
 
