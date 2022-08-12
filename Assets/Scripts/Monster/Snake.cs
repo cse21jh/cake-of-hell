@@ -44,7 +44,6 @@ public class Snake : Monster
                 else
                     countMove = 0;
                 nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 1.5f)));  
-                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1.5f)));
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
@@ -87,7 +86,7 @@ public class Snake : Monster
             temp.dmg = AttackDamage;
             temp.duration = 1.0f;
             StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.5f);
         }
         yield return null;
     }
