@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Process
 {
-    private float totalTime, segment, nowTime;
+    private float totalTime, interval, nowTime;
     
     public List<System.Action> taskList;
     public System.Action OnStart, OnEnd;
     public int LoopCount { get; private set; }
 
-    public Process(float _totalTime, float _segment)
+    public Process(float _totalTime, float _interval)
     {
         totalTime = _totalTime;
-        segment = _segment;
+        interval = _interval;
         taskList = new List<System.Action>();
     }
 
@@ -26,12 +26,12 @@ public class Process
         while(nowTime <= totalTime)
         {
             LoopCount += 1;
-            nowTime += segment;
+            nowTime += interval;
             foreach(System.Action func in taskList) 
             {
                 func();
             }
-            yield return new WaitForSeconds(segment);
+            yield return new WaitForSeconds(interval);
         }
         if(OnEnd != null) OnEnd();
     }

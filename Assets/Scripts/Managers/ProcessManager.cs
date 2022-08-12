@@ -26,8 +26,8 @@ public class ProcessManager : Singleton<ProcessManager>
     {
         int procId = AssginNewId();
         float totalTime = recipe.Duration * count;
-        float segment = totalTime / 100.0f;
-        Process newProc = new Process(totalTime, segment);
+        float interval = totalTime / 100.0f;
+        Process newProc = new Process(totalTime, interval);
 
         newProc.OnStart = null;
         newProc.taskList.Add(() => 
