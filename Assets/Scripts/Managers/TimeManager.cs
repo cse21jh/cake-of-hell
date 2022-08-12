@@ -114,7 +114,7 @@ public class TimeManager : Singleton<TimeManager>
     {
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
-        endPrepareUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndPrepareUI"), canvas.transform);
+        //endPrepareUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndPrepareUI"), canvas.transform);
         if (endPrepareUI != null)
         {
             endPrepareUI.GetComponent<EndPrepareUI>().Open();
@@ -126,7 +126,7 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log("Time to Close");
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
-        endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
+        //endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
         if (endDayUI != null)
         { 
             endDayUI.GetComponent<EndDayUI>().Open();
