@@ -92,7 +92,6 @@ public class TimeManager : Singleton<TimeManager>
             EndPrepare();
         }
         endPrepare = false;
-        EndPrepare();
         yield return null;
     }
 

@@ -227,14 +227,14 @@ public class GameManager : Singleton<GameManager>
     private void AddMonsterInMap()
     {
         monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/Mermaid").GetComponent<Mermaid>());
-        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/ModTower").GetComponent<MudTower>());
+        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/MudTower").GetComponent<MudTower>());
 
-        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapB/Mushroom").GetComponent<Mushroom>());
+        monsterInMapB.Add(Resources.Load<GameObject>("Prefabs/Monster/MapB/Mushroom").GetComponent<Mushroom>());
 
 
         monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Rhino").GetComponent<Rhino>());
 
-        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Spider").GetComponent<Spider>());
-        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Dragon").GetComponent<Dragon>());
+        monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Spider").GetComponent<Spider>());
+        monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Dragon").GetComponent<Dragon>());
     }
 }
