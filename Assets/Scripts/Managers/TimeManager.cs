@@ -11,6 +11,11 @@ public class TimeManager : Singleton<TimeManager>
 
     private bool stopTimer = true;
 
+    public int GuestEnterTimeStart { get; private set; }
+    public int GuestEnterTimeEnd { get; private set; }
+    public int GuestLeaveTimeStart { get; private set; }
+    public int GuestLeaveTimeEnd { get; private set; }
+
     public bool isPrepareTime;
     public bool isOpenTime;
     public bool endPrepare = false;
@@ -33,13 +38,14 @@ public class TimeManager : Singleton<TimeManager>
         if(!stopTimer)
         { 
             timer += Time.deltaTime;
-            if(huntTimeUI !=null && cookTimeUI != null)
+            if(huntTimeUI != null && cookTimeUI != null)
             {
                 huntTimeUI.TimeBarUpdate(timer);
                 cookTimeUI.TimeBarUpdate(timer);
             }
         }
     }
+
     public void StartDay()
     {
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
@@ -49,6 +55,7 @@ public class TimeManager : Singleton<TimeManager>
         isPrepareTime = true;
         isOpenTime = false;
         stopTimer = false;
+        UpdateGuestTimes();
         StartCoroutine(StartDayCoroutine());
     }
 
@@ -66,7 +73,7 @@ public class TimeManager : Singleton<TimeManager>
     {
         PrepareOpenShop();
 
-        for(int i = 0;i<oneHour*12*10;i++)
+        for(int i=0; i<oneHour*12*10; i++)
         {
             if (endPrepare)
             {
@@ -87,12 +94,11 @@ public class TimeManager : Singleton<TimeManager>
         endPrepare = false;
         EndPrepare();
         yield return null;
-        
     }
 
     public IEnumerator OpenShopCoroutine()
     {
-        for (int i = 0; i < oneHour * 12 * 10; i++)
+        for (int i=0; i<oneHour*12*10; i++)
         {
             yield return new WaitForSeconds(0.1f);
         }
@@ -120,11 +126,9 @@ public class TimeManager : Singleton<TimeManager>
     {
         Debug.Log("Time to Close");
         stopTimer = true;
-
         canvas = FindObjectOfType<Canvas>();
         endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
-
-        if (endDayUI !=null)
+        if (endDayUI != null)
         { 
             endDayUI.GetComponent<EndDayUI>().Open();
         }
@@ -136,7 +140,14 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log("isPrepareTimeOver");
     }
 
-
+    private void UpdateGuestTimes()
+    {
+        //to be fixed
+        GuestEnterTimeStart = 20;
+        GuestEnterTimeEnd = 25;
+        GuestLeaveTimeStart = 15;
+        GuestLeaveTimeEnd = 25;
+    }
 
     public int GetDay()
     {
@@ -160,7 +171,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public float GetTime()
     {
-        return (timer/oneHour);
+        return (timer / oneHour);
     }
 
     public void Ending()
