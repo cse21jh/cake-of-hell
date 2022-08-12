@@ -175,6 +175,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     public override void Close()
     {
         gameObject.SetActive(false);
+        HoverItemName.Instance.gameObject.SetActive(false);
         Debug.Log("Cake Table UI Closed!");
     }
 

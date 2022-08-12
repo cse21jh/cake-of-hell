@@ -140,6 +140,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     public override void Close()
     {
         gameObject.SetActive(false);
+        HoverItemName.Instance.gameObject.SetActive(false);
         Debug.Log("Magician UI Closed!");
     }
 
