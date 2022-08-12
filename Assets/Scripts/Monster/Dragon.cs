@@ -14,7 +14,7 @@ public class Dragon : Monster
         Speed = Util.GetPlayerSpeed();
         AttackDamage = 40;
         AttackRange = 4;
-        Eyesight = 4;
+        Eyesight = 5;
         Rank = "SS";
         base.Start();
     }
