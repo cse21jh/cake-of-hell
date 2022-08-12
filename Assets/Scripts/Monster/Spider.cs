@@ -15,7 +15,7 @@ public class Spider : Monster
         Speed = Util.GetPlayerSpeed()/2;
         AttackDamage = 60;
         AttackRange = 8;
-        Eyesight = 0;
+        Eyesight = 8;
         Rank = "SS";
         base.Start();
     }

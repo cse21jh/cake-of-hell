@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Mushroom : Monster
 {
-    private int countMove = 0;
-    private bool attacking = false;
     private SpriteRenderer spriteRenderer;
     
     protected override void Start()
@@ -49,13 +47,11 @@ public class Mushroom : Monster
     {
         MonsterHitBox mushroomHitbox = monsterHitBox.GetComponent<MonsterHitBox>();
 
-        attacking = true;
         monsterHitBox.gameObject.SetActive(true);
         mushroomHitbox.ChangeSize(3);
         yield return new WaitForSeconds(0.1f);
         mushroomHitbox.ChangeSize(1/3f);
         monsterHitBox.gameObject.SetActive(false);
-        attacking = false;
         yield return null;
     }
 

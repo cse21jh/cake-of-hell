@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MudTower : Monster
 {
-    private int countMove = 0;
-    private bool attacking = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -43,7 +41,6 @@ public class MudTower : Monster
 
     private IEnumerator AttackRoutine()
     {
-        attacking = true;
         if (CheckPlayer())
         {
             var bul = Instantiate(bullet, transform.position, Quaternion.identity);
@@ -59,7 +56,6 @@ public class MudTower : Monster
 
     private IEnumerator CanAttack()
     {
-        attacking = false;
         yield return null;
     }
 

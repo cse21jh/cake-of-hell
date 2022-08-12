@@ -5,7 +5,6 @@ using UnityEngine;
 public class Dragon : Monster
 {
     private int countMove = 0;
-    private bool attacking = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -61,7 +60,6 @@ public class Dragon : Monster
 
     private IEnumerator AttackRoutine()
     {
-        attacking = true;
         if (CheckPlayer())
         {
             var bul = Instantiate(bullet, transform.position, Quaternion.identity);

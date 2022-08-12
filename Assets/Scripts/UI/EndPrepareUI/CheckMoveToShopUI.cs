@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndDayUI : BaseUI
+public class CheckMoveToShopUI : BaseUI
 {
-    void Start()
+    void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
 
     public override void Open()
