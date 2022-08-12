@@ -24,6 +24,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     void Start()
     {
+        Debug.Log("Started Magician UI");
         Util.AddItem(4001, 10);
         Util.AddItem(4009, 10);
         Util.AddItem(4012, 10);
@@ -100,15 +101,33 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             processItems[j].SetPosition(-375, 175 - 50 * j);
             processItems[j].SetOnClick(() => 
             {
-                Debug.Log(Util.GetItem(processItems[j].ItemCode));
                 if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem)
                 {
                     Util.AddItem(processItems[j].ItemCode * processItems[j].ItemCount);
                     processItems[j].Clear();
+                    ProcessManager.Instance.MagicianProcesses[j] = null;
                 }
             });
             
             progressCircles[i] = Object.Instantiate(circ, processItems[i].gameObject.transform);
+        }
+
+        for(int i=0; i<UnlockedSlots; i++) 
+        {
+            MagicianProcess proc = ProcessManager.Instance.MagicianProcesses[i];
+            Debug.Log(proc);
+            if(proc == null) continue;
+
+            if(proc.IsEnded) 
+            {
+                processItems[i].LoadItem(proc.ProcessRecipe.Output, proc.Count);
+            }
+            else 
+            {
+                processItems[i].LoadItem(proc.ProcessRecipe.Input, proc.Count);
+                proc.Slot = processItems[i];
+                proc.Circle = progressCircles[i].GetComponent<ProgressCircle>();
+            }
         }
     }
 
@@ -210,6 +229,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             itemSlots[inputCode].UseItem(inputCount);
             processItems[idx].LoadItem(inputCode, inputCount);
             ProcessManager.Instance.AddMagicianProcess(
+                idx,
                 recipeDefault, 
                 inputCount, 
                 processItems[idx],

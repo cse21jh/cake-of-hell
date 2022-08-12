@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProcessManager : Singleton<ProcessManager>
 {
     private int _id = 0;
-    private Dictionary<int, Process> ProcessList;
+    public MagicianProcess[] MagicianProcesses;
 
     void Awake()
     {
@@ -14,7 +14,7 @@ public class ProcessManager : Singleton<ProcessManager>
 
     void Start()
     {
-        
+        MagicianProcesses = new MagicianProcess[8];
     }
 
     void Update()
@@ -22,40 +22,46 @@ public class ProcessManager : Singleton<ProcessManager>
         
     }
 
-    public int AddMagicianProcess(Recipe recipe, int count, ItemSlotComponent slot, ProgressCircle circle)
+    public void AddMagicianProcess(int idx, Recipe recipe, int count, ItemSlotComponent slot, ProgressCircle circle)
     {
-        int procId = AssginNewId();
+        //int procId = AssginNewId();
         float totalTime = recipe.Duration * count;
         float interval = totalTime / 100.0f;
-        Process newProc = new Process(totalTime, interval);
+        MagicianProcess newProc = new MagicianProcess(totalTime, interval);
+        newProc.ProcessRecipe = recipe;
+        newProc.Count = count;
+        newProc.Slot = slot;
+        newProc.Circle = circle;
 
         newProc.OnStart = null;
         newProc.taskList.Add(() => 
         {
-            if(circle != null) 
+            if(newProc.Circle != null) 
             {
-                circle.SetProgress(newProc.LoopCount);
+                newProc.Circle.SetProgress(newProc.LoopCount);
             }
         });
         newProc.OnEnd = () => 
         {
-            if(slot != null)
+            if(newProc.Slot != null)
             {
-                slot.LoadItem(recipe.Output, count);
+                newProc.Slot.LoadItem(newProc.ProcessRecipe.Output, newProc.Count);
             }
-            if(circle != null)
+            if(newProc.Circle != null)
             {
-                circle.SetProgress(0);
+                newProc.Circle.SetProgress(0);
             }
         };
 
+        MagicianProcesses[idx] = newProc;
+
         StartCoroutine(newProc.Run());
 
-        return procId;
+        //return procId;
     }
 
-    private int AssginNewId() 
+    /*private int AssginNewId() 
     {
         return ++_id;
-    }
+    }*/
 }

@@ -9,6 +9,7 @@ public class Process
     public List<System.Action> taskList;
     public System.Action OnStart, OnEnd;
     public int LoopCount { get; private set; }
+    public bool IsEnded { get; private set; }
 
     public Process(float _totalTime, float _interval)
     {
@@ -34,6 +35,8 @@ public class Process
             yield return new WaitForSeconds(interval);
         }
         if(OnEnd != null) OnEnd();
+
+        IsEnded = true;
     }
 
     public float GetTime()
