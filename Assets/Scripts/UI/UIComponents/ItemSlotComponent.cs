@@ -7,6 +7,7 @@ using TMPro;
 
 public class ItemSlotComponent : UIComponent
 {
+    private bool isHovered;
     private Sprite nullSprite;
     private GameObject hoverItemName;
     public int ItemCode { get; set; }
@@ -17,6 +18,7 @@ public class ItemSlotComponent : UIComponent
     public ItemSlotComponent(Transform parent, int itemCode, int itemCount, bool isClickable = false) 
     : base(parent, Resources.Load<GameObject>("Prefabs/ItemSlotPrefab"))
     {
+        isHovered = false;
         nullSprite = Resources.Load<Sprite>("Sprites/Nothing");
         LoadItem(itemCode, itemCount);
         IsClickable = isClickable;
@@ -38,6 +40,7 @@ public class ItemSlotComponent : UIComponent
         ItemCount = itemCount;
         gameObject.transform.GetChild(0).GetComponent<Image>().sprite = Util.GetItem(itemCode).SpriteImage ?? nullSprite;
         gameObject.transform.GetChild(1).GetComponent<TMP_Text>().text = ItemCount == -1 ? "" : ItemCount.ToString();
+        if(hoverItemName != null && isHovered) UpdateHoverItem();
     }
 
     public bool HasItem()
@@ -75,18 +78,32 @@ public class ItemSlotComponent : UIComponent
 
     public void OnHover(PointerEventData data)
     {
+        isHovered = true;
         if(!hoverItemName.activeSelf && HasItem())
         {
             hoverItemName.SetActive(true);
-            hoverItemName.transform.GetChild(0).GetComponent<TMP_Text>().text = Util.GetItem(ItemCode).Name;
             hoverItemName.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 40);
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)hoverItemName.GetComponent<ContentSizeFitter>().transform);
+            UpdateHoverItem();
         }
     }
 
     public void OnExit(PointerEventData data)
     {
+        isHovered = false;
         if(hoverItemName.activeSelf)
+        {
+            hoverItemName.SetActive(false);
+        }
+    }
+
+    private void UpdateHoverItem()
+    {
+        if(HasItem())
+        {
+            hoverItemName.transform.GetChild(0).GetComponent<TMP_Text>().text = Util.GetItem(ItemCode).Name;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)hoverItemName.GetComponent<ContentSizeFitter>().transform);
+        }
+        else
         {
             hoverItemName.SetActive(false);
         }
