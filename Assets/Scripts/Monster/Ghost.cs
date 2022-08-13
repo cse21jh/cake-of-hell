@@ -34,9 +34,7 @@ public class Ghost : Monster
             }
             else
             {
-                Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
-                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(direction * Speed, 2.0f)));
-                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1.0f)));
+                nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
@@ -61,6 +59,12 @@ public class Ghost : Monster
         return GetObjectPos();
     }
 
+    private IEnumerator AttackRoutine()
+    {
+        Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
+        yield return MoveRoutine(direction * Speed, 2.0f);
+        yield return WaitRoutine(1.0f);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
