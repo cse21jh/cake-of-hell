@@ -70,12 +70,10 @@ public abstract class Monster : MonoBehaviour
         yield return action;
         CurrentRoutine = null;
     }
-    protected IEnumerator MoveRoutine(Vector3 destination, float time) // 지정된 좌표로 움직인다
+    
+    protected IEnumerator MoveRoutine(Vector3 destination, float time)
     {
-        yield return MoveRoutine(destination, time, AnimationCurve.Linear(0, 0, 1, 1));
-    }
-    protected IEnumerator MoveRoutine(Vector3 destination, float time, AnimationCurve curve)
-    {
+        AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
         Vector3 startPosition = transform.position;
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
