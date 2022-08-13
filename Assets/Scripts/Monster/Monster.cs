@@ -90,17 +90,18 @@ public abstract class Monster : MonoBehaviour
         {
             for (float t = 0; t <= time; t += Time.deltaTime)
             {
-                Vector2 direction = (GetPlayerPos() - GetObjectPos()).normalized;
-                transform.position = Vector3.Lerp(GetObjectPos(), GetPlayerPos(), Time.deltaTime / speedMultiplier);
+                Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
+                transform.position = transform.position + (direction * (speedMultiplier * Time.deltaTime));
                 yield return null;
             }
         }
         else
         {
-            Vector2 direction = (GetPlayerPos() - GetObjectPos()).normalized;
-            transform.position = Vector3.Lerp(GetObjectPos(), GetPlayerPos(), Time.deltaTime / speedMultiplier);
+            Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
+            transform.position = transform.position + (direction * (speedMultiplier * Time.deltaTime));
             yield return null;
         }
+        yield return null;
     }
 
 

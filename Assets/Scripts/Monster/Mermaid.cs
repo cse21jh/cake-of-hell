@@ -67,8 +67,8 @@ public class Mermaid : Monster
 
     protected IEnumerator MoveAwayFromPlayer(float speedMultiplier)     // 플레이어로부터 도망친다
     {
-        Vector3 direction = GetObjectPos() - GetPlayerPos();
-        transform.position = Vector3.Lerp(GetObjectPos(), GetPlayerPos() + direction * 2, Time.deltaTime / speedMultiplier);
+        Vector3 direction = (GetObjectPos() - GetPlayerPos()).normalized;
+        transform.position = transform.position + (direction * (speedMultiplier * Time.deltaTime));
         yield return null;
     }
 

@@ -17,6 +17,8 @@ public class Ghost : Monster
         Eyesight = 6;
         Rank = "S";
         base.Start();
+        StartCoroutine(Fade());
+
     }
 
     protected override Queue<IEnumerator> DecideNextRoutine()
@@ -32,7 +34,7 @@ public class Ghost : Monster
             }
             else
             {
-                Vector2 direction = (GetPlayerPos() - GetObjectPos()).normalized;
+                Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
                 nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(direction * Speed, 2.0f)));
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1.0f)));
             }
@@ -67,6 +69,32 @@ public class Ghost : Monster
             PlayerManager.Instance.GetDamage(AttackDamage);
             Debug.Log(PlayerManager.Instance.GetHp());
         }
+    }
+
+    private IEnumerator Fade()
+    {
+        while(!alreadyDie)
+        {
+            for (int i = 10; i >= 0; i--)
+            {
+                float f = i / 10.0f;
+                Color c = sr.material.color;
+                c.a = f;
+                sr.material.color = c;
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i <= 10; i++)
+            {
+                float f = i / 10.0f;
+                Color c = sr.material.color;
+                c.a = f;
+                sr.material.color = c;
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        yield return null;
     }
 
     public override List<int> GetItemCode()
