@@ -9,6 +9,7 @@ public class Devil : Monster
     private float runningTime = 0f;
     private float degree = 0f;
     private float radius = 3f;
+    private float circleSpeed = Util.GetPlayerSpeed() * 20f;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -48,7 +49,7 @@ public class Devil : Monster
 
     private IEnumerator CircleMoveRoutine()
     {
-        degree += Time.deltaTime * Speed;
+        degree += Time.deltaTime * circleSpeed;
         if(degree >= 360)
             degree = 0;
         var rad = Mathf.Deg2Rad * (degree);
