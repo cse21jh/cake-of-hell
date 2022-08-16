@@ -6,7 +6,6 @@ public class Tornado : Monster
 {
     private Vector3 centerPoint;
     private Vector3 newPoint;
-    private float runningTime = 0f;
     private float degree = 0f;
     private float radius = 1f;
     private float circleSpeed = 200f;

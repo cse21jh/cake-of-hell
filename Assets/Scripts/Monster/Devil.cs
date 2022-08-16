@@ -22,7 +22,7 @@ public class Devil : Monster
         AttackRange = 5;
         Eyesight = 5;
         Rank = "S";
-        centerPoint = transform.position + new Vector3(3, 0, 0);
+        centerPoint = transform.position + new Vector3(0, -3, 0);
         base.Start();
     }
 
@@ -39,7 +39,6 @@ public class Devil : Monster
             else
             {
                 nextRoutines.Enqueue(NewActionRoutine(AttackRoutine())); 
-                nextRoutines.Enqueue(NewActionRoutine(MoveTowardPlayer(Speed, 2f)));  
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
@@ -70,6 +69,10 @@ public class Devil : Monster
             temp.duration = 2.0f;
             StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
             yield return new WaitForSeconds(2.0f);
+            yield return MoveTowardPlayer(Speed, 2f);
+            centerPoint = transform.position + new Vector3(0, -3, 0);
+            degree = 0;
+
         }
         yield return null;
     }
