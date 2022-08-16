@@ -107,9 +107,9 @@ public class Counter : NPC
     private System.String NewFlavorTextOrder()
     {
         System.String ret =
-        (Util.GetItem(orderTopping) as ProcessedItem).FlavorText + " " +
-        (Util.GetItem(orderIcing) as ProcessedItem).FlavorText + " " +
-        (Util.GetItem(orderBase) as ProcessedItem).FlavorText + " 주세요.";
+        (Util.GetItem(orderTopping) as ProcessedItem).FlavorWord + " " +
+        (Util.GetItem(orderIcing) as ProcessedItem).FlavorWord + " " +
+        (Util.GetItem(orderBase) as ProcessedItem).FlavorWord + " 주세요.";
         return ret;
     }
 
@@ -120,9 +120,9 @@ public class Counter : NPC
         ProcessedItem b = Util.GetItem(orderBase) as ProcessedItem;
         int dice = rand.Next(0, 8);
         System.String ret =
-        (((dice & 1 << 0) == 0) ? t.Keyword : t.FlavorText) + " " +
-        (((dice & 1 << 1) == 0) ? i.Keyword : i.FlavorText) + " " +
-        (((dice & 1 << 2) == 0) ? b.Keyword : b.FlavorText) + " 주세요.";
+        (((dice & 1 << 0) == 0) ? t.Keyword : t.FlavorWord) + " " +
+        (((dice & 1 << 1) == 0) ? i.Keyword : i.FlavorWord) + " " +
+        (((dice & 1 << 2) == 0) ? b.Keyword : b.FlavorWord) + " 주세요.";
         return ret;
     }
 
