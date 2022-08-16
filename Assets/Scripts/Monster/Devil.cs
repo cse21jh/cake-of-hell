@@ -9,7 +9,7 @@ public class Devil : Monster
     private float runningTime = 0f;
     private float degree = 0f;
     private float radius = 3f;
-    private float circleSpeed = Util.GetPlayerSpeed() * 20f;
+    private float circleSpeed;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -22,6 +22,7 @@ public class Devil : Monster
         AttackRange = 5;
         Eyesight = 5;
         Rank = "S";
+        circleSpeed = Util.GetPlayerSpeed() * 20f; 
         centerPoint = transform.position + new Vector3(0, -3, 0);
         base.Start();
     }
