@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CakeTable : NPC
 {
+    [SerializeField]
+    private int tableNumber;
+
     private CakeTableUI ui; 
 
     private bool flag = false;
@@ -19,6 +22,7 @@ public class CakeTable : NPC
         {
             flag = true;
             UiManager.Instance.OpenUI(ui);
+            ui.SetTableNumber(tableNumber);
         }
     }
 

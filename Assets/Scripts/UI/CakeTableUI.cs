@@ -39,10 +39,9 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bigImgBase = GameObject.Find("BaseBigImage").GetComponent<Image>();
         bigImgIcing = GameObject.Find("IcingBigImage").GetComponent<Image>();
         bigImgTopping = GameObject.Find("ToppingBigImage").GetComponent<Image>();
-        progressCircles = new GameObject[3];
+        progressCircles = new GameObject[2];
         progressCircles[0] = GameObject.Find("ProgressCircleCake0");
         progressCircles[1] = GameObject.Find("ProgressCircleCake1");
-        progressCircles[2] = GameObject.Find("ProgressCircleCake2");
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
@@ -110,10 +109,13 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[0].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    baseInput.LoadItem(pair.Key);
-                    bigImgBase.sprite = spriteBase[pair.Key];
-                    matName.text = Util.GetItem(pair.Key).Name;
-                    matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                    if(IsTableIdle()) 
+                    {
+                        baseInput.LoadItem(pair.Key);
+                        bigImgBase.sprite = spriteBase[pair.Key];
+                        matName.text = Util.GetItem(pair.Key).Name;
+                        matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
+                    }
                 });
             }
         }
@@ -124,7 +126,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[1].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    if(baseInput.HasItem()) 
+                    if(baseInput.HasItem() && IsTableIdle()) 
                     {
                         icingInput.LoadItem(pair.Key);
                         bigImgIcing.sprite = spriteIcing[pair.Key];
@@ -141,7 +143,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(pages[2].Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    if(baseInput.HasItem() && icingInput.HasItem()) 
+                    if(baseInput.HasItem() && icingInput.HasItem() && IsTableIdle()) 
                     {
                         toppingInput.LoadItem(pair.Key);
                         bigImgTopping.sprite = spriteTopping[pair.Key];
@@ -188,7 +190,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     public void SetTableNumber(int num)
     {
         tableNumber = num;
-        for(int i=0; i<3; i++) 
+        for(int i=0; i<2; i++) 
         {
             if(i == tableNumber) progressCircles[i].SetActive(true);
             else progressCircles[i].SetActive(false);
@@ -210,9 +212,14 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         }
     }
 
+    private bool IsTableIdle()
+    {
+        return ProcessManager.Instance.CakeProcesses[tableNumber] == null || ProcessManager.Instance.CakeProcesses[tableNumber].IsEnded;
+    }
+
     private void Bake() 
     {
-        if(PlayerManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem()) 
+        if(PlayerManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem() && IsTableIdle()) 
         {
             Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, 
             spriteBase[baseInput.ItemCode], spriteTopping[toppingInput.ItemCode], spriteIcing[icingInput.ItemCode]);
