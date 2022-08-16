@@ -32,13 +32,22 @@ public class Counter : NPC
                 UiManager.Instance.OpenUI(dialog);
                 if(HasGuest)
                 {
-                    //if order accepted
-                    hasOrder = true;
+                    dialog.ShowYesNoButtons();
                     MakeNewOrder();
-                    StartCoroutine(GuestLeave());
-
-                    //else
-                    //penalty
+                    dialog.OnClickYes = () => 
+                    {
+                        UiManager.Instance.CloseUI(dialog);
+                        hasOrder = true;
+                        StartCoroutine(GuestLeave());
+                        EndInteract();
+                    };
+                    dialog.OnClickNo = () => 
+                    {
+                        UiManager.Instance.CloseUI(dialog);
+                        HasGuest = false;
+                        EndInteract();
+                        //penalty
+                    };
                 }
                 else
                 {
@@ -54,6 +63,7 @@ public class Counter : NPC
 
     public override void EndInteract() 
     {
+        if(!hasOrder && HasGuest) return;
         if(flag)
         {
             flag = false;
