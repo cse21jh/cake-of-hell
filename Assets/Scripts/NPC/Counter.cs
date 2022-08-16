@@ -74,14 +74,56 @@ public class Counter : NPC
 
     public void MakeNewOrder() 
     {
-        orderBase = rand.Next(1001, 1007);
-        orderIcing = rand.Next(2001, 2008);
-        orderTopping = rand.Next(3001, 3008);
-        dialog.SetText(
-            (Util.GetItem(orderTopping) as ProcessedItem).Keyword + " " +
-            (Util.GetItem(orderIcing) as ProcessedItem).Keyword + " " +
-            (Util.GetItem(orderBase) as ProcessedItem).Keyword + " 주세요."
-        );
+        orderBase = GameManager.Instance.unlockBaseCode[rand.Next(0, GameManager.Instance.unlockBaseCode.Count)];
+        orderIcing = GameManager.Instance.unlockIcingCode[rand.Next(0, GameManager.Instance.unlockIcingCode.Count)];
+        orderTopping = GameManager.Instance.unlockToppingCode[rand.Next(0, GameManager.Instance.unlockToppingCode.Count)];
+
+        System.String orderText = "";
+        switch(GameManager.Instance.orderSystem)
+        {
+            case 0:
+                orderText = NewKeywordOrder();
+                break;
+            case 1:
+                orderText = (rand.Next(0, 2) == 0 ? NewKeywordOrder() : NewFlavorTextOrder());
+                break;
+            case 2:
+                orderText = NewMixedOrder();
+                break;
+        }
+        dialog.SetText(orderText);
+    }
+
+    private System.String NewKeywordOrder()
+    {
+        System.String ret =
+        (Util.GetItem(orderTopping) as ProcessedItem).Keyword + " " +
+        (Util.GetItem(orderIcing) as ProcessedItem).Keyword + " " +
+        (Util.GetItem(orderBase) as ProcessedItem).Keyword + " 주세요.";
+        return ret;
+    }
+
+    //fix when flavor text...
+    private System.String NewFlavorTextOrder()
+    {
+        System.String ret =
+        (Util.GetItem(orderTopping) as ProcessedItem).FlavorText + " " +
+        (Util.GetItem(orderIcing) as ProcessedItem).FlavorText + " " +
+        (Util.GetItem(orderBase) as ProcessedItem).FlavorText + " 주세요.";
+        return ret;
+    }
+
+    private System.String NewMixedOrder()
+    {
+        ProcessedItem t = Util.GetItem(orderTopping) as ProcessedItem;
+        ProcessedItem i = Util.GetItem(orderIcing) as ProcessedItem;
+        ProcessedItem b = Util.GetItem(orderBase) as ProcessedItem;
+        int dice = rand.Next(0, 8);
+        System.String ret =
+        (((dice & 1 << 0) == 0) ? t.Keyword : t.FlavorText) + " " +
+        (((dice & 1 << 1) == 0) ? i.Keyword : i.FlavorText) + " " +
+        (((dice & 1 << 2) == 0) ? b.Keyword : b.FlavorText) + " 주세요.";
+        return ret;
     }
 
     public void SellCake(Cake cake)
