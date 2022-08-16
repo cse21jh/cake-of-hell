@@ -6,7 +6,6 @@ public class Devil : Monster
 {
     private Vector3 centerPoint; 
     private Vector3 newPoint;
-    private float runningTime = 0f;
     private float degree = 0f;
     private float radius = 3f;
     private float circleSpeed;

@@ -25,9 +25,7 @@ public class GameManager : Singleton<GameManager>
     public bool unlockMapS;
     public bool unlockMapSS;
 
-    public bool orderWithKeyword;
-    public bool orderWithKeywordOrFlavor;
-    public bool orderWithKeywordAndFlavor;
+    public int orderSystem=0;
 
     public List<Monster> monsterInMapC = new List<Monster>();
     public List<Monster> monsterInMapB = new List<Monster>();
@@ -175,9 +173,9 @@ public class GameManager : Singleton<GameManager>
             UnlockItemsOfMonsters(monsterInMapA);
         }
 
-        if (!orderWithKeywordOrFlavor && (numberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
+        if (orderSystem==0 && (numberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
         {
-            orderWithKeywordOrFlavor = true;
+            orderSystem = 1;
         }
 
         if (!unlockMapS && (numberOfSoldCake >= 300 || TimeManager.Instance.GetDay() >= 14))
@@ -186,9 +184,9 @@ public class GameManager : Singleton<GameManager>
             UnlockItemsOfMonsters(monsterInMapS);
         }
 
-        if (!orderWithKeywordAndFlavor && (numberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
+        if (orderSystem == 1 && (numberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
         {
-            orderWithKeywordAndFlavor = true;
+            orderSystem = 2;
         }
 
         if (!unlockMapSS && (numberOfSoldCake >= 560 || TimeManager.Instance.GetDay() >= 25))
