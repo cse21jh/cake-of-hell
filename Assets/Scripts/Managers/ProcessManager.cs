@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ProcessManager : Singleton<ProcessManager>
 {
-    private int _id = 0;
     public MagicianProcess[] MagicianProcesses;
+    public CakeProcess[] CakeProcesses;
 
     void Awake()
     {
@@ -15,16 +15,11 @@ public class ProcessManager : Singleton<ProcessManager>
     void Start()
     {
         MagicianProcesses = new MagicianProcess[8];
-    }
-
-    void Update()
-    {
-        
+        CakeProcesses = new CakeProcess[3];
     }
 
     public void AddMagicianProcess(int idx, Recipe recipe, int count, ItemSlotComponent slot, ProgressCircle circle)
     {
-        //int procId = AssginNewId();
         float totalTime = recipe.Duration * count;
         float interval = totalTime / 100.0f;
         MagicianProcess newProc = new MagicianProcess(totalTime, interval);
@@ -52,16 +47,40 @@ public class ProcessManager : Singleton<ProcessManager>
                 newProc.Circle.SetProgress(0);
             }
         };
-
         MagicianProcesses[idx] = newProc;
-
         StartCoroutine(newProc.Run());
-
-        //return procId;
     }
 
-    /*private int AssginNewId() 
+    public void AddCakeProcess(int idx, CakeTableUI ui, Cake cake, ProgressCircle circle)
     {
-        return ++_id;
-    }*/
+        float totalTime = 5.0f;
+        float interval = totalTime / 100.0f;
+        CakeProcess newProc = new CakeProcess(totalTime, interval);
+        newProc.UI = ui;
+        newProc.CakeRecipe = cake;
+        newProc.Circle = circle;
+
+        newProc.OnStart = null;
+        newProc.taskList.Add(() => 
+        {
+            if(newProc.Circle != null) 
+            {
+                newProc.Circle.SetProgress(newProc.LoopCount);
+            }
+        });
+        newProc.OnEnd = () => 
+        {
+            PlayerManager.Instance.AddCake(cake);
+            if(newProc.UI != null)
+            {
+                newProc.UI.UpdateSlots();
+            }
+            if(newProc.Circle != null)
+            {
+                newProc.Circle.SetProgress(0);
+            }
+        };
+        CakeProcesses[idx] = newProc;
+        StartCoroutine(newProc.Run());
+    }
 }

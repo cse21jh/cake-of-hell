@@ -115,7 +115,6 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         for(int i=0; i<UnlockedSlots; i++) 
         {
             MagicianProcess proc = ProcessManager.Instance.MagicianProcesses[i];
-            Debug.Log(proc);
             if(proc == null) continue;
 
             if(proc.IsEnded) 
@@ -229,14 +228,14 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             
             itemSlots[inputCode].UseItem(inputCount);
             processItems[idx].LoadItem(inputCode, inputCount);
-            ProcessManager.Instance.AddMagicianProcess(
+            ProcessManager.Instance.AddMagicianProcess
+            (
                 idx,
                 recipeDefault, 
                 inputCount, 
                 processItems[idx],
                 progressCircles[idx].GetComponent<ProgressCircle>()
             );
-            //progressCircles[idx].GetComponent<ProgressCircle>().StartProgress(neededTime);
             Util.SpendMoney(neededCost);
             
             if(Util.CountItem(inputCode) == 0) 

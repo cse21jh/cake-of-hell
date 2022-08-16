@@ -5,19 +5,21 @@ using UnityEngine.UI;
 using TMPro;
 
 public class CakeTableUI : BaseUI, ISingleOpenUI
-{ 
+{
+    private int tableNumber = 0;
     private ItemSlotComponent baseInput, icingInput, toppingInput;
     private PaginationComponent pagination;
     private PageComponent[] pages;
     private CakeSlotComponent[] cakes;
     private GameObject inventoryPanel, bakeButton;
+    private GameObject[] progressCircles;
     private TMP_Text matName, matDesc;
     private Sprite spriteNull;
     private Image bigImgBase, bigImgIcing, bigImgTopping;
     private Dictionary<int, Sprite> spriteBase, spriteIcing, spriteTopping;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
-    void Start()
+    void Awake()
     {
         Util.AddItem(1001, 10);
         Util.AddItem(3003, 10);
@@ -37,6 +39,10 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bigImgBase = GameObject.Find("BaseBigImage").GetComponent<Image>();
         bigImgIcing = GameObject.Find("IcingBigImage").GetComponent<Image>();
         bigImgTopping = GameObject.Find("ToppingBigImage").GetComponent<Image>();
+        progressCircles = new GameObject[3];
+        progressCircles[0] = GameObject.Find("ProgressCircleCake0");
+        progressCircles[1] = GameObject.Find("ProgressCircleCake1");
+        progressCircles[2] = GameObject.Find("ProgressCircleCake2");
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
@@ -152,12 +158,45 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
             int ypos = 100 - 50 * i;
             cakes[i] = new CakeSlotComponent(gameObject.transform);
             cakes[i].SetPosition(-370, ypos);
+            if(PlayerManager.Instance.GetCake(i) != null) 
+            {
+                cakes[i].SetCake(PlayerManager.Instance.GetCake(i));
+            }
+        }
+
+        CakeProcess proc = ProcessManager.Instance.CakeProcesses[tableNumber];
+        if(proc != null) 
+        {
+            proc.Circle = progressCircles[tableNumber].GetComponent<ProgressCircle>();
         }
     }
 
     public override void Open()
     {
         gameObject.SetActive(true);
+        UpdateSlots();
+        Debug.Log("Cake Table UI Opened!");
+    }
+
+    public override void Close()
+    {
+        gameObject.SetActive(false);
+        HoverItemName.Instance.gameObject.SetActive(false);
+        Debug.Log("Cake Table UI Closed!");
+    }
+
+    public void SetTableNumber(int num)
+    {
+        tableNumber = num;
+        for(int i=0; i<3; i++) 
+        {
+            if(i == tableNumber) progressCircles[i].SetActive(true);
+            else progressCircles[i].SetActive(false);
+        }
+    }
+
+    public void UpdateSlots()
+    {
         for(int i=0; i<5; i++)
         {
             if(PlayerManager.Instance.GetCake(i) != null) 
@@ -169,14 +208,6 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                 cakes[i].Clear();
             }
         }
-        Debug.Log("Cake Table UI Opened!");
-    }
-
-    public override void Close()
-    {
-        gameObject.SetActive(false);
-        HoverItemName.Instance.gameObject.SetActive(false);
-        Debug.Log("Cake Table UI Closed!");
     }
 
     private void Bake() 
@@ -185,14 +216,6 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         {
             Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, 
             spriteBase[baseInput.ItemCode], spriteTopping[toppingInput.ItemCode], spriteIcing[icingInput.ItemCode]);
-            for(int i=0; i<5; i++) 
-            {
-                if(PlayerManager.Instance.GetCake(i) == null) 
-                {
-                    cakes[i].SetCake(cake);
-                    break;
-                }
-            }
 
             itemSlots[baseInput.ItemCode].UseItem();
             itemSlots[icingInput.ItemCode].UseItem();
@@ -219,7 +242,13 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
             bigImgIcing.sprite = spriteNull;
             bigImgTopping.sprite = spriteNull;
 
-            PlayerManager.Instance.AddCake(cake);
+            ProcessManager.Instance.AddCakeProcess
+            (
+                tableNumber,
+                this,
+                cake, 
+                progressCircles[tableNumber].GetComponent<ProgressCircle>()
+            );
             Debug.Log("Cake Baked!");
         }
         else 
