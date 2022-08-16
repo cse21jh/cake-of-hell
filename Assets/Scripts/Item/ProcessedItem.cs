@@ -8,8 +8,9 @@ public class ProcessedItem : Item
     public string Keyword { get; }
     public string FlavorText { get; }
     public float Price { get; }
+    public string FlavorWord { get; }
 
-    public ProcessedItem(int code, string name, ItemLevel level, Sprite spriteImage, string keyword, string flavorText, float price)
+    public ProcessedItem(int code, string name, ItemLevel level, Sprite spriteImage, string keyword, string flavorText, float price, string flavorWord)
     {
         Code = code;
         Name = name;
@@ -18,5 +19,6 @@ public class ProcessedItem : Item
         Keyword = keyword;
         FlavorText = flavorText;
         Price = price;
+        FlavorWord = flavorWord;
     }
 }
