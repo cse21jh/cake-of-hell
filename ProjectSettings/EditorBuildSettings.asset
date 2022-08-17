@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 9d32c30c9fbed5e4e87d2036504f1702
   - enabled: 1
     path: Assets/Scenes/JHScene/JHSampleShop.unity
-    guid: 6e3fa16481a74574497a59e760ab3e8e
+    guid: 42ea40c4e4c0e2b40af80e8342e473ee
   - enabled: 1
     path: Assets/Scenes/JHScene/JHMainMenu.unity
     guid: cb273485853b99c479c166328ec4fdea
@@ -26,4 +26,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EJScene/EJMainMenu.unity
     guid: 0773940ffd13cdf44807f9c10fa89671
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Cake Shop.unity
+    guid: 75aa09c04f87cf249a209783e998625c
+  - enabled: 1
+    path: Assets/Scenes/GameScene/City Map.unity
+    guid: 174503b21979a244f87a6c4bf3e067fa
+  - enabled: 1
+    path: Assets/Scenes/GameScene/MainMenu.unity
+    guid: cf097aabf63c1c64d93e5f30b242d309
   m_configObjects: {}

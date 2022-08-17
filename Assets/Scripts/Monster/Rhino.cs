@@ -13,10 +13,10 @@ public class Rhino : Monster
         itemCode.Add(4012);
         MaxHp = 40;
         Hp = 40;
-        Speed = Util.GetPlayerSpeed();
+        Speed = Util.GetPlayerSpeed()/2;
         AttackDamage = 40;
-        AttackRange = 1;
-        Eyesight = 2;
+        AttackRange = 3.5f;
+        Eyesight = 4.5f;
         Rank = "A";
         base.Start();
     }

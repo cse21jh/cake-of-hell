@@ -13,8 +13,8 @@ public class Dragon : Monster
         Hp = 70;
         Speed = Util.GetPlayerSpeed();
         AttackDamage = 40;
-        AttackRange = 4;
-        Eyesight = 5;
+        AttackRange = 7;
+        Eyesight = 8;
         Rank = "SS";
         base.Start();
     }
@@ -62,11 +62,11 @@ public class Dragon : Monster
     {
         if (CheckPlayer())
         {
-            var bul = Instantiate(bullet, transform.position, Quaternion.identity);
+            var bul = Instantiate(bullet, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
             Bullet temp = bul.GetComponent<Bullet>();
             temp.host = gameObject;
             temp.dmg = AttackDamage;
-            temp.duration = 3.0f;
+            temp.duration = 1.0f;
             StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
             yield return new WaitForSeconds(1.0f);
         }

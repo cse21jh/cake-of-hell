@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb;
     private Canvas canvas;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     //private Animator anim;
 
     [SerializeField]

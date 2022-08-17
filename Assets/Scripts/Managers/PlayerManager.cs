@@ -10,15 +10,18 @@ public class PlayerManager : Singleton<PlayerManager>
     public HpUI hpUI;
     public MoneyUI moneyUI;
 
+    private float invincibleTimer;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        invincibleTimer = 0f;
     }
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        
     }
 
 
@@ -28,18 +31,34 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
         imageHit.SetActive(true);
-        yield return new WaitForSeconds(0.4f);
+        for (int i = 1; i <= 10; i++)
+        {
+            float f = i % 2 == 0 ? 1f : 0.5f; 
+            Color c = player.spriteRenderer.material.color;
+            c.a = f;
+            player.spriteRenderer.material.color = c;
+            yield return new WaitForSeconds(0.1f);
+            if(i==4)
+            {
+                imageHit.SetActive(false);
+            }
+            invincibleTimer += 0.1f;
+        }
         imageHit.SetActive(false);
+        invincibleTimer = 0f;
     }
 
     public void GetDamage(float value)
     {
-        StartCoroutine("DamagedEffect");
-        SoundManager.Instance.PlayEffect("PlayerHit");
-        SetHp(player.Hp - value);
-        if (player.Hp <= 0)
-        {
-            Die();
+        if (invincibleTimer == 0f && value!=0)
+        { 
+            StartCoroutine("DamagedEffect");
+            SoundManager.Instance.PlayEffect("PlayerHit");
+            SetHp(player.Hp - value);
+            if (player.Hp <= 0)
+            {
+                Die();
+            }
         }
     }
 

@@ -12,8 +12,8 @@ public class Mirror : Monster
         Hp = 50;
         Speed = 0;
         AttackDamage = 30;
-        AttackRange = 6;
-        Eyesight = 6;
+        AttackRange = 7.5f;
+        Eyesight = 7.5f;
         Rank = "A";
         base.Start();
     }
@@ -48,9 +48,11 @@ public class Mirror : Monster
             Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
             angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x)*Mathf.Rad2Deg;
             monsterHitBox.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            monsterHitBox.transform.localScale = new Vector3(0.3f, 0.3f, 0);
+
             for (float t = 0; t <= 1; t += Time.deltaTime)
             {
-                monsterHitBox.transform.localScale = new Vector3(1, monsterHitBox.transform.localScale.y+ (4 *Time.deltaTime), 0);
+                monsterHitBox.transform.localScale = new Vector3(0.3f, monsterHitBox.transform.localScale.y+ (4 *Time.deltaTime)/3, 0);
                 monsterHitBox.transform.position = monsterHitBox.transform.position + (direction*Time.deltaTime*2);
                 yield return null;
             }

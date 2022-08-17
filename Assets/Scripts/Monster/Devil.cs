@@ -9,6 +9,8 @@ public class Devil : Monster
     private float degree = 0f;
     private float radius = 3f;
     private float circleSpeed;
+
+    private float angle;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -63,11 +65,16 @@ public class Devil : Monster
         if (CheckPlayer())
         {
             var bul = Instantiate(bullet, transform.position, Quaternion.identity);
+            Vector3 monsterPos = GetObjectPos();
+            Vector3 playerPos = GetPlayerPos();
+            angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
+            bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            bul.transform.localScale = new Vector3(2, 1, 0);
             Bullet temp = bul.GetComponent<Bullet>();
             temp.host = gameObject;
             temp.dmg = AttackDamage;
             temp.duration = 2.0f;
-            StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
+            StartCoroutine(temp.ShootBullet(GetPlayerPos()));
             yield return new WaitForSeconds(2.0f);
             yield return MoveTowardPlayer(Speed, 2f);
             centerPoint = transform.position + new Vector3(0, -3, 0);

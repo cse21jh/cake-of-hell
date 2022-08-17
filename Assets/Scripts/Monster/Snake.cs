@@ -14,8 +14,8 @@ public class Snake : Monster
         Hp = 40;
         Speed = (Util.GetPlayerSpeed() * 5) / 6;
         AttackDamage = 30;
-        AttackRange = 6;
-        Eyesight = 6;
+        AttackRange = 7;
+        Eyesight = 7;
         Rank = "A";
         base.Start();
     }
@@ -43,7 +43,7 @@ public class Snake : Monster
                     countMove = 3;
                 else
                     countMove = 0;
-                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 1.5f)));  
+                nextRoutines.Enqueue(NewActionRoutine(MoveRoutine(MovePosition(), 2f)));  
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
@@ -57,19 +57,19 @@ public class Snake : Monster
         switch (countMove)
         {
             case 0:
-                position = new Vector3(GetObjectPos().x  + 2 * Speed, GetObjectPos().y  + 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x  + 2, GetObjectPos().y  + 2, GetObjectPos().z);
                 countMove = 1;
                 return position;
             case 1:
-                position = new Vector3(GetObjectPos().x  - 2 * Speed, GetObjectPos().y  + 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x  - 2, GetObjectPos().y  + 2, GetObjectPos().z);
                 countMove = 2;
                 return position;
             case 2:
-                position = new Vector3(GetObjectPos().x  - 2 * Speed, GetObjectPos().y  - 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x  - 2, GetObjectPos().y  - 2, GetObjectPos().z);
                 countMove = 3;
                 return position;
             case 3:
-                position = new Vector3(GetObjectPos().x  + 2 * Speed, GetObjectPos().y  - 2 * Speed, GetObjectPos().z);
+                position = new Vector3(GetObjectPos().x  + 2 , GetObjectPos().y  - 2, GetObjectPos().z);
                 countMove = 0;
                 return position;
         }
@@ -85,7 +85,7 @@ public class Snake : Monster
             temp.host = gameObject;
             temp.dmg = AttackDamage;
             temp.duration = 1.0f;
-            StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
+            StartCoroutine(temp.ShootBullet(GetPlayerPos()));
             yield return new WaitForSeconds(1.5f);
         }
         yield return null;

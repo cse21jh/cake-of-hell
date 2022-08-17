@@ -14,8 +14,8 @@ public class Spider : Monster
         Hp = 70;
         Speed = Util.GetPlayerSpeed()/2;
         AttackDamage = 60;
-        AttackRange = 8;
-        Eyesight = 8;
+        AttackRange = 10;
+        Eyesight = 10;
         Rank = "SS";
         base.Start();
     }
@@ -75,7 +75,7 @@ public class Spider : Monster
             Bullet temp = bul.GetComponent<Bullet>();
             temp.host = gameObject;
             temp.dmg = AttackDamage;
-            temp.duration = 3.0f;
+            temp.duration = 2.0f;
             StartCoroutine(temp.ShootBullet(GetPlayerPos(), 3));
             yield return new WaitForSeconds(2.0f);
         }

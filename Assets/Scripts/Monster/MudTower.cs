@@ -12,8 +12,8 @@ public class MudTower : Monster
         Hp = 20;
         Speed = 0;
         AttackDamage = 24;
-        AttackRange = 2f;
-        Eyesight = 2;
+        AttackRange = 3f;
+        Eyesight = 3;
         Rank = "C";
         base.Start();
     }

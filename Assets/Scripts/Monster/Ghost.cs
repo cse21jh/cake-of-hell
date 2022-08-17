@@ -14,7 +14,7 @@ public class Ghost : Monster
         Speed = Util.GetPlayerSpeed()*2;
         AttackDamage = 40;
         AttackRange = 1;
-        Eyesight = 6;
+        Eyesight = 7;
         Rank = "S";
         base.Start();
         StartCoroutine(Fade());

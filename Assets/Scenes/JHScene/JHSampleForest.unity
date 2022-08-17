@@ -2329,6 +2329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoints
       objectReference: {fileID: 0}
+    - target: {fileID: 5343408023121359926, guid: b30a5a6343a3be246945d4dd1eed8aba, type: 3}
+      propertyPath: rank
+      value: C
+      objectReference: {fileID: 0}
     - target: {fileID: 5343408023121359927, guid: b30a5a6343a3be246945d4dd1eed8aba, type: 3}
       propertyPath: m_RootOrder
       value: 10
