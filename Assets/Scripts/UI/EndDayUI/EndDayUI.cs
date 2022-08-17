@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class EndDayUI : BaseUI
 {
+    [SerializeField]
+    private GameObject soldCakeScroll;
     void Start()
     {
-
+        for(int i = 0;i<GameManager.Instance.soldCakeInADay;i++)
+        {
+            Instantiate(Resources.Load<GameObject>("Prefabs/UI/CakeImage"), soldCakeScroll.transform);
+        }
     }
 
     public override void Open()

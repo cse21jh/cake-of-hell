@@ -11,13 +11,16 @@ public class ItemManager : Singleton<ItemManager>
     public Dictionary<int, RawItem> RawItemList = new Dictionary<int, RawItem>();
 
     public List<int> ItemCodeList = new List<int>();
+    public Sprite[] baseSprite = new Sprite[7];
+    public Sprite[] icingSprite = new Sprite[8];
+    public Sprite[] toppingSprite = new Sprite[8];
 
-    
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         AddProcessedItem(0, "민 초 좋 아", ItemLevel.SS, null, "민 초 좋 아", "민 초 좋 아", 9999, "민 초 좋 아");
         AddRawItem(0, "민 초 좋 아", null, new List<int> { 0 }, new List<float> { 9999f }, new List<float> { 9999.0f });
+        icingSprite = Resources.LoadAll<Sprite>("Sprites/Item/After Process/Icing");
         AddBases();
         AddIcings();
         AddToppings();
@@ -74,21 +77,21 @@ public class ItemManager : Singleton<ItemManager>
 
     public void AddIcings()
     {
-        AddProcessedItem(2001, "회오리", ItemLevel.B, Resources.Load<Sprite>("Sprites/Item/After Process/tornado cream"), "날아가는", "와! 회오리! 에어컨 18도보다 시원하다!", 25f, "시원한");
-        AddProcessedItem(2002, "무지개빛 가루", ItemLevel.SS, null, "빛나는", "여기서 팡! 저기서 팡! 입 안에서 톡톡 터지는 무지개 스파클링!", 50f, "톡톡 터지는");
-        AddProcessedItem(2003, "피냄새 크림", ItemLevel.S, null, "한 맺힌", "이가 시린데... 늙었나.....", 40f, "시린");
-        AddProcessedItem(2004, "목소리 크림", ItemLevel.B, null, "아름다운", "헉! 이 풍미는 거의 캐비어...?", 25f, "풍미가 있는");
-        AddProcessedItem(2005, "상냥한 목소리 크림", ItemLevel.S, null, "나긋나긋한", "이 따뜻함은 뭐지...? 어머니의 품...?", 45f, "따뜻한");
-        AddProcessedItem(2006, "독 크림", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/After Process/poison cream"), "죽음의", "먹었을 때 아파도 우리 가게 정상 영업합니다.", 35f, "아픈");
-        AddProcessedItem(2007, "맹독 크림", ItemLevel.SS, null, "지옥의", "어라. 뒷목이 서늘한 건 기분 탓입니다.", 50f, "서늘한");
-        AddProcessedItem(2008, "독버섯 크림", ItemLevel.B, null, "화려한", "느끼하다구요? 여기 라면 국물은 안 파는데.....", 25f, "느끼한");
+        AddProcessedItem(2001, "회오리", ItemLevel.B, icingSprite[6], "날아가는", "와! 회오리! 에어컨 18도보다 시원하다!", 25f, "시원한");
+        AddProcessedItem(2002, "무지개빛 가루", ItemLevel.SS, icingSprite[5], "빛나는", "여기서 팡! 저기서 팡! 입 안에서 톡톡 터지는 무지개 스파클링!", 50f, "톡톡 터지는");
+        AddProcessedItem(2003, "피냄새 크림", ItemLevel.S, icingSprite[0], "한 맺힌", "이가 시린데... 늙었나.....", 40f, "시린");
+        AddProcessedItem(2004, "목소리 크림", ItemLevel.B, icingSprite[7], "아름다운", "헉! 이 풍미는 거의 캐비어...?", 25f, "풍미가 있는");
+        AddProcessedItem(2005, "상냥한 목소리 크림", ItemLevel.S, icingSprite[2], "나긋나긋한", "이 따뜻함은 뭐지...? 어머니의 품...?", 45f, "따뜻한");
+        AddProcessedItem(2006, "독 크림", ItemLevel.A, icingSprite[4], "죽음의", "먹었을 때 아파도 우리 가게 정상 영업합니다.", 35f, "아픈");
+        AddProcessedItem(2007, "맹독 크림", ItemLevel.SS, icingSprite[1], "지옥의", "어라. 뒷목이 서늘한 건 기분 탓입니다.", 50f, "서늘한");
+        AddProcessedItem(2008, "독버섯 크림", ItemLevel.B, icingSprite[3], "화려한", "느끼하다구요? 여기 라면 국물은 안 파는데.....", 25f, "느끼한");
     }
 
     public void AddToppings()
     {
         AddProcessedItem(3001, "유리 파편", ItemLevel.A, null, "따가운", "개운하네? 오늘은 양치 안 하고 자야지.", 30f, "개운한");
         AddProcessedItem(3002, "유리 조각", ItemLevel.S, null, "치명적인", "슬러시도 아니고 왜 차가운 거야?", 45f, "차가운");
-        AddProcessedItem(3003, "레드 콘", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/After Process/redcone_item"), "뾰족뾰족한", "앗 따가! 벌에 쏘인 건 아니에요.", 30f, "쏘는");
+        AddProcessedItem(3003, "레드 콘", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/After Process/red_cone"), "뾰족뾰족한", "앗 따가! 벌에 쏘인 건 아니에요.", 30f, "쏘는");
         AddProcessedItem(3004, "썩은 거미줄", ItemLevel.SS, null, "썩은", "으... 이 퀴퀴한 건 뭐야..... 사람은 못 먹겠지만.....", 50f, "퀴퀴한");
         AddProcessedItem(3005, "비늘 가루", ItemLevel.C, null, "반짝거리는", "생선보다도 비리지만 우리 가게에서 가장 잘나가요.", 10f, "비린");
         AddProcessedItem(3006, "이빨 초콜릿", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/After Process/tooth_chocolate"), "날카로운", "너무 달달해서 이가 썩을 것 같아...?", 35f, "달달한");

@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private Player player;
-    public Vector3 startPoint;
+    public Vector2 startPoint;
     public bool canMove = true;
+
+    public int soldCakeInADay;
 
     // About Ending Or UnLock
     private int numberOfSoldCake = 0;
@@ -16,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     private int dieCount;
     private int killMonsterCount;
-    private int killSSMonsterCount; 
+    private int killSSMonsterCount;
 
     //About UnLock
     public bool unlockMapC;
@@ -25,7 +26,7 @@ public class GameManager : Singleton<GameManager>
     public bool unlockMapS;
     public bool unlockMapSS;
 
-    public int orderSystem=0;
+    public int orderSystem = 0;
 
     public List<Monster> monsterInMapC = new List<Monster>();
     public List<Monster> monsterInMapB = new List<Monster>();
@@ -46,7 +47,6 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
@@ -95,7 +95,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void LoadScene(string nextScene, bool checkStartPoint = false)
+    public void LoadScene(string nextScene, bool onStartPoint = false)
     {
         SoundManager.Instance.PlayEffect("MoveScene");
         SceneManager.LoadScene(nextScene);
@@ -103,20 +103,29 @@ public class GameManager : Singleton<GameManager>
         if (nextScene.Contains("Shop")) // input ShopName
         {
             PlayerManager.Instance.SetPlayerInShop(true);
-            if(checkStartPoint)
-            {
-                player.transform.position = startPoint;
-            }
         }
         else
         {
             PlayerManager.Instance.SetPlayerInShop(false);
         }
+
+        if (onStartPoint)
+        {
+            StartCoroutine(StartOnPoint());
+        }
+    }
+
+    private IEnumerator StartOnPoint()
+    {
+        yield return null;
+        GameObject player = GameObject.FindWithTag("Player");
+        player.transform.position = GameObject.Find("StartPoint").transform.position;
     }
 
     public void AddNumberOfSoldCake()
     {
         numberOfSoldCake++;
+        soldCakeInADay++;
     }
 
     public void AddNumberOfSatisfiedCustomer()

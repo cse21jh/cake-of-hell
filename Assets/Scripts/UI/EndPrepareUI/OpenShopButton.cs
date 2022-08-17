@@ -14,8 +14,7 @@ public class OpenShopButton : MonoBehaviour
     public void OnClickExit()
     {
         SoundManager.Instance.PlayEffect("Click");
-        TimeManager.Instance.OpenShop();
         endPrepareUI.Close();
-        GameManager.Instance.LoadScene("JHSampleShop", true);
+        TimeManager.Instance.OpenShop();
     }
 }

@@ -130,8 +130,9 @@ public class Counter : NPC
     {
         if(cake != null)
         {
-            Util.EarnMoney(cake.GetPrice(orderBase, orderIcing, orderTopping));
-            Debug.Log(cake.GetPrice(orderBase, orderIcing, orderTopping));
+            float price = cake.GetPrice(orderBase, orderIcing, orderTopping);
+            Util.EarnMoney(price);
+            Debug.Log(price);
             hasOrder = false;
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);

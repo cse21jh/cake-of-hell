@@ -6,18 +6,17 @@ public class TimeManager : Singleton<TimeManager>
 {
     private int day = 0;
 
-    private float oneHour = 30f;
+    private float oneHour = 0.5f;
     private float timer = 0f;
 
     private bool stopTimer = true;
-
+    
     public int GuestEnterTimeStart { get; private set; }
     public int GuestEnterTimeEnd { get; private set; }
     public int GuestLeaveTimeStart { get; private set; }
     public int GuestLeaveTimeEnd { get; private set; }
 
     public bool isPrepareTime;
-    public bool isOpenTime;
     public bool endPrepare = false;
 
     public DayUI dayUI;
@@ -27,10 +26,14 @@ public class TimeManager : Singleton<TimeManager>
     public GameObject endPrepareUI;
 
     private Canvas canvas;
+    private Player player;
+
+    private float reputation = 5.0f;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
@@ -40,32 +43,33 @@ public class TimeManager : Singleton<TimeManager>
             timer += Time.deltaTime;
             if(huntTimeUI != null && cookTimeUI != null)
             {
-                huntTimeUI.TimeBarUpdate(timer);
-                cookTimeUI.TimeBarUpdate(timer);
+                huntTimeUI.TimeBarUpdate(timer/oneHour);
+                cookTimeUI.TimeBarUpdate(timer / oneHour);
             }
         }
     }
 
     public void StartDay()
     {
+        GameManager.Instance.LoadScene("JHSampleForest", true);
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         SetDay(day + 1);
         Debug.Log(day);
         timer = 0f;
         isPrepareTime = true;
-        isOpenTime = false;
         stopTimer = false;
+        GameManager.Instance.soldCakeInADay = 0;
         UpdateGuestTimes();
         StartCoroutine(StartDayCoroutine());
     }
 
     public void OpenShop()
     {
+        GameManager.Instance.LoadScene("JHSampleShop", true);
         Debug.Log("Time to Open");
         timer = 12.0f * oneHour;
         stopTimer = false;
         isPrepareTime = false;
-        isOpenTime = true;
         StartCoroutine(OpenShopCoroutine());
     }
 
@@ -142,10 +146,21 @@ public class TimeManager : Singleton<TimeManager>
     private void UpdateGuestTimes()
     {
         //to be fixed
-        GuestEnterTimeStart = 20;
-        GuestEnterTimeEnd = 25;
-        GuestLeaveTimeStart = 15;
-        GuestLeaveTimeEnd = 25;
+        float reputationPenalty = (5 - reputation) * 2;
+        if (!GameManager.Instance.unlockMapS)
+        {
+            GuestEnterTimeStart = 20 + (int)reputationPenalty;
+            GuestEnterTimeEnd = 25 + (int)reputationPenalty;
+            GuestLeaveTimeStart = 15;
+            GuestLeaveTimeEnd = 25;
+        }
+        else
+        {
+            GuestEnterTimeStart = 17 + (int)reputationPenalty;
+            GuestEnterTimeEnd = 20 + (int)reputationPenalty;
+            GuestLeaveTimeStart = 15;
+            GuestLeaveTimeEnd = 20;
+        }
     }
 
     public int GetDay()
@@ -166,6 +181,18 @@ public class TimeManager : Singleton<TimeManager>
         {
             dayUI.DayTextUpdate(day);
         }
+    }
+
+    public float GetReputation()
+    {
+        return reputation;
+    }
+
+    public void SetReputation(float value)
+    {
+        reputation = value;
+        if (value <= 0)
+            Ending();
     }
 
     public float GetTime()

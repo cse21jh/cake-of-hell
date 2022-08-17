@@ -21,7 +21,7 @@ public class ShopManager : MonoBehaviour
 
     private IEnumerator GuestCome() 
     {
-        while(TimeManager.Instance.isOpenTime)
+        while(!TimeManager.Instance.isPrepareTime)
         {
             if(!counters[0].HasGuest)
             {
