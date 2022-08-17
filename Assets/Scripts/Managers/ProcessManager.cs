@@ -38,7 +38,7 @@ public class ProcessManager : Singleton<ProcessManager>
         });
         newProc.OnEnd = () => 
         {
-            if(newProc.Slot != null)
+            if(newProc.Slot.gameObject != null)
             {
                 newProc.Slot.LoadItem(newProc.ProcessRecipe.Output, newProc.Count);
             }

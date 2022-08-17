@@ -9,7 +9,7 @@ public class Process
     public List<System.Action> taskList;
     public System.Action OnStart, OnEnd;
     public int LoopCount { get; private set; }
-    public bool IsEnded { get; private set; }
+    public bool IsEnded { get; private set; } = false;
 
     public Process(float _totalTime, float _interval)
     {
