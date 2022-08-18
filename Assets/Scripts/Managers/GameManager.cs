@@ -41,8 +41,8 @@ public class GameManager : Singleton<GameManager>
     public List<int> unlockRawCode = new List<int>();
 
     //About FadeIn & Out
-    protected GameObject blackPanel;
-    protected GameObject canvas;
+    private GameObject blackPanel;
+    private GameObject canvas;
     private RectTransform panelRect;
     private Image panelImage;
 
@@ -259,39 +259,39 @@ public class GameManager : Singleton<GameManager>
         monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Dragon").GetComponent<Dragon>());
     }
 
-    private IEnumerator FadeIn()
+    private IEnumerator FadeOut()
     {
         canvas = GameObject.Find("Canvas");
         panelRect = canvas.GetComponent<RectTransform>();
-        blackPanel = Instantiate(Resources.Load<GameObject>("Prefabs/Debug/BlackPanel"), new Vector2(panelRect.rect.width / 2f, panelRect.rect.height / 2f), Quaternion.identity, GameObject.Find("Canvas").transform);
+        blackPanel = Instantiate(Resources.Load<GameObject>("Prefabs/Debug/BlackPanel"), new Vector2(panelRect.rect.width / 2f, panelRect.rect.height / 2f), Quaternion.identity, canvas.transform);
         panelImage = blackPanel.GetComponent<Image>();
 
-        float alpha = 0;
-        panelImage.color = new Color(0, 0, 0, alpha);
-        while (alpha < 1.0f)
+        float alpha = 0f;
+        panelImage.color = new Color(0f, 0f, 0f, alpha);
+        while (alpha < 1f)
         {
             alpha += 0.01f;
             yield return new WaitForSeconds(0.01f);
-            panelImage.color = new Color(0, 0, 0, alpha);
+            panelImage.color = new Color(0f, 0f, 0f, alpha);
         }
 
         Destroy(blackPanel);
     }
 
-    private IEnumerator FadeOut()
+    private IEnumerator FadeIn()
     {
         canvas = GameObject.Find("Canvas");
         panelRect = canvas.GetComponent<RectTransform>();
-        blackPanel = Instantiate(Resources.Load<GameObject>("Prefabs/Debug/BlackPanel"), new Vector2(panelRect.rect.width / 2f, panelRect.rect.height / 2f), Quaternion.identity, GameObject.Find("Canvas").transform);
+        blackPanel = Instantiate(Resources.Load<GameObject>("Prefabs/Debug/BlackPanel"), new Vector2(panelRect.rect.width / 2f, panelRect.rect.height / 2f), Quaternion.identity, canvas.transform);
         panelImage = blackPanel.GetComponent<Image>();
 
-        float alpha = 1;
-        panelImage.color = new Color(0, 0, 0, alpha);
+        float alpha = 1f;
+        panelImage.color = new Color(0f, 0f, 0f, alpha);
         while (alpha > 0f)
         {
             alpha -= 0.01f;
             yield return new WaitForSeconds(0.01f);
-            panelImage.color = new Color(0, 0, 0, alpha);
+            panelImage.color = new Color(0f, 0f, 0f, alpha);
         }
 
         Destroy(blackPanel);
