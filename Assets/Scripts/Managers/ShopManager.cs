@@ -23,26 +23,30 @@ public class ShopManager : MonoBehaviour
     {
         while(!TimeManager.Instance.isPrepareTime)
         {
-            if(!counters[0].HasGuest)
+            int counterNumber = GetAvailableCounter();
+            if(counterNumber != -1 && counters[counterNumber].GuestObject)
             {
-                counters[0].HasGuest = true;
-                Debug.Log("Guest in Counter 1");
-            }
-            else if(!counters[1].HasGuest)
-            {
-                counters[1].HasGuest = true;
-                Debug.Log("Guest in Counter 2");
-            }
-            else if(!counters[2].HasGuest)
-            {
-                counters[2].HasGuest = true;
-                Debug.Log("Guest in Counter 3");
+                counters[counterNumber].GuestObject.SetActive(true);
+                yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
+                    counters[counterNumber].GuestObject, 
+                    counters[counterNumber].gameObject.transform.position + new Vector3(-2, 0, 0),
+                    3.0f
+                ));
+                counters[counterNumber].HasGuest = true;
             }
             yield return new WaitForSeconds(rand.Next
             (
-                TimeManager.Instance.GuestEnterTimeStart,
-                TimeManager.Instance.GuestEnterTimeEnd
+                TimeManager.Instance.GuestEnterTimeStart - 3,
+                TimeManager.Instance.GuestEnterTimeEnd - 3
             ));
         }
+    }
+
+    private int GetAvailableCounter()
+    {
+        if(!counters[0].HasGuest) return 0;
+        else if(!counters[1].HasGuest) return 1;
+        else if(!counters[2].HasGuest) return 2;
+        else return -1;
     }
 }

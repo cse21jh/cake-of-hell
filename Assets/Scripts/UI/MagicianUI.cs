@@ -228,6 +228,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             
             itemSlots[inputCode].UseItem(inputCount);
             processItems[idx].LoadItem(inputCode, inputCount);
+            GameManager.Instance.processCount += inputCount;
+            if(ItemManager.Instance.GetProcessedItem(outputCode).Level == ItemLevel.SS)
+            {
+                GameManager.Instance.processSSCount ++;
+
+            }
             ProcessManager.Instance.AddMagicianProcess
             (
                 idx,

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TimeManager : Singleton<TimeManager>
 {
-    private int day = 0;
+    public int day = 0;
 
-    private float oneHour = 0.1f;
+    private float oneHour = 1.0f;
     private float timer = 0f;
 
     private bool stopTimer = true;
@@ -28,7 +28,7 @@ public class TimeManager : Singleton<TimeManager>
     private Canvas canvas;
     private Player player;
 
-    private float reputation = 5.0f;
+    public float reputation = 5.0f;
 
     void Awake()
     {
@@ -135,6 +135,7 @@ public class TimeManager : Singleton<TimeManager>
         { 
             endDayUI.GetComponent<EndDayUI>().Open();
         }
+        SaveManager.Instance.JsonSave();
     }
 
     public void Penalty()

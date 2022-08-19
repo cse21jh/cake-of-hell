@@ -13,12 +13,19 @@ public class GameManager : Singleton<GameManager>
     public int soldCakeInADay;
 
     // About Ending Or UnLock
-    private int numberOfSoldCake = 0;
-    private int numberOfSatisfiedCustomer = 0;
+    public int numberOfSoldCake = 0;
+    public int numberOfSatisfiedCustomer = 0;
+    public int dieCount = 0;
+    public int killMonsterCount = 0;
+    public int killSSMonsterCount = 0;
+    public int processCount = 0;
+    public int processSSCount = 0;
+    public int cantAcceptOrderCount = 0;
+    public int enterBlackHoleCount = 0;
+    
 
-    private int dieCount;
-    private int killMonsterCount;
-    private int killSSMonsterCount;
+    public int[] killEachMonsterCount= new int[11];
+
 
     //About UnLock
     public bool unlockMapC;
@@ -403,7 +410,7 @@ public class GameManager : Singleton<GameManager>
         upgradeList.Add(magicianSlotUpgrade);
         cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable());
         upgradeList.Add(cakeTableNumberUpgrade);
-        guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 참을성 증가", UpgradeGuestLeaveTime());
+        guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 인내심 증가", UpgradeGuestLeaveTime());
         upgradeList.Add(guestLeaveTimeUpgrade);
         unlockMapBUpgrade = new Upgrade(1, 0, 10000, "B등급 파밍장 해금", UpgradeMapB());
         upgradeList.Add(unlockMapBUpgrade);

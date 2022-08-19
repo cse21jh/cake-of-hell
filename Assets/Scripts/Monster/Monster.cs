@@ -14,6 +14,7 @@ public abstract class Monster : MonoBehaviour
     public float Speed { get; set; }
     public float Eyesight { get; set; }
     public string Rank { get; set; }
+    public int MonsterNumber { get; set; }
 
     protected Player player;
     protected Rigidbody2D rb;
@@ -157,6 +158,7 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Die()
     {
         // ���⼭ ��� ������ ������ �Լ� ȣ��
+        GameManager.Instance.killEachMonsterCount[MonsterNumber]++;
         GameManager.Instance.AddKillMonsterCount();
         if(Rank == "SS")
         {
