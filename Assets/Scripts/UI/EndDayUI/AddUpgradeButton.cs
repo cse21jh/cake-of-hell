@@ -14,7 +14,7 @@ public class AddUpgradeButton : MonoBehaviour
         upgradeButton = Resources.Load<GameObject>("Prefabs/UI/UpgradeButton");
         foreach (var i in GameManager.Instance.upgradeList)
         {
-            if (i.MaxLevel != i.CurrentLevel)
+            if (i.MaxLevel != i.CurrentLevel && i.IsUnlocked)
             {
                 GameObject upgrade = Instantiate(upgradeButton, this.transform);
                 string explain = i.UpgradeText + "\n" + i.Price.ToString();

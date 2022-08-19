@@ -6,7 +6,7 @@ public class TimeManager : Singleton<TimeManager>
 {
     public int day = 0;
 
-    private float oneHour = 30f;
+    public float oneHour = 30f;
     private float timer = 0f;
 
     private bool stopTimer = true;

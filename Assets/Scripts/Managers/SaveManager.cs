@@ -59,6 +59,7 @@ public class SaveData
     public int magicianSlotUpgradeLevel;
     public int magicianSlotUpgradePrice;
     public int cakeTableNumberUpgradeLevel;
+    public int counterNumberUpgradeLevel;
     public int guestLeaveTimeUpgradeLevel;
     public int unlockMapBUpgradeLevel;
     public int unlockMapAUpgradeLevel;
@@ -134,6 +135,8 @@ public class SaveManager : Singleton<SaveManager>
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.magicianSlotUpgrade);
                 GameManager.Instance.cakeTableNumberUpgrade.CurrentLevel = saveData.cakeTableNumberUpgradeLevel;
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.cakeTableNumberUpgrade);
+                GameManager.Instance.counterNumberUpgrade.CurrentLevel = saveData.counterNumberUpgradeLevel;
+                GameManager.Instance.upgradeList.Add(GameManager.Instance.counterNumberUpgrade);
                 GameManager.Instance.guestLeaveTimeUpgrade.CurrentLevel = saveData.guestLeaveTimeUpgradeLevel;
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.guestLeaveTimeUpgrade);
                 GameManager.Instance.unlockMapBUpgrade.CurrentLevel = saveData.unlockMapBUpgradeLevel;
@@ -144,6 +147,7 @@ public class SaveManager : Singleton<SaveManager>
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.unlockMapSUpgrade);
                 GameManager.Instance.unlockMapSSUpgrade.CurrentLevel = saveData.unlockMapSSUpgradeLevel;
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.unlockMapSSUpgrade);
+                GameManager.Instance.CheckUnlock();
             }
         }
     }
@@ -194,6 +198,7 @@ public class SaveManager : Singleton<SaveManager>
         saveData.magicianSlotUpgradeLevel = GameManager.Instance.magicianSlotUpgrade.CurrentLevel;
         saveData.magicianSlotUpgradePrice = GameManager.Instance.magicianSlotUpgrade.Price;
         saveData.cakeTableNumberUpgradeLevel = GameManager.Instance.cakeTableNumberUpgrade.CurrentLevel;
+        saveData.counterNumberUpgradeLevel = GameManager.Instance.counterNumberUpgrade.CurrentLevel;
         saveData.guestLeaveTimeUpgradeLevel = GameManager.Instance.guestLeaveTimeUpgrade.CurrentLevel;
         saveData.unlockMapBUpgradeLevel = GameManager.Instance.unlockMapBUpgrade.CurrentLevel;
         saveData.unlockMapAUpgradeLevel = GameManager.Instance.unlockMapAUpgrade.CurrentLevel;
@@ -204,7 +209,6 @@ public class SaveManager : Singleton<SaveManager>
 
         if (path != null)
             File.WriteAllText(path, json);
-        Debug.Log("adsf");
     }
 
     private void ToJsonList(SaveData saveData,Dictionary<int,int> itemDic)

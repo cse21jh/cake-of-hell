@@ -58,6 +58,7 @@ public class GameManager : Singleton<GameManager>
 
     //About Upgrade
     public int numberOfMagicianSlot = 3;
+    public int numberOfCounter = 3;
     public int numberOfCakeTable = 2;
     public int addGuestLeaveTime = 0;
 
@@ -65,6 +66,7 @@ public class GameManager : Singleton<GameManager>
 
     public Upgrade magicianSlotUpgrade;
     public Upgrade cakeTableNumberUpgrade;
+    public Upgrade counterNumberUpgrade;
     public Upgrade guestLeaveTimeUpgrade;
     public Upgrade unlockMapBUpgrade;
     public Upgrade unlockMapAUpgrade;
@@ -125,6 +127,11 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + 1000);
             Debug.Log("Money" + PlayerManager.Instance.GetMoney().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+            TimeManager.Instance.oneHour = 1.0f;
+            Debug.Log("One Hour is One Second");
         }
     }
 
@@ -206,12 +213,14 @@ public class GameManager : Singleton<GameManager>
         if (!unlockMapB && (numberOfSoldCake >= 60 || TimeManager.Instance.GetDay() >= 3))
         {
             unlockMapB = true;
+            unlockMapBUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapB);
         }
 
         if (!unlockMapA && (numberOfSoldCake >= 140 || TimeManager.Instance.GetDay() >= 7))
         {
             unlockMapA = true;
+            unlockMapAUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapA);
         }
 
@@ -223,6 +232,7 @@ public class GameManager : Singleton<GameManager>
         if (!unlockMapS && (numberOfSoldCake >= 300 || TimeManager.Instance.GetDay() >= 14))
         {
             unlockMapS = true;
+            unlockMapSUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapS);
         }
 
@@ -234,7 +244,33 @@ public class GameManager : Singleton<GameManager>
         if (!unlockMapSS && (numberOfSoldCake >= 560 || TimeManager.Instance.GetDay() >= 25))
         {
             unlockMapSS = true;
+            unlockMapSSUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapSS);
+        }
+
+        if(!magicianSlotUpgrade.IsUnlocked && processCount >=200)
+        {
+            magicianSlotUpgrade.IsUnlocked = true;
+        }
+
+        if (!unlockMapBUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 2)
+        {
+            unlockMapBUpgrade.IsUnlocked = true;
+        }
+
+        if (!unlockMapAUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 6)
+        {
+            unlockMapAUpgrade.IsUnlocked = true;
+        }
+
+        if (!unlockMapSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 13)
+        {
+            unlockMapSUpgrade.IsUnlocked = true;
+        }
+
+        if (!unlockMapSSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 24)
+        {
+            unlockMapSSUpgrade.IsUnlocked = true;
         }
     }
 
@@ -333,9 +369,20 @@ public class GameManager : Singleton<GameManager>
     {
         if (cakeTableNumberUpgrade.Price <= PlayerManager.Instance.GetMoney())
         {
-            numberOfMagicianSlot++;
+            numberOfCakeTable++;
             cakeTableNumberUpgrade.CurrentLevel++;
             Util.SpendMoney(cakeTableNumberUpgrade.Price);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeCounter()
+    {
+        if (counterNumberUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            numberOfCounter++;
+            counterNumberUpgrade.CurrentLevel++;
+            Util.SpendMoney(counterNumberUpgrade.Price);
         }
         yield return null;
     }
@@ -424,9 +471,11 @@ public class GameManager : Singleton<GameManager>
     {
         magicianSlotUpgrade = new Upgrade(3, 0, 700, "마법사 슬롯 추가", UpgradeMagicianSlot());
         upgradeList.Add(magicianSlotUpgrade);
-        cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable());
+        cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable(), true);
         upgradeList.Add(cakeTableNumberUpgrade);
-        guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 인내심 증가", UpgradeGuestLeaveTime());
+        counterNumberUpgrade = new Upgrade(1, 0, 10000, "주문대 추가", UpgradeCakeTable(), true);
+        upgradeList.Add(counterNumberUpgrade);
+        guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 인내심 증가", UpgradeGuestLeaveTime(), true);
         upgradeList.Add(guestLeaveTimeUpgrade);
         unlockMapBUpgrade = new Upgrade(1, 0, 10000, "B등급 파밍장 해금", UpgradeMapB());
         upgradeList.Add(unlockMapBUpgrade);
