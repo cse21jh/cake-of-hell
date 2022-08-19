@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Counter : NPC
 {
-    //private int counterNumber = 0;
+    public GameObject GuestObject { get; set; }
     private System.Random rand;
     private DialogUI dialog; 
     private CakeListUI cakelist;
@@ -20,6 +20,9 @@ public class Counter : NPC
         dialog = GameObject.Find("Canvas").transform.Find("DialogUI").GetComponent<DialogUI>();
         cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
+        GuestObject = Instantiate(Resources.Load<GameObject>("Prefabs/NPC/Guest"));
+        GuestObject.transform.position = gameObject.transform.position + new Vector3(-14, 0, 0);
+        GuestObject.SetActive(false);
     }
 
     public override void StartInteract() 
@@ -151,8 +154,14 @@ public class Counter : NPC
 
         if(hasOrder)
         {
+            yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
+                GuestObject, 
+                gameObject.transform.position + new Vector3(-14, 0, 0),
+                3.0f
+            ));
             HasGuest = false;
             hasOrder = false;
+            GuestObject.SetActive(false);
             //Penalty
         }
     }

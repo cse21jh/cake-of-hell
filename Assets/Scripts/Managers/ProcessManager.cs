@@ -83,4 +83,21 @@ public class ProcessManager : Singleton<ProcessManager>
         CakeProcesses[idx] = newProc;
         StartCoroutine(newProc.Run());
     }
+
+    public IEnumerator MoveProcess(GameObject obj, Vector3 dest, float time)
+    {
+        float totalTime = time;
+        float interval = totalTime / 100.0f;
+        float velocity = obj != null ? (dest - obj.transform.position).magnitude / 100.0f : 1;
+        Process newProc = new Process(time, interval);
+        
+        newProc.taskList.Add(() => 
+        { 
+            if(obj != null)
+            {
+                obj.transform.position = Vector3.MoveTowards(obj.transform.position, dest, velocity); 
+            }
+        });
+        yield return newProc.Run();
+    }
 }
