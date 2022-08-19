@@ -6,7 +6,7 @@ public class TimeManager : Singleton<TimeManager>
 {
     private int day = 0;
 
-    private float oneHour = 0.5f;
+    private float oneHour = 0.1f;
     private float timer = 0f;
 
     private bool stopTimer = true;
@@ -151,15 +151,15 @@ public class TimeManager : Singleton<TimeManager>
         {
             GuestEnterTimeStart = 20 + (int)reputationPenalty;
             GuestEnterTimeEnd = 25 + (int)reputationPenalty;
-            GuestLeaveTimeStart = 15;
-            GuestLeaveTimeEnd = 25;
+            GuestLeaveTimeStart = 15 + GameManager.Instance.addGuestLeaveTime;
+            GuestLeaveTimeEnd = 25 + GameManager.Instance.addGuestLeaveTime;
         }
         else
         {
             GuestEnterTimeStart = 17 + (int)reputationPenalty;
             GuestEnterTimeEnd = 20 + (int)reputationPenalty;
-            GuestLeaveTimeStart = 15;
-            GuestLeaveTimeEnd = 20;
+            GuestLeaveTimeStart = 15 + GameManager.Instance.addGuestLeaveTime;
+            GuestLeaveTimeEnd = 20 + GameManager.Instance.addGuestLeaveTime;
         }
     }
 

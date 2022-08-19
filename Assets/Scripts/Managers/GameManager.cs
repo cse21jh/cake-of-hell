@@ -46,15 +46,30 @@ public class GameManager : Singleton<GameManager>
     private RectTransform panelRect;
     private Image panelImage;
 
+    //About Upgrade
+    public int numberOfMagicianSlot = 3;
+    public int numberOfCakeTable = 2;
+    public int addGuestLeaveTime = 0;
+
+    public List<Upgrade> upgradeList = new List<Upgrade>();
+
+    public Upgrade magicianSlotUpgrade;
+    public Upgrade cakeTableNumberUpgrade;
+    public Upgrade guestLeaveTimeUpgrade;
+    public Upgrade unlockMapBUpgrade;
+    public Upgrade unlockMapAUpgrade;
+    public Upgrade unlockMapSUpgrade;
+    public Upgrade unlockMapSSUpgrade;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         AddMonsterInMap();
+        AddUpgrade();
     }
 
     void Start()
     {
-
     }
 
     void Update()
@@ -98,7 +113,7 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.F7))
         {
-            PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + 100);
+            PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + 1000);
             Debug.Log("Money" + PlayerManager.Instance.GetMoney().ToString());
         }
     }
@@ -239,25 +254,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void AddMonsterInMap()
-    {
-        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/Mermaid").GetComponent<Mermaid>());
-        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/MudTower").GetComponent<MudTower>());
-
-        monsterInMapB.Add(Resources.Load<GameObject>("Prefabs/Monster/MapB/Mushroom").GetComponent<Mushroom>());
-        monsterInMapB.Add(Resources.Load<GameObject>("Prefabs/Monster/MapB/Tornado").GetComponent<Tornado>());
-
-
-        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Rhino").GetComponent<Rhino>());
-        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Mirror").GetComponent<Mirror>());
-        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Snake").GetComponent<Snake>());
-
-        monsterInMapS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapS/Devil").GetComponent<Devil>());
-        monsterInMapS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapS/Ghost").GetComponent<Ghost>());
-
-        monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Spider").GetComponent<Spider>());
-        monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Dragon").GetComponent<Dragon>());
-    }
+   
 
     private IEnumerator FadeOut()
     {
@@ -297,4 +294,124 @@ public class GameManager : Singleton<GameManager>
         Destroy(blackPanel);
     }
 
+    public IEnumerator UpgradeMagicianSlot()
+    {
+        if (magicianSlotUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            numberOfMagicianSlot++;
+            Util.SpendMoney(magicianSlotUpgrade.Price);
+            magicianSlotUpgrade.CurrentLevel++;
+            magicianSlotUpgrade.Price = 700 - ((3 - numberOfMagicianSlot) * 200);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeCakeTable()
+    {
+        if (cakeTableNumberUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            numberOfMagicianSlot++;
+            cakeTableNumberUpgrade.CurrentLevel++;
+            Util.SpendMoney(cakeTableNumberUpgrade.Price);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeGuestLeaveTime()
+    {
+        if (guestLeaveTimeUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            addGuestLeaveTime = 2;
+            guestLeaveTimeUpgrade.CurrentLevel++;
+            Util.SpendMoney(guestLeaveTimeUpgrade.Price);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeMapB()
+    {
+        if (unlockMapBUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            unlockMapB = true;
+            unlockMapBUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapB);
+            Util.SpendMoney(unlockMapBUpgrade.Price);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeMapA()
+    {
+        if (unlockMapAUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            unlockMapA = true;
+            unlockMapAUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapA);
+            Util.SpendMoney(unlockMapAUpgrade.Price);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeMapS()
+    {
+        if (unlockMapSUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            unlockMapS = true;
+            unlockMapSUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapS);
+            Util.SpendMoney(unlockMapSUpgrade.Price);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeMapSS()
+    {
+        if (unlockMapSSUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            unlockMapSS = true;
+            unlockMapSSUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapSS);
+            Util.SpendMoney(unlockMapSSUpgrade.Price);
+        }
+        yield return null;
+    }
+
+
+    private void AddMonsterInMap()
+    {
+        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/Mermaid").GetComponent<Mermaid>());
+        monsterInMapC.Add(Resources.Load<GameObject>("Prefabs/Monster/MapC/MudTower").GetComponent<MudTower>());
+
+        monsterInMapB.Add(Resources.Load<GameObject>("Prefabs/Monster/MapB/Mushroom").GetComponent<Mushroom>());
+        monsterInMapB.Add(Resources.Load<GameObject>("Prefabs/Monster/MapB/Tornado").GetComponent<Tornado>());
+
+
+        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Rhino").GetComponent<Rhino>());
+        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Mirror").GetComponent<Mirror>());
+        monsterInMapA.Add(Resources.Load<GameObject>("Prefabs/Monster/MapA/Snake").GetComponent<Snake>());
+
+        monsterInMapS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapS/Devil").GetComponent<Devil>());
+        monsterInMapS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapS/Ghost").GetComponent<Ghost>());
+
+        monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Spider").GetComponent<Spider>());
+        monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Dragon").GetComponent<Dragon>());
+    }
+
+    private void AddUpgrade()
+    {
+        magicianSlotUpgrade = new Upgrade(3, 0, 700, "마법사 슬롯 추가", UpgradeMagicianSlot());
+        upgradeList.Add(magicianSlotUpgrade);
+        cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable());
+        upgradeList.Add(cakeTableNumberUpgrade);
+        guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 참을성 증가", UpgradeGuestLeaveTime());
+        upgradeList.Add(guestLeaveTimeUpgrade);
+        unlockMapBUpgrade = new Upgrade(1, 0, 10000, "B등급 파밍장 해금", UpgradeMapB());
+        upgradeList.Add(unlockMapBUpgrade);
+        unlockMapAUpgrade = new Upgrade(1, 0, 15000, "A등급 파밍장 해금", UpgradeMapA());
+        upgradeList.Add(unlockMapAUpgrade);
+        unlockMapSUpgrade = new Upgrade(1, 0, 20000, "S등급 파밍장 해금", UpgradeMapS());
+        upgradeList.Add(unlockMapSUpgrade);
+        unlockMapSSUpgrade = new Upgrade(1, 0, 25000, "SS등급 파밍장 해금", UpgradeMapSS());
+        upgradeList.Add(unlockMapSSUpgrade);
+    }
 }
