@@ -233,6 +233,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 215287175487170323, guid: dcefa6cc26cb28241b3d7d7099e54fd4, type: 3}
   m_PrefabInstance: {fileID: 17152831}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &79292304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79292306}
+  - component: {fileID: 79292305}
+  m_Layer: 0
+  m_Name: debug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &79292305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79292304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e33d99c01600724e9ea0272e320a869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inPath: "C:\\Users\\kuma0\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uACFC\uC81C\\Cat
+    & Dog\\\uB4A4\uD669\uCF00\\\uB9AC\uC18C\uC2A4\\\uB9F5 \uB514\uC790\uC778\\packing"
+--- !u!4 &79292306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79292304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.1572404, y: -2.1895626, z: 0.0064976886}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &296246894
 PrefabInstance:
   m_ObjectHideFlags: 0
