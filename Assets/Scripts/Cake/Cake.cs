@@ -46,6 +46,15 @@ public class Cake
         if(correct==3)
         {
             GameManager.Instance.AddNumberOfSatisfiedCustomer();
+            if((GameManager.Instance.increaseReputationCount+=1) == 5)
+            {
+                Util.IncreaseReputation();
+                GameManager.Instance.increaseReputationCount = 0;
+            }
+        }
+        else
+        {
+            GameManager.Instance.increaseReputationCount = 0;
         }
         GameManager.Instance.AddNumberOfSoldCake();
 

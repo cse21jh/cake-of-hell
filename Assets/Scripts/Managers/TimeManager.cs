@@ -6,7 +6,7 @@ public class TimeManager : Singleton<TimeManager>
 {
     public int day = 0;
 
-    private float oneHour = 1.0f;
+    private float oneHour = 30f;
     private float timer = 0f;
 
     private bool stopTimer = true;
@@ -146,19 +146,18 @@ public class TimeManager : Singleton<TimeManager>
 
     private void UpdateGuestTimes()
     {
-        //to be fixed
-        float reputationPenalty = (5 - reputation) * 2;
+        int reputationPenalty = (int)((5 - reputation) * 2);
         if (!GameManager.Instance.unlockMapS)
         {
-            GuestEnterTimeStart = 20 + (int)reputationPenalty;
-            GuestEnterTimeEnd = 25 + (int)reputationPenalty;
+            GuestEnterTimeStart = 20 + reputationPenalty;
+            GuestEnterTimeEnd = 25 + reputationPenalty;
             GuestLeaveTimeStart = 15 + GameManager.Instance.addGuestLeaveTime;
             GuestLeaveTimeEnd = 25 + GameManager.Instance.addGuestLeaveTime;
         }
         else
         {
-            GuestEnterTimeStart = 17 + (int)reputationPenalty;
-            GuestEnterTimeEnd = 20 + (int)reputationPenalty;
+            GuestEnterTimeStart = 17 + reputationPenalty;
+            GuestEnterTimeEnd = 20 + reputationPenalty;
             GuestLeaveTimeStart = 15 + GameManager.Instance.addGuestLeaveTime;
             GuestLeaveTimeEnd = 20 + GameManager.Instance.addGuestLeaveTime;
         }

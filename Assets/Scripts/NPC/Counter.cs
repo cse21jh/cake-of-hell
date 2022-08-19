@@ -50,7 +50,7 @@ public class Counter : NPC
                         HasGuest = false;
                         StartCoroutine(GuestGo());
                         EndInteract();
-                        GivePenalty();
+                        GameManager.Instance.GivePenalty();
                     };
                 }
                 else
@@ -151,7 +151,7 @@ public class Counter : NPC
             TimeManager.Instance.GuestLeaveTimeEnd
         ));
         StartCoroutine(GuestGo());
-        GivePenalty();
+        GameManager.Instance.GivePenalty();
     }
 
     private IEnumerator GuestGo()
@@ -169,8 +169,5 @@ public class Counter : NPC
         }
     }
 
-    private void GivePenalty()
-    {
-        Util.DecreaseReputation();
-    }
+    
 }

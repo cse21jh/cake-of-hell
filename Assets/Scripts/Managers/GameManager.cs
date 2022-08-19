@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    public int penaltyCount;
+    public int increaseReputationCount;
+
     public Vector2 startPoint;
     public bool canMove = true;
 
@@ -299,6 +302,19 @@ public class GameManager : Singleton<GameManager>
         }
 
         Destroy(blackPanel);
+    }
+
+    public void GivePenalty()
+    {
+        penaltyCount++;
+        if (penaltyCount == 3)
+        { 
+            Util.DecreaseReputation(1.0f);
+            penaltyCount = 0;
+        }
+        else
+            Util.DecreaseReputation();
+        cantAcceptOrderCount++;
     }
 
     public IEnumerator UpgradeMagicianSlot()

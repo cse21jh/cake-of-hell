@@ -77,6 +77,10 @@ public class Util
 
     public static void IncreaseReputation(float amount = 0.5f)
     {
+        if(TimeManager.Instance.GetReputation() + amount > 5.0f)
+        {
+            return;
+        }
         TimeManager.Instance.SetReputation(TimeManager.Instance.GetReputation() + amount);
     }
 

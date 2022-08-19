@@ -29,7 +29,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         Util.AddItem(4009, 10);
         Util.AddItem(4012, 10);
         Util.EarnMoney(1000);
-        UnlockedSlots = 3;
+        UnlockedSlots = GameManager.Instance.numberOfMagicianSlot;
         outputOthers = new ItemSlotComponent[3];
         recipeOthers = new Recipe[3];
         processItems = new ItemSlotComponent[8];
@@ -94,11 +94,11 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             });
             outputOthers[j].SetActive(false);
         }
-        for(int i=0; i<8; i++) 
+        for(int i=0; i<6; i++) 
         {
             int j = i;
             processItems[j] = new ItemSlotComponent(gameObject.transform, 0, -1, true);
-            processItems[j].SetPosition(-375, 175 - 50 * j);
+            processItems[j].SetPosition(-375, 175 - 70 * j);
             processItems[j].SetOnClick(() => 
             {
                 if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem)
