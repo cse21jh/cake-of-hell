@@ -7,11 +7,36 @@ public class MoveScene : MonoBehaviour
 {
     [SerializeField] private string nextScene;
 
+    [SerializeField] private bool haveToCheckUnlock;
+    [SerializeField] private string nextSceneRank;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() != null)
+        if (other.GetComponent<Player>() != null && !haveToCheckUnlock)
         {
             GameManager.Instance.LoadScene(nextScene);
+        }
+        else if(other.GetComponent<Player>() !=null)
+        {
+            switch(nextSceneRank)
+            {
+                case "B":
+                    if(GameManager.Instance.unlockMapB)
+                        GameManager.Instance.LoadScene(nextScene);
+                    break;
+                case "A":
+                    if (GameManager.Instance.unlockMapA)
+                        GameManager.Instance.LoadScene(nextScene);
+                    break;
+                case "S":
+                    if (GameManager.Instance.unlockMapS)
+                        GameManager.Instance.LoadScene(nextScene);
+                    break;
+                case "SS":
+                    if (GameManager.Instance.unlockMapSS)
+                        GameManager.Instance.LoadScene(nextScene);
+                    break;
+            }
         }
     }
 

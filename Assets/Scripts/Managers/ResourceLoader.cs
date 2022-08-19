@@ -10,7 +10,7 @@ public class ResourceLoader : Singleton<ResourceLoader>
     private Dictionary<string, Sprite> sprites;
     private Dictionary<string, Sprite[]> packedSprites;
 
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
         LoadAudios();
