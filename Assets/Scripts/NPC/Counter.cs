@@ -106,7 +106,6 @@ public class Counter : NPC
         return ret;
     }
 
-    //fix when flavor text...
     private System.String NewFlavorTextOrder()
     {
         System.String ret =
