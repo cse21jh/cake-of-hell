@@ -74,4 +74,14 @@ public class Util
     {
         return PlayerManager.Instance.GetSpeed();
     }
+
+    public static void IncreaseReputation(float amount = 0.5f)
+    {
+        TimeManager.Instance.SetReputation(TimeManager.Instance.GetReputation() + amount);
+    }
+
+    public static void DecreaseReputation(float amount = 0.5f)
+    {
+        TimeManager.Instance.SetReputation(TimeManager.Instance.GetReputation() - amount);
+    }
 }
