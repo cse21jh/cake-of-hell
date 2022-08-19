@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3d6debf0e49932d4f8e8af02857d117a
+guid: b7e9c370492fd56459ed22144d3525c5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -1046,10 +1046,31 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: md6
+      name: md51
       rect:
         serializedVersion: 2
         x: 944
+        y: 236
+        width: 236
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2bc342ea4bdcc4c0800000000000000
+      internalID: -4265793632356545749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: md6
+      rect:
+        serializedVersion: 2
+        x: 1180
         y: 236
         width: 236
         height: 236
@@ -1070,7 +1091,7 @@ TextureImporter:
       name: md7
       rect:
         serializedVersion: 2
-        x: 1180
+        x: 1416
         y: 236
         width: 236
         height: 236
@@ -1091,8 +1112,8 @@ TextureImporter:
       name: md8
       rect:
         serializedVersion: 2
-        x: 1416
-        y: 236
+        x: 0
+        y: 0
         width: 236
         height: 236
       alignment: 0
@@ -1112,7 +1133,7 @@ TextureImporter:
       name: md9
       rect:
         serializedVersion: 2
-        x: 0
+        x: 236
         y: 0
         width: 236
         height: 236
@@ -1175,9 +1196,10 @@ TextureImporter:
       md25: -7004867675485127261
       md43: 1155089388249606300
       md7: 5641714883575836154
-      md9: 8994147673166531855
+      md51: -4265793632356545749
       md46: -4953784054296479736
       md1: 4653347785920257959
+      md9: 8994147673166531855
       md48: -6804851252661621998
       md41: 8957930001207116759
       md24: -7368726788284603833
