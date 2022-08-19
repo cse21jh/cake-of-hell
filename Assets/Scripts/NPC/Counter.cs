@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Counter : NPC
 {
+    public GameObject CakeListObject;
     public GameObject GuestObject { get; set; }
     private System.Random rand;
     private DialogUI dialog; 
@@ -11,18 +12,20 @@ public class Counter : NPC
     private int orderBase, orderIcing, orderTopping;
     private bool hasOrder = false;
     private bool flag = false;
+    private bool isOrderDialogOn = false;
 
-    public bool HasGuest { get; set; } = false;
+    public bool HasGuest { get; set; } = true;
 
     void Start()
     {
+        var canvas = GameObject.Find("Canvas");
         rand = new System.Random();
-        dialog = GameObject.Find("Canvas").transform.Find("DialogUI").GetComponent<DialogUI>();
-        cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
+        dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
+        //cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
+        cakelist = Instantiate(ResourceLoader.Instance.GetPrefab("CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
         GuestObject = Instantiate(ResourceLoader.Instance.GetPrefab("Guest"));
-        GuestObject.transform.position = gameObject.transform.position + new Vector3(-14, 0, 0);
-        GuestObject.SetActive(false);
+        GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
     }
 
     public override void StartInteract() 
@@ -36,21 +39,21 @@ public class Counter : NPC
                 if(HasGuest)
                 {
                     dialog.ShowYesNoButtons();
+                    isOrderDialogOn = true;
                     MakeNewOrder();
                     dialog.OnClickYes = () => 
                     {
-                        UiManager.Instance.CloseUI(dialog);
+                        isOrderDialogOn = false;
                         hasOrder = true;
                         StartCoroutine(GuestLeave());
                         EndInteract();
                     };
                     dialog.OnClickNo = () => 
                     {
-                        UiManager.Instance.CloseUI(dialog);
-                        HasGuest = false;
+                        isOrderDialogOn = false;
+                        GameManager.Instance.GivePenalty();
                         StartCoroutine(GuestGo());
                         EndInteract();
-                        GameManager.Instance.GivePenalty();
                     };
                 }
                 else
@@ -67,7 +70,7 @@ public class Counter : NPC
 
     public override void EndInteract() 
     {
-        if(!hasOrder && HasGuest) return;
+        if(isOrderDialogOn) return;
         if(flag)
         {
             flag = false;
@@ -150,8 +153,12 @@ public class Counter : NPC
             TimeManager.Instance.GuestLeaveTimeStart,
             TimeManager.Instance.GuestLeaveTimeEnd
         ));
-        StartCoroutine(GuestGo());
-        GameManager.Instance.GivePenalty();
+
+        if(HasGuest)
+        {
+            GameManager.Instance.GivePenalty();
+            StartCoroutine(GuestGo());
+        }
     }
 
     private IEnumerator GuestGo()
@@ -159,15 +166,13 @@ public class Counter : NPC
         if(hasOrder)
         {
             hasOrder = false;
+            HasGuest = false;
             yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
                 GuestObject, 
                 gameObject.transform.position + new Vector3(-14, 0, 0),
                 3.0f
             ));
-            HasGuest = false;
             GuestObject.SetActive(false);
         }
     }
-
-    
 }
