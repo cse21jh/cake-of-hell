@@ -54,7 +54,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     public void MakeUI() 
     {
-        GameObject circ = Resources.Load<GameObject>("Prefabs/ProgressCirclePrefab");
+        GameObject circ = ResourceLoader.Instance.GetPrefab("ProgressCirclePrefab");
         inventoryPage = new PageComponent(gameObject.transform, "Raw Item", 4, 350);
         inventoryPage.SetPosition(-170, 0);
 
