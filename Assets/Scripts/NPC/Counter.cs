@@ -121,7 +121,7 @@ public class Counter : NPC
         ProcessedItem t = Util.GetItem(orderTopping) as ProcessedItem;
         ProcessedItem i = Util.GetItem(orderIcing) as ProcessedItem;
         ProcessedItem b = Util.GetItem(orderBase) as ProcessedItem;
-        int dice = rand.Next(0, 8);
+        int dice = rand.Next(1, 7);
         System.String ret =
         (((dice & 1 << 0) == 0) ? t.Keyword : t.FlavorWord) + " " +
         (((dice & 1 << 1) == 0) ? i.Keyword : i.FlavorWord) + " " +
