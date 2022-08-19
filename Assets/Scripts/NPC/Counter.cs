@@ -20,7 +20,7 @@ public class Counter : NPC
         dialog = GameObject.Find("Canvas").transform.Find("DialogUI").GetComponent<DialogUI>();
         cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
-        GuestObject = Instantiate(Resources.Load<GameObject>("Prefabs/NPC/Guest"));
+        GuestObject = Instantiate(ResourceLoader.Instance.GetPrefab("Guest"));
         GuestObject.transform.position = gameObject.transform.position + new Vector3(-14, 0, 0);
         GuestObject.SetActive(false);
     }

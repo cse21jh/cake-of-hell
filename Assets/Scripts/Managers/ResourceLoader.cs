@@ -8,6 +8,7 @@ public class ResourceLoader : Singleton<ResourceLoader>
     private Dictionary<string, AudioClip> audios;
     private Dictionary<string, GameObject> prefabs;
     private Dictionary<string, Sprite> sprites;
+    private Dictionary<string, Sprite[]> packedSprites;
 
     void Start()
     {
@@ -44,12 +45,15 @@ public class ResourceLoader : Singleton<ResourceLoader>
     private void LoadSprites()
     {
         sprites = new Dictionary<string, Sprite>();
+        packedSprites = new Dictionary<string, Sprite[]>();
         string[] assets = AssetDatabase.FindAssets("t:sprite", new[] { "Assets/Resources/Sprites" });
         foreach(string guid in assets)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             string name = System.IO.Path.GetFileNameWithoutExtension(path);
-            sprites.Add(name, (Sprite)AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)));
+            Sprite[] loaded = System.Array.ConvertAll(AssetDatabase.LoadAllAssetRepresentationsAtPath(path), e => (Sprite)e);
+            if(loaded.Length == 1) sprites.Add(name, loaded[0]);
+            else packedSprites.Add(name, loaded);
         }
     }
 
@@ -66,5 +70,10 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public Sprite GetSprite(string name)
     {
         return sprites[name];
+    }
+
+    public Sprite[] GetPackedSprite(string name)
+    {
+        return packedSprites[name];
     }
 }

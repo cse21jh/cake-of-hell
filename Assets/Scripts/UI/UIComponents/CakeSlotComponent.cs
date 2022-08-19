@@ -14,12 +14,12 @@ public class CakeSlotComponent : UIComponent
     public GameObject CakeSlotButton { get; set; }
 
     public CakeSlotComponent(Transform parent, bool isClickable = false) 
-    : base(parent, Resources.Load<GameObject>("Prefabs/CakeSlotPrefab"))
+    : base(parent, ResourceLoader.Instance.GetPrefab("CakeSlotPrefab"))
     {
-        nullSprite = Resources.Load<Sprite>("Sprites/Nothing");
+        nullSprite = ResourceLoader.Instance.GetSprite("Nothing");
         IsClickable = isClickable;
         if(isClickable) {
-            CakeSlotButton = Object.Instantiate(Resources.Load<GameObject>("Prefabs/ItemSlotButtonPrefab"), gameObject.transform);
+            CakeSlotButton = Object.Instantiate(ResourceLoader.Instance.GetPrefab("ItemSlotButtonPrefab"), gameObject.transform);
             CakeSlotButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
             CakeSlotButton.transform.SetParent(gameObject.transform);
         }

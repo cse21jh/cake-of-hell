@@ -11,12 +11,12 @@ public class PaginationComponent : UIComponent
     private int nowPage = 0;
 
     public PaginationComponent(Transform parent, PageComponent[] _pages, System.Action additionalFunction = null) 
-    : base(parent, Resources.Load<GameObject>("Prefabs/PaginationPrefab"))
+    : base(parent, ResourceLoader.Instance.GetPrefab("PaginationPrefab"))
     {
         int pageCount = _pages.Length;
         buttons = new GameObject[pageCount];
         pages = new PageComponent[pageCount];
-        GameObject buttonPrefab = Resources.Load<GameObject>("Prefabs/PaginationButtonPrefab");
+        GameObject buttonPrefab = ResourceLoader.Instance.GetPrefab("PaginationButtonPrefab");
         for(int i=0; i<pageCount; i++) 
         {
             int j = i;

@@ -11,7 +11,7 @@ public class MoveToShop : MonoBehaviour
     void Awake()
     {
         canvas = FindObjectOfType<Canvas>();
-        checkMoveToShopUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/CheckMoveToShopUI"), canvas.transform);
+        checkMoveToShopUI = Instantiate(ResourceLoader.Instance.GetPrefab("CheckMoveToShopUI"), canvas.transform);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
