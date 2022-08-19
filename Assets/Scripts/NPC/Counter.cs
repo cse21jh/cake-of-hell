@@ -48,8 +48,9 @@ public class Counter : NPC
                     {
                         UiManager.Instance.CloseUI(dialog);
                         HasGuest = false;
+                        StartCoroutine(GuestGo());
                         EndInteract();
-                        //penalty
+                        GivePenalty();
                     };
                 }
                 else
@@ -134,11 +135,10 @@ public class Counter : NPC
         {
             float price = cake.GetPrice(orderBase, orderIcing, orderTopping);
             Util.EarnMoney(price);
-            Debug.Log(price);
-            hasOrder = false;
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);
             dialog.SetText("잘 먹겠습니다~");
+            StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
         }
     }
@@ -150,18 +150,27 @@ public class Counter : NPC
             TimeManager.Instance.GuestLeaveTimeStart,
             TimeManager.Instance.GuestLeaveTimeEnd
         ));
+        StartCoroutine(GuestGo());
+        GivePenalty();
+    }
 
+    private IEnumerator GuestGo()
+    {
         if(hasOrder)
         {
+            hasOrder = false;
             yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
                 GuestObject, 
                 gameObject.transform.position + new Vector3(-14, 0, 0),
                 3.0f
             ));
             HasGuest = false;
-            hasOrder = false;
             GuestObject.SetActive(false);
-            //Penalty
         }
+    }
+
+    private void GivePenalty()
+    {
+        Util.DecreaseReputation();
     }
 }
