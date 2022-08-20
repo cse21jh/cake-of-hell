@@ -21,6 +21,7 @@ public class ItemManager : Singleton<ItemManager>
         DontDestroyOnLoad(gameObject);
         AddProcessedItem(0, "민 초 좋 아", ItemLevel.SS, null, "민 초 좋 아", "민 초 좋 아", 9999, "민 초 좋 아");
         AddRawItem(0, "민 초 좋 아", null, new List<int> { 0 }, new List<float> { 9999f }, new List<float> { 9999.0f });
+        baseSprite = ResourceLoader.Instance.GetPackedSprite("Base");
         icingSprite = ResourceLoader.Instance.GetPackedSprite("Icing");
         rawSprite = ResourceLoader.Instance.GetPackedSprite("drop item");
         AddBases();
@@ -69,13 +70,13 @@ public class ItemManager : Singleton<ItemManager>
     {
         //code / name / level/ sprite / keyword / flavor text / price
 
-        AddProcessedItem(1001, "저주받은 흙", ItemLevel.C, Resources.Load<Sprite>("Sprites/Item/After Process/cursed mud"), "촉촉한 빵", "흙이 부드럽다니... 좀 이상하긴 해.", 10f, "부드러운");
-        AddProcessedItem(1002, "진화한 흙", ItemLevel.B, Resources.Load<Sprite>("Sprites/Item/After Process/neo mud"), "쫄깃한 빵", "쫀드기 아닙니다. 구워 먹지 말 것.", 20f, "쫀득한");
-        AddProcessedItem(1003, "광택이 나는 레더", ItemLevel.A, null, "질긴 가죽", "오만 번 씹어도 안 끊기는 쫄깃함.", 30f, "쫄깃한");
-        AddProcessedItem(1004, "뼈 반죽", ItemLevel.SS, null, "뼈", "수상할 정도로 바삭한 뼈.", 50f, "바삭한");
-        AddProcessedItem(1005, "버섯 빵", ItemLevel.B, null, "독버섯", "향기롭게 죽어가는 건가... 살려줘요.....", 20f, "향기로운");
-        AddProcessedItem(1006, "붉은 심장", ItemLevel.S, Resources.Load<Sprite>("Sprites/Item/After Process/red heart"), "심장", "물컹거리는 게 거의 버섯인데;;", 45f, "물컹거리는");
-        AddProcessedItem(1007, "불타는 심장", ItemLevel.SS, null, "뜨거운 심장", "사람 마음에 불 지르지 마세요.", 55f, "불이 나는");
+        AddProcessedItem(1001, "저주받은 흙", ItemLevel.C, baseSprite[0], "촉촉한 빵", "흙이 부드럽다니... 좀 이상하긴 해.", 10f, "부드러운");
+        AddProcessedItem(1002, "진화한 흙", ItemLevel.B, baseSprite[1], "쫄깃한 빵", "쫀드기 아닙니다. 구워 먹지 말 것.", 20f, "쫀득한");
+        AddProcessedItem(1003, "광택이 나는 레더", ItemLevel.A, baseSprite[2], "질긴 가죽", "오만 번 씹어도 안 끊기는 쫄깃함.", 30f, "쫄깃한");
+        AddProcessedItem(1004, "뼈 반죽", ItemLevel.SS, baseSprite[3], "뼈", "수상할 정도로 바삭한 뼈.", 50f, "바삭한");
+        AddProcessedItem(1005, "버섯 빵", ItemLevel.B, baseSprite[4], "독버섯", "향기롭게 죽어가는 건가... 살려줘요.....", 20f, "향기로운");
+        AddProcessedItem(1006, "붉은 심장", ItemLevel.S, baseSprite[5], "심장", "물컹거리는 게 거의 버섯인데 ;;", 45f, "물컹거리는");
+        AddProcessedItem(1007, "불타는 심장", ItemLevel.SS, baseSprite[6], "뜨거운 심장", "사람 마음에 불 지르지 마세요.", 55f, "불이 나는");
     }
 
     public void AddIcings()
