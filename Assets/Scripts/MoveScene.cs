@@ -20,6 +20,10 @@ public class MoveScene : MonoBehaviour
         {
             switch(nextSceneRank)
             {
+                case "C":
+                    if (GameManager.Instance.unlockMapC)
+                        GameManager.Instance.LoadScene(nextScene);
+                    break;
                 case "B":
                     if(GameManager.Instance.unlockMapB)
                         GameManager.Instance.LoadScene(nextScene);

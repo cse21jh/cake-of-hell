@@ -51,7 +51,6 @@ public class TimeManager : Singleton<TimeManager>
 
     public void StartDay()
     {
-        GameManager.Instance.LoadScene("JHSampleForest", true);
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         SetDay(day + 1);
         GameManager.Instance.killMonsterInADay = false;
@@ -66,7 +65,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public void OpenShop()
     {
-        GameManager.Instance.LoadScene("JHSampleShop", true);
+        GameManager.Instance.LoadScene("Cake Shop", true);
         Debug.Log("Time to Open");
         timer = 12.0f * oneHour;
         stopTimer = false;

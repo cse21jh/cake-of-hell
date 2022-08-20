@@ -33,6 +33,30 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene/City Map.unity
     guid: 174503b21979a244f87a6c4bf3e067fa
   - enabled: 1
+    path: Assets/Scenes/GameScene/EndingScene.unity
+    guid: fe8075eec4d4cec40bd2229817c7a4c2
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Cloud Map.unity
+    guid: e5852457f558bf44da7ff0e0ab99b740
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Deep Sea Map.unity
+    guid: 45b1430a8d1e4094ba70e30020b519f4
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Desert Map.unity
+    guid: 42c447dde73ed18449a7e6ac4bc7f03e
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Field Map.unity
+    guid: ef3dcd910f407734db604366d49d52f2
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Magician Cave.unity
+    guid: 11a4c07d20436c14791633793849dbdd
+  - enabled: 1
     path: Assets/Scenes/GameScene/MainMenu.unity
-    guid: cf097aabf63c1c64d93e5f30b242d309
+    guid: af4cb8f81bbba6f45837a5d1c5ff57f8
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Villiage Map.unity
+    guid: 4922752966eec6a4db29ce930bd9a4e5
   m_configObjects: {}
