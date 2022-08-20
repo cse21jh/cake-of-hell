@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc05074f06c842746a23030ddd019cb3
+guid: 6e25a4516c04466488c08386df136321
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -1151,10 +1151,31 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: md6
+      name: md56
       rect:
         serializedVersion: 2
         x: 472
+        y: 0
+        width: 236
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 167fb5f22bd173640800000000000000
+      internalID: 5059545357509982049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: md6
+      rect:
+        serializedVersion: 2
+        x: 708
         y: 0
         width: 236
         height: 236
@@ -1175,7 +1196,7 @@ TextureImporter:
       name: md7
       rect:
         serializedVersion: 2
-        x: 708
+        x: 944
         y: 0
         width: 236
         height: 236
@@ -1196,7 +1217,7 @@ TextureImporter:
       name: md8
       rect:
         serializedVersion: 2
-        x: 944
+        x: 1180
         y: 0
         width: 236
         height: 236
@@ -1217,7 +1238,7 @@ TextureImporter:
       name: md9
       rect:
         serializedVersion: 2
-        x: 1180
+        x: 1416
         y: 0
         width: 236
         height: 236
@@ -1294,12 +1315,13 @@ TextureImporter:
       md13: 2037689778056986662
       md31: -8051628924406733848
       md33: -7845805656168665507
-      md8: 3042014478150826359
+      md56: 5059545357509982049
       md54: -2844933523224234339
       md28: 6966120790342534957
       md23: -8797651027789252203
       md26: -8180554141662534313
       md21: 6654208673811754602
+      md8: 3042014478150826359
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
