@@ -54,6 +54,7 @@ public class TimeManager : Singleton<TimeManager>
         GameManager.Instance.LoadScene("JHSampleForest", true);
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         SetDay(day + 1);
+        GameManager.Instance.killMonsterInADay = false;
         Debug.Log(day);
         timer = 0f;
         isPrepareTime = true;
@@ -118,6 +119,10 @@ public class TimeManager : Singleton<TimeManager>
     {
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
+        if(GameManager.Instance.killMonsterInADay = false)
+        {
+            GameManager.Instance.MoveToEndingScene();
+        }
         endPrepareUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndPrepareUI"), canvas.transform);
         if (endPrepareUI != null)
         {
@@ -173,6 +178,7 @@ public class TimeManager : Singleton<TimeManager>
         // FixMe
         if (_day == 31)
         {
+            GameManager.Instance.killMonsterInADay = true;
             Ending();
         }
         day = _day;

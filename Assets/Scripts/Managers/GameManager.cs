@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     public int processSSCount = 0;
     public int cantAcceptOrderCount = 0;
     public int enterBlackHoleCount = 0;
+
+    public bool killMonsterInADay = false;
     
 
     public int[] killEachMonsterCount= new int[11];
@@ -351,6 +353,15 @@ public class GameManager : Singleton<GameManager>
         else
             Util.DecreaseReputation();
         cantAcceptOrderCount++;
+        if(cantAcceptOrderCount>=100)
+        {
+            MoveToEndingScene();
+        }
+    }
+
+    public void MoveToEndingScene()
+    {
+        LoadScene("EndingScene");
     }
 
     public IEnumerator UpgradeMagicianSlot()

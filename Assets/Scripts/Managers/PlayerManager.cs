@@ -208,6 +208,10 @@ public class PlayerManager : Singleton<PlayerManager>
     public void Die()
     {
         GameManager.Instance.AddDieCount();
+        if(GameManager.Instance.dieCount >=3)
+        {
+            GameManager.Instance.MoveToEndingScene();
+        }
         Debug.Log("Player Die");
     }
 }
