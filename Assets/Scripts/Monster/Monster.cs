@@ -30,6 +30,9 @@ public abstract class Monster : MonoBehaviour
     protected GameObject bullet;
     protected List<int> itemCode = new List<int>();
 
+    protected Sprite rSprite;
+    protected Sprite lSprite;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -40,6 +43,9 @@ public abstract class Monster : MonoBehaviour
         monsterHitBox = Instantiate(ResourceLoader.Instance.GetPrefab("MonsterHitBox"), this.transform);
         bullet = ResourceLoader.Instance.GetPrefab("Bullet");
         monsterHitBox.GetComponent<MonsterHitBox>().damage = AttackDamage;
+        lSprite = ResourceLoader.Instance.GetPackedSprite("mobs")[MonsterNumber * 2];
+        rSprite = ResourceLoader.Instance.GetPackedSprite("mobs")[MonsterNumber * 2+1];
+        sr.sprite = lSprite;
     }
 
     protected virtual void Update()
@@ -74,6 +80,7 @@ public abstract class Monster : MonoBehaviour
     
     protected IEnumerator MoveRoutine(Vector3 destination, float time)
     {
+        CheckSprite(destination);
         AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
         Vector3 startPosition = transform.position;
         for (float t = 0; t <= time; t += Time.deltaTime)
@@ -87,6 +94,7 @@ public abstract class Monster : MonoBehaviour
 
     protected IEnumerator MoveTowardPlayer(float speedMultiplier, float time = 0)     // 플레이어를 향해 움직인다
     {
+        CheckSprite(GetPlayerPos());
         if (time != 0)
         {
             for (float t = 0; t <= time; t += Time.deltaTime)
@@ -130,6 +138,25 @@ public abstract class Monster : MonoBehaviour
         else return false;
     }
 
+    protected void CheckSprite(Vector3 destination)
+    {
+        if (destination.x > GetObjectPos().x && transform.localScale.x>=0)
+        {
+            Vector3 scale = transform.localScale;
+
+            scale.x = -scale.x;
+            
+            transform.localScale = scale;
+        }
+        else if(destination.x < GetObjectPos().x && transform.localScale.x <= 0)
+        {
+            Vector3 scale = transform.localScale;
+
+            scale.x = -scale.x;
+
+            transform.localScale = scale;
+        }
+    }
 
 
 

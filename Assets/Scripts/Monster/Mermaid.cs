@@ -17,6 +17,7 @@ public class Mermaid : Monster
         Speed = Util.GetPlayerSpeed() / 2;
         Eyesight = 4;
         Rank = "C";
+        MonsterNumber = 3;
         base.Start();
     }
 
@@ -67,6 +68,7 @@ public class Mermaid : Monster
 
     protected IEnumerator MoveAwayFromPlayer(float speedMultiplier)     // 플레이어로부터 도망친다
     {
+        CheckSprite(GetObjectPos());
         Vector3 direction = (GetObjectPos() - GetPlayerPos()).normalized;
         transform.position = transform.position + (direction * (speedMultiplier * Time.deltaTime));
         yield return null;

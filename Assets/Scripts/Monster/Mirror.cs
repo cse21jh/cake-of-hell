@@ -15,6 +15,7 @@ public class Mirror : Monster
         AttackRange = 7.5f;
         Eyesight = 7.5f;
         Rank = "A";
+        MonsterNumber = 4;
         base.Start();
     }
 
@@ -60,7 +61,7 @@ public class Mirror : Monster
             monsterHitBox.transform.localScale = new Vector3(1, 1, 0);
             monsterHitBox.transform.position = GetObjectPos();
             monsterHitBox.gameObject.SetActive(false);
-
+            CheckSprite(GetPlayerPos());
             direction = (GetPlayerPos() - GetObjectPos()).normalized;
             transform.position = GetPlayerPos() + 6 * direction;
             yield return new WaitForSeconds(1.0f);

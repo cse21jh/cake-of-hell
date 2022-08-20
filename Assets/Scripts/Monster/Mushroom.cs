@@ -18,6 +18,7 @@ public class Mushroom : Monster
         Rank = "B";
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
+        MonsterNumber = 6;
         base.Start();
     }
 

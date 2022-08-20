@@ -18,6 +18,7 @@ public class Rhino : Monster
         AttackRange = 3.5f;
         Eyesight = 4.5f;
         Rank = "A";
+        MonsterNumber = 7;
         base.Start();
     }
 

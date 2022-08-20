@@ -16,6 +16,7 @@ public class Ghost : Monster
         AttackRange = 1;
         Eyesight = 7;
         Rank = "S";
+        MonsterNumber = 2;
         base.Start();
         StartCoroutine(Fade());
 

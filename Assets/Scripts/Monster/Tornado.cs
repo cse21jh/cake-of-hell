@@ -22,7 +22,7 @@ public class Tornado : Monster
         Rank = "B";
         centerPoint = transform.position + new Vector3(0, -1, 0);
         transform.localScale = new Vector3(2f, 2f, 0f);
-
+        MonsterNumber = 10;
         base.Start();
     }
 

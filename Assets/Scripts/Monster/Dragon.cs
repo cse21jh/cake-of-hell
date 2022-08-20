@@ -16,6 +16,7 @@ public class Dragon : Monster
         AttackRange = 7;
         Eyesight = 8;
         Rank = "SS";
+        MonsterNumber = 1;
         base.Start();
     }
 

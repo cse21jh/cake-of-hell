@@ -284,6 +284,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2173108456603904712, guid: 18c92084d10fcb8468c3ad602f6811b6, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173108456603904712, guid: 18c92084d10fcb8468c3ad602f6811b6, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9215180415944758787, guid: 18c92084d10fcb8468c3ad602f6811b6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -326,6 +334,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9215180415944758787, guid: 18c92084d10fcb8468c3ad602f6811b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215180415944758812, guid: 18c92084d10fcb8468c3ad602f6811b6, type: 3}
+      propertyPath: m_DrawMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9215180415944758814, guid: 18c92084d10fcb8468c3ad602f6811b6, type: 3}
@@ -1596,6 +1608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: JHSampleMagicianHouse
+  haveToCheckUnlock: 0
+  nextSceneRank: 
 --- !u!61 &848114246
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2484,6 +2498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: JHSampleShop
+  haveToCheckUnlock: 0
+  nextSceneRank: 
 --- !u!61 &1813473028
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class MudTower : Monster
         AttackRange = 3f;
         Eyesight = 3;
         Rank = "C";
+        MonsterNumber = 5;
         base.Start();
     }
 

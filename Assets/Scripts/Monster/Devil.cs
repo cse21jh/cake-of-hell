@@ -25,7 +25,9 @@ public class Devil : Monster
         Rank = "S";
         circleSpeed = Util.GetPlayerSpeed() * 20f; 
         centerPoint = transform.position + new Vector3(0, -3, 0);
+        MonsterNumber = 0;
         base.Start();
+        
     }
 
     protected override Queue<IEnumerator> DecideNextRoutine()

@@ -17,6 +17,7 @@ public class Spider : Monster
         AttackRange = 10;
         Eyesight = 10;
         Rank = "SS";
+        MonsterNumber = 9;
         base.Start();
     }
 

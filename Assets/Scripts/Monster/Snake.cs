@@ -17,6 +17,7 @@ public class Snake : Monster
         AttackRange = 7;
         Eyesight = 7;
         Rank = "A";
+        MonsterNumber = 8;
         base.Start();
     }
 
