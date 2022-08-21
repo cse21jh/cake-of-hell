@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 017762de7a3472847a1369537f9c8e6e
+guid: adbd866db433be649974e3d60e83c8c6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -66,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -84,7 +84,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
+        y: 900
         width: 300
         height: 300
       alignment: 0
@@ -105,7 +105,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 600
+        y: 900
         width: 300
         height: 300
       alignment: 0
@@ -126,7 +126,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
+        y: 600
         width: 300
         height: 300
       alignment: 0
@@ -147,7 +147,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 300
+        y: 600
         width: 300
         height: 300
       alignment: 0
@@ -168,7 +168,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 300
         width: 300
         height: 300
       alignment: 0
@@ -189,7 +189,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 0
+        y: 300
         width: 300
         height: 300
       alignment: 0
@@ -201,6 +201,27 @@ TextureImporter:
       bones: []
       spriteID: 36e04774432e43ae0800000000000000
       internalID: -1570381655880495517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: toosachae
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d07d4009e26849570800000000000000
+      internalID: 8472544333533599501
       vertices: []
       indices: 
       edges: []
@@ -218,6 +239,7 @@ TextureImporter:
     nameFileIdTable:
       mirror: 3937396354249366081
       rhino: 3004760068004822726
+      toosachae: 8472544333533599501
       spider: -1570381655880495517
       devil: 872957285411112191
       dragon: -4370824878487128345
