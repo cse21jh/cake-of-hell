@@ -18,12 +18,6 @@ public class PlayerManager : Singleton<PlayerManager>
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         invincible = false;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
 
 
 

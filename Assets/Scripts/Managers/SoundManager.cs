@@ -9,8 +9,8 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource BgmPlayer;
     public AudioSource EffectPlayer;
 
-    public float BGMVolume { get; set; } = 1f;
-    public float EffectVolume { get; set; } = 0.3f;
+    public float BGMVolume  = 1f;
+    public float EffectVolume = 0.3f;
     
 
     [SerializeField] private AudioClip[] EffectAudioClips;

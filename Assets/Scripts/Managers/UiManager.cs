@@ -10,11 +10,15 @@ public class UiManager : Singleton<UiManager>
     private Player player;
 
     public bool openItemList = false;
-    public bool alreadyOpenItemList = false; // ��ɲ� ���� ���� ������ ������ i������ ��â �� ��������
+    public bool alreadyOpenItemList = false;
+    public bool openMenu = false;
 
     public bool openByMaking = false;
     public bool openByMagician = false;
     public bool openByHunter = false;
+
+    public GameObject menu;
+    public GameObject option;
 
     void Awake()
     {
@@ -38,6 +42,21 @@ public class UiManager : Singleton<UiManager>
             {
                 CloseItemList();
             }
+            if (!openMenu)
+            {
+                option = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/OptionMenu"), FindObjectOfType<Canvas>().transform);
+                menu = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/Menu"), FindObjectOfType<Canvas>().transform);
+                menu.GetComponent<MenuUI>().Open();
+                menu.GetComponent<MenuUI>().OptionMenu = option.GetComponent<OptionUI>();
+                option.GetComponent<OptionUI>().Close();
+                openMenu = true;
+            }
+            else
+            {
+                menu.GetComponent<MenuUI>().Close();
+                option.GetComponent<OptionUI>().Close();
+                openMenu = false;
+            }    
         }
     }
 

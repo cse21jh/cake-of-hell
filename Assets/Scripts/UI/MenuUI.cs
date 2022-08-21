@@ -3,32 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuUI : BaseUI
+public class MenuUI : BaseUI, ISingleOpenUI
 {
     public static bool pauseState = false;
     public GameObject MenuCanvas;
-    private OptionUI OptionMenu;
+    public OptionUI OptionMenu;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        OptionMenu = GameObject.Find("OptionMenu").GetComponent<OptionUI>();
-        OptionMenu.Close();
-        MenuCanvas.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            if(pauseState){
-                Resume();
-            } else {
-                Pause();
-            }
-        }
-    }
-
+    
     public void Resume(){
         MenuCanvas.SetActive(false);
         Time.timeScale = 1f;
@@ -42,15 +23,17 @@ public class MenuUI : BaseUI
     }
 
     public void Restart(){
-        Debug.Log("미구현");
+        Close();
+        GameManager.Instance.ReStart();
     }
 
     public void Option(){
         OptionMenu.Open();
+        Close();
     }
 
     public void Quit(){
-        Debug.Log("미구현");
+        Application.Quit();
     }
 
     public override void Open()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionUI : BaseUI
+public class OptionUI : BaseUI, ISingleOpenUI
 {
     public GameObject OptionUIs;
 
@@ -16,7 +16,6 @@ public class OptionUI : BaseUI
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Test");
         BGMVolume = GameObject.Find("MusicSlider").GetComponent<Slider>();
         effectVolume = GameObject.Find("SoundSlider").GetComponent<Slider>();
         BGMVolume.value = SoundManager.Instance.BGMVolume;
@@ -28,11 +27,10 @@ public class OptionUI : BaseUI
     // Update is called once per frame
     void Update()
     {
+        BGMVolume.value = SoundManager.Instance.BGMVolume;
+        effectVolume.value = SoundManager.Instance.EffectVolume;
         UpdateBGMVolume();
         UpdateEffectVolume();
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            Close();
-        }
     }
 
     public void UpdateBGMVolume()

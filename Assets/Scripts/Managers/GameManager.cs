@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     public int penaltyCount;
     public int increaseReputationCount;
 
+    public string currentSceneName;
+
     public Vector2 startPoint;
     public bool canMove = true;
 
@@ -174,6 +176,7 @@ public class GameManager : Singleton<GameManager>
     {
         SoundManager.Instance.PlayEffect("MoveScene");
         SceneManager.LoadScene(nextScene);
+        currentSceneName = nextScene;
         canMove = true;
         if (nextScene.Contains("Shop")) // input ShopName
         {
@@ -188,6 +191,8 @@ public class GameManager : Singleton<GameManager>
         {
             StartCoroutine(StartOnPoint());
         }
+        UiManager.Instance.openItemList = false;
+        UiManager.Instance.openMenu = false;
     }
 
     public IEnumerator DieLoadScene(string nextScene)
@@ -200,6 +205,8 @@ public class GameManager : Singleton<GameManager>
         PlayerManager.Instance.SetPlayerImage(0);
         yield return StartCoroutine(FadeIn());
         canMove = true;
+        UiManager.Instance.openItemList = false;
+        UiManager.Instance.openMenu = false;
     }
 
     private IEnumerator StartOnPoint()
