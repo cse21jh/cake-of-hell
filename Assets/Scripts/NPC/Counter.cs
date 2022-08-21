@@ -5,7 +5,6 @@ using UnityEngine;
 public class Counter : NPC
 {
     public GameObject CakeListObject;
-    public GameObject GuestObject { get; set; }
     private System.Random rand;
     private DialogUI dialog; 
     private CakeListUI cakelist;
@@ -13,18 +12,25 @@ public class Counter : NPC
     private bool hasOrder = false;
     private bool flag = false;
     private bool isOrderDialogOn = false;
+    private Sprite[] guestSprites;
 
     public bool HasGuest { get; set; } = true;
+    public int SpriteNumber { get; set; }
+    public GameObject GuestObject { get; set; }
+    public SpriteRenderer GuestSprite { get; set; }
 
     void Start()
     {
         var canvas = GameObject.Find("Canvas");
         rand = new System.Random();
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
-        //cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
         cakelist = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
         GuestObject = Instantiate(ResourceLoader.GetPrefab("Prefabs/NPC/Guest"));
+        GuestSprite = GuestObject.GetComponent<SpriteRenderer>();
+        guestSprites = ResourceLoader.GetPackedSprite("Sprites/Guest/guests");
+        SpriteNumber = rand.Next(0, 5);
+        GuestSprite.sprite = guestSprites[2 * SpriteNumber + 1];
         if(!TimeManager.Instance.isPrepareTime)
         {
             GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
@@ -181,13 +187,14 @@ public class Counter : NPC
 
     private IEnumerator GuestGo()
     {
+        GuestSprite.sprite = guestSprites[2 * SpriteNumber];
         hasOrder = false;
-        HasGuest = false;
         yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
             GuestObject, 
             gameObject.transform.position + new Vector3(-14, 0, 0),
             3.0f
         ));
+        HasGuest = false;
         GuestObject.SetActive(false);
     }
 }

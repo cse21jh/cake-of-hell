@@ -8,6 +8,7 @@ public class ShopManager : MonoBehaviour
     private Counter[] counters;
     private DialogUI dialog;
     private CakeListUI cakelist;
+    private Sprite[] guestSprites;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class ShopManager : MonoBehaviour
         counters[0] = GameObject.Find("Counter0").GetComponent<Counter>();
         counters[1] = GameObject.Find("Counter1").GetComponent<Counter>();
         counters[2] = GameObject.Find("Counter2").GetComponent<Counter>();
+        guestSprites = ResourceLoader.GetPackedSprite("Sprites/Guest/guests");
         StartCoroutine(GuestCome());
     }
 
@@ -26,13 +28,16 @@ public class ShopManager : MonoBehaviour
             int counterNumber = GetAvailableCounter();
             if(counterNumber != -1 && counters[counterNumber].GuestObject)
             {
-                counters[counterNumber].GuestObject.SetActive(true);
+                Counter ct = counters[counterNumber];
+                ct.GuestObject.SetActive(true);
+                ct.SpriteNumber = rand.Next(0, 5);
+                ct.GuestSprite.sprite = guestSprites[2 * ct.SpriteNumber + 1];
                 yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
-                    counters[counterNumber].GuestObject, 
-                    counters[counterNumber].gameObject.transform.position + new Vector3(-2, 0, 0),
+                    ct.GuestObject, 
+                    ct.gameObject.transform.position + new Vector3(-2, 0, 0),
                     3.0f
                 ));
-                counters[counterNumber].HasGuest = true;
+                ct.HasGuest = true;
             }
             yield return new WaitForSeconds(rand.Next
             (
