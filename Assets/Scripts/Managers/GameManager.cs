@@ -170,6 +170,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public IEnumerator DieLoadScene(string nextScene)
+    {
+        PlayerManager.Instance.SetPlayerInShop(true);
+        yield return StartCoroutine(FadeOut());
+        SceneManager.LoadScene(nextScene);
+        StartCoroutine(StartOnPoint());
+        PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
+        PlayerManager.Instance.SetPlayerImage(0);
+        yield return StartCoroutine(FadeIn());
+        canMove = true;
+    }
+
     private IEnumerator StartOnPoint()
     {
         yield return null;

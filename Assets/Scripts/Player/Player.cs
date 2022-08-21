@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public bool inShop = true;
     private int nowImage;
 
-    private Sprite[] playerImage = new Sprite[8];
+    public Sprite[] playerImage = new Sprite[8];
 
     private GameObject hitBox;
 

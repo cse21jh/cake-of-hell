@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndingManager : MonoBehaviour
 {
+    private Image BackGround;
     private int endingCount=0;
+    private Sprite[] EndingBackGround = new Sprite[15];
     void Start()
     {
+        BackGround = GameObject.Find("Canvas").transform.Find("BackGround").gameObject.GetComponent<Image>();
+        EndingBackGround = ResourceLoader.GetPackedSprite("Sprites/BackGround/EndingBackGround");
         CheckEnding();
         Ending();
     }
@@ -47,7 +52,7 @@ public class EndingManager : MonoBehaviour
             endingCount = 5;
             return;
         }
-        if (GameManager.Instance.cantAcceptOrderCount >= 100)
+        if (GameManager.Instance.cantAcceptOrderCount >= 100 || TimeManager.Instance.reputation <=0f)
         {
             endingCount = 6;
             return;
@@ -91,6 +96,56 @@ public class EndingManager : MonoBehaviour
 
     private void Ending()
     {
-        //엔딩 케이스별 배경, 문구 등 스위치문으로 넣어주고 엔딩 틀기
+        switch(endingCount)
+        {
+            case 0:
+                Debug.Log("이거 버그임");
+                break;
+            case 1:
+                BackGround.sprite = EndingBackGround[0];
+                break;
+            case 2:
+                BackGround.sprite = EndingBackGround[1];
+                break;
+            case 3:
+                BackGround.sprite = EndingBackGround[2];
+                break;
+            case 4:
+                BackGround.sprite = EndingBackGround[3];
+                break;
+            case 5:
+                BackGround.sprite = EndingBackGround[4];
+                break;
+            case 6:
+                BackGround.sprite = EndingBackGround[5];
+                break;
+            case 7:
+                //BackGround.sprite = EndingBackGround[1];
+            //string
+            case 8:
+                BackGround.sprite = EndingBackGround[6];
+                break;
+            case 9:
+                BackGround.sprite = EndingBackGround[7];
+                break;
+            case 10:
+                BackGround.sprite = EndingBackGround[8];
+                break;
+            case 11:
+                BackGround.sprite = EndingBackGround[9];
+                break;
+            case 12:
+                BackGround.sprite = EndingBackGround[10];
+                break;
+            case 13:
+                //BackGround.sprite = EndingBackGround[1];
+            //string
+            case 14:
+                //BackGround.sprite = EndingBackGround[1];
+            //string
+            case 15:
+                BackGround.sprite = EndingBackGround[11];
+                break;
+        }
     }
 }
