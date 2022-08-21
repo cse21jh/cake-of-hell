@@ -6,8 +6,10 @@ using TMPro;
 
 public class DialogUI : BaseUI, ISingleOpenUI
 {
+    private bool isTyping = false;
     private TMP_Text dialog;
-    private GameObject yesButton, noButton;
+    private GameObject nextButton, yesButton, noButton;
+    private Queue<string> dialogQueue = new Queue<string>();
 
     public System.Action OnClickYes { get; set; } = null;
     public System.Action OnClickNo { get; set; } = null;
@@ -15,10 +17,13 @@ public class DialogUI : BaseUI, ISingleOpenUI
     void Awake()
     {
         dialog = GameObject.Find("DialogText").GetComponent<TMP_Text>();
+        nextButton = GameObject.Find("ButtonNext");
         yesButton = GameObject.Find("ButtonYes");
         noButton = GameObject.Find("ButtonNo");
+        nextButton.GetComponent<Button>().onClick.AddListener(ShowNext);
         yesButton.GetComponent<Button>().onClick.AddListener(YesClicked);
         noButton.GetComponent<Button>().onClick.AddListener(NoClicked);
+        nextButton.SetActive(false);
         yesButton.SetActive(false);
         noButton.SetActive(false);
     }
@@ -68,12 +73,51 @@ public class DialogUI : BaseUI, ISingleOpenUI
         StartCoroutine(Typing(txt, typingSpeed));
     }
 
-    private IEnumerator Typing(string txt, float typingSpeed)       // 어디선가 startcoroutine
+    private IEnumerator Typing(string txt, float typingSpeed)
     {
+        isTyping = true;
         for(int i=0; i <= txt.Length; i++)
         {
-            SetText(txt.Substring(0, i));
-            yield return new WaitForSeconds(typingSpeed);
+            if(isTyping)
+            {
+                SetText(txt.Substring(0, i));
+                yield return new WaitForSeconds(typingSpeed);
+            }
+            else
+            {
+                SetText(txt);
+                break;
+            }
+        }
+        isTyping = false;
+    }
+
+    public void SetLongText(string[] texts)
+    {
+        foreach(string text in texts)
+        {
+            dialogQueue.Enqueue(text);
+        }
+        nextButton.SetActive(true);
+        ShowNext();
+    }
+
+    private void ShowNext()
+    {
+        string nextDialog;
+
+        if(isTyping) 
+        {
+            isTyping = false;
+        }
+        else if(dialogQueue.TryDequeue(out nextDialog))
+        {
+            StartTyping(nextDialog);
+        }
+        else
+        {
+            UiManager.Instance.CloseUI(this);
+            nextButton.SetActive(false);
         }
     }
 }
