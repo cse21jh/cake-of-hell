@@ -5,36 +5,55 @@ using UnityEngine.UI;
 
 public class OptionUI : BaseUI
 {
-    public static GameObject OptionUIs;
+    public GameObject OptionUIs;
 
-    private Slider BGMVolume;
-    private Slider effectVolume;
+    public Slider BGMVolume;
+    public Slider effectVolume;
+
+    private float BGMVolumeValue;
+    private float effectVolumeValue;
 
     // Start is called before the first frame update
     void Start()
     {
-        BGMVolume = gameObject.GetComponent<Slider>();
-        effectVolume = gameObject.GetComponent<Slider>();
-        BGMVolume.value = SoundManager.BgmPlayer.volume;
-        effectVolume.value = SoundManager.EffectPlayer.volume;
+        Debug.Log("Test");
+        BGMVolume = GameObject.Find("MusicSlider").GetComponent<Slider>();
+        effectVolume = GameObject.Find("SoundSlider").GetComponent<Slider>();
+        BGMVolume.value = SoundManager.Instance.BGMVolume;
+        BGMVolumeValue = SoundManager.Instance.BGMVolume;
+        effectVolume.value = SoundManager.Instance.EffectVolume;
+        effectVolumeValue = SoundManager.Instance.EffectVolume;
     }
 
     // Update is called once per frame
     void Update()
     {
-        SoundManager.ChangeBgmVolume(BGMVolume.value);
-        SoundManager.ChangeEffectVolume(effectVolume.value);
+        UpdateBGMVolume();
+        UpdateEffectVolume();
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            Close();
+        }
+    }
+
+    public void UpdateBGMVolume()
+    {
+        SoundManager.Instance.BGMVolume = BGMVolume.value;
+    }
+
+    public void UpdateEffectVolume()
+    {
+        SoundManager.Instance.EffectVolume = effectVolume.value;
     }
 
     public override void Open()
     {
-        gameObject.SetActive(true);
+        OptionUIs.SetActive(true);
         Debug.Log("Option UI Opened!");
     }
 
     public override void Close()
     {
-        gameObject.SetActive(false);
+        OptionUIs.SetActive(false);
         Debug.Log("Option UI Closed!");
     }
 }

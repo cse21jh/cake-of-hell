@@ -1,30 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    public static AudioSource BgmPlayer;
-    public static AudioSource EffectPlayer;
+
+    public AudioSource BgmPlayer;
+    public AudioSource EffectPlayer;
+
+    public float BGMVolume { get; set; } = 1f;
+    public float EffectVolume { get; set; } = 0.3f;
+    
 
     [SerializeField] private AudioClip[] EffectAudioClips;
 
-    Dictionary<string, AudioClip> EffectSoundDictionary = new Dictionary<string, AudioClip>();
+    private Dictionary<string, AudioClip> EffectSoundDictionary = new Dictionary<string, AudioClip>();
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
         DontDestroyOnLoad(this.gameObject);
 
         GameObject EffectTempObject = new GameObject("Effect");
-        EffectTempObject.transform.SetParent(transform);
+        EffectTempObject.transform.SetParent(gameObject.transform);
         EffectPlayer = EffectTempObject.AddComponent<AudioSource>();
 
         GameObject BgmTempObject = new GameObject("Bgm");
-        BgmTempObject.transform.SetParent(transform);
+        BgmTempObject.transform.SetParent(gameObject.transform);
         BgmPlayer = BgmTempObject.AddComponent<AudioSource>();
 
         foreach (AudioClip audioclip in EffectAudioClips)
@@ -33,7 +35,7 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    private void Start()
+    void Start()
     {
         EffectSoundDictionary.Add("Click", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-21"));
         EffectSoundDictionary.Add("MoveScene", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-26"));
@@ -42,15 +44,15 @@ public class SoundManager : Singleton<SoundManager>
         EffectSoundDictionary.Add("GetItem", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-45"));
     }
 
-    public void PlayEffect(string name, float volume = 0.3f)
+    public void PlayEffect(string name)
     {
-        EffectPlayer.PlayOneShot(EffectSoundDictionary[name], volume);
+        EffectPlayer.PlayOneShot(EffectSoundDictionary[name], EffectVolume);
     }
 
-    public void PlayBgm(AudioClip clip, float volume = 1f)
+    public void PlayBgm(AudioClip clip)
     {
         BgmPlayer.loop = true;
-        BgmPlayer.volume = volume;
+        BgmPlayer.volume = BGMVolume;
 
         BgmPlayer.clip = clip;
         BgmPlayer.Play();
@@ -61,16 +63,5 @@ public class SoundManager : Singleton<SoundManager>
         BgmPlayer.clip = null;
         BgmPlayer.Stop();
     }
-
-    public static void ChangeBgmVolume(float volume)
-    {
-        BgmPlayer.volume = volume;
-    }
-
-    public static void ChangeEffectVolume(float volume)
-    {
-        EffectPlayer.volume = volume;
-    }
-    
 
 }

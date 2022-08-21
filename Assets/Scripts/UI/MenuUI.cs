@@ -7,10 +7,13 @@ public class MenuUI : BaseUI
 {
     public static bool pauseState = false;
     public GameObject MenuCanvas;
+    private OptionUI OptionMenu;
 
     // Start is called before the first frame update
     void Start()
     {
+        OptionMenu = GameObject.Find("OptionMenu").GetComponent<OptionUI>();
+        OptionMenu.Close();
         MenuCanvas.SetActive(false);
     }
 
@@ -43,7 +46,7 @@ public class MenuUI : BaseUI
     }
 
     public void Option(){
-        //OptionUI.Start();
+        OptionMenu.Open();
     }
 
     public void Quit(){
