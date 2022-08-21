@@ -14,7 +14,7 @@ public class MoveToForest : MonoBehaviour
             {
                 if (TimeManager.Instance.isPrepareTime)
                 {
-                    GameManager.Instance.LoadScene(nextScene);
+                    GameManager.Instance.LoadScene(nextScene,true);
                     PlayerManager.Instance.SetPlayerImage(4);
                 }
 

@@ -197,6 +197,7 @@ public class TimeManager : Singleton<TimeManager>
             day = _day;
             GameManager.Instance.killMonsterInADay = true;
             GameManager.Instance.MoveToEndingScene();
+            return;
         }
         day = _day;
         GameManager.Instance.CheckUnlock();

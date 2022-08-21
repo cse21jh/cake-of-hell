@@ -14,16 +14,7 @@ public class NextDayButton : MonoBehaviour
     public void OnClickExit()
     {
         SoundManager.Instance.PlayEffect("Click");
-
-        if(TimeManager.Instance.GetDay() == 30)
-        {
-            
-            GameManager.Instance.CheckEnding();
-            endDayUI.Close();
-            return;
-        }
-
-        TimeManager.Instance.StartDay();
         endDayUI.Close();
+        TimeManager.Instance.StartDay();
     }
 }

@@ -6,20 +6,18 @@ using UnityEngine.UI;
 public class EndingManager : MonoBehaviour
 {
     private Image BackGround;
+    private DialogUI dialog;
+    [SerializeField]
     private int endingCount=0;
     private Sprite[] EndingBackGround = new Sprite[15];
     void Start()
     {
-        BackGround = GameObject.Find("Canvas").transform.Find("BackGround").gameObject.GetComponent<Image>();
+        var canvas = GameObject.Find("Canvas");
+        BackGround = canvas.transform.Find("BackGround").gameObject.GetComponent<Image>();
+        dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
         EndingBackGround = ResourceLoader.GetPackedSprite("Sprites/BackGround/EndingBackGround");
         CheckEnding();
         Ending();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void CheckEnding()
@@ -100,9 +98,11 @@ public class EndingManager : MonoBehaviour
         {
             case 0:
                 Debug.Log("이거 버그임");
+                dialog.SetText("이거 버그임");
                 break;
             case 1:
                 BackGround.sprite = EndingBackGround[0];
+                dialog.SetText("플레이어는 사망하고 플레이어의 케이크를 좋아하던 많은 손님들은 플레이어를 추모하며 장례식을 치뤄준다.");
                 break;
             case 2:
                 BackGround.sprite = EndingBackGround[1];
