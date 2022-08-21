@@ -43,7 +43,7 @@ public class MenuUI : BaseUI
     }
 
     public void Option(){
-        OptionUI.Start;
+        //OptionUI.Start();
     }
 
     public void Quit(){
