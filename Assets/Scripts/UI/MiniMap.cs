@@ -18,25 +18,25 @@ public class MiniMap : BaseUI
         switch(Util.GetNowMap())
         {
             case BattleMapList.MapHome:
-                smallPlayer.anchoredPosition = new Vector2(85, 0);
+                smallPlayer.anchoredPosition = new Vector2(75, 0);
                 break;
             case BattleMapList.MapMagi:
-                smallPlayer.anchoredPosition = new Vector2(-80, -10);
+                smallPlayer.anchoredPosition = new Vector2(-80, -5);
                 break;
             case BattleMapList.MapC:
-                smallPlayer.anchoredPosition = new Vector2(-255, 35);
+                smallPlayer.anchoredPosition = new Vector2(-225, 35);
                 break;
             case BattleMapList.MapB:
-                smallPlayer.anchoredPosition = new Vector2(-10, -120);
+                smallPlayer.anchoredPosition = new Vector2(-10, -100);
                 break;
             case BattleMapList.MapA:
-                smallPlayer.anchoredPosition = new Vector2(-175, -130);
+                smallPlayer.anchoredPosition = new Vector2(190, -110);
                 break;
             case BattleMapList.MapS:
-                smallPlayer.anchoredPosition = new Vector2(230, -125);
+                smallPlayer.anchoredPosition = new Vector2(-160, -105);
                 break;
             case BattleMapList.MapSS:
-                smallPlayer.anchoredPosition = new Vector2(235, 110);
+                smallPlayer.anchoredPosition = new Vector2(190, 90);
                 break;
             default:
                 smallPlayer.anchoredPosition = new Vector2(1000, 1000);
