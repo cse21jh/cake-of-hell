@@ -216,7 +216,7 @@ public class TimeManager : Singleton<TimeManager>
     {
         if (value > 5.0)
         {
-            reputation = 5.0;
+            reputation = 5.0f;
             return;
         }
         reputation = value;
