@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public float Hp { get; set; } = 120f;
     public float Speed { get; set; } = 4f;
     public float AttackDamage { get; set; } = 10f;
-    public float AttackRange { get; set; } = 1.0f;
+    public float AttackRange { get; set; } = 1.5f;
     public float Money { get; set; } = 0f;
 
     public bool inShop = true;
@@ -101,6 +101,8 @@ public class Player : MonoBehaviour
     {
         curCoolTime = coolTime;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePos.y - this.transform.position.y, mousePos.x - this.transform.position.x) * Mathf.Rad2Deg;
+        hitBox.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         hitBox.transform.position = (Vector2)transform.position + (mousePos - (Vector2)transform.position).normalized * AttackRange;
         hitBox.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
