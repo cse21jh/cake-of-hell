@@ -3782,7 +3782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3012172074875354199, guid: a90e645443125bb429c8817e71bc0b99, type: 3}
       propertyPath: nextScene
-      value: Villiage Map
+      value: Village Map
       objectReference: {fileID: 0}
     - target: {fileID: 3012172074875354199, guid: a90e645443125bb429c8817e71bc0b99, type: 3}
       propertyPath: nextSceneRank

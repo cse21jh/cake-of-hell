@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Util
@@ -88,5 +89,22 @@ public class Util
     public static void DecreaseReputation(float amount = 0.5f)
     {
         TimeManager.Instance.SetReputation(TimeManager.Instance.GetReputation() - amount);
+    }
+
+    public static BattleMapList GetNowMap() => GameManager.Instance.currentSceneName switch 
+    {
+        "Field Map" => BattleMapList.MapHome,
+        "Magician Cave" => BattleMapList.MapMagi,
+        "Deep Sea Map" => BattleMapList.MapC,
+        "Desert Map" => BattleMapList.MapB,
+        "City Map" => BattleMapList.MapA,
+        "Village Map" => BattleMapList.MapS,
+        "Cloud Map" => BattleMapList.MapSS,
+        _ => BattleMapList.None
+    };
+
+    public string[] LongSentenceToArray(string longSentence)
+    {
+        return longSentence.Split('.').Select(str => str + ".").ToArray();
     }
 }
