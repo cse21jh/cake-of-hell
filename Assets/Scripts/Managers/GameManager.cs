@@ -300,22 +300,22 @@ public class GameManager : Singleton<GameManager>
             magicianSlotUpgrade.IsUnlocked = true;
         }
 
-        if (!unlockMapBUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 2)
+        if (!unlockMapBUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 1)
         {
             unlockMapBUpgrade.IsUnlocked = true;
         }
 
-        if (!unlockMapAUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 6)
+        if (!unlockMapAUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 5)
         {
             unlockMapAUpgrade.IsUnlocked = true;
         }
 
-        if (!unlockMapSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 13)
+        if (!unlockMapSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 12)
         {
             unlockMapSUpgrade.IsUnlocked = true;
         }
 
-        if (!unlockMapSSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 24)
+        if (!unlockMapSSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 23)
         {
             unlockMapSSUpgrade.IsUnlocked = true;
         }
