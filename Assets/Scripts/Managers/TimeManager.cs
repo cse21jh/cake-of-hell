@@ -7,7 +7,7 @@ public class TimeManager : Singleton<TimeManager>
     public int day = 0;
 
     public float oneHour = 30f;
-    private float timer = 0f;
+    public float timer = 0f;
 
     private bool stopTimer = true;
     
@@ -52,6 +52,7 @@ public class TimeManager : Singleton<TimeManager>
     public void StartDay()
     {
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
+        PlayerManager.Instance.ResetNumberOfItemInADay();
         SetDay(day + 1);
         GameManager.Instance.killMonsterInADay = false;
         Debug.Log(day);

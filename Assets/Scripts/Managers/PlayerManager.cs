@@ -98,7 +98,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         if(money<0)
         {
-            Debug.Log("Have no money");
+            player.Money = 0;
             return;
         }
         player.Money = money;
@@ -149,6 +149,55 @@ public class PlayerManager : Singleton<PlayerManager>
             case 4:
                 player.NumberOfRaw[code] = number;
                 break;
+        }
+    }
+    public int GetNumberOfItemInADay(int code)
+    {
+        switch (code / 1000)
+        {
+            case 1:
+                return player.NumberOfBaseInADay[code];
+            case 2:
+                return player.NumberOfIcingInADay[code];
+            case 3:
+                return player.NumberOfToppingInADay[code];
+            case 4:
+                return player.NumberOfRawInADay[code];
+        }
+        return -1;
+    }
+    public void SetNumberOfItemInADay(int code, int number)
+    {
+        switch (code / 1000)
+        {
+            case 1:
+                player.NumberOfBaseInADay[code] = number;
+                break;
+            case 2:
+                player.NumberOfIcingInADay[code] = number;
+                break;
+            case 3:
+                player.NumberOfToppingInADay[code] = number;
+                break;
+            case 4:
+                player.NumberOfRawInADay[code] = number;
+                break;
+        }
+    }
+
+    public void SetBackNumberOfItem()
+    {
+        foreach (var code in ItemManager.Instance.ItemCodeList)
+        {
+            SetNumberOfItem(code, GetNumberOfItem(code)-GetNumberOfItemInADay(code));
+        }
+    }
+
+    public void ResetNumberOfItemInADay()
+    {
+        foreach (var code in ItemManager.Instance.ItemCodeList)
+        {
+            SetNumberOfItemInADay(code, 0);
         }
     }
 
@@ -208,10 +257,19 @@ public class PlayerManager : Singleton<PlayerManager>
     public void Die()
     {
         GameManager.Instance.AddDieCount();
+        SetBackNumberOfItem();
+        ResetNumberOfItemInADay();
+        TimeManager.Instance.timer = 0;
+        GameManager.Instance.LoadScene("Cake Shop", true);
         if(GameManager.Instance.dieCount >=3)
         {
             GameManager.Instance.MoveToEndingScene();
         }
         Debug.Log("Player Die");
+    }
+
+    public void DiePenalty()
+    {
+        SetMoney(GetMoney() - 100);
     }
 }

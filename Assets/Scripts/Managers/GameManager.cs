@@ -70,7 +70,7 @@ public class GameManager : Singleton<GameManager>
 
     public Upgrade magicianSlotUpgrade;
     public Upgrade cakeTableNumberUpgrade;
-    public Upgrade counterNumberUpgrade;
+    //public Upgrade counterNumberUpgrade;
     public Upgrade guestLeaveTimeUpgrade;
     public Upgrade unlockMapBUpgrade;
     public Upgrade unlockMapAUpgrade;
@@ -109,6 +109,7 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
+            Util.AddItem(4008);
             PlayerManager.Instance.SetAttackDamage(PlayerManager.Instance.GetAttackDamage() + 5);
             Debug.Log("AttackDamage" + PlayerManager.Instance.GetAttackDamage().ToString());
         }
@@ -136,6 +137,11 @@ public class GameManager : Singleton<GameManager>
         {
             TimeManager.Instance.oneHour = 1.0f;
             Debug.Log("One Hour is One Second");
+        }
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            PlayerManager.Instance.Die();
+            Debug.Log("Die");
         }
     }
 
@@ -401,7 +407,7 @@ public class GameManager : Singleton<GameManager>
         yield return null;
     }
 
-    public IEnumerator UpgradeCounter()
+  /*  public IEnumerator UpgradeCounter()
     {
         if (counterNumberUpgrade.Price <= PlayerManager.Instance.GetMoney())
         {
@@ -410,7 +416,7 @@ public class GameManager : Singleton<GameManager>
             Util.SpendMoney(counterNumberUpgrade.Price);
         }
         yield return null;
-    }
+    }*/
 
     public IEnumerator UpgradeGuestLeaveTime()
     {
@@ -498,8 +504,8 @@ public class GameManager : Singleton<GameManager>
         upgradeList.Add(magicianSlotUpgrade);
         cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable(), true);
         upgradeList.Add(cakeTableNumberUpgrade);
-        counterNumberUpgrade = new Upgrade(1, 0, 10000, "주문대 추가", UpgradeCakeTable(), true);
-        upgradeList.Add(counterNumberUpgrade);
+        /*counterNumberUpgrade = new Upgrade(1, 0, 10000, "주문대 추가", UpgradeCakeTable(), true);
+        upgradeList.Add(counterNumberUpgrade);*/
         guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 인내심 증가", UpgradeGuestLeaveTime(), true);
         upgradeList.Add(guestLeaveTimeUpgrade);
         unlockMapBUpgrade = new Upgrade(1, 0, 10000, "B등급 파밍장 해금", UpgradeMapB());

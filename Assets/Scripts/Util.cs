@@ -30,6 +30,7 @@ public class Util
     public static void AddItem(int code, int count = 1)
     {
         PlayerManager.Instance.SetNumberOfItem(code, CountItem(code) + count);
+        PlayerManager.Instance.SetNumberOfItemInADay(code, CountItem(code) + count);
     }
 
     public static Dictionary<int, int> GetItemNumbers(ItemType type) => type switch

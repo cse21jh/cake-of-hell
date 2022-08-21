@@ -25,7 +25,10 @@ public class Counter : NPC
         cakelist = Instantiate(ResourceLoader.Instance.GetPrefab("CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
         GuestObject = Instantiate(ResourceLoader.Instance.GetPrefab("Guest"));
-        GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
+        if(!TimeManager.Instance.isPrepareTime)
+        {
+            GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
+        }
     }
 
     public override void StartInteract() 

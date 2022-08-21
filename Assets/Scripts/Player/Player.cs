@@ -26,6 +26,11 @@ public class Player : MonoBehaviour
     public Dictionary<int, int> NumberOfTopping { get; set; } = new Dictionary<int, int>();
     public Dictionary<int, int> NumberOfRaw { get; set; } = new Dictionary<int, int>();
 
+    public Dictionary<int, int> NumberOfBaseInADay { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfIcingInADay { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfToppingInADay { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfRawInADay { get; set; } = new Dictionary<int, int>();
+
     public Cake[] CakeList { get; set; } = new Cake[5];
 
     private Rigidbody2D rb;
@@ -108,15 +113,19 @@ public class Player : MonoBehaviour
         { 
             case 1:
                 NumberOfBase.Add(code, 0);
+                NumberOfBaseInADay.Add(code, 0);
                 break;
             case 2:
                 NumberOfIcing.Add(code, 0);
+                NumberOfIcingInADay.Add(code, 0);
                 break;
             case 3:
                 NumberOfTopping.Add(code, 0);
+                NumberOfToppingInADay.Add(code, 0);
                 break;
             case 4:
                 NumberOfRaw.Add(code, 0);
+                NumberOfRawInADay.Add(code, 0);
                 break;
         }
     }

@@ -16,10 +16,14 @@ public class MoveToShop : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() != null)
+        if (GameManager.Instance.canUsePortal)
         {
-            checkMoveToShopUI.GetComponent<CheckMoveToShopUI>().Open();
+            if (other.GetComponent<Player>() != null)
+            {
+                checkMoveToShopUI.GetComponent<CheckMoveToShopUI>().Open();
+            }
         }
+        GameManager.Instance.PortalDelay();
     }
 
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LoadGameButton : MonoBehaviour
 {
-    
+    [SerializeField]
+    private string nextScene;
     public void OnClickExit()
     {
         SoundManager.Instance.PlayEffect("Click");
@@ -16,7 +17,7 @@ public class LoadGameButton : MonoBehaviour
         SaveManager.Instance.JsonLoad();
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
-        //GameManager.Instance.LoadScene(nextScene);
+        GameManager.Instance.LoadScene(nextScene, true);
         TimeManager.Instance.StartDay();
     }
 }
