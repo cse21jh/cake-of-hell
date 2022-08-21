@@ -22,10 +22,13 @@ public class Counter : NPC
         rand = new System.Random();
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
         //cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
-        cakelist = Instantiate(ResourceLoader.Instance.GetPrefab("CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
+        cakelist = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
-        GuestObject = Instantiate(ResourceLoader.Instance.GetPrefab("Guest"));
-        GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
+        GuestObject = Instantiate(ResourceLoader.GetPrefab("Prefabs/NPC/Guest"));
+        if(!TimeManager.Instance.isPrepareTime)
+        {
+            GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
+        }
     }
 
     public override void StartInteract() 
@@ -36,7 +39,7 @@ public class Counter : NPC
             if(!hasOrder)
             {
                 UiManager.Instance.OpenUI(dialog);
-                if(HasGuest)
+                if(HasGuest && !TimeManager.Instance.isPrepareTime)
                 {
                     dialog.ShowYesNoButtons();
                     isOrderDialogOn = true;
@@ -137,10 +140,12 @@ public class Counter : NPC
         if(cake != null)
         {
             float price = cake.GetPrice(orderBase, orderIcing, orderTopping);
+            int satisfaction = cake.GetSatisfaction(orderBase, orderIcing, orderTopping);
             Util.EarnMoney(price);
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);
-            dialog.SetText("잘 먹겠습니다~");
+            string text = "잘 먹겠습니다~\n[만족도 : " + satisfaction.ToString() + "]"; 
+            dialog.SetText(text);
             StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
         }

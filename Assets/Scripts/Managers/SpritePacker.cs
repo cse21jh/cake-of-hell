@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 public class SpritePacker : MonoBehaviour
 {
-    public string inPath;
+    /*public string inPath;
 
     [ContextMenu("Pack")]
     private void pack()
@@ -47,5 +47,5 @@ public class SpritePacker : MonoBehaviour
         importer.spriteImportMode = SpriteImportMode.Multiple;
         importer.textureCompression = TextureImporterCompression.Uncompressed;
         importer.SaveAndReimport();
-    }
+    }*/
 }

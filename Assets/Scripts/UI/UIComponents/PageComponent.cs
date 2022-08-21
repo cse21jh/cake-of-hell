@@ -10,7 +10,7 @@ public class PageComponent : UIComponent
     public Transform Container { get; }
 
     public PageComponent(Transform parent, string pageName, int slotCount = 4, float height = 300.0f) 
-    : base(parent, ResourceLoader.Instance.GetPrefab("4col-PagePrefab"))
+    : base(parent, ResourceLoader.GetPrefab("Prefabs/4col-PagePrefab"))
     {
         PageName = pageName;
         SlotCount = slotCount;

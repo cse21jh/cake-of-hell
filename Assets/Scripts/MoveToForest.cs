@@ -8,12 +8,19 @@ public class MoveToForest : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() != null)
+        if (GameManager.Instance.canUsePortal)
         {
-            if(TimeManager.Instance.isPrepareTime)
-            { 
-                GameManager.Instance.LoadScene(nextScene);
+            if (other.GetComponent<Player>() != null)
+            {
+                if (TimeManager.Instance.isPrepareTime)
+                {
+                    GameManager.Instance.LoadScene(nextScene);
+                    PlayerManager.Instance.SetPlayerImage(4);
+                }
+
             }
         }
+        GameManager.Instance.PortalDelay();
+
     }
 }

@@ -10,13 +10,13 @@ public class PlayerManager : Singleton<PlayerManager>
     public HpUI hpUI;
     public MoneyUI moneyUI;
 
-    private float invincibleTimer;
+    private bool invincible;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        invincibleTimer = 0f;
+        invincible = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -31,6 +31,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
         imageHit.SetActive(true);
+        invincible = true;
         for (int i = 1; i <= 10; i++)
         {
             float f = i % 2 == 0 ? 1f : 0.5f; 
@@ -42,23 +43,22 @@ public class PlayerManager : Singleton<PlayerManager>
             {
                 imageHit.SetActive(false);
             }
-            invincibleTimer += 0.1f;
         }
         imageHit.SetActive(false);
-        invincibleTimer = 0f;
+        invincible = false;
     }
 
     public void GetDamage(float value)
     {
-        if (invincibleTimer == 0f && value!=0)
+        if (player.Hp <= 0)
+        {
+            Die();
+        }
+        if (!invincible && value!=0 && player.Hp>0)
         { 
             StartCoroutine("DamagedEffect");
             SoundManager.Instance.PlayEffect("PlayerHit");
             SetHp(player.Hp - value);
-            if (player.Hp <= 0)
-            {
-                Die();
-            }
         }
     }
 
@@ -91,14 +91,19 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public float GetSpeed()
     {
-        return player.Speed;
+        return player.RealSpeed;
+    }
+
+    public float SetSpeed(float speed)
+    {
+        player.RealSpeed = speed;
     }
 
     public void SetMoney(float money)
     {
         if(money<0)
         {
-            Debug.Log("Have no money");
+            player.Money = 0;
             return;
         }
         player.Money = money;
@@ -149,6 +154,55 @@ public class PlayerManager : Singleton<PlayerManager>
             case 4:
                 player.NumberOfRaw[code] = number;
                 break;
+        }
+    }
+    public int GetNumberOfItemInADay(int code)
+    {
+        switch (code / 1000)
+        {
+            case 1:
+                return player.NumberOfBaseInADay[code];
+            case 2:
+                return player.NumberOfIcingInADay[code];
+            case 3:
+                return player.NumberOfToppingInADay[code];
+            case 4:
+                return player.NumberOfRawInADay[code];
+        }
+        return -1;
+    }
+    public void SetNumberOfItemInADay(int code, int number)
+    {
+        switch (code / 1000)
+        {
+            case 1:
+                player.NumberOfBaseInADay[code] = number;
+                break;
+            case 2:
+                player.NumberOfIcingInADay[code] = number;
+                break;
+            case 3:
+                player.NumberOfToppingInADay[code] = number;
+                break;
+            case 4:
+                player.NumberOfRawInADay[code] = number;
+                break;
+        }
+    }
+
+    public void SetBackNumberOfItem()
+    {
+        foreach (var code in ItemManager.Instance.ItemCodeList)
+        {
+            SetNumberOfItem(code, GetNumberOfItem(code)-GetNumberOfItemInADay(code));
+        }
+    }
+
+    public void ResetNumberOfItemInADay()
+    {
+        foreach (var code in ItemManager.Instance.ItemCodeList)
+        {
+            SetNumberOfItemInADay(code, 0);
         }
     }
 
@@ -208,10 +262,26 @@ public class PlayerManager : Singleton<PlayerManager>
     public void Die()
     {
         GameManager.Instance.AddDieCount();
+        SetBackNumberOfItem();
+        ResetNumberOfItemInADay();
+        TimeManager.Instance.timer = 0;
+        TimeManager.Instance.restart = true;
+        StartCoroutine(GameManager.Instance.DieLoadScene("Cake Shop"));
         if(GameManager.Instance.dieCount >=3)
         {
             GameManager.Instance.MoveToEndingScene();
         }
         Debug.Log("Player Die");
+        invincible = false;
+    }
+
+    public void DiePenalty()
+    {
+        SetMoney(GetMoney() - 100);
+    }
+
+    public void SetPlayerImage(int index)
+    {
+        player.spriteRenderer.sprite = player.playerImage[index];
     }
 }

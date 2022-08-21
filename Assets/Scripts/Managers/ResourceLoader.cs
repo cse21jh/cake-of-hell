@@ -1,79 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using System.Linq;
 
-public class ResourceLoader : Singleton<ResourceLoader>
+public static class ResourceLoader
 {
-    private Dictionary<string, AudioClip> audios;
-    private Dictionary<string, GameObject> prefabs;
-    private Dictionary<string, Sprite> sprites;
-    private Dictionary<string, Sprite[]> packedSprites;
+    private static readonly Dictionary<string, object> Dict = new();
 
-    void Awake()
+    public static object Get(string path)
     {
-        DontDestroyOnLoad(gameObject);
-        LoadAudios();
-        LoadPrefabs();
-        LoadSprites();
+        if (Dict.TryGetValue(path, out object obj)) return obj;
+
+        object temp = Resources.Load(path);
+        Dict.Add(path, temp);
+        return temp;
     }
 
-    private void LoadAudios()
+    public static T Get<T>(string path) where T : class => Get(path) as T;
+
+    public static object[] GetAll(string path)
     {
-        audios = new Dictionary<string, AudioClip>();
-        string[] assets = AssetDatabase.FindAssets("t:audioclip", new[] { "Assets/Resources/Audio" });
-        foreach(string guid in assets)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            string name = System.IO.Path.GetFileNameWithoutExtension(path);
-            audios.Add(name, (AudioClip)AssetDatabase.LoadAssetAtPath(path, typeof(AudioClip)));
-        }
+        if (Dict.TryGetValue(path, out object obj)) return obj as object[];
+
+        object[] temp = Resources.LoadAll(path);
+        Dict.Add(path, temp);
+        return temp;
     }
 
-    private void LoadPrefabs()
+    public static T[] GetAll<T>(string path)
     {
-        prefabs = new Dictionary<string, GameObject>();
-        string[] assets = AssetDatabase.FindAssets("t:gameobject", new[] { "Assets/Resources/Prefabs" });
-        foreach(string guid in assets)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            string name = System.IO.Path.GetFileNameWithoutExtension(path);
-            prefabs.Add(name, (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)));
-        }
+        if (Dict.TryGetValue(path, out object obj)) return obj as T[];
+
+        var temp = Resources.LoadAll(path, typeof(T)).Cast<T>().ToArray();
+        Dict.Add(path, temp);
+        return temp;
     }
 
-    private void LoadSprites()
+    public static AudioClip GetAudio(string name)
     {
-        sprites = new Dictionary<string, Sprite>();
-        packedSprites = new Dictionary<string, Sprite[]>();
-        string[] assets = AssetDatabase.FindAssets("t:sprite", new[] { "Assets/Resources/Sprites" });
-        foreach(string guid in assets)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            string name = System.IO.Path.GetFileNameWithoutExtension(path);
-            Sprite[] loaded = System.Array.ConvertAll(AssetDatabase.LoadAllAssetRepresentationsAtPath(path), e => (Sprite)e);
-            if(loaded.Length == 1) sprites.Add(name, loaded[0]);
-            else packedSprites.Add(name, loaded);
-        }
+        return Get<AudioClip>(name);
     }
 
-    public AudioClip GetAudio(string name)
+    public static GameObject GetPrefab(string name)
     {
-        return audios[name];
+        return Get<GameObject>(name);
     }
 
-    public GameObject GetPrefab(string name)
+    public static Sprite GetSprite(string name)
     {
-        return prefabs[name];
+        return Get<Sprite>(name);
     }
 
-    public Sprite GetSprite(string name)
+    public static Sprite[] GetPackedSprite(string name)
     {
-        return sprites[name];
-    }
-
-    public Sprite[] GetPackedSprite(string name)
-    {
-        return packedSprites[name];
+        return GetAll<Sprite>(name);
     }
 }

@@ -7,9 +7,9 @@ public class TimeManager : Singleton<TimeManager>
     public int day = 0;
 
     public float oneHour = 30f;
-    private float timer = 0f;
+    public float timer = 0f;
 
-    private bool stopTimer = true;
+    public bool stopTimer = true;
     
     public int GuestEnterTimeStart { get; private set; }
     public int GuestEnterTimeEnd { get; private set; }
@@ -18,6 +18,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public bool isPrepareTime;
     public bool endPrepare = false;
+    public bool restart = false;
 
     public DayUI dayUI;
     public HuntTimeUI huntTimeUI;
@@ -52,20 +53,26 @@ public class TimeManager : Singleton<TimeManager>
     public void StartDay()
     {
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
+        PlayerManager.Instance.ResetNumberOfItemInADay();
+        GameManager.Instance.LoadScene("Cake Shop", true);
         SetDay(day + 1);
-        GameManager.Instance.killMonsterInADay = false;
-        Debug.Log(day);
-        timer = 0f;
-        isPrepareTime = true;
-        stopTimer = false;
-        GameManager.Instance.soldCakeInADay = 0;
-        UpdateGuestTimes();
-        StartCoroutine(StartDayCoroutine());
+        if (day <= 30)
+        {
+            GameManager.Instance.killMonsterInADay = false;
+            Debug.Log(day);
+            timer = 0f;
+            isPrepareTime = true;
+            stopTimer = false;
+            GameManager.Instance.soldCakeInADay = 0;
+            UpdateGuestTimes();
+            StartCoroutine(StartDayCoroutine());
+        }
     }
 
     public void OpenShop()
     {
         GameManager.Instance.LoadScene("Cake Shop", true);
+        PlayerManager.Instance.SetPlayerImage(0);
         Debug.Log("Time to Open");
         timer = 12.0f * oneHour;
         stopTimer = false;
@@ -79,6 +86,11 @@ public class TimeManager : Singleton<TimeManager>
 
         for(int i=0; i<oneHour*12*10; i++)
         {
+            if(restart)
+            {
+                i = 0;
+                restart = false;
+            }
             if (endPrepare)
             {
                 break;
@@ -103,6 +115,11 @@ public class TimeManager : Singleton<TimeManager>
     {
         for (int i=0; i<oneHour*12*10; i++)
         {
+            if (restart)
+            {
+                i = 0;
+                restart = false;
+            }
             yield return new WaitForSeconds(0.1f);
         }
         CloseShop();
@@ -118,7 +135,7 @@ public class TimeManager : Singleton<TimeManager>
     {
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
-        if(GameManager.Instance.killMonsterInADay = false)
+        if(!GameManager.Instance.killMonsterInADay)
         {
             GameManager.Instance.MoveToEndingScene();
         }
@@ -177,8 +194,9 @@ public class TimeManager : Singleton<TimeManager>
         // FixMe
         if (_day == 31)
         {
+            day = _day;
             GameManager.Instance.killMonsterInADay = true;
-            Ending();
+            GameManager.Instance.MoveToEndingScene();
         }
         day = _day;
         GameManager.Instance.CheckUnlock();
@@ -197,7 +215,10 @@ public class TimeManager : Singleton<TimeManager>
     {
         reputation = value;
         if (value <= 0)
-            Ending();
+        { 
+            reputation = 0;
+            GameManager.Instance.MoveToEndingScene();
+        }
     }
 
     public float GetTime()
@@ -205,8 +226,4 @@ public class TimeManager : Singleton<TimeManager>
         return (timer / oneHour);
     }
 
-    public void Ending()
-    {
-        Debug.Log("Ending");
-    }
 }

@@ -60,4 +60,16 @@ public class Cake
 
         return price*((correct*0.2f)+1);
     }
+
+    public int GetSatisfaction(int orderBaseCode, int orderIcingCode, int orderToppingCode)
+    {
+        int correct = 0;
+        if (orderBaseCode == BaseCode)
+            correct++;
+        if (orderToppingCode == ToppingCode)
+            correct++;
+        if (orderIcingCode == IcingCode)
+            correct++;
+        return correct;
+    }
 }

@@ -39,12 +39,12 @@ public abstract class Monster : MonoBehaviour
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        Item = ResourceLoader.Instance.GetPrefab("Item");
-        monsterHitBox = Instantiate(ResourceLoader.Instance.GetPrefab("MonsterHitBox"), this.transform);
-        bullet = ResourceLoader.Instance.GetPrefab("Bullet");
+        Item = ResourceLoader.GetPrefab("Prefabs/Item/Item");
+        monsterHitBox = Instantiate(ResourceLoader.GetPrefab("Prefabs/Monster/MonsterHitBox"), this.transform);
+        bullet = ResourceLoader.GetPrefab("Prefabs/Monster/Bullet");
         monsterHitBox.GetComponent<MonsterHitBox>().damage = AttackDamage;
-        lSprite = ResourceLoader.Instance.GetPackedSprite("mobs")[MonsterNumber * 2];
-        rSprite = ResourceLoader.Instance.GetPackedSprite("mobs")[MonsterNumber * 2+1];
+        lSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mobs")[MonsterNumber * 2];
+        rSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mobs")[MonsterNumber * 2+1];
         sr.sprite = lSprite;
     }
 

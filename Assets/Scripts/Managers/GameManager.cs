@@ -70,7 +70,7 @@ public class GameManager : Singleton<GameManager>
 
     public Upgrade magicianSlotUpgrade;
     public Upgrade cakeTableNumberUpgrade;
-    public Upgrade counterNumberUpgrade;
+    //public Upgrade counterNumberUpgrade;
     public Upgrade guestLeaveTimeUpgrade;
     public Upgrade unlockMapBUpgrade;
     public Upgrade unlockMapAUpgrade;
@@ -124,18 +124,49 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.F6))
         {
-            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetHp() - 5);
-            Debug.Log("Hp" + PlayerManager.Instance.GetHp().ToString());
-        }
-        if (Input.GetKeyDown(KeyCode.F7))
-        {
             PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + 1000);
             Debug.Log("Money" + PlayerManager.Instance.GetMoney().ToString());
         }
-        if (Input.GetKeyDown(KeyCode.F8))
+        if (Input.GetKeyDown(KeyCode.F7))
         {
             TimeManager.Instance.oneHour = 1.0f;
             Debug.Log("One Hour is One Second");
+        }
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+            PlayerManager.Instance.Die();
+            Debug.Log("Die");
+        }
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            ReStart();
+            Debug.Log("Restart");
+        }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            unlockMapB = true;
+            unlockMapBUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapB);
+            unlockMapA = true;
+            unlockMapAUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapA);
+            unlockMapS = true;
+            unlockMapSUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapS);
+            unlockMapSS = true;
+            unlockMapSSUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapSS);
+            Debug.Log("Unlock Map");
+        }
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            PlayerManager.Instance.SetSpeed(PlayerManager.Instance.GetSpeed() + 1);
+            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetAttackDamage().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            PlayerManager.Instance.SetSpeed(PlayerManager.Instance.GetSpeed() - 1);
+            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetAttackDamage().ToString());
         }
     }
 
@@ -157,6 +188,18 @@ public class GameManager : Singleton<GameManager>
         {
             StartCoroutine(StartOnPoint());
         }
+    }
+
+    public IEnumerator DieLoadScene(string nextScene)
+    {
+        PlayerManager.Instance.SetPlayerInShop(true);
+        yield return StartCoroutine(FadeOut());
+        SceneManager.LoadScene(nextScene);
+        StartCoroutine(StartOnPoint());
+        PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
+        PlayerManager.Instance.SetPlayerImage(0);
+        yield return StartCoroutine(FadeIn());
+        canMove = true;
     }
 
     private IEnumerator StartOnPoint()
@@ -378,6 +421,35 @@ public class GameManager : Singleton<GameManager>
         canUsePortal = true;
     }
 
+    public void ReStart()
+    {
+        if(TimeManager.Instance.isPrepareTime)
+        {
+            LoadScene("Cake Shop", true);
+            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
+            PlayerManager.Instance.SetBackNumberOfItem();
+            PlayerManager.Instance.ResetNumberOfItemInADay();
+            killMonsterInADay = false;
+            TimeManager.Instance.timer = 0f;
+            TimeManager.Instance.restart = true;
+            TimeManager.Instance.stopTimer = false;
+            soldCakeInADay = 0;
+        }
+        else
+        {
+            LoadScene("Cake Shop", true);
+            PlayerManager.Instance.SetBackNumberOfItem();
+            PlayerManager.Instance.ResetNumberOfItemInADay();
+            TimeManager.Instance.timer = 12.0f * TimeManager.Instance.oneHour;
+            TimeManager.Instance.stopTimer = false;
+            TimeManager.Instance.isPrepareTime = false;
+        }
+
+    }
+
+
+
+
     public IEnumerator UpgradeMagicianSlot()
     {
         if (magicianSlotUpgrade.Price <= PlayerManager.Instance.GetMoney())
@@ -401,7 +473,7 @@ public class GameManager : Singleton<GameManager>
         yield return null;
     }
 
-    public IEnumerator UpgradeCounter()
+  /*  public IEnumerator UpgradeCounter()
     {
         if (counterNumberUpgrade.Price <= PlayerManager.Instance.GetMoney())
         {
@@ -410,7 +482,7 @@ public class GameManager : Singleton<GameManager>
             Util.SpendMoney(counterNumberUpgrade.Price);
         }
         yield return null;
-    }
+    }*/
 
     public IEnumerator UpgradeGuestLeaveTime()
     {
@@ -498,8 +570,8 @@ public class GameManager : Singleton<GameManager>
         upgradeList.Add(magicianSlotUpgrade);
         cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable(), true);
         upgradeList.Add(cakeTableNumberUpgrade);
-        counterNumberUpgrade = new Upgrade(1, 0, 10000, "주문대 추가", UpgradeCakeTable(), true);
-        upgradeList.Add(counterNumberUpgrade);
+        /*counterNumberUpgrade = new Upgrade(1, 0, 10000, "주문대 추가", UpgradeCakeTable(), true);
+        upgradeList.Add(counterNumberUpgrade);*/
         guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 인내심 증가", UpgradeGuestLeaveTime(), true);
         upgradeList.Add(guestLeaveTimeUpgrade);
         unlockMapBUpgrade = new Upgrade(1, 0, 10000, "B등급 파밍장 해금", UpgradeMapB());

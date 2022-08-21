@@ -7,14 +7,15 @@ public class Player : MonoBehaviour
     public float MaxHp { get; set; } = 120f;
     public float Hp { get; set; } = 120f;
     public float Speed { get; set; } = 4f;
+    public float RealSpeed { get; set; } = 4f;
     public float AttackDamage { get; set; } = 10f;
-    public float AttackRange { get; set; } = 1.0f;
+    public float AttackRange { get; set; } = 1.5f;
     public float Money { get; set; } = 0f;
 
     public bool inShop = true;
     private int nowImage;
 
-    private Sprite[] playerImage = new Sprite[8];
+    public Sprite[] playerImage = new Sprite[8];
 
     private GameObject hitBox;
 
@@ -25,6 +26,11 @@ public class Player : MonoBehaviour
     public Dictionary<int, int> NumberOfIcing { get; set; } = new Dictionary<int, int>();
     public Dictionary<int, int> NumberOfTopping { get; set; } = new Dictionary<int, int>();
     public Dictionary<int, int> NumberOfRaw { get; set; } = new Dictionary<int, int>();
+
+    public Dictionary<int, int> NumberOfBaseInADay { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfIcingInADay { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfToppingInADay { get; set; } = new Dictionary<int, int>();
+    public Dictionary<int, int> NumberOfRawInADay { get; set; } = new Dictionary<int, int>();
 
     public Cake[] CakeList { get; set; } = new Cake[5];
 
@@ -50,7 +56,7 @@ public class Player : MonoBehaviour
         //anim = GetComponent<Animator>();
         PlayerManager.Instance.player = this;
         hitBox = transform.Find("HitBox").gameObject;
-        playerImage = ResourceLoader.Instance.GetPackedSprite("player");
+        playerImage = ResourceLoader.GetPackedSprite("Sprites/Player/player");
         for (int i = 0; i<ItemManager.Instance.ItemCodeList.Count; i++)
         {
             InitializeNumberOfItem(ItemManager.Instance.ItemCodeList[i]);
@@ -89,13 +95,15 @@ public class Player : MonoBehaviour
 
         SetPlayerImage(dx, dy);
 
-        rb.velocity = new Vector2(dx * Speed * 1.5f, dy * Speed * 1.5f);
+        rb.velocity = new Vector2(dx * RealSpeed * 1.5f, dy * RealSpeed * 1.5f);
     }
 
     private IEnumerator Attack()
     {
         curCoolTime = coolTime;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePos.y - this.transform.position.y, mousePos.x - this.transform.position.x) * Mathf.Rad2Deg;
+        hitBox.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         hitBox.transform.position = (Vector2)transform.position + (mousePos - (Vector2)transform.position).normalized * AttackRange;
         hitBox.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
@@ -108,15 +116,19 @@ public class Player : MonoBehaviour
         { 
             case 1:
                 NumberOfBase.Add(code, 0);
+                NumberOfBaseInADay.Add(code, 0);
                 break;
             case 2:
                 NumberOfIcing.Add(code, 0);
+                NumberOfIcingInADay.Add(code, 0);
                 break;
             case 3:
                 NumberOfTopping.Add(code, 0);
+                NumberOfToppingInADay.Add(code, 0);
                 break;
             case 4:
                 NumberOfRaw.Add(code, 0);
+                NumberOfRawInADay.Add(code, 0);
                 break;
         }
     }
