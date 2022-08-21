@@ -137,6 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd5dfcec1505d4439049e811e0f3667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inShop: 1
+  spriteRenderer: {fileID: 0}
   itemListPrefab: {fileID: 7349916521428747276, guid: 2b37033dc208c1d47bdd80866ec1f400, type: 3}
 --- !u!1001 &2267431627224156666
 PrefabInstance:
@@ -192,6 +194,10 @@ PrefabInstance:
     - target: {fileID: 7367827157898687057, guid: 5e2de220fdd44524986752f59cf3fc49, type: 3}
       propertyPath: m_Name
       value: HitBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367827157898687057, guid: 5e2de220fdd44524986752f59cf3fc49, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e2de220fdd44524986752f59cf3fc49, type: 3}

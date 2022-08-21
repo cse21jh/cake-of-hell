@@ -14,6 +14,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     private GameObject inventoryPanel, bakeButton;
     private GameObject[] progressCircles;
     private TMP_Text matName, matDesc;
+    [SerializeField]
     private Sprite spriteNull;
     private Image bigImgBase, bigImgIcing, bigImgTopping;
     private Dictionary<int, Sprite> spriteBase, spriteIcing, spriteTopping;
@@ -39,20 +40,23 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bigImgBase = GameObject.Find("BaseBigImage").GetComponent<Image>();
         bigImgIcing = GameObject.Find("IcingBigImage").GetComponent<Image>();
         bigImgTopping = GameObject.Find("ToppingBigImage").GetComponent<Image>();
+        bigImgBase.sprite = spriteNull;
+        bigImgIcing.sprite = spriteNull;
+        bigImgTopping.sprite = spriteNull;
         progressCircles = new GameObject[2];
         progressCircles[0] = GameObject.Find("ProgressCircleCake0");
         progressCircles[1] = GameObject.Find("ProgressCircleCake1");
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
+
         MakeUI();
 
-        spriteBase.Add(1001, ResourceLoader.GetSprite("Sprites/Base/Base_mud"));
-        spriteBase.Add(1006, ResourceLoader.GetSprite("Sprites/Base/Base_redheart"));
-        spriteIcing.Add(2006, ResourceLoader.GetSprite("Sprites/Icing/Icing_poison"));
-        spriteIcing.Add(2001, ResourceLoader.GetSprite("Sprites/Icing/Icing_storm"));
-        spriteTopping.Add(3003, ResourceLoader.GetSprite("Sprites/Topping/Topping_redcone"));
-        spriteTopping.Add(3006, ResourceLoader.GetSprite("Sprites/Topping/Topping_teeth"));
+        spriteBase.Add(1001, ResourceLoader.GetPackedSprite("Sprites/Cake/Base/Base_mud")[0]);
+        spriteBase.Add(1006, ResourceLoader.GetPackedSprite("Sprites/Cake/Base/Base_redheart")[0]);
+        spriteIcing.Add(2006, ResourceLoader.GetPackedSprite("Sprites/Cake/Icing/Icing_poison")[0]);
+        spriteIcing.Add(2001, ResourceLoader.GetPackedSprite("Sprites/Cake/Icing/Icing_storm")[0]);
+        spriteTopping.Add(3003, ResourceLoader.GetPackedSprite("Sprites/Cake/Topping/Topping_redcone")[0]);
+        spriteTopping.Add(3006, ResourceLoader.GetPackedSprite("Sprites/Cake/Topping/Topping_teeth")[0]);
 
-        spriteNull = ResourceLoader.GetSprite("Sprites/Nothing");
     }
 
     void Update()
