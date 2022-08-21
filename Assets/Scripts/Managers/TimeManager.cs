@@ -214,6 +214,11 @@ public class TimeManager : Singleton<TimeManager>
 
     public void SetReputation(float value)
     {
+        if (value > 5.0)
+        {
+            reputation = 5.0;
+            return;
+        }
         reputation = value;
         if (value <= 0)
         { 
