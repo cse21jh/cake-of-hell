@@ -143,6 +143,11 @@ public class GameManager : Singleton<GameManager>
             PlayerManager.Instance.Die();
             Debug.Log("Die");
         }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            ReStart();
+            Debug.Log("Restart");
+        }
     }
 
     public void LoadScene(string nextScene, bool onStartPoint = false)
@@ -383,6 +388,35 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(1.0f);
         canUsePortal = true;
     }
+
+    public void ReStart()
+    {
+        if(TimeManager.Instance.isPrepareTime)
+        {
+            LoadScene("Cake Shop", true);
+            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
+            PlayerManager.Instance.SetBackNumberOfItem();
+            PlayerManager.Instance.ResetNumberOfItemInADay();
+            killMonsterInADay = false;
+            TimeManager.Instance.timer = 0f;
+            TimeManager.Instance.restart = true;
+            TimeManager.Instance.stopTimer = false;
+            soldCakeInADay = 0;
+        }
+        else
+        {
+            LoadScene("Cake Shop", true);
+            PlayerManager.Instance.SetBackNumberOfItem();
+            PlayerManager.Instance.ResetNumberOfItemInADay();
+            TimeManager.Instance.timer = 12.0f * TimeManager.Instance.oneHour;
+            TimeManager.Instance.stopTimer = false;
+            TimeManager.Instance.isPrepareTime = false;
+        }
+
+    }
+
+
+
 
     public IEnumerator UpgradeMagicianSlot()
     {

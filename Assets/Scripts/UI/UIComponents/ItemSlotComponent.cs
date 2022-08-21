@@ -16,14 +16,14 @@ public class ItemSlotComponent : UIComponent
     public GameObject ItemSlotButton { get; set; }
 
     public ItemSlotComponent(Transform parent, int itemCode, int itemCount, bool isClickable = false) 
-    : base(parent, ResourceLoader.Instance.GetPrefab("ItemSlotPrefab"))
+    : base(parent, ResourceLoader.GetPrefab("Prefabs/ItemSlotPrefab"))
     {
         isHovered = false;
-        nullSprite = ResourceLoader.Instance.GetSprite("Nothing");
+        nullSprite = ResourceLoader.GetSprite("Sprites/Nothing");
         LoadItem(itemCode, itemCount);
         IsClickable = isClickable;
         if(isClickable) {
-            ItemSlotButton = Object.Instantiate(ResourceLoader.Instance.GetPrefab("ItemSlotButtonPrefab"), gameObject.transform);
+            ItemSlotButton = Object.Instantiate(ResourceLoader.GetPrefab("Prefabs/ItemSlotButtonPrefab"), gameObject.transform);
             ItemSlotButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
             ItemSlotButton.transform.SetParent(gameObject.transform);
         }

@@ -11,7 +11,7 @@ public class EndDayUI : BaseUI, ISingleOpenUI
     {
         for(int i = 0; i<GameManager.Instance.soldCakeInADay; i++)
         {
-            Instantiate(ResourceLoader.Instance.GetPrefab("CakeImage"), soldCakeScroll.transform);
+            Instantiate(ResourceLoader.GetPrefab("Sprites/CakeImage"), soldCakeScroll.transform);
         }
     }
 

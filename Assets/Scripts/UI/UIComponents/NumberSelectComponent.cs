@@ -11,7 +11,7 @@ public class NumberSelectComponent : UIComponent
     public int Count { get; set; }
 
     public NumberSelectComponent(Transform parent, System.Func<bool> atIncrease, System.Func<bool> atDecrease) 
-    : base(parent, ResourceLoader.Instance.GetPrefab("NumberSelectPrefab"))
+    : base(parent, ResourceLoader.GetPrefab("Prefabs/NumberSelectPrefab"))
     {
         countText = gameObject.transform.GetChild(0).GetComponent<TMP_Text>();
         increaseButton = gameObject.transform.GetChild(1).GetComponent<Button>();

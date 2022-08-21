@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         //anim = GetComponent<Animator>();
         PlayerManager.Instance.player = this;
         hitBox = transform.Find("HitBox").gameObject;
-        playerImage = ResourceLoader.Instance.GetPackedSprite("player");
+        playerImage = ResourceLoader.GetPackedSprite("Sprites/Player/player");
         for (int i = 0; i<ItemManager.Instance.ItemCodeList.Count; i++)
         {
             InitializeNumberOfItem(ItemManager.Instance.ItemCodeList[i]);

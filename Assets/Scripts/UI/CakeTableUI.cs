@@ -45,14 +45,14 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
         MakeUI();
 
-        spriteBase.Add(1001, ResourceLoader.Instance.GetSprite("Base_mud"));
-        spriteBase.Add(1006, ResourceLoader.Instance.GetSprite("Base_redheart"));
-        spriteIcing.Add(2006, ResourceLoader.Instance.GetSprite("Icing_poison"));
-        spriteIcing.Add(2001, ResourceLoader.Instance.GetSprite("Icing_storm"));
-        spriteTopping.Add(3003, ResourceLoader.Instance.GetSprite("Topping_redcone"));
-        spriteTopping.Add(3006, ResourceLoader.Instance.GetSprite("Topping_teeth"));
+        spriteBase.Add(1001, ResourceLoader.GetSprite("Sprites/Base/Base_mud"));
+        spriteBase.Add(1006, ResourceLoader.GetSprite("Sprites/Base/Base_redheart"));
+        spriteIcing.Add(2006, ResourceLoader.GetSprite("Sprites/Icing/Icing_poison"));
+        spriteIcing.Add(2001, ResourceLoader.GetSprite("Sprites/Icing/Icing_storm"));
+        spriteTopping.Add(3003, ResourceLoader.GetSprite("Sprites/Topping/Topping_redcone"));
+        spriteTopping.Add(3006, ResourceLoader.GetSprite("Sprites/Topping/Topping_teeth"));
 
-        spriteNull = ResourceLoader.Instance.GetSprite("Nothing");
+        spriteNull = ResourceLoader.GetSprite("Sprites/Nothing");
     }
 
     void Update()

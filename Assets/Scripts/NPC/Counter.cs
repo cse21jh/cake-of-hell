@@ -22,9 +22,9 @@ public class Counter : NPC
         rand = new System.Random();
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
         //cakelist = GameObject.Find("Canvas").transform.Find("CakeListUI").GetComponent<CakeListUI>();
-        cakelist = Instantiate(ResourceLoader.Instance.GetPrefab("CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
+        cakelist = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
         cakelist.SellCake = SellCake;
-        GuestObject = Instantiate(ResourceLoader.Instance.GetPrefab("Guest"));
+        GuestObject = Instantiate(ResourceLoader.GetPrefab("Prefabs/NPC/Guest"));
         if(!TimeManager.Instance.isPrepareTime)
         {
             GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);

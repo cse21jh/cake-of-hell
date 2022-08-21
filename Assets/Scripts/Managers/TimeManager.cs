@@ -9,7 +9,7 @@ public class TimeManager : Singleton<TimeManager>
     public float oneHour = 30f;
     public float timer = 0f;
 
-    private bool stopTimer = true;
+    public bool stopTimer = true;
     
     public int GuestEnterTimeStart { get; private set; }
     public int GuestEnterTimeEnd { get; private set; }
@@ -18,6 +18,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public bool isPrepareTime;
     public bool endPrepare = false;
+    public bool restart = false;
 
     public DayUI dayUI;
     public HuntTimeUI huntTimeUI;
@@ -80,6 +81,11 @@ public class TimeManager : Singleton<TimeManager>
 
         for(int i=0; i<oneHour*12*10; i++)
         {
+            if(restart)
+            {
+                i = 0;
+                restart = false;
+            }
             if (endPrepare)
             {
                 break;
@@ -104,6 +110,11 @@ public class TimeManager : Singleton<TimeManager>
     {
         for (int i=0; i<oneHour*12*10; i++)
         {
+            if (restart)
+            {
+                i = 0;
+                restart = false;
+            }
             yield return new WaitForSeconds(0.1f);
         }
         CloseShop();

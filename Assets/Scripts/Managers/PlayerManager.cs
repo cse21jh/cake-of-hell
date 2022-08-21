@@ -260,6 +260,7 @@ public class PlayerManager : Singleton<PlayerManager>
         SetBackNumberOfItem();
         ResetNumberOfItemInADay();
         TimeManager.Instance.timer = 0;
+        TimeManager.Instance.restart = true;
         GameManager.Instance.LoadScene("Cake Shop", true);
         if(GameManager.Instance.dieCount >=3)
         {

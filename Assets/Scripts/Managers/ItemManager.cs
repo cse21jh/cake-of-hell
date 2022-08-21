@@ -21,9 +21,9 @@ public class ItemManager : Singleton<ItemManager>
         DontDestroyOnLoad(gameObject);
         AddProcessedItem(0, "민 초 좋 아", ItemLevel.SS, null, "민 초 좋 아", "민 초 좋 아", 9999, "민 초 좋 아");
         AddRawItem(0, "민 초 좋 아", null, new List<int> { 0 }, new List<float> { 9999f }, new List<float> { 9999.0f });
-        baseSprite = ResourceLoader.Instance.GetPackedSprite("Base");
-        icingSprite = ResourceLoader.Instance.GetPackedSprite("Icing");
-        rawSprite = ResourceLoader.Instance.GetPackedSprite("drop item");
+        baseSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Base");
+        icingSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Icing");
+        rawSprite = ResourceLoader.GetPackedSprite("Sprites/Item/Before Process/drop item");
         AddBases();
         AddIcings();
         AddToppings();
