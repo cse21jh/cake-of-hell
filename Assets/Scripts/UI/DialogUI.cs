@@ -62,4 +62,18 @@ public class DialogUI : BaseUI, ISingleOpenUI
     {
         if(OnClickNo != null) OnClickNo();
     }
+
+    public void StartTyping(string txt, float typingSpeed = 0.05f)
+    {
+        StartCoroutine(Typing(txt, typingSpeed));
+    }
+
+    private IEnumerator Typing(string txt, float typingSpeed)       // 어디선가 startcoroutine
+    {
+        for(int i=0; i <= txt.Length; i++)
+        {
+            SetText(txt.Substring(0, i));
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
 }
