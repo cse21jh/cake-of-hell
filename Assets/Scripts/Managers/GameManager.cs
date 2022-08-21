@@ -109,7 +109,6 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            Util.AddItem(4008);
             PlayerManager.Instance.SetAttackDamage(PlayerManager.Instance.GetAttackDamage() + 5);
             Debug.Log("AttackDamage" + PlayerManager.Instance.GetAttackDamage().ToString());
         }
@@ -125,28 +124,49 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.F6))
         {
-            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetHp() - 5);
-            Debug.Log("Hp" + PlayerManager.Instance.GetHp().ToString());
-        }
-        if (Input.GetKeyDown(KeyCode.F7))
-        {
             PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + 1000);
             Debug.Log("Money" + PlayerManager.Instance.GetMoney().ToString());
         }
-        if (Input.GetKeyDown(KeyCode.F8))
+        if (Input.GetKeyDown(KeyCode.F7))
         {
             TimeManager.Instance.oneHour = 1.0f;
             Debug.Log("One Hour is One Second");
         }
-        if (Input.GetKeyDown(KeyCode.F9))
+        if (Input.GetKeyDown(KeyCode.F8))
         {
             PlayerManager.Instance.Die();
             Debug.Log("Die");
         }
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.F9))
         {
             ReStart();
             Debug.Log("Restart");
+        }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            unlockMapB = true;
+            unlockMapBUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapB);
+            unlockMapA = true;
+            unlockMapAUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapA);
+            unlockMapS = true;
+            unlockMapSUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapS);
+            unlockMapSS = true;
+            unlockMapSSUpgrade.CurrentLevel++;
+            UnlockItemsOfMonsters(monsterInMapSS);
+            Debug.Log("Unlock Map");
+        }
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            PlayerManager.Instance.SetSpeed(PlayerManager.Instance.GetSpeed() + 1);
+            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetAttackDamage().ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            PlayerManager.Instance.SetSpeed(PlayerManager.Instance.GetSpeed() - 1);
+            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetAttackDamage().ToString());
         }
     }
 

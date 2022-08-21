@@ -39,7 +39,7 @@ public class Counter : NPC
             if(!hasOrder)
             {
                 UiManager.Instance.OpenUI(dialog);
-                if(HasGuest)
+                if(HasGuest && !TimeManager.Instance.isPrepareTime)
                 {
                     dialog.ShowYesNoButtons();
                     isOrderDialogOn = true;
@@ -140,10 +140,12 @@ public class Counter : NPC
         if(cake != null)
         {
             float price = cake.GetPrice(orderBase, orderIcing, orderTopping);
+            int satisfaction = cake.GetSatisfaction(orderBase, orderIcing, orderTopping);
             Util.EarnMoney(price);
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);
-            dialog.SetText("잘 먹겠습니다~");
+            string text = "잘 먹겠습니다~\n[만족도 : " + satisfaction.ToString() + "]"; 
+            dialog.SetText(text);
             StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
         }

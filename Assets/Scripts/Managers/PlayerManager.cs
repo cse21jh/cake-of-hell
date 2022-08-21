@@ -91,7 +91,12 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public float GetSpeed()
     {
-        return player.Speed;
+        return player.RealSpeed;
+    }
+
+    public float SetSpeed(float speed)
+    {
+        player.RealSpeed = speed;
     }
 
     public void SetMoney(float money)
