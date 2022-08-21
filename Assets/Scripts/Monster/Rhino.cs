@@ -6,6 +6,8 @@ public class Rhino : Monster
 {
     private int countMove = 0;
     private bool attacking = false;
+    private float angle;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -77,9 +79,17 @@ public class Rhino : Monster
 
     private IEnumerator AttackRoutine(Vector3 currentPlayerPosition)
     {
+        Vector3 monsterPos = GetObjectPos();
+        Vector3 playerPos = GetPlayerPos();
         attacking = true;
         monsterHitBox.gameObject.SetActive(true);
+        monsterHitBox.GetComponent<SpriteRenderer>().sprite = AttackSprite[3];
         monsterHitBox.transform.position = (Vector3)transform.position + (currentPlayerPosition - (Vector3)transform.position).normalized * AttackRange;
+        angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
+        monsterHitBox.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        BoxCollider2D boxCollider = monsterHitBox.GetComponent<BoxCollider2D>();
+        Destroy(boxCollider);
+        monsterHitBox.AddComponent<PolygonCollider2D>();
         yield return new WaitForSeconds(0.1f);
         monsterHitBox.transform.position = (Vector3)(GetObjectPos());
         monsterHitBox.gameObject.SetActive(false);

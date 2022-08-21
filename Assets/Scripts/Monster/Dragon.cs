@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dragon : Monster
 {
     private int countMove = 0;
+    private float angle;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -63,12 +64,27 @@ public class Dragon : Monster
     {
         if (CheckPlayer())
         {
-            var bul = Instantiate(bullet, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
+            var bul = Instantiate(bullet, transform.position + new Vector3(-1*lookLeft, 1, 0), Quaternion.identity);
             Bullet temp = bul.GetComponent<Bullet>();
+            Vector3 monsterPos = GetObjectPos();
+            Vector3 playerPos = GetPlayerPos();
+            angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
+            bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[6];
+            BoxCollider2D boxCollider = bul.GetComponent<BoxCollider2D>();
+            Destroy(boxCollider);
+            bul.AddComponent<PolygonCollider2D>();
+            bul.GetComponent<PolygonCollider2D>().isTrigger = true;
             temp.host = gameObject;
             temp.dmg = AttackDamage;
             temp.duration = 1.0f;
-            StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
+            yield return StartCoroutine(temp.ShootBullet(GetPlayerPos(), 4));
+            bul.transform.rotation = Quaternion.AngleAxis(0,new Vector3(0, 0, 0));
+            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[1];
+            PolygonCollider2D polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
+            Destroy(polygonCollider);
+            gameObject.AddComponent<PolygonCollider2D>();
+            gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
             yield return new WaitForSeconds(1.0f);
         }
         yield return null;

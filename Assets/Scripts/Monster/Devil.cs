@@ -67,12 +67,17 @@ public class Devil : Monster
         if (CheckPlayer())
         {
             var bul = Instantiate(bullet, transform.position, Quaternion.identity);
+            bul.transform.localScale = new Vector3(2, 1, 0);
+            Bullet temp = bul.GetComponent<Bullet>();
             Vector3 monsterPos = GetObjectPos();
             Vector3 playerPos = GetPlayerPos();
             angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
             bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            bul.transform.localScale = new Vector3(2, 1, 0);
-            Bullet temp = bul.GetComponent<Bullet>();
+            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[0];
+            BoxCollider2D boxCollider = bul.GetComponent<BoxCollider2D>();
+            Destroy(boxCollider);
+            bul.AddComponent<PolygonCollider2D>();
+            bul.GetComponent<PolygonCollider2D>().isTrigger = true;
             temp.host = gameObject;
             temp.dmg = AttackDamage;
             temp.duration = 2.0f;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Snake : Monster
 {
     private int countMove = 0;
+    private float angle;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -83,6 +84,15 @@ public class Snake : Monster
         {
             var bul = Instantiate(bullet, transform.position, Quaternion.identity);
             Bullet temp = bul.GetComponent<Bullet>();
+            Vector3 monsterPos = GetObjectPos();
+            Vector3 playerPos = GetPlayerPos();
+            angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
+            bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[4];
+            BoxCollider2D boxCollider = bul.GetComponent<BoxCollider2D>();
+            Destroy(boxCollider);
+            bul.AddComponent<PolygonCollider2D>();
+            bul.GetComponent<PolygonCollider2D>().isTrigger = true;
             temp.host = gameObject;
             temp.dmg = AttackDamage;
             temp.duration = 1.0f;

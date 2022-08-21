@@ -40,6 +40,13 @@ public class Bullet : MonoBehaviour
         }
         transform.position = playerPos;
         ChangeSize(size);
+        if(size!=1)
+        {
+            PolygonCollider2D polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
+            Destroy(polygonCollider);
+            gameObject.AddComponent<PolygonCollider2D>();
+            gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+        }
         
         yield return null;
     }

@@ -33,9 +33,13 @@ public abstract class Monster : MonoBehaviour
     protected Sprite rSprite;
     protected Sprite lSprite;
 
+    protected Sprite[] AttackSprite = new Sprite[7];
+    protected int lookLeft = 1;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        AttackSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mob attack effect");
         player = FindObjectOfType<Player>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -147,6 +151,7 @@ public abstract class Monster : MonoBehaviour
             scale.x = -scale.x;
             
             transform.localScale = scale;
+            lookLeft = -1;
         }
         else if(destination.x < GetObjectPos().x && transform.localScale.x <= 0)
         {
@@ -155,6 +160,7 @@ public abstract class Monster : MonoBehaviour
             scale.x = -scale.x;
 
             transform.localScale = scale;
+            lookLeft = 1;
         }
     }
 
