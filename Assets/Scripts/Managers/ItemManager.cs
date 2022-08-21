@@ -13,7 +13,7 @@ public class ItemManager : Singleton<ItemManager>
     public List<int> ItemCodeList = new List<int>();
     public Sprite[] baseSprite = new Sprite[7];
     public Sprite[] icingSprite = new Sprite[8];
-    public Sprite[] toppingSprite = new Sprite[8];
+    public Sprite[] toppingSprite = new Sprite[7];
     public Sprite[] rawSprite = new Sprite[16];
 
     void Awake()
@@ -23,6 +23,7 @@ public class ItemManager : Singleton<ItemManager>
         AddRawItem(0, "민 초 좋 아", null, new List<int> { 0 }, new List<float> { 9999f }, new List<float> { 9999.0f });
         baseSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Base");
         icingSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Icing");
+        toppingSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Topping");
         rawSprite = ResourceLoader.GetPackedSprite("Sprites/Item/Before Process/drop item");
         AddBases();
         AddIcings();
@@ -93,14 +94,14 @@ public class ItemManager : Singleton<ItemManager>
 
     public void AddToppings()
     {
-        AddProcessedItem(3001, "유리 파편", ItemLevel.A, null, "따가운", "개운하네? 오늘은 양치 안 하고 자야지.", 30f, "개운한");
-        AddProcessedItem(3002, "유리 조각", ItemLevel.S, null, "치명적인", "슬러시도 아니고 왜 차가운 거야?", 45f, "차가운");
-        AddProcessedItem(3003, "레드 콘", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/After Process/red_cone"), "뾰족뾰족한", "앗 따가! 벌에 쏘인 건 아니에요.", 30f, "쏘는");
-        AddProcessedItem(3004, "썩은 거미줄", ItemLevel.SS, null, "썩은", "으... 이 퀴퀴한 건 뭐야..... 사람은 못 먹겠지만.....", 50f, "퀴퀴한");
-        AddProcessedItem(3005, "비늘 가루", ItemLevel.C, null, "반짝거리는", "생선보다도 비리지만 우리 가게에서 가장 잘나가요.", 10f, "비린");
-        AddProcessedItem(3006, "이빨 초콜릿", ItemLevel.A, Resources.Load<Sprite>("Sprites/Item/After Process/tooth_chocolate"), "날카로운", "너무 달달해서 이가 썩을 것 같아...?", 35f, "달달한");
-        AddProcessedItem(3007, "악한 영혼의 가루", ItemLevel.S, null, "사탄의", "달콤한 악마는 좀 귀하군요.", 45f, "달콤한");
-        AddProcessedItem(3008, "악한 악마의 가루", ItemLevel.SS, null, "지하의", "FOX시군요... 사람을 홀리네...", 55f, "홀리는");
+        AddProcessedItem(3001, "유리 파편", ItemLevel.A, toppingSprite[0], "따가운", "개운하네? 오늘은 양치 안 하고 자야지.", 30f, "개운한");
+        //AddProcessedItem(3002, "유리 조각", ItemLevel.S, null, "치명적인", "슬러시도 아니고 왜 차가운 거야?", 45f, "차가운");
+        AddProcessedItem(3003, "레드 콘", ItemLevel.A, toppingSprite[1], "뾰족뾰족한", "앗 따가! 벌에 쏘인 건 아니에요.", 30f, "쏘는");
+        AddProcessedItem(3004, "썩은 거미줄", ItemLevel.SS, toppingSprite[2], "썩은", "으... 이 퀴퀴한 건 뭐야..... 사람은 못 먹겠지만.....", 50f, "퀴퀴한");
+        AddProcessedItem(3005, "비늘 가루", ItemLevel.C, toppingSprite[3], "반짝거리는", "생선보다도 비리지만 우리 가게에서 가장 잘나가요.", 10f, "비린");
+        AddProcessedItem(3006, "이빨 초콜릿", ItemLevel.A, toppingSprite[4], "날카로운", "너무 달달해서 이가 썩을 것 같아...?", 35f, "달달한");
+        AddProcessedItem(3007, "악한 영혼의 가루", ItemLevel.S, toppingSprite[5], "사탄의", "달콤한 악마는 좀 귀하군요.", 45f, "달콤한");
+        AddProcessedItem(3008, "악한 악마의 가루", ItemLevel.SS, toppingSprite[6], "지하의", "FOX시군요... 사람을 홀리네...", 55f, "홀리는");
     }
 
 
