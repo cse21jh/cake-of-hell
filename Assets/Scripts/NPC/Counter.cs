@@ -144,8 +144,21 @@ public class Counter : NPC
             Util.EarnMoney(price);
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);
-            string text = "잘 먹겠습니다~\n[만족도 : " + satisfaction.ToString() + "]"; 
-            dialog.SetText(text);
+            switch(satisfaction)
+            {
+                case 0:
+                    dialog.SetText("형편없군. 이런 것도 케이크라고 파는 건가?");
+                    break;
+                case 1:
+                    dialog.SetText("못 먹을 정도는 아니지만, 기분이 썩 좋은 맛은 아니군.");
+                    break;
+                case 2:
+                    dialog.SetText("어딘가 2% 부족하긴 하지만, 괜찮은 맛이야.");
+                    break;
+                case 3:
+                    dialog.SetText("내가 원했던 딱 그 맛이네. 정말 맛있군!");
+                    break;
+            }
             StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
         }
@@ -168,16 +181,13 @@ public class Counter : NPC
 
     private IEnumerator GuestGo()
     {
-        if(hasOrder)
-        {
-            hasOrder = false;
-            HasGuest = false;
-            yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
-                GuestObject, 
-                gameObject.transform.position + new Vector3(-14, 0, 0),
-                3.0f
-            ));
-            GuestObject.SetActive(false);
-        }
+        hasOrder = false;
+        HasGuest = false;
+        yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
+            GuestObject, 
+            gameObject.transform.position + new Vector3(-14, 0, 0),
+            3.0f
+        ));
+        GuestObject.SetActive(false);
     }
 }
