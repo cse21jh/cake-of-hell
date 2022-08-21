@@ -12,35 +12,39 @@ public class MoveScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Player>() != null && !haveToCheckUnlock)
+        if (GameManager.Instance.canUsePortal)
         {
-            GameManager.Instance.LoadScene(nextScene);
-        }
-        else if(other.GetComponent<Player>() !=null)
-        {
-            switch(nextSceneRank)
+            if (other.GetComponent<Player>() != null && !haveToCheckUnlock)
             {
-                case "C":
-                    if (GameManager.Instance.unlockMapC)
-                        GameManager.Instance.LoadScene(nextScene);
-                    break;
-                case "B":
-                    if(GameManager.Instance.unlockMapB)
-                        GameManager.Instance.LoadScene(nextScene);
-                    break;
-                case "A":
-                    if (GameManager.Instance.unlockMapA)
-                        GameManager.Instance.LoadScene(nextScene);
-                    break;
-                case "S":
-                    if (GameManager.Instance.unlockMapS)
-                        GameManager.Instance.LoadScene(nextScene);
-                    break;
-                case "SS":
-                    if (GameManager.Instance.unlockMapSS)
-                        GameManager.Instance.LoadScene(nextScene);
-                    break;
+                GameManager.Instance.LoadScene(nextScene);
             }
+            else if (other.GetComponent<Player>() != null)
+            {
+                switch (nextSceneRank)
+                {
+                    case "C":
+                        if (GameManager.Instance.unlockMapC)
+                            GameManager.Instance.LoadScene(nextScene);
+                        break;
+                    case "B":
+                        if (GameManager.Instance.unlockMapB)
+                            GameManager.Instance.LoadScene(nextScene);
+                        break;
+                    case "A":
+                        if (GameManager.Instance.unlockMapA)
+                            GameManager.Instance.LoadScene(nextScene);
+                        break;
+                    case "S":
+                        if (GameManager.Instance.unlockMapS)
+                            GameManager.Instance.LoadScene(nextScene);
+                        break;
+                    case "SS":
+                        if (GameManager.Instance.unlockMapSS)
+                            GameManager.Instance.LoadScene(nextScene);
+                        break;
+                }
+            }
+            GameManager.Instance.PortalDelay();
         }
     }
 

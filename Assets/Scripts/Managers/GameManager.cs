@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     public Vector2 startPoint;
     public bool canMove = true;
 
+    public bool canUsePortal = true;
+
     public int soldCakeInADay;
 
     // About Ending Or UnLock
@@ -362,6 +364,18 @@ public class GameManager : Singleton<GameManager>
     public void MoveToEndingScene()
     {
         LoadScene("EndingScene");
+    }
+
+    public void PortalDelay()
+    {
+        StartCoroutine(PortalDelayTimer());
+    }
+
+    public IEnumerator PortalDelayTimer()
+    {
+        canUsePortal = false;
+        yield return new WaitForSeconds(1.0f);
+        canUsePortal = true;
     }
 
     public IEnumerator UpgradeMagicianSlot()
