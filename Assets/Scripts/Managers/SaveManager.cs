@@ -241,4 +241,13 @@ public class SaveManager : Singleton<SaveManager>
             }
         }
     }
+
+    public bool CheckSaveData()
+    {
+        if(File.Exists(path))
+        {
+            return true;
+        }
+        return false;
+    }
 }
