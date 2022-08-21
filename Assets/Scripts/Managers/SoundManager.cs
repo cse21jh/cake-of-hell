@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-
-    private AudioSource BgmPlayer;
-    private AudioSource EffectPlayer;
+    public static AudioSource BgmPlayer;
+    public static AudioSource EffectPlayer;
 
     [SerializeField] private AudioClip[] EffectAudioClips;
 
@@ -63,9 +62,14 @@ public class SoundManager : Singleton<SoundManager>
         BgmPlayer.Stop();
     }
 
-    public void ChangeBgmVolume(float volume)
+    public static void ChangeBgmVolume(float volume)
     {
         BgmPlayer.volume = volume;
+    }
+
+    public static void ChangeEffectVolume(float volume)
+    {
+        EffectPlayer.volume = volume;
     }
     
 
