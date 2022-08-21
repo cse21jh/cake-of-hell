@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2813559648458486677}
   - component: {fileID: 2813559648458486666}
   - component: {fileID: 8326087845649820295}
+  - component: {fileID: 888226189868731955}
   m_Layer: 0
   m_Name: Rhino
   m_TagString: Monster
@@ -55,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7d1a83fbe792daf46a9210abd31dd444, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -272,3 +273,17 @@ PolygonCollider2D:
       - {x: -0.07666667, y: -0.23444445}
       - {x: -0.06666667, y: -0.22777778}
       - {x: -0.060000002, y: -0.21111111}
+--- !u!114 &888226189868731955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813559648458486665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c2b15ec01535342bf735a3638f4e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 0, b: 0, a: 1}
+  outlineSize: 10
