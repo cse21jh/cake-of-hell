@@ -7,6 +7,7 @@ using TMPro;
 public class MagicianUI : BaseUI, ISingleOpenUI
 { 
     private int inputCount;
+    private Sprite lockImage;
     private ProcessedItem outputItem;
     private ItemSlotComponent input, outputDefault;
     private ItemSlotComponent[] outputOthers, processItems;
@@ -25,6 +26,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     void Start()
     {
         Debug.Log("Started Magician UI");
+        lockImage = Resources.Load<Sprite>("Sprites/UI/lock");
         UnlockedSlots = GameManager.Instance.numberOfMagicianSlot;
         outputOthers = new ItemSlotComponent[3];
         recipeOthers = new Recipe[3];
@@ -97,7 +99,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             processItems[j].SetPosition(-375, 175 - 70 * j);
             processItems[j].SetOnClick(() => 
             {
-                if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem)
+                if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem && j < UnlockedSlots)
                 {
                     Util.AddItem(processItems[j].ItemCode, processItems[j].ItemCount);
                     processItems[j].Clear();
@@ -106,6 +108,10 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             });
             
             progressCircles[i] = Object.Instantiate(circ, processItems[i].gameObject.transform);
+            if(i >= UnlockedSlots) 
+            {
+                processItems[i].gameObject.transform.GetChild(0).GetComponent<Image>().sprite = lockImage;
+            }
         }
 
         for(int i=0; i<UnlockedSlots; i++) 
