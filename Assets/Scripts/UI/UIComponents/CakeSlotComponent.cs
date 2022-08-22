@@ -16,7 +16,7 @@ public class CakeSlotComponent : UIComponent
     public CakeSlotComponent(Transform parent, bool isClickable = false) 
     : base(parent, ResourceLoader.GetPrefab("Prefabs/CakeSlotPrefab"))
     {
-        nullSprite = ResourceLoader.GetSprite("Sprites/Nothing");
+        nullSprite = Resources.Load<Sprite>("Sprites/Nothing");
         IsClickable = isClickable;
         if(isClickable) {
             CakeSlotButton = Object.Instantiate(ResourceLoader.GetPrefab("Prefabs/ItemSlotButtonPrefab"), gameObject.transform);
@@ -36,9 +36,9 @@ public class CakeSlotComponent : UIComponent
         baseCode = cake.BaseCode;
         icingCode = cake.IcingCode;
         toppingCode = cake.ToppingCode;
-        gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = cake.BaseImage ?? nullSprite;
-        gameObject.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = cake.IcingImage ?? nullSprite;
-        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = cake.ToppingImage ?? nullSprite;
+        gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = ItemManager.Instance.GetCakeSprite(baseCode) ?? nullSprite;
+        gameObject.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = ItemManager.Instance.GetCakeSprite(icingCode) ?? nullSprite;
+        gameObject.transform.GetChild(2).gameObject.GetComponent<Image>().sprite = ItemManager.Instance.GetCakeSprite(toppingCode) ?? nullSprite;
     }
 
     public void Clear()

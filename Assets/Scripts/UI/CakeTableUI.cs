@@ -14,10 +14,8 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     private GameObject inventoryPanel, bakeButton;
     private GameObject[] progressCircles;
     private TMP_Text matName, matDesc;
-    [SerializeField]
     private Sprite spriteNull;
     private Image bigImgBase, bigImgIcing, bigImgTopping;
-    private Dictionary<int, Sprite> spriteBase, spriteIcing, spriteTopping;
     private Dictionary<int, ItemSlotComponent> itemSlots;
 
     void Awake()
@@ -28,9 +26,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         Util.AddItem(1006, 10);
         Util.AddItem(3006, 10);
         Util.AddItem(2001, 10);
-        spriteBase = new Dictionary<int, Sprite>();
-        spriteIcing = new Dictionary<int, Sprite>();
-        spriteTopping = new Dictionary<int, Sprite>();
+        spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
         itemSlots = new Dictionary<int, ItemSlotComponent>();
 
         inventoryPanel = GameObject.Find("CakeInventoryPanel");
@@ -49,13 +45,6 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
 
         MakeUI();
-
-        spriteBase.Add(1001, ResourceLoader.GetPackedSprite("Sprites/Cake/Base/Base_mud")[0]);
-        spriteBase.Add(1006, ResourceLoader.GetPackedSprite("Sprites/Cake/Base/Base_redheart")[0]);
-        spriteIcing.Add(2006, ResourceLoader.GetPackedSprite("Sprites/Cake/Icing/Icing_poison")[0]);
-        spriteIcing.Add(2001, ResourceLoader.GetPackedSprite("Sprites/Cake/Icing/Icing_storm")[0]);
-        spriteTopping.Add(3003, ResourceLoader.GetPackedSprite("Sprites/Cake/Topping/Topping_redcone")[0]);
-        spriteTopping.Add(3006, ResourceLoader.GetPackedSprite("Sprites/Cake/Topping/Topping_teeth")[0]);
     }
 
     void Update()
@@ -115,7 +104,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                     if(IsTableIdle()) 
                     {
                         baseInput.LoadItem(pair.Key);
-                        bigImgBase.sprite = spriteBase[pair.Key];
+                        bigImgBase.sprite = ItemManager.Instance.GetCakeSprite(pair.Key);
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
                     }
@@ -132,7 +121,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                     if(baseInput.HasItem() && IsTableIdle()) 
                     {
                         icingInput.LoadItem(pair.Key);
-                        bigImgIcing.sprite = spriteIcing[pair.Key];
+                        bigImgIcing.sprite = ItemManager.Instance.GetCakeSprite(pair.Key);
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
                     }
@@ -149,7 +138,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
                     if(baseInput.HasItem() && icingInput.HasItem() && IsTableIdle()) 
                     {
                         toppingInput.LoadItem(pair.Key);
-                        bigImgTopping.sprite = spriteTopping[pair.Key];
+                        bigImgTopping.sprite = ItemManager.Instance.GetCakeSprite(pair.Key);
                         matName.text = Util.GetItem(pair.Key).Name;
                         matDesc.text = (Util.GetItem(pair.Key) as ProcessedItem).FlavorText;
                     }
@@ -224,8 +213,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     {
         if(PlayerManager.Instance.CanMake() && baseInput.HasItem() && icingInput.HasItem() && toppingInput.HasItem() && IsTableIdle()) 
         {
-            Cake cake = new Cake(baseInput.ItemCode, toppingInput.ItemCode, icingInput.ItemCode, 
-            spriteBase[baseInput.ItemCode], spriteTopping[toppingInput.ItemCode], spriteIcing[icingInput.ItemCode]);
+            Cake cake = new Cake(baseInput.ItemCode, icingInput.ItemCode, toppingInput.ItemCode);
 
             itemSlots[baseInput.ItemCode].UseItem();
             itemSlots[icingInput.ItemCode].UseItem();

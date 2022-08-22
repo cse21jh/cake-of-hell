@@ -9,12 +9,16 @@ public class ItemManager : Singleton<ItemManager>
 {
     public Dictionary<int, ProcessedItem> ProcessedItemList = new Dictionary<int, ProcessedItem>();
     public Dictionary<int, RawItem> RawItemList = new Dictionary<int, RawItem>();
+    private Dictionary<int, Sprite> cakeSpriteList = new Dictionary<int, Sprite>();
 
     public List<int> ItemCodeList = new List<int>();
     public Sprite[] baseSprite = new Sprite[7];
     public Sprite[] icingSprite = new Sprite[8];
     public Sprite[] toppingSprite = new Sprite[7];
     public Sprite[] rawSprite = new Sprite[16];
+    private Sprite[] cakeBaseSprites = new Sprite[7];
+    private Sprite[] cakeIcingSprites = new Sprite[8];
+    private Sprite[] cakeToppingSprites = new Sprite[7];
 
     void Awake()
     {
@@ -25,12 +29,15 @@ public class ItemManager : Singleton<ItemManager>
         icingSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Icing");
         toppingSprite = ResourceLoader.GetPackedSprite("Sprites/Item/After Process/Topping");
         rawSprite = ResourceLoader.GetPackedSprite("Sprites/Item/Before Process/drop item");
+        cakeBaseSprites = ResourceLoader.GetPackedSprite("Sprites/Cake/base");
+        cakeIcingSprites = ResourceLoader.GetPackedSprite("Sprites/Cake/icing");
+        cakeToppingSprites = ResourceLoader.GetPackedSprite("Sprites/Cake/topping");
         AddBases();
         AddIcings();
         AddToppings();
         AddRawItems();
+        AddCakeSprites();
     }
-    
 
     public void AddProcessedItem(int code, string name, ItemLevel level, Sprite spriteimage, string keyword, string flavorText, float price, string flavorWord)
     {
@@ -66,11 +73,14 @@ public class ItemManager : Singleton<ItemManager>
         return RawItemList[code].Price[n];
     }
 
+    public Sprite GetCakeSprite(int code)
+    {
+        return cakeSpriteList[code];
+    }
 
     public void AddBases()
     {
         //code / name / level/ sprite / keyword / flavor text / price
-
         AddProcessedItem(1001, "저주받은 흙", ItemLevel.C, baseSprite[0], "촉촉한 빵", "흙이 부드럽다니... 좀 이상하긴 해.", 10f, "부드러운");
         AddProcessedItem(1002, "진화한 흙", ItemLevel.B, baseSprite[1], "쫄깃한 빵", "쫀드기 아닙니다. 구워 먹지 말 것.", 20f, "쫀득한");
         AddProcessedItem(1003, "광택이 나는 레더", ItemLevel.A, baseSprite[2], "질긴 가죽", "오만 번 씹어도 안 끊기는 쫄깃함.", 30f, "쫄깃한");
@@ -104,7 +114,6 @@ public class ItemManager : Singleton<ItemManager>
         AddProcessedItem(3008, "악한 악마의 가루", ItemLevel.SS, toppingSprite[6], "지하의", "FOX시군요... 사람을 홀리네...", 55f, "홀리는");
     }
 
-
     public void AddRawItems()
     {
         // code / name/ sprite/ processedItemCode/ process price/ process time
@@ -126,6 +135,29 @@ public class ItemManager : Singleton<ItemManager>
         AddRawItem(4016, "악한 영혼", rawSprite[15], new List<int> { 3007, 3008 }, new List<float> { 6f, 7f }, new List<float> { 3.0f, 3.0f });
     }
 
-
-
+    public void AddCakeSprites()
+    {
+        cakeSpriteList.Add(1001, cakeBaseSprites[5]);
+        cakeSpriteList.Add(1002, cakeBaseSprites[3]);
+        cakeSpriteList.Add(1003, cakeBaseSprites[4]);
+        cakeSpriteList.Add(1004, cakeBaseSprites[1]);
+        cakeSpriteList.Add(1005, cakeBaseSprites[2]);
+        cakeSpriteList.Add(1006, cakeBaseSprites[6]);
+        cakeSpriteList.Add(1007, cakeBaseSprites[0]);
+        cakeSpriteList.Add(2001, cakeIcingSprites[5]);
+        cakeSpriteList.Add(2002, cakeIcingSprites[4]);
+        cakeSpriteList.Add(2003, cakeIcingSprites[0]);
+        cakeSpriteList.Add(2004, cakeIcingSprites[7]);
+        cakeSpriteList.Add(2005, cakeIcingSprites[1]);
+        cakeSpriteList.Add(2006, cakeIcingSprites[3]);
+        cakeSpriteList.Add(2007, cakeIcingSprites[6]);
+        cakeSpriteList.Add(2008, cakeIcingSprites[2]);
+        cakeSpriteList.Add(3001, cakeToppingSprites[1]);
+        cakeSpriteList.Add(3003, cakeToppingSprites[2]);
+        cakeSpriteList.Add(3004, cakeToppingSprites[6]);
+        cakeSpriteList.Add(3005, cakeToppingSprites[3]);
+        cakeSpriteList.Add(3006, cakeToppingSprites[5]);
+        cakeSpriteList.Add(3007, cakeToppingSprites[4]);
+        cakeSpriteList.Add(3008, cakeToppingSprites[0]);
+    }
 }

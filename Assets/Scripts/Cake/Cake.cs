@@ -8,19 +8,11 @@ public class Cake
     public int IcingCode { get; }
     public int ToppingCode { get; }
 
-    public Sprite BaseImage { get; }
-    public Sprite IcingImage { get; }
-    public Sprite ToppingImage { get; }
-
-    public Cake(int baseCode, int icingCode, int toppingCode, Sprite baseImage, Sprite icingImage, Sprite toppingImage)
+    public Cake(int baseCode, int icingCode, int toppingCode)
     {
         BaseCode = baseCode;
         IcingCode = icingCode;
         ToppingCode = toppingCode;
-
-        BaseImage = baseImage;
-        IcingImage = icingImage;
-        ToppingImage = toppingImage;
     }
 
     public float GetPrice(int orderBaseCode, int orderIcingCode, int orderToppingCode)

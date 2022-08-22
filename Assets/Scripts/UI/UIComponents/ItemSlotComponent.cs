@@ -19,7 +19,7 @@ public class ItemSlotComponent : UIComponent
     : base(parent, ResourceLoader.GetPrefab("Prefabs/ItemSlotPrefab"))
     {
         isHovered = false;
-        nullSprite = ResourceLoader.GetSprite("Sprites/Nothing");
+        nullSprite = Resources.Load<Sprite>("Sprites/Nothing");
         LoadItem(itemCode, itemCount);
         IsClickable = isClickable;
         if(isClickable) {
