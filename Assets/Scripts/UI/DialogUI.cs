@@ -13,6 +13,7 @@ public class DialogUI : BaseUI, ISingleOpenUI
 
     public System.Action OnClickYes { get; set; } = null;
     public System.Action OnClickNo { get; set; } = null;
+    public System.Action ExecuteAtEnd { get; set; } = null;
 
     void Awake()
     {
@@ -118,6 +119,10 @@ public class DialogUI : BaseUI, ISingleOpenUI
         {
             UiManager.Instance.CloseUI(this);
             nextButton.SetActive(false);
+            if(ExecuteAtEnd != null) 
+            {
+                ExecuteAtEnd();
+            }
         }
     }
 }
