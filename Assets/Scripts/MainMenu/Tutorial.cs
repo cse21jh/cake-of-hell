@@ -28,7 +28,13 @@ public class Tutorial : MonoBehaviour
         });
         ScreenTouch[1].AddListenerOnly(() =>
         {
-            //if (num == tutorialBackgroundArr.Length - 1) SceneManager.LoadScene("StartScene");
+            if (num == tutorialBackgroundArr.Length - 1)
+            {
+                SaveManager.Instance.JsonSave();
+                UiManager.Instance.alreadyOpenItemList = false;
+                GameManager.Instance.canMove = true;
+                TimeManager.Instance.StartDay();
+            }
             if (num < tutorialBackgroundArr.Length - 1) num += 1;
             ShowNextBackground(num);
         });
