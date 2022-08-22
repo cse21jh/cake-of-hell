@@ -17,8 +17,8 @@ public class UiManager : Singleton<UiManager>
     public bool openByMagician = false;
     public bool openByHunter = false;
 
-    public GameObject menu;
-    public GameObject option;
+    private GameObject menu;
+    private GameObject option;
 
     void Awake()
     {
@@ -45,8 +45,11 @@ public class UiManager : Singleton<UiManager>
             if (!openMenu)
             {
                 Time.timeScale = 0f;
-                option = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/OptionMenu"), FindObjectOfType<Canvas>().transform);
-                menu = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/Menu"), FindObjectOfType<Canvas>().transform);
+                if (option == null)
+                {
+                    option = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/OptionMenu"), FindObjectOfType<Canvas>().transform);
+                    menu = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/Menu"), FindObjectOfType<Canvas>().transform);
+                }
                 menu.GetComponent<MenuUI>().Open();
                 menu.GetComponent<MenuUI>().OptionMenu = option.GetComponent<OptionUI>();
                 option.GetComponent<OptionUI>().Close();

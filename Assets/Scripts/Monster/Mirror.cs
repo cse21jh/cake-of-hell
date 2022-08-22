@@ -17,6 +17,9 @@ public class Mirror : Monster
         Rank = "A";
         MonsterNumber = 4;
         base.Start();
+
+        monsterHitBox.GetComponent<SpriteRenderer>().sprite = AttackSprite[2];
+        monsterHitBox.transform.localScale = new Vector3(0.3f, 0.3f, 0);
     }
 
     protected override Queue<IEnumerator> DecideNextRoutine()
@@ -44,20 +47,16 @@ public class Mirror : Monster
         if (CheckPlayer())
         {
             monsterHitBox.gameObject.SetActive(true);
-            monsterHitBox.GetComponent<SpriteRenderer>().sprite = AttackSprite[2];
             Vector3 monsterPos = GetObjectPos();
             Vector3 playerPos = GetPlayerPos();
             Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
             angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x)*Mathf.Rad2Deg;
             monsterHitBox.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            BoxCollider2D boxCollider = monsterHitBox.GetComponent<BoxCollider2D>();
-            Destroy(boxCollider);
-            monsterHitBox.AddComponent<PolygonCollider2D>();
-            monsterHitBox.transform.localScale = new Vector3(1f, 0.3f, 0);
+            monsterHitBox.transform.localScale = new Vector3(0.3f, 0.3f, 0);
             
             for (float t = 0; t <= 1; t += Time.deltaTime)
             {
-                monsterHitBox.transform.localScale = new Vector3(1f, monsterHitBox.transform.localScale.y+ (4 *Time.deltaTime)/3, 0);
+                monsterHitBox.transform.localScale = new Vector3(0.3f, monsterHitBox.transform.localScale.y+ (4 *Time.deltaTime)/3, 0);
                 monsterHitBox.transform.position = monsterHitBox.transform.position + (direction*Time.deltaTime*2);
                 yield return null;
             }

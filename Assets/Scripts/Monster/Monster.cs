@@ -99,16 +99,7 @@ public abstract class Monster : MonoBehaviour
     protected IEnumerator MoveTowardPlayer(float speedMultiplier, float time = 0)     // 플레이어를 향해 움직인다
     {
         CheckSprite(GetPlayerPos());
-        if (time != 0)
-        {
-            for (float t = 0; t <= time; t += Time.deltaTime)
-            {
-                Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
-                transform.position = transform.position + (direction * (speedMultiplier * Time.deltaTime));
-                yield return null;
-            }
-        }
-        else
+        for (float t = 0; t <= time; t += Time.deltaTime)
         {
             Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
             transform.position = transform.position + (direction * (speedMultiplier * Time.deltaTime));

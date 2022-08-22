@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mushroom : Monster
 {
     private SpriteRenderer spriteRenderer;
-    private bool ishidden = true;
+    private bool isHidden = true;
     private Color c;
 
     protected override void Start()
@@ -23,6 +23,9 @@ public class Mushroom : Monster
         c = sr.material.color;
         c.a = 0;
         sr.material.color = c;
+        monsterHitBox.GetComponent<SpriteRenderer>().sprite = AttackSprite[4];
+        BoxCollider2D boxCollider = monsterHitBox.GetComponent<BoxCollider2D>();
+        Destroy(boxCollider);
     }
 
     protected override Queue<IEnumerator> DecideNextRoutine()
@@ -33,15 +36,17 @@ public class Mushroom : Monster
         {
             if (DistToPlayer() > Eyesight)
             {
-                if(!ishidden)
+                if(!isHidden)
                     nextRoutines.Enqueue(NewActionRoutine(FadeOutInMushroom()));
+                else
+                    nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(0.1f)));
             }
             else
             {
                 Color c = sr.material.color;
                 c.a = 1;
                 sr.material.color = c;
-                ishidden = false;
+                isHidden = false;
                 nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(2f)));
                 nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));
             }
@@ -54,14 +59,14 @@ public class Mushroom : Monster
     private IEnumerator AttackRoutine()
     {
         MonsterHitBox mushroomHitbox = monsterHitBox.GetComponent<MonsterHitBox>();
-        BoxCollider2D boxCollider = monsterHitBox.GetComponent<BoxCollider2D>();
-        Destroy(boxCollider);
         monsterHitBox.gameObject.SetActive(true);
         mushroomHitbox.ChangeSize(3);
-        monsterHitBox.GetComponent<SpriteRenderer>().sprite = AttackSprite[4];
         monsterHitBox.AddComponent<PolygonCollider2D>();
+        monsterHitBox.GetComponent<PolygonCollider2D>().isTrigger = true;
         yield return new WaitForSeconds(0.1f);
         mushroomHitbox.ChangeSize(1/3f);
+        PolygonCollider2D polygonCollider = monsterHitBox.GetComponent<PolygonCollider2D>();
+        Destroy(polygonCollider);
         monsterHitBox.gameObject.SetActive(false);
         yield return null;
     }
@@ -77,7 +82,7 @@ public class Mushroom : Monster
             yield return new WaitForSeconds(0.1f);
         }
         yield return null;
-        ishidden = true;
+        isHidden = true;
     }
 
     public override List<int> GetItemCode()

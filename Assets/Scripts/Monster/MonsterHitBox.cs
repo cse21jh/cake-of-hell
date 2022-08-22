@@ -11,6 +11,7 @@ public class MonsterHitBox : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             PlayerManager.Instance.GetDamage(damage);
+            gameObject.SetActive(false);
         }
     }
 
