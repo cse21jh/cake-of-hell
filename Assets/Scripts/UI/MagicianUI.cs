@@ -99,7 +99,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             {
                 if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem)
                 {
-                    Util.AddItem(processItems[j].ItemCode * processItems[j].ItemCount);
+                    Util.AddItem(processItems[j].ItemCode, processItems[j].ItemCount);
                     processItems[j].Clear();
                     ProcessManager.Instance.MagicianProcesses[j] = null;
                 }
