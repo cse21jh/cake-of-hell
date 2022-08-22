@@ -42,6 +42,10 @@ public class SoundManager : Singleton<SoundManager>
         EffectSoundDictionary.Add("MonsterHit", Resources.Load<AudioClip>("Audio/Shapeforms Audio Free Sound Effects/PUNCH_DESIGNED_HEAVY_23"));
         EffectSoundDictionary.Add("PlayerHit", Resources.Load<AudioClip>("Audio/Shapeforms Audio Free Sound Effects/PUNCH_INTENSE_HEAVY_03"));
         EffectSoundDictionary.Add("GetItem", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-45"));
+        EffectSoundDictionary.Add("Farming", Resources.Load<AudioClip>("Audio/BGM/farming_엉뚱한 작당모의"));
+        EffectSoundDictionary.Add("Magician Cave", Resources.Load<AudioClip>("Audio/BGM/magician_니가 먼저 했잖아 (Short)"));
+        EffectSoundDictionary.Add("Cake Shop", Resources.Load<AudioClip>("Audio/BGM/Shop_Fluffing a Duck"));
+        EffectSoundDictionary.Add("MainMenu", EffectSoundDictionary["Cake Shop"]);
     }
 
     public void PlayEffect(string name)
@@ -49,12 +53,12 @@ public class SoundManager : Singleton<SoundManager>
         EffectPlayer.PlayOneShot(EffectSoundDictionary[name], EffectVolume);
     }
 
-    public void PlayBgm(AudioClip clip)
+    public void PlayBgm(string name)
     {
         BgmPlayer.loop = true;
         BgmPlayer.volume = BGMVolume;
 
-        BgmPlayer.clip = clip;
+        BgmPlayer.clip = EffectSoundDictionary[name];
         BgmPlayer.Play();
     }
 

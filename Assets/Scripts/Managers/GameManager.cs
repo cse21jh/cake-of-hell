@@ -19,6 +19,8 @@ public class GameManager : Singleton<GameManager>
 
     public int soldCakeInADay;
 
+    public string currentBgmName;
+
     // About Ending Or UnLock
     public int numberOfSoldCake = 0;
     public int numberOfSatisfiedCustomer = 0;
@@ -82,12 +84,15 @@ public class GameManager : Singleton<GameManager>
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        currentSceneName = "MainMenu";
         AddMonsterInMap();
         AddUpgrade();
     }
 
     void Start()
     {
+        currentBgmName = "Cake Shop";
+        SoundManager.Instance.PlayBgm(currentBgmName);
     }
 
     void Update()
@@ -162,13 +167,13 @@ public class GameManager : Singleton<GameManager>
         }
         if (Input.GetKeyDown(KeyCode.F11))
         {
-            PlayerManager.Instance.SetSpeed(PlayerManager.Instance.GetSpeed() + 1);
-            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetAttackDamage().ToString());
+            PlayerManager.Instance.SetRealSpeed(PlayerManager.Instance.GetRealSpeed() + 1);
+            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetRealSpeed().ToString());
         }
         if (Input.GetKeyDown(KeyCode.F12))
         {
-            PlayerManager.Instance.SetSpeed(PlayerManager.Instance.GetSpeed() - 1);
-            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetAttackDamage().ToString());
+            PlayerManager.Instance.SetRealSpeed(PlayerManager.Instance.GetRealSpeed() - 1);
+            Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetRealSpeed().ToString());
         }
     }
 
@@ -193,6 +198,42 @@ public class GameManager : Singleton<GameManager>
         }
         UiManager.Instance.openItemList = false;
         UiManager.Instance.openMenu = false;
+
+        CheckBgm(nextScene);
+    }
+
+    public void CheckBgm(string nextScene)
+    {
+        if(nextScene == "EndingScene" || nextScene == "StoryScene")
+        {
+            SoundManager.Instance.StopBgm();
+            return;
+        }
+
+        if(nextScene.Contains("Map"))
+        {
+            if(currentBgmName == "Farming")
+            {
+                return;
+            }
+            else
+            {
+                currentBgmName = "Farming";
+                SoundManager.Instance.PlayBgm(currentBgmName);
+                return;
+            }
+        }
+
+        if(currentBgmName == nextScene)
+        {
+            return;
+        }
+        else
+        {
+            currentBgmName = nextScene;
+            SoundManager.Instance.PlayBgm(currentBgmName);
+            return;
+        }
     }
 
     public IEnumerator DieLoadScene(string nextScene)
