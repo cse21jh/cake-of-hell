@@ -44,6 +44,7 @@ public class UiManager : Singleton<UiManager>
             }
             if (!openMenu)
             {
+                Time.timeScale = 0f;
                 option = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/OptionMenu"), FindObjectOfType<Canvas>().transform);
                 menu = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/Menu"), FindObjectOfType<Canvas>().transform);
                 menu.GetComponent<MenuUI>().Open();
@@ -53,6 +54,7 @@ public class UiManager : Singleton<UiManager>
             }
             else
             {
+                Time.timeScale = 1f;
                 menu.GetComponent<MenuUI>().Close();
                 option.GetComponent<OptionUI>().Close();
                 openMenu = false;

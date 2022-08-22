@@ -407,7 +407,7 @@ public class GameManager : Singleton<GameManager>
         cantAcceptOrderCount++;
         if(cantAcceptOrderCount>=100)
         {
-            MoveToEndingScene();
+            //MoveToEndingScene();
         }
     }
 

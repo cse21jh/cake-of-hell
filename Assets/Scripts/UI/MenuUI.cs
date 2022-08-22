@@ -39,14 +39,12 @@ public class MenuUI : BaseUI, ISingleOpenUI
     public override void Open()
     {
         MenuCanvas.SetActive(true);
-        Time.timeScale = 0f;
         Debug.Log("Menu UI Opened!");
     }
 
     public override void Close()
     {
         MenuCanvas.SetActive(false);
-        Time.timeScale = 1f;
         Debug.Log("Menu UI Closed!");
     }
 }

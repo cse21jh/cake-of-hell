@@ -199,7 +199,7 @@ public abstract class Monster : MonoBehaviour
         GameManager.Instance.AddKillMonsterCount();
         if (GameManager.Instance.killMonsterCount >= 1000)
         {
-            GameManager.Instance.MoveToEndingScene();
+            //GameManager.Instance.MoveToEndingScene();
         }
         GameManager.Instance.killMonsterInADay = true;
         if (Rank == "SS")

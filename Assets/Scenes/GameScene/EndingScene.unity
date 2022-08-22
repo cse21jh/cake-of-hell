@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1075c7a5d40feeb448805bbea8e535a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endingCount: 0
 --- !u!4 &755297685
 Transform:
   m_ObjectHideFlags: 0
@@ -176,11 +177,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4832293504981931927, guid: b38ac98e6c808004ba7ba8104a1c92bb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4832293505700781720, guid: b38ac98e6c808004ba7ba8104a1c92bb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4832293505836886672, guid: b38ac98e6c808004ba7ba8104a1c92bb, type: 3}
       propertyPath: m_Pivot.x
