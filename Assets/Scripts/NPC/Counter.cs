@@ -129,7 +129,7 @@ public class Counter : NPC
         System.String ret =
         (Util.GetItem(orderTopping) as ProcessedItem).Keyword + " " +
         (Util.GetItem(orderIcing) as ProcessedItem).Keyword + " " +
-        (Util.GetItem(orderBase) as ProcessedItem).Keyword + " 주세요.";
+        (Util.GetItem(orderBase) as ProcessedItem).Keyword + " 케이크 주세요.";
         return ret;
     }
 
@@ -138,7 +138,7 @@ public class Counter : NPC
         System.String ret =
         (Util.GetItem(orderTopping) as ProcessedItem).FlavorWord + " " +
         (Util.GetItem(orderIcing) as ProcessedItem).FlavorWord + " " +
-        (Util.GetItem(orderBase) as ProcessedItem).FlavorWord + " 주세요.";
+        (Util.GetItem(orderBase) as ProcessedItem).FlavorWord + " 케이크 주세요.";
         return ret;
     }
 
@@ -151,7 +151,7 @@ public class Counter : NPC
         System.String ret =
         (((dice & 1 << 0) == 0) ? t.Keyword : t.FlavorWord) + " " +
         (((dice & 1 << 1) == 0) ? i.Keyword : i.FlavorWord) + " " +
-        (((dice & 1 << 2) == 0) ? b.Keyword : b.FlavorWord) + " 주세요.";
+        (((dice & 1 << 2) == 0) ? b.Keyword : b.FlavorWord) + " 케이크 주세요.";
         return ret;
     }
 
