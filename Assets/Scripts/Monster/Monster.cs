@@ -173,6 +173,11 @@ public abstract class Monster : MonoBehaviour
             PlayerManager.Instance.GetDamage(AttackDamage);
             Debug.Log(PlayerManager.Instance.GetHp());
         }
+        if (collision.gameObject.tag == "Wall")
+        {
+            Debug.Log("asdf");
+            NextRoutine();
+        }
     }
 
     public virtual void GetDamage(float damage)
