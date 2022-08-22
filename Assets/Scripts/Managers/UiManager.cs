@@ -50,16 +50,16 @@ public class UiManager : Singleton<UiManager>
                     option = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/OptionMenu"), FindObjectOfType<Canvas>().transform);
                     menu = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/Menu"), FindObjectOfType<Canvas>().transform);
                 }
-                menu.GetComponent<MenuUI>().Open();
+                OpenUI(menu.GetComponent<MenuUI>());
                 menu.GetComponent<MenuUI>().OptionMenu = option.GetComponent<OptionUI>();
-                option.GetComponent<OptionUI>().Close();
+                CloseUI(option.GetComponent<OptionUI>());
                 openMenu = true;
             }
             else
             {
                 Time.timeScale = 1f;
-                menu.GetComponent<MenuUI>().Close();
-                option.GetComponent<OptionUI>().Close();
+                CloseUI(menu.GetComponent<MenuUI>());
+                CloseUI(option.GetComponent<OptionUI>());
                 openMenu = false;
             }    
         }

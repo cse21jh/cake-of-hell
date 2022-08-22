@@ -5,30 +5,19 @@ using UnityEngine.UI;
 
 public class OptionUI : BaseUI, ISingleOpenUI
 {
-    public GameObject OptionUIs;
+    private Slider BGMVolume;
+    private Slider effectVolume;
 
-    public Slider BGMVolume;
-    public Slider effectVolume;
-
-    private float BGMVolumeValue;
-    private float effectVolumeValue;
-
-    // Start is called before the first frame update
     void Start()
     {
-        BGMVolume = GameObject.Find("MusicSlider").GetComponent<Slider>();
-        effectVolume = GameObject.Find("SoundSlider").GetComponent<Slider>();
+        BGMVolume = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<Slider>();
+        effectVolume = gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<Slider>();
         BGMVolume.value = SoundManager.Instance.BGMVolume;
-        BGMVolumeValue = SoundManager.Instance.BGMVolume;
         effectVolume.value = SoundManager.Instance.EffectVolume;
-        effectVolumeValue = SoundManager.Instance.EffectVolume;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        BGMVolume.value = SoundManager.Instance.BGMVolume;
-        effectVolume.value = SoundManager.Instance.EffectVolume;
         UpdateBGMVolume();
         UpdateEffectVolume();
     }
@@ -36,22 +25,24 @@ public class OptionUI : BaseUI, ISingleOpenUI
     public void UpdateBGMVolume()
     {
         SoundManager.Instance.BGMVolume = BGMVolume.value;
+        SoundManager.Instance.BgmPlayer.volume = BGMVolume.value;
     }
 
     public void UpdateEffectVolume()
     {
         SoundManager.Instance.EffectVolume = effectVolume.value;
+        SoundManager.Instance.EffectPlayer.volume = effectVolume.value;
     }
 
     public override void Open()
     {
-        OptionUIs.SetActive(true);
+        gameObject.SetActive(true);
         Debug.Log("Option UI Opened!");
     }
 
     public override void Close()
     {
-        OptionUIs.SetActive(false);
+        gameObject.SetActive(false);
         Debug.Log("Option UI Closed!");
     }
 }

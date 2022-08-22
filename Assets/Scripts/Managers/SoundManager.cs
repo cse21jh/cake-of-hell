@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : Singleton<SoundManager>
 {
-
     public AudioSource BgmPlayer;
     public AudioSource EffectPlayer;
 
-    public float BGMVolume  = 1f;
-    public float EffectVolume = 0.3f;
+    public float BGMVolume { get; set; }
+    public float EffectVolume { get; set; }
     
-
     [SerializeField] private AudioClip[] EffectAudioClips;
 
     private Dictionary<string, AudioClip> EffectSoundDictionary = new Dictionary<string, AudioClip>();
@@ -33,6 +31,9 @@ public class SoundManager : Singleton<SoundManager>
         {
             EffectSoundDictionary.Add(audioclip.name, audioclip);
         }
+
+        BGMVolume = 1f;
+        EffectVolume = 0.3f;
     }
 
     void Start()
