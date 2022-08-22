@@ -55,12 +55,16 @@ public class ProcessManager : Singleton<ProcessManager>
     {
         float totalTime = 5.0f;
         float interval = totalTime / 100.0f;
+        int cakeListIdx = PlayerManager.Instance.GetAvailableCakeIndex();
         CakeProcess newProc = new CakeProcess(totalTime, interval);
         newProc.UI = ui;
         newProc.CakeRecipe = cake;
         newProc.Circle = circle;
 
-        newProc.OnStart = null;
+        newProc.OnStart = () => 
+        {
+            PlayerManager.Instance.isReserved[cakeListIdx] = true;
+        };
         newProc.taskList.Add(() => 
         {
             if(newProc.Circle != null) 
@@ -70,7 +74,8 @@ public class ProcessManager : Singleton<ProcessManager>
         });
         newProc.OnEnd = () => 
         {
-            PlayerManager.Instance.AddCake(cake);
+            PlayerManager.Instance.SetCake(cakeListIdx, cake);
+            PlayerManager.Instance.isReserved[cakeListIdx] = false;
             if(newProc.UI != null)
             {
                 newProc.UI.UpdateSlots();

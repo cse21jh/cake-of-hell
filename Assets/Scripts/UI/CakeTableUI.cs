@@ -56,7 +56,6 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         spriteIcing.Add(2001, ResourceLoader.GetPackedSprite("Sprites/Cake/Icing/Icing_storm")[0]);
         spriteTopping.Add(3003, ResourceLoader.GetPackedSprite("Sprites/Cake/Topping/Topping_redcone")[0]);
         spriteTopping.Add(3006, ResourceLoader.GetPackedSprite("Sprites/Cake/Topping/Topping_teeth")[0]);
-
     }
 
     void Update()

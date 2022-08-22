@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    //Fix me
-    public Player player;
+    private bool invincible;
     private GameObject imageHit;
+
+    public bool[] isReserved = new bool[5];
+    public Player player;
     public HpUI hpUI;
     public MoneyUI moneyUI;
-
-    private bool invincible;
 
     void Awake()
     {
@@ -18,8 +18,6 @@ public class PlayerManager : Singleton<PlayerManager>
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         invincible = false;
     }
-
-
 
     public IEnumerator DamagedEffect()
     {
@@ -33,7 +31,7 @@ public class PlayerManager : Singleton<PlayerManager>
             c.a = f;
             player.spriteRenderer.material.color = c;
             yield return new WaitForSeconds(0.1f);
-            if(i==4)
+            if(i == 4)
             {
                 imageHit.SetActive(false);
             }
@@ -49,7 +47,7 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             Die();
         }
-        if (!invincible && value!=0 && player.Hp>0)
+        if (!invincible && value != 0 && player.Hp > 0)
         { 
             StartCoroutine("DamagedEffect");
             SoundManager.Instance.PlayEffect("PlayerHit");
@@ -64,7 +62,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetHp(float hp)
     {
         player.Hp = hp;
-        if(hpUI!=null)
+        if(hpUI != null)
             hpUI.HpBarUpdate(GetMaxHp(), GetHp());
     }
 
@@ -95,7 +93,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void SetMoney(float money)
     {
-        if(money<0)
+        if(money < 0)
         {
             player.Money = 0;
             return;
@@ -118,7 +116,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public int GetNumberOfItem(int code)
     {
-        switch(code/1000)
+        switch(code / 1000)
         {
             case 1:
                 return player.NumberOfBase[code];
@@ -188,7 +186,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         foreach (var code in ItemManager.Instance.ItemCodeList)
         {
-            SetNumberOfItem(code, GetNumberOfItem(code)-GetNumberOfItemInADay(code));
+            SetNumberOfItem(code, GetNumberOfItem(code) - GetNumberOfItemInADay(code));
         }
     }
 
@@ -215,6 +213,11 @@ public class PlayerManager : Singleton<PlayerManager>
         return player.CakeList[index];
     }
 
+    public void SetCake(int index, Cake cake)
+    {
+        player.CakeList[index] = cake;
+    }
+
     public void AddCake(Cake inputCake)
     {
         for (int i = 0; i < 5; i++)
@@ -239,7 +242,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         for (int i = 0; i < 5; i++)
         {
-            if (player.CakeList[i] == null)
+            if (player.CakeList[i] == null && !isReserved[i])
             {
                 return true;
             }
@@ -247,6 +250,17 @@ public class PlayerManager : Singleton<PlayerManager>
         return false;
     }
 
+    public int GetAvailableCakeIndex()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (player.CakeList[i] == null && !isReserved[i])
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public Player GetPlayer()
     {
@@ -261,7 +275,7 @@ public class PlayerManager : Singleton<PlayerManager>
         TimeManager.Instance.timer = 0;
         TimeManager.Instance.restart = true;
         StartCoroutine(GameManager.Instance.DieLoadScene("Cake Shop"));
-        if(GameManager.Instance.dieCount >=3)
+        if(GameManager.Instance.dieCount >= 3)
         {
             GameManager.Instance.MoveToEndingScene();
         }
