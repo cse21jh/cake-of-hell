@@ -82,7 +82,7 @@ public class ItemSlotComponent : UIComponent
         if(!hoverItemName.activeSelf && HasItem())
         {
             hoverItemName.SetActive(true);
-            hoverItemName.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 40);
+            hoverItemName.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 90);
             UpdateHoverItem();
         }
     }
