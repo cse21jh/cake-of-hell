@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class NPC : MonoBehaviour
 {
+    private bool isInteracting = false;
     private bool canInteract = false;
 
     void Start()
@@ -15,11 +16,16 @@ public abstract class NPC : MonoBehaviour
     {
         if(canInteract && Input.GetKeyDown(KeyCode.G)) 
         {
-            StartInteract();
-        }
-        else if(canInteract && Input.GetKeyDown(KeyCode.Escape))
-        {
-            EndInteract();
+            if(isInteracting)
+            {
+                isInteracting = false;
+                EndInteract();
+            }
+            else 
+            {
+                isInteracting = true;
+                StartInteract();
+            }
         }
     }
 
