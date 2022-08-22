@@ -100,11 +100,11 @@ public class EndingManager : MonoBehaviour
         {
             case 0:
                 Debug.Log("이거 버그임");
-                dialog.SetText("이거 버그임");
+                dialog.SetLongText(new string[] { "이거 버그임" });
                 break;
             case 1:
                 BackGround.sprite = EndingBackGround[0];
-                dialog.SetText("플레이어는 사망하고 플레이어의 케이크를 좋아하던 많은 손님들은 플레이어를 추모하며 장례식을 치러 준다.");
+                dialog.SetLongText(new string[] { "플레이어는 사망하고 플레이어의 케이크를 좋아하던 많은 손님들은 플레이어를 추모하며 장례식을 치러 준다." });
                 break;
             case 2:
                 BackGround.sprite = EndingBackGround[1];
@@ -116,7 +116,7 @@ public class EndingManager : MonoBehaviour
                 break;
             case 3:
                 BackGround.sprite = EndingBackGround[2];
-                dialog.SetText("몬스터가 멸종위기 직전이어서 몬스터를 사육하면서 제과제빵 일을 계속하다가 몬스터 사육으로 충분히 돈을 벌고 그 일이 적성에 더 잘 맞아서 몬스터 사육사로 직업을 바꾼다.");
+                dialog.SetLongText(new string[] { "몬스터가 멸종위기 직전이어서 몬스터를 사육하면서 제과제빵 일을 계속하다가 몬스터 사육으로 충분히 돈을 벌고 그 일이 적성에 더 잘 맞아서 몬스터 사육사로 직업을 바꾼다." });
                 break;
             case 4:
                 //BackGround.sprite = EndingBackGround[3];
@@ -192,7 +192,7 @@ public class EndingManager : MonoBehaviour
             //string
             case 15:
                 BackGround.sprite = EndingBackGround[7];
-                dialog.SetText("마물 제빵사이지만 능력이 없다는 것을 알게 된 다른 마물이 제과제빵을 공부해서 맞은 편에 새로운 디저트 가게를 세우고 그 곳이 유명해져 플레이어의 가게는 망하게 된다.");
+                dialog.SetLongText(new string[] { "마물 제빵사이지만 능력이 없다는 것을 알게 된 다른 마물이 제과제빵을 공부해서 맞은 편에 새로운 디저트 가게를 세우고 그 곳이 유명해져 플레이어의 가게는 망하게 된다." });
                 break;
         }
     }
