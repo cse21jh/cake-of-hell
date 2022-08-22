@@ -9,7 +9,29 @@ public class MiniMap : BaseUI
 
     void Awake()
     {
+        var img = gameObject.transform.GetChild(0).GetComponent<Image>();
         smallPlayer = gameObject.transform.GetChild(1).GetComponent<RectTransform>();
+        var mapSprites = ResourceLoader.GetPackedSprite("Sprites/Background/Maps");
+        if(GameManager.Instance.unlockMapSS)
+        {
+            img.sprite = mapSprites[4];
+        }
+        else if(GameManager.Instance.unlockMapS)
+        {
+            img.sprite = mapSprites[3];
+        }
+        else if(GameManager.Instance.unlockMapA)
+        {
+            img.sprite = mapSprites[0];
+        }
+        else if(GameManager.Instance.unlockMapB)
+        {
+            img.sprite = mapSprites[1];
+        }
+        else 
+        {
+            img.sprite = mapSprites[2];
+        }
         gameObject.SetActive(false);
     }
 
