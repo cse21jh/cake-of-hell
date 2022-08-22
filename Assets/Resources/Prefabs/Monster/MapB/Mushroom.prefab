@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8524711630091689199}
   - component: {fileID: 8880445166636046385}
   - component: {fileID: 7629966809169072849}
-  - component: {fileID: 8856711321601463699}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Monster
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3604204971962870854, guid: a7a7ef2f40a9f0144908e8b1c04ee261, type: 3}
+  m_Sprite: {fileID: -3604204971962870854, guid: 7e8647996ae73d84bba1b723b8106f29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -237,17 +236,3 @@ PolygonCollider2D:
       - {x: -0.025555557, y: -0.27333334}
       - {x: -0.0022222223, y: -0.27222222}
       - {x: 0.017777778, y: -0.27111113}
---- !u!114 &8856711321601463699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8524711630091689203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c2b15ec01535342bf735a3638f4e8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
-  outlineSize: 10
