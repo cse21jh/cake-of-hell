@@ -76,6 +76,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                     inputName.text = Util.GetItem(pair.Key).Name;
                     inputCount = 1;
                     LoadOutput(-1);
+                    for(int i=0; i<3; i++) outputOthers[i].SetActive(false);
                 });
             }
         }
