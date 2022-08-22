@@ -176,14 +176,6 @@ public class GameManager : Singleton<GameManager>
             PlayerManager.Instance.SetRealSpeed(PlayerManager.Instance.GetRealSpeed() - 1);
             Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetRealSpeed().ToString());
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(unlockMapDialogUI !=null)
-            {
-                UiManager.Instance.CloseUI(unlockMapDialogUI);
-            }
-        }
     }
 
     public void LoadScene(string nextScene, bool onStartPoint = false)
@@ -389,8 +381,9 @@ public class GameManager : Singleton<GameManager>
         unlockMapDialogUI = unlockMapDialog.GetComponent<DialogUI>();
         UiManager.Instance.OpenUI(unlockMapDialogUI);
         unlockMapDialogUI.HideYesNoButtons();
-        string text = Rank + "등급의 맵이 해금되었습니다";
-        unlockMapDialogUI.SetText(text);
+        string[] text = new string[1];        
+        text[0] = Rank + "등급의 맵이 해금되었습니다";
+        unlockMapDialogUI.SetLongText(text);
     }
 
     private void UnlockItemsOfMonsters(List<Monster> monsters) 

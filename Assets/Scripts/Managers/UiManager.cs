@@ -35,13 +35,13 @@ public class UiManager : Singleton<UiManager>
             {
                 OpenItemList();
             }
-        }
-        if(Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.currentSceneName != "MainMenu")
-        {
-            if(openItemList)
+            else
             {
                 CloseItemList();
             }
+        }
+        if(Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.currentSceneName != "MainMenu")
+        {
             if (!openMenu)
             {
                 Time.timeScale = 0f;
