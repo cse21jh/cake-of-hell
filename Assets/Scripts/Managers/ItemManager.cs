@@ -127,7 +127,7 @@ public class ItemManager : Singleton<ItemManager>
         AddRawItem(4008, "핏방울", rawSprite[7], new List<int> { 2003 }, new List<float> { 5f }, new List<float> { 3.0f });
         AddRawItem(4009, "목소리", rawSprite[8], new List<int> { 2004, 2005 }, new List<float> { 3f, 4f }, new List<float> { 2.0f, 3.0f });
         AddRawItem(4010, "독", rawSprite[9], new List<int> { 2006, 2007 }, new List<float> { 4f, 6f }, new List<float> { 2.0f, 3.0f });
-        AddRawItem(4011, "모래", rawSprite[10], new List<int> { 3001, 3002 }, new List<float> { 4f, 5f }, new List<float> { 2.0f, 3.0f });
+        AddRawItem(4011, "모래", rawSprite[10], new List<int> { 3001 }, new List<float> { 4f }, new List<float> { 2.0f });
         AddRawItem(4012, "뿔 조각", rawSprite[11], new List<int> { 3003 }, new List<float> { 4f }, new List<float> { 2.0f });
         AddRawItem(4013, "거미줄", rawSprite[12], new List<int> { 3004 }, new List<float> { 7f }, new List<float> { 3.0f });
         AddRawItem(4014, "인어 비늘", rawSprite[13], new List<int> { 3005 }, new List<float> { 2f }, new List<float> { 1.0f });
