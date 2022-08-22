@@ -17,6 +17,7 @@ public class EndingManager : MonoBehaviour
         var canvas = GameObject.Find("Canvas");
         BackGround = canvas.transform.Find("BackGround").gameObject.GetComponent<Image>();
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
+        dialog.ExecuteAtEnd = GoToMainMenu;
         EndingBackGround = ResourceLoader.GetPackedSprite("Sprites/BackGround/EndingBackGround");
         CheckEnding();
         Ending();
@@ -100,7 +101,7 @@ public class EndingManager : MonoBehaviour
         {
             case 0:
                 Debug.Log("이거 버그임");
-                dialog.SetLongText(new string[] { "이거 버그임" });
+                dialog.SetLongText(new string[] { "NDM에...빠진게...많습니다...죄송합니다...원래...무슨...엔딩이라도....나와야...하는데..." });
                 break;
             case 1:
                 BackGround.sprite = EndingBackGround[0];
@@ -195,5 +196,10 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(new string[] { "마물 제빵사이지만 능력이 없다는 것을 알게 된 다른 마물이 제과제빵을 공부해서 맞은 편에 새로운 디저트 가게를 세우고 그 곳이 유명해져 플레이어의 가게는 망하게 된다." });
                 break;
         }
+    }
+
+    private void GoToMainMenu()
+    {
+        GameManager.Instance.LoadScene("MainMenu");
     }
 }

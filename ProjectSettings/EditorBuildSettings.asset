@@ -5,27 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/JHScene/JHSampleMagicianHouse.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: Assets/Scenes/JHScene/JHSampleForest.unity
-    guid: 9d32c30c9fbed5e4e87d2036504f1702
-  - enabled: 0
-    path: Assets/Scenes/JHScene/JHSampleShop.unity
-    guid: 42ea40c4e4c0e2b40af80e8342e473ee
-  - enabled: 0
-    path: Assets/Scenes/JHScene/JHMainMenu.unity
-    guid: cb273485853b99c479c166328ec4fdea
-  - enabled: 0
-    path: Assets/Scenes/EJScene/EJSampleMagicianHouse.unity
-    guid: f521ad34e613a024fad08c00bf38d94c
-  - enabled: 0
-    path: Assets/Scenes/EJScene/EJSampleForest.unity
-    guid: cb5b3a5a9b332f745bd838abbb051700
-  - enabled: 0
-    path: Assets/Scenes/EJScene/EJMainMenu.unity
-    guid: 0773940ffd13cdf44807f9c10fa89671
+  - enabled: 1
+    path: Assets/Scenes/GameScene/EmptyScene.unity
+    guid: 262f25db0a4074142be7539be3756cf5
   - enabled: 1
     path: Assets/Scenes/GameScene/MainMenu.unity
     guid: af4cb8f81bbba6f45837a5d1c5ff57f8
@@ -38,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene/EndingScene.unity
     guid: fe8075eec4d4cec40bd2229817c7a4c2
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/GameScene/Cloud Map.unity
     guid: e5852457f558bf44da7ff0e0ab99b740

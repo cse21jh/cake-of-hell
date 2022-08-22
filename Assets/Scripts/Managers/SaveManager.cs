@@ -111,6 +111,7 @@ public class SaveManager : Singleton<SaveManager>
                 TimeManager.Instance.day = saveData.day;
                 TimeManager.Instance.reputation = saveData.reputation;
                 //GameManager
+                GameManager.Instance.upgradeList = new List<Upgrade>();
                 GameManager.Instance.numberOfSoldCake = saveData.numberOfSoldCake;
                 GameManager.Instance.numberOfSatisfiedCustomer = saveData.numberOfSatisfiedCustomer;
                 GameManager.Instance.dieCount = saveData.dieCount;

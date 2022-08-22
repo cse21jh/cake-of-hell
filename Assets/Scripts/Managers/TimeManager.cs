@@ -56,6 +56,7 @@ public class TimeManager : Singleton<TimeManager>
         PlayerManager.Instance.ResetNumberOfItemInADay();
         PlayerManager.Instance.ResetMoneyInADay();
         GameManager.Instance.LoadScene("Cake Shop", true);
+        SaveManager.Instance.JsonSave();
         SetDay(day + 1);
         if (day <= 30)
         {
@@ -158,7 +159,6 @@ public class TimeManager : Singleton<TimeManager>
         { 
             endDayUI.GetComponent<EndDayUI>().Open();
         }
-        SaveManager.Instance.JsonSave();
     }
 
     public void Penalty()

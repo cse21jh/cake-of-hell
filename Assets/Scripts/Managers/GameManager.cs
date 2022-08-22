@@ -92,13 +92,14 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
+        SceneManager.LoadScene("MainMenu");
         currentBgmName = currentSceneName;
         SoundManager.Instance.PlayBgm(currentBgmName);
     }
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             TimeManager.Instance.SetDay(TimeManager.Instance.GetDay() + 1);
             Debug.Log("Day" + TimeManager.Instance.GetDay().ToString());
@@ -175,7 +176,7 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerManager.Instance.SetRealSpeed(PlayerManager.Instance.GetRealSpeed() - 1);
             Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetRealSpeed().ToString());
-        }*/
+        }
     }
 
     public void LoadScene(string nextScene, bool onStartPoint = false)
@@ -487,6 +488,7 @@ public class GameManager : Singleton<GameManager>
     public void MoveToEndingScene()
     {
         LoadScene("EndingScene");
+        UiManager.Instance.alreadyOpenItemList = true;
     }
 
     public void PortalDelay()

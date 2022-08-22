@@ -14,6 +14,8 @@ public class LoadGameButton : MonoBehaviour
 
     private void LoadGame()
     {
+        if (!SaveManager.Instance.CheckSaveData())
+            return;
         SaveManager.Instance.JsonLoad();
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
