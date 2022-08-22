@@ -9,7 +9,7 @@ public class SaveData
     //Player
     public float MaxHp;
     public float Hp;
-    public float Speed;
+    public float RealSpeed;
     public float AttackDamage;
     public float Money;
     public List<int> ItemCode = new List<int>();
@@ -97,7 +97,7 @@ public class SaveManager : Singleton<SaveManager>
                 Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
                 PlayerManager.Instance.SetMaxHp(saveData.MaxHp);
                 PlayerManager.Instance.SetHp(saveData.Hp);
-                player.Speed = saveData.Speed;
+                player.RealSpeed = saveData.RealSpeed;
                 PlayerManager.Instance.SetAttackDamage(saveData.AttackDamage);
                 PlayerManager.Instance.SetMoney(saveData.Money);
                 FromJsonList(saveData.ItemCode, saveData.NumberOfItem,player);
@@ -163,7 +163,7 @@ public class SaveManager : Singleton<SaveManager>
         Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
         saveData.MaxHp = PlayerManager.Instance.GetMaxHp();
         saveData.Hp = PlayerManager.Instance.GetHp();
-        saveData.Speed = PlayerManager.Instance.GetSpeed();
+        saveData.RealSpeed = PlayerManager.Instance.GetRealSpeed();
         saveData.AttackDamage = PlayerManager.Instance.GetAttackDamage();
         saveData.Money = PlayerManager.Instance.GetMoney();
         ToJsonList(saveData, player.NumberOfBase);
