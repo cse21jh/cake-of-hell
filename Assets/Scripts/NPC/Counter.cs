@@ -12,6 +12,7 @@ public class Counter : NPC
     private bool hasOrder = false;
     private bool flag = false;
     private bool isOrderDialogOn = false;
+    private bool isGuestMoving = false;
     private Sprite[] guestSprites;
 
     public bool HasGuest { get; set; } = true;
@@ -51,7 +52,7 @@ public class Counter : NPC
             if(!hasOrder)
             {
                 UiManager.Instance.OpenUI(dialog);
-                if(HasGuest && !TimeManager.Instance.isPrepareTime)
+                if(HasGuest && !isGuestMoving && !TimeManager.Instance.isPrepareTime)
                 {
                     dialog.ShowYesNoButtons();
                     isOrderDialogOn = true;
@@ -209,11 +210,13 @@ public class Counter : NPC
     {
         GuestSprite.sprite = guestSprites[2 * SpriteNumber];
         hasOrder = false;
+        isGuestMoving = true;
         yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
             GuestObject, 
             gameObject.transform.position + new Vector3(-14, 0.5f, 0),
             3.0f
         ));
+        isGuestMoving = false;
         HasGuest = false;
         GuestObject.SetActive(false);
     }
