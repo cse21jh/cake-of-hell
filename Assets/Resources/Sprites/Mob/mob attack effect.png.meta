@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: adbd866db433be649974e3d60e83c8c6
+guid: 689607845dff6d54bb96438ffac89670
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -66,31 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -108,7 +84,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 900
+        y: 600
         width: 300
         height: 300
       alignment: 0
@@ -129,7 +105,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 900
+        y: 600
         width: 300
         height: 300
       alignment: 0
@@ -149,7 +125,7 @@ TextureImporter:
       name: mirror
       rect:
         serializedVersion: 2
-        x: 0
+        x: 600
         y: 600
         width: 300
         height: 300
@@ -167,11 +143,53 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rhino
+      name: mudtower
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dad814d976a3f56b0800000000000000
+      internalID: -5305457619324793427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mushroom
       rect:
         serializedVersion: 2
         x: 300
-        y: 600
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2e1b1ece4c932510800000000000000
+      internalID: 1523232961260625450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rhino
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 300
         width: 300
         height: 300
       alignment: 0
@@ -192,7 +210,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
+        y: 0
         width: 300
         height: 300
       alignment: 0
@@ -213,7 +231,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 300
+        y: 0
         width: 300
         height: 300
       alignment: 0
@@ -233,7 +251,7 @@ TextureImporter:
       name: toosachae
       rect:
         serializedVersion: 2
-        x: 0
+        x: 600
         y: 0
         width: 300
         height: 300
@@ -262,8 +280,10 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       mirror: 3937396354249366081
+      mushroom: 1523232961260625450
       rhino: 3004760068004822726
       toosachae: 8472544333533599501
+      mudtower: -5305457619324793427
       spider: -1570381655880495517
       devil: 872957285411112191
       dragon: -4370824878487128345
