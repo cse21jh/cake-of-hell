@@ -25,10 +25,6 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     void Start()
     {
         Debug.Log("Started Magician UI");
-        Util.AddItem(4001, 10);
-        Util.AddItem(4009, 10);
-        Util.AddItem(4012, 10);
-        Util.EarnMoney(1000);
         UnlockedSlots = GameManager.Instance.numberOfMagicianSlot;
         outputOthers = new ItemSlotComponent[3];
         recipeOthers = new Recipe[3];

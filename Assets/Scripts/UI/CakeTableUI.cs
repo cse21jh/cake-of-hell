@@ -20,12 +20,6 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
 
     void Awake()
     {
-        Util.AddItem(1001, 10);
-        Util.AddItem(3003, 10);
-        Util.AddItem(2006, 10);
-        Util.AddItem(1006, 10);
-        Util.AddItem(3006, 10);
-        Util.AddItem(2001, 10);
         spriteNull = Resources.Load<Sprite>("Sprites/Nothing");
         itemSlots = new Dictionary<int, ItemSlotComponent>();
 

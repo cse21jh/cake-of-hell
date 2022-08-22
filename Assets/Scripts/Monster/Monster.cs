@@ -163,7 +163,7 @@ public abstract class Monster : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && !alreadyDie)
         {
-            PlayerManager.Instance.GetDamage(AttackDamage);
+            PlayerManager.Instance.GetDamage(12);
             Debug.Log(PlayerManager.Instance.GetHp());
         }
         if (collision.gameObject.tag == "Wall")

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float RealSpeed { get; set; } = 4f;
     public float AttackDamage { get; set; } = 10f;
     public float AttackRange { get; set; } = 1.5f;
-    public float Money { get; set; } = 0f;
+    public float Money { get; set; } = 100f;
 
     public bool inShop = true;
     private int nowImage;
