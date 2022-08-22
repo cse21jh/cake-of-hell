@@ -44,6 +44,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void GetDamage(float value)
     {
+        SetHp(player.Hp - value);
         if (player.Hp <= 0)
         {
             Die();
@@ -52,7 +53,6 @@ public class PlayerManager : Singleton<PlayerManager>
         { 
             StartCoroutine("DamagedEffect");
             SoundManager.Instance.PlayEffect("PlayerHit");
-            SetHp(player.Hp - value);
         }
     }
 
