@@ -34,6 +34,7 @@ public class Counter : NPC
         if(!TimeManager.Instance.isPrepareTime)
         {
             GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
+            StartCoroutine(GuestLeave());
         }
     }
 
@@ -52,17 +53,22 @@ public class Counter : NPC
                     MakeNewOrder();
                     dialog.OnClickYes = () => 
                     {
-                        isOrderDialogOn = false;
-                        hasOrder = true;
-                        StartCoroutine(GuestLeave());
-                        EndInteract();
+                        if(HasGuest)
+                        {
+                            isOrderDialogOn = false;
+                            hasOrder = true;
+                            EndInteract();
+                        }
                     };
                     dialog.OnClickNo = () => 
                     {
-                        isOrderDialogOn = false;
-                        GameManager.Instance.GivePenalty();
-                        StartCoroutine(GuestGo());
-                        EndInteract();
+                        if(HasGuest)
+                        {
+                            isOrderDialogOn = false;
+                            GameManager.Instance.GivePenalty();
+                            StartCoroutine(GuestGo());
+                            EndInteract();
+                        }
                     };
                 }
                 else
@@ -143,7 +149,7 @@ public class Counter : NPC
 
     public void SellCake(Cake cake)
     {
-        if(cake != null)
+        if(hasOrder && cake != null)
         {
             float price = cake.GetPrice(orderBase, orderIcing, orderTopping);
             int satisfaction = cake.GetSatisfaction(orderBase, orderIcing, orderTopping);
@@ -170,7 +176,7 @@ public class Counter : NPC
         }
     }
 
-    private IEnumerator GuestLeave()
+    public IEnumerator GuestLeave()
     {
         yield return new WaitForSeconds(rand.Next
         (
