@@ -33,7 +33,7 @@ public abstract class Monster : MonoBehaviour
     protected Sprite rSprite;
     protected Sprite lSprite;
 
-    protected Sprite[] AttackSprite = new Sprite[7];
+    protected Sprite[] AttackSprite = new Sprite[9];
     protected int lookLeft = 1;
 
     // Start is called before the first frame update
