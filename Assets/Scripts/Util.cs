@@ -103,8 +103,18 @@ public class Util
         _ => BattleMapList.None
     };
 
-    public string[] LongSentenceToArray(string longSentence)
+    public static string[] LongSentenceToArray(string longSentence)
     {
         return longSentence.Split('.').Select(str => str + ".").ToArray();
     }
+
+    public static bool IsSceneUnlocked(string sceneRank) => sceneRank switch 
+    {
+        "C" => GameManager.Instance.unlockMapC,
+        "B" => GameManager.Instance.unlockMapB,
+        "A" => GameManager.Instance.unlockMapA,
+        "S" => GameManager.Instance.unlockMapS,
+        "SS" => GameManager.Instance.unlockMapSS,
+        _ => false
+    };
 }

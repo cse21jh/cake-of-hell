@@ -10,6 +10,14 @@ public class MoveScene : MonoBehaviour
     [SerializeField] private bool haveToCheckUnlock;
     [SerializeField] private string nextSceneRank;
 
+    void Start()
+    {
+        if(Util.IsSceneUnlocked(nextSceneRank))
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = ResourceLoader.GetPackedSprite("Sprites/Background/teleport")[2];
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (GameManager.Instance.canUsePortal)
