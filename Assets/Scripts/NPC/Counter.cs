@@ -79,7 +79,10 @@ public class Counter : NPC
             }
             else
             {
-                UiManager.Instance.OpenUI(cakelist);
+                if(hasOrder)
+                {
+                    UiManager.Instance.OpenUI(cakelist);
+                }
             }
         }
     }
@@ -187,6 +190,12 @@ public class Counter : NPC
 
         if(GuestNumber == num && HasGuest)
         {
+            if(flag)
+            {
+                flag = false;
+                UiManager.Instance.CloseUI(dialog);
+                UiManager.Instance.CloseUI(cakelist);
+            }
             GameManager.Instance.GivePenalty();
             StartCoroutine(GuestGo());
         }
