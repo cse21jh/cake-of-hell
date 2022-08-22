@@ -105,6 +105,21 @@ public class PlayerManager : Singleton<PlayerManager>
         player.RealSpeed = speed;
     }
 
+    public void SetBackMoney()
+    {
+        SetMoney(GetMoney() - GetMoneyInADay());
+    }
+
+    public void SetMoneyInADay(float money)
+    {
+        player.MoneyInADay = money;
+    }
+
+    public void ResetMoneyInADay()
+    {
+        player.MoneyInADay = 0;
+    }
+
     public void SetMoney(float money)
     {
         if(money < 0)
@@ -115,6 +130,11 @@ public class PlayerManager : Singleton<PlayerManager>
         player.Money = money;
         if(moneyUI != null)
             moneyUI.MoneyTextUpdate(money);
+    }
+
+    public float GetMoneyInADay()
+    {
+        return player.MoneyInADay;
     }
 
     public float GetAttackDamage()

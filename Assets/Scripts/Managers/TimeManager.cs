@@ -54,6 +54,7 @@ public class TimeManager : Singleton<TimeManager>
     {
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         PlayerManager.Instance.ResetNumberOfItemInADay();
+        PlayerManager.Instance.ResetMoneyInADay();
         GameManager.Instance.LoadScene("Cake Shop", true);
         SetDay(day + 1);
         if (day <= 30)
@@ -171,17 +172,17 @@ public class TimeManager : Singleton<TimeManager>
         int reputationPenalty = (int)((5 - reputation) * 2);
         if (!GameManager.Instance.unlockMapS)
         {
-            GuestEnterTimeStart = 20 + reputationPenalty;
-            GuestEnterTimeEnd = 25 + reputationPenalty;
-            GuestLeaveTimeStart = 15 + GameManager.Instance.addGuestLeaveTime;
-            GuestLeaveTimeEnd = 25 + GameManager.Instance.addGuestLeaveTime;
+            GuestEnterTimeStart = 50 + reputationPenalty;
+            GuestEnterTimeEnd = 55 + reputationPenalty;
+            GuestLeaveTimeStart = 40 + GameManager.Instance.addGuestLeaveTime;
+            GuestLeaveTimeEnd = 45 + GameManager.Instance.addGuestLeaveTime;
         }
         else
         {
-            GuestEnterTimeStart = 17 + reputationPenalty;
-            GuestEnterTimeEnd = 20 + reputationPenalty;
-            GuestLeaveTimeStart = 15 + GameManager.Instance.addGuestLeaveTime;
-            GuestLeaveTimeEnd = 20 + GameManager.Instance.addGuestLeaveTime;
+            GuestEnterTimeStart = 45 + reputationPenalty;
+            GuestEnterTimeEnd = 50 + reputationPenalty;
+            GuestLeaveTimeStart = 35 + GameManager.Instance.addGuestLeaveTime;
+            GuestLeaveTimeEnd = 40 + GameManager.Instance.addGuestLeaveTime;
         }
     }
 

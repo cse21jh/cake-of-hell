@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public float AttackRange { get; set; } = 1.5f;
     public float Money { get; set; } = 150f;
 
+    public float MoneyInADay = 0;
+
     public bool inShop = true;
     private int nowImage;
 

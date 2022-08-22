@@ -57,6 +57,7 @@ public class Util
 
     public static void EarnMoney(float amount)
     {
+        PlayerManager.Instance.SetMoneyInADay(PlayerManager.Instance.GetMoneyInADay() + amount);
         PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney()+amount);
     }
 
@@ -64,6 +65,7 @@ public class Util
     {
         if(PlayerManager.Instance.GetMoney() >= amount) 
         {
+            PlayerManager.Instance.SetMoneyInADay(PlayerManager.Instance.GetMoneyInADay() - amount);
             PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() - amount);
         }
         else

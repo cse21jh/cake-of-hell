@@ -488,7 +488,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ReStart()
     {
-        if(currentSceneName == "EndingScene")
+        if(currentSceneName == "EndingScene" || currentSceneName == "StoryScene")
         {
             return;
         }
@@ -498,6 +498,8 @@ public class GameManager : Singleton<GameManager>
             PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
             PlayerManager.Instance.SetBackNumberOfItem();
             PlayerManager.Instance.ResetNumberOfItemInADay();
+            PlayerManager.Instance.SetBackMoney();
+            PlayerManager.Instance.ResetMoneyInADay();
             killMonsterInADay = false;
             TimeManager.Instance.timer = 0f;
             TimeManager.Instance.restart = true;
@@ -509,11 +511,14 @@ public class GameManager : Singleton<GameManager>
             LoadScene("Cake Shop", true);
             PlayerManager.Instance.SetBackNumberOfItem();
             PlayerManager.Instance.ResetNumberOfItemInADay();
+            PlayerManager.Instance.SetBackMoney();
+            PlayerManager.Instance.ResetMoneyInADay();
             TimeManager.Instance.timer = 12.0f * TimeManager.Instance.oneHour;
             TimeManager.Instance.stopTimer = false;
             TimeManager.Instance.isPrepareTime = false;
+            TimeManager.Instance.restart = true;
         }
-
+        canMove = true;
     }
 
 
