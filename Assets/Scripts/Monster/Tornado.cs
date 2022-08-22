@@ -60,24 +60,15 @@ public class Tornado : Monster
 
     private IEnumerator AttackRoutine()
     {
+        degree = 0;
         transform.localScale = new Vector3(3f, 3f, 0f);
         Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
         yield return MoveRoutine(direction * Speed, 2.0f);
-        yield return WaitRoutine(2f);
         centerPoint = transform.position + new Vector3(0, -1, 0);
+        yield return WaitRoutine(2f);
         transform.localScale = new Vector3(2f, 2f, 0f);
-        degree = 0;
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player" && !alreadyDie)
-        {
-            PlayerManager.Instance.GetDamage(AttackDamage);
-            Debug.Log(PlayerManager.Instance.GetHp());
-        }
-    }
-
+    
     public override List<int> GetItemCode()
     {
         List<int> item = new List<int>() { 4006 };

@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && curCoolTime <= 0 && !inShop)
+        if (Input.GetMouseButtonDown(0) && curCoolTime <= 0 && !inShop && GameManager.Instance.canMove)
         {
             StartCoroutine(Attack());
         }

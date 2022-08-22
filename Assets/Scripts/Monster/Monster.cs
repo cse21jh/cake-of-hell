@@ -159,7 +159,7 @@ public abstract class Monster : MonoBehaviour
 
 
 
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" && !alreadyDie)
         {
@@ -177,7 +177,6 @@ public abstract class Monster : MonoBehaviour
         if (other.gameObject.tag == "Player" && !alreadyDie)
         {
             PlayerManager.Instance.GetDamage(AttackDamage);
-            Debug.Log(PlayerManager.Instance.GetHp());
         }
 
         if (other.gameObject.tag == "Wall")

@@ -67,15 +67,6 @@ public class Ghost : Monster
         yield return WaitRoutine(1.0f);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player" && !alreadyDie)
-        {
-            PlayerManager.Instance.GetDamage(AttackDamage);
-            Debug.Log(PlayerManager.Instance.GetHp());
-        }
-    }
-
     private IEnumerator Fade()
     {
         while(!alreadyDie)

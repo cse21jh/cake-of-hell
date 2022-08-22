@@ -42,6 +42,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void GetDamage(float value)
     {
+        if(value<=0)
+        {
+            return;
+        }
         SetHp(player.Hp - value);
         if (player.Hp <= 0)
         {
