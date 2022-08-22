@@ -38,7 +38,8 @@ public class ShopManager : MonoBehaviour
                     3.0f
                 ));
                 ct.HasGuest = true;
-                StartCoroutine(ct.GuestLeave());
+                ct.GuestNumber++;
+                StartCoroutine(ct.GuestLeave(ct.GuestNumber));
             }
             yield return new WaitForSeconds(rand.Next
             (

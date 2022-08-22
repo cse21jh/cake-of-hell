@@ -16,6 +16,7 @@ public class Counter : NPC
 
     public bool HasGuest { get; set; } = true;
     public int SpriteNumber { get; set; }
+    public int GuestNumber { get; set; } = 0;
     public GameObject GuestObject { get; set; }
     public SpriteRenderer GuestSprite { get; set; }
 
@@ -34,7 +35,7 @@ public class Counter : NPC
         if(!TimeManager.Instance.isPrepareTime)
         {
             GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
-            StartCoroutine(GuestLeave());
+            StartCoroutine(GuestLeave(0));
         }
     }
 
@@ -176,7 +177,7 @@ public class Counter : NPC
         }
     }
 
-    public IEnumerator GuestLeave()
+    public IEnumerator GuestLeave(int num)
     {
         yield return new WaitForSeconds(rand.Next
         (
@@ -184,7 +185,7 @@ public class Counter : NPC
             TimeManager.Instance.GuestLeaveTimeEnd
         ));
 
-        if(HasGuest)
+        if(GuestNumber == num && HasGuest)
         {
             GameManager.Instance.GivePenalty();
             StartCoroutine(GuestGo());
