@@ -26,6 +26,10 @@ public class VideoController : MonoBehaviour
     }
 
     void VideoIsOver(){
-        GameManager.Instance.LoadScene("TutorialScene");
+        //GameManager.Instance.LoadScene("TutorialScene");
+        SaveManager.Instance.JsonSave();
+        UiManager.Instance.alreadyOpenItemList = false;
+        GameManager.Instance.canMove = true;
+        TimeManager.Instance.StartDay();
     }
 }

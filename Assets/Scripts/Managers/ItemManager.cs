@@ -81,9 +81,9 @@ public class ItemManager : Singleton<ItemManager>
     public void AddBases()
     {
         //code / name / level/ sprite / keyword / flavor text / price
-        AddProcessedItem(1001, "저주받은 흙", ItemLevel.C, baseSprite[0], "촉촉한 빵", "흙이 부드럽다니... 좀 이상하긴 해.", 10f, "부드러운");
-        AddProcessedItem(1002, "진화한 흙", ItemLevel.B, baseSprite[1], "쫄깃한 빵", "쫀드기 아닙니다. 구워 먹지 말 것.", 20f, "쫀득한");
-        AddProcessedItem(1003, "광택이 나는 레더", ItemLevel.A, baseSprite[2], "질긴 가죽", "오만 번 씹어도 안 끊기는 쫄깃함.", 30f, "쫄깃한");
+        AddProcessedItem(1001, "저주받은 흙", ItemLevel.C, baseSprite[0], "촉촉", "흙이 부드럽다니... 좀 이상하긴 해.", 10f, "부드러운");
+        AddProcessedItem(1002, "진화한 흙", ItemLevel.B, baseSprite[1], "쫄깃", "쫀드기 아닙니다. 구워 먹지 말 것.", 20f, "쫀득한");
+        AddProcessedItem(1003, "광택이 나는 레더", ItemLevel.A, baseSprite[2], "질긴 가죽", "오만 번 씹어도 안 끊기는 쫄깃함.", 30f, "안 끊기는");
         AddProcessedItem(1004, "뼈 반죽", ItemLevel.SS, baseSprite[3], "뼈", "수상할 정도로 바삭한 뼈.", 50f, "바삭한");
         AddProcessedItem(1005, "버섯 빵", ItemLevel.B, baseSprite[4], "독버섯", "향기롭게 죽어가는 건가... 살려줘요.....", 20f, "향기로운");
         AddProcessedItem(1006, "붉은 심장", ItemLevel.S, baseSprite[5], "심장", "물컹거리는 게 거의 버섯인데 ;;", 45f, "물컹거리는");
