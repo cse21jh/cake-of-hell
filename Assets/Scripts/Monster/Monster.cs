@@ -6,6 +6,7 @@ public abstract class Monster : MonoBehaviour
 {
     protected Coroutine CurrentRoutine { get; private set; }
     private Queue<IEnumerator> nextRoutines = new Queue<IEnumerator>();
+    private Vector3 spawnPoint;
 
     public float Hp { get; set; }
     public float MaxHp { get; set; }
@@ -52,6 +53,7 @@ public abstract class Monster : MonoBehaviour
         lSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mobs")[MonsterNumber * 2];
         rSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mobs")[MonsterNumber * 2+1];
         sr.sprite = lSprite;
+        spawnPoint = transform.position;
     }
 
     protected virtual void Update()
@@ -168,7 +170,8 @@ public abstract class Monster : MonoBehaviour
         }
         if (collision.gameObject.tag == "Wall")
         {
-            NextRoutine();
+            StartCoroutineUnit(NewActionRoutine(MoveTowardPlayer(Speed,1.0f)));
+            //NextRoutine();
         }
     }
 
@@ -181,7 +184,8 @@ public abstract class Monster : MonoBehaviour
 
         if (other.gameObject.tag == "Wall")
         {
-            NextRoutine();
+            StartCoroutineUnit(NewActionRoutine(MoveTowardPlayer(Speed, 1.0f)));
+            //NextRoutine();
         }
     }
 

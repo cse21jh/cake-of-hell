@@ -65,7 +65,7 @@ public class Tornado : Monster
         degree = 0;
         transform.localScale = new Vector3(3f, 3f, 0f);
         Vector3 direction = (playerPos - GetObjectPos()).normalized;
-        yield return MoveRoutine(direction * Speed, 2.0f);
+        yield return MoveRoutine(GetObjectPos()+direction * Speed*3.0f, 2.0f);
         centerPoint = transform.position + new Vector3(0, -1, 0);
         yield return WaitRoutine(2f);
         transform.localScale = new Vector3(2f, 2f, 0f);

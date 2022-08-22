@@ -127,6 +127,10 @@ public class SaveManager : Singleton<SaveManager>
                 GameManager.Instance.unlockMapS = saveData.unlockMapS;
                 GameManager.Instance.unlockMapSS = saveData.unlockMapSS;
                 GameManager.Instance.orderSystem = saveData.orderSystem;
+                GameManager.Instance.unlockBaseCode = saveData.unlockBaseCode;
+                GameManager.Instance.unlockIcingCode = saveData.unlockIcingCode;
+                GameManager.Instance.unlockToppingCode = saveData.unlockToppingCode;
+                GameManager.Instance.unlockRawCode = saveData.unlockRawCode;
                 GameManager.Instance.numberOfMagicianSlot = saveData.numberOfMagicianSlot;
                 GameManager.Instance.numberOfCakeTable = saveData.numberOfCakeTable;
                 GameManager.Instance.addGuestLeaveTime = saveData.addGuestLeaveTime;
@@ -192,6 +196,10 @@ public class SaveManager : Singleton<SaveManager>
         saveData.unlockMapS = GameManager.Instance.unlockMapS;
         saveData.unlockMapSS = GameManager.Instance.unlockMapSS;
         saveData.orderSystem = GameManager.Instance.orderSystem;
+        saveData.unlockBaseCode = GameManager.Instance.unlockBaseCode;
+        saveData.unlockIcingCode = GameManager.Instance.unlockIcingCode;
+        saveData.unlockToppingCode = GameManager.Instance.unlockToppingCode;
+        saveData.unlockRawCode = GameManager.Instance.unlockRawCode;
         saveData.numberOfMagicianSlot = GameManager.Instance.numberOfMagicianSlot;
         saveData.numberOfCakeTable = GameManager.Instance.numberOfCakeTable;
         saveData.addGuestLeaveTime = GameManager.Instance.addGuestLeaveTime;

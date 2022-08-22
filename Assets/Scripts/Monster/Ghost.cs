@@ -63,7 +63,7 @@ public class Ghost : Monster
     private IEnumerator AttackRoutine()
     {
         Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
-        yield return MoveRoutine(direction * Speed, 2.0f);
+        yield return MoveRoutine(GetObjectPos() + direction * Speed * 3.0f, 2.0f);
         yield return WaitRoutine(1.0f);
     }
 
