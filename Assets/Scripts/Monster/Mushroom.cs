@@ -8,7 +8,7 @@ public class Mushroom : Monster
     
     protected override void Start()
     {
-        itemCode.Add(1005);
+        itemCode.Add(4004);
         MaxHp = 30;
         Hp = 30;
         Speed = 0;
