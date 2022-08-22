@@ -37,6 +37,10 @@ public class Counter : NPC
             GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0.5f, 0);
             StartCoroutine(GuestLeave(0));
         }
+        else
+        {
+            GuestObject.SetActive(false);
+        }
     }
 
     public override void StartInteract() 
