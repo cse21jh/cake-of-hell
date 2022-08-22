@@ -34,10 +34,9 @@ public class StartGame : MonoBehaviour
 
     private void StartTheGame()
     {
-        CheckNewGame.gameObject.GetComponent<CheckNewGame>().Close();
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
-        GameManager.Instance.LoadScene(nextScene, true);
+        //GameManager.Instance.LoadScene(nextScene, true);
         TimeManager.Instance.StartDay();
     }
 }

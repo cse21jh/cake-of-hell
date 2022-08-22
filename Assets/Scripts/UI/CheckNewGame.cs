@@ -31,7 +31,6 @@ public class CheckNewGame : BaseUI
         SaveManager.Instance.JsonSave();
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
-        GameManager.Instance.LoadScene(nextScene, true);
         TimeManager.Instance.StartDay();
     }
 

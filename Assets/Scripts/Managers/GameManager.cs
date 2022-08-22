@@ -21,6 +21,7 @@ public class GameManager : Singleton<GameManager>
 
     public string currentBgmName;
 
+    private DialogUI unlockMapDialogUI;
     // About Ending Or UnLock
     public int numberOfSoldCake = 0;
     public int numberOfSatisfiedCustomer = 0;
@@ -175,6 +176,14 @@ public class GameManager : Singleton<GameManager>
             PlayerManager.Instance.SetRealSpeed(PlayerManager.Instance.GetRealSpeed() - 1);
             Debug.Log("PlayerSpeed" + PlayerManager.Instance.GetRealSpeed().ToString());
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(unlockMapDialogUI !=null)
+            {
+                UiManager.Instance.CloseUI(unlockMapDialogUI);
+            }
+        }
     }
 
     public void LoadScene(string nextScene, bool onStartPoint = false)
@@ -303,6 +312,7 @@ public class GameManager : Singleton<GameManager>
         {
             unlockMapC = true;
             UnlockItemsOfMonsters(monsterInMapC);
+            OpenUnlockDialog("C");
         }
 
         if (!unlockMapB && (numberOfSoldCake >= 60 || TimeManager.Instance.GetDay() >= 3))
@@ -310,6 +320,7 @@ public class GameManager : Singleton<GameManager>
             unlockMapB = true;
             unlockMapBUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapB);
+            OpenUnlockDialog("B");
         }
 
         if (!unlockMapA && (numberOfSoldCake >= 140 || TimeManager.Instance.GetDay() >= 7))
@@ -317,6 +328,7 @@ public class GameManager : Singleton<GameManager>
             unlockMapA = true;
             unlockMapAUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapA);
+            OpenUnlockDialog("A");
         }
 
         if (orderSystem==0 && (numberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
@@ -329,6 +341,7 @@ public class GameManager : Singleton<GameManager>
             unlockMapS = true;
             unlockMapSUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapS);
+            OpenUnlockDialog("S");
         }
 
         if (orderSystem == 1 && (numberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
@@ -341,9 +354,10 @@ public class GameManager : Singleton<GameManager>
             unlockMapSS = true;
             unlockMapSSUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapSS);
+            OpenUnlockDialog("SS");
         }
 
-        if(!magicianSlotUpgrade.IsUnlocked && processCount >=200)
+        if (!magicianSlotUpgrade.IsUnlocked && processCount >=200)
         {
             magicianSlotUpgrade.IsUnlocked = true;
         }
@@ -367,6 +381,16 @@ public class GameManager : Singleton<GameManager>
         {
             unlockMapSSUpgrade.IsUnlocked = true;
         }
+    }
+
+    private void OpenUnlockDialog(string Rank)
+    {
+        var unlockMapDialog = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/DialogUI"), FindObjectOfType<Canvas>().transform);
+        unlockMapDialogUI = unlockMapDialog.GetComponent<DialogUI>();
+        UiManager.Instance.OpenUI(unlockMapDialogUI);
+        unlockMapDialogUI.HideYesNoButtons();
+        string text = Rank + "등급의 맵이 해금되었습니다";
+        unlockMapDialogUI.SetText(text);
     }
 
     private void UnlockItemsOfMonsters(List<Monster> monsters) 

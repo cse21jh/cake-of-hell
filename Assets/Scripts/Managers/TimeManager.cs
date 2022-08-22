@@ -59,7 +59,6 @@ public class TimeManager : Singleton<TimeManager>
         if (day <= 30)
         {
             GameManager.Instance.killMonsterInADay = false;
-            Debug.Log(day);
             timer = 0f;
             isPrepareTime = true;
             stopTimer = false;
@@ -82,6 +81,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public IEnumerator StartDayCoroutine()
     {
+        yield return null;
         PrepareOpenShop();
 
         for(int i=0; i<oneHour*12*10; i++)
@@ -128,6 +128,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public void PrepareOpenShop()
     {
+        GameManager.Instance.CheckUnlock();
         Debug.Log("Time to Prepare");
     }
 
@@ -200,7 +201,6 @@ public class TimeManager : Singleton<TimeManager>
             return;
         }
         day = _day;
-        GameManager.Instance.CheckUnlock();
         if (dayUI != null)
         {
             dayUI.DayTextUpdate(day);
@@ -223,7 +223,7 @@ public class TimeManager : Singleton<TimeManager>
         if (value <= 0)
         { 
             reputation = 0;
-            GameManager.Instance.MoveToEndingScene();
+            //GameManager.Instance.MoveToEndingScene();
         }
     }
 
