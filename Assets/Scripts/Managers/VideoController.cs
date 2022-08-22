@@ -26,6 +26,9 @@ public class VideoController : MonoBehaviour
     }
 
     void VideoIsOver(){
-
+        SaveManager.Instance.JsonSave();
+        UiManager.Instance.alreadyOpenItemList = false;
+        GameManager.Instance.canMove = true;
+        TimeManager.Instance.StartDay();
     }
 }

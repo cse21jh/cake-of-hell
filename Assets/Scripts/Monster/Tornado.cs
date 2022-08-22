@@ -38,7 +38,9 @@ public class Tornado : Monster
             }
             else
             {
-                nextRoutines.Enqueue(NewActionRoutine(AttackRoutine()));
+                nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1.5f)));
+                Vector3 playerPos = GetPlayerPos();
+                nextRoutines.Enqueue(NewActionRoutine(AttackRoutine(playerPos)));
             }
         }
         else nextRoutines.Enqueue(NewActionRoutine(WaitRoutine(1f)));
@@ -58,11 +60,11 @@ public class Tornado : Monster
         yield return null;
     }
 
-    private IEnumerator AttackRoutine()
+    private IEnumerator AttackRoutine(Vector3 playerPos)
     {
         degree = 0;
         transform.localScale = new Vector3(3f, 3f, 0f);
-        Vector3 direction = (GetPlayerPos() - GetObjectPos()).normalized;
+        Vector3 direction = (playerPos - GetObjectPos()).normalized;
         yield return MoveRoutine(direction * Speed, 2.0f);
         centerPoint = transform.position + new Vector3(0, -1, 0);
         yield return WaitRoutine(2f);

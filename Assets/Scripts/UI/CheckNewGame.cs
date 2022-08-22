@@ -28,10 +28,11 @@ public class CheckNewGame : BaseUI
     private void StartTheGame()
     {
         Close();
-        SaveManager.Instance.JsonSave();
-        UiManager.Instance.alreadyOpenItemList = false;
-        GameManager.Instance.canMove = true;
-        TimeManager.Instance.StartDay();
+        //SaveManager.Instance.JsonSave();
+        //UiManager.Instance.alreadyOpenItemList = false;
+        //GameManager.Instance.canMove = true;
+        //TimeManager.Instance.StartDay();
+        GameManager.Instance.LoadScene("StoryScene");
     }
 
     public override void Open()
