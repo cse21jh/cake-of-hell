@@ -12,7 +12,7 @@ public class Ghost : Monster
         MaxHp = 60;
         Hp = 60;
         Speed = Util.GetPlayerSpeed();
-        AttackDamage = 40;
+        AttackDamage = 25;
         AttackRange = 1;
         Eyesight = 7;
         Rank = "S";

@@ -67,7 +67,6 @@ public class Devil : Monster
         if (CheckPlayer())
         {
             bul.SetActive(true);
-            bul.transform.localScale = new Vector3(2, 1, 0);
             Bullet temp = bul.GetComponent<Bullet>();
             Vector3 monsterPos = GetObjectPos();
             Vector3 playerPos = GetPlayerPos();
