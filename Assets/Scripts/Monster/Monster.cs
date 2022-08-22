@@ -175,7 +175,20 @@ public abstract class Monster : MonoBehaviour
         }
         if (collision.gameObject.tag == "Wall")
         {
-            Debug.Log("asdf");
+            NextRoutine();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player" && !alreadyDie)
+        {
+            PlayerManager.Instance.GetDamage(AttackDamage);
+            Debug.Log(PlayerManager.Instance.GetHp());
+        }
+
+        if (other.gameObject.tag == "Wall")
+        {
             NextRoutine();
         }
     }

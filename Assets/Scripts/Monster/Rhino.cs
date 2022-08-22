@@ -79,22 +79,22 @@ public class Rhino : Monster
 
     private IEnumerator AttackRoutine(Vector3 currentPlayerPosition)
     {
+        var bul = Instantiate(bullet, transform.position, Quaternion.identity);
+        Bullet temp = bul.GetComponent<Bullet>();
         Vector3 monsterPos = GetObjectPos();
         Vector3 playerPos = GetPlayerPos();
-        attacking = true;
-        monsterHitBox.gameObject.SetActive(true);
-        monsterHitBox.GetComponent<SpriteRenderer>().sprite = AttackSprite[3];
-        monsterHitBox.transform.position = (Vector3)transform.position + (currentPlayerPosition - (Vector3)transform.position).normalized * AttackRange;
         angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
-        monsterHitBox.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        BoxCollider2D boxCollider = monsterHitBox.GetComponent<BoxCollider2D>();
+        bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[5];
+        BoxCollider2D boxCollider = bul.GetComponent<BoxCollider2D>();
         Destroy(boxCollider);
-        monsterHitBox.AddComponent<PolygonCollider2D>();
-        yield return new WaitForSeconds(0.1f);
-        monsterHitBox.transform.position = (Vector3)(GetObjectPos());
-        monsterHitBox.gameObject.SetActive(false);
-        attacking = false;
-        yield return null;
+        bul.AddComponent<PolygonCollider2D>();
+        bul.GetComponent<PolygonCollider2D>().isTrigger = true;
+        temp.host = gameObject;
+        temp.dmg = AttackDamage;
+        temp.duration = 1.0f;
+        StartCoroutine(temp.ShootBullet(GetPlayerPos()));
+        yield return new WaitForSeconds(2f);
     }
 
     public override List<int> GetItemCode()

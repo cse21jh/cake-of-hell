@@ -70,7 +70,7 @@ public class Dragon : Monster
             Vector3 playerPos = GetPlayerPos();
             angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
             bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[6];
+            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[8];
             BoxCollider2D boxCollider = bul.GetComponent<BoxCollider2D>();
             Destroy(boxCollider);
             bul.AddComponent<PolygonCollider2D>();

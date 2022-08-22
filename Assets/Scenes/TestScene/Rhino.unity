@@ -1547,6 +1547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: JHSampleMagicianHouse
+  haveToCheckUnlock: 0
+  nextSceneRank: 
 --- !u!61 &848114246
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2492,6 +2494,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: JHSampleShop
+  haveToCheckUnlock: 0
+  nextSceneRank: 
 --- !u!61 &1813473028
 BoxCollider2D:
   m_ObjectHideFlags: 0

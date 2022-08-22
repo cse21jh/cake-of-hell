@@ -79,7 +79,7 @@ public class Spider : Monster
             Vector3 playerPos = GetPlayerPos();
             angle = Mathf.Atan2(playerPos.y - monsterPos.y, playerPos.x - monsterPos.x) * Mathf.Rad2Deg;
             bul.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[5];
+            bul.GetComponent<SpriteRenderer>().sprite = AttackSprite[7];
             BoxCollider2D boxCollider= bul.GetComponent<BoxCollider2D>();
             Destroy(boxCollider);
             bul.AddComponent<PolygonCollider2D>();
