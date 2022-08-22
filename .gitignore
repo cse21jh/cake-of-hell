@@ -72,5 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Save Data
-Assets/CakeOfHellData.json
-Assets/CakeOfHellData.json.meta
+/Assets/CakeOfHellData.json
+/Assets/CakeOfHellData.json.meta
