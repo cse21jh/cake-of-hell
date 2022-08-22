@@ -17,6 +17,10 @@ public class ShopManager : MonoBehaviour
         counters[0] = GameObject.Find("Counter0").GetComponent<Counter>();
         counters[1] = GameObject.Find("Counter1").GetComponent<Counter>();
         counters[2] = GameObject.Find("Counter2").GetComponent<Counter>();
+        if(GameManager.Instance.numberOfCakeTable == 2) 
+        {
+            GameObject.Find("CakeTable2").SetActive(false);
+        }
         guestSprites = ResourceLoader.GetPackedSprite("Sprites/Guest/guests");
         StartCoroutine(GuestCome());
     }

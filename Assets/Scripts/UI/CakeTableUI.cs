@@ -33,9 +33,10 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         bigImgBase.sprite = spriteNull;
         bigImgIcing.sprite = spriteNull;
         bigImgTopping.sprite = spriteNull;
-        progressCircles = new GameObject[2];
+        progressCircles = new GameObject[3];
         progressCircles[0] = GameObject.Find("ProgressCircleCake0");
         progressCircles[1] = GameObject.Find("ProgressCircleCake1");
+        progressCircles[2] = GameObject.Find("ProgressCircleCake2");
         bakeButton.GetComponent<Button>().onClick.AddListener(Bake);
 
         MakeUI();
@@ -176,7 +177,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     public void SetTableNumber(int num)
     {
         tableNumber = num;
-        for(int i=0; i<2; i++) 
+        for(int i=0; i<3; i++) 
         {
             if(i == tableNumber) progressCircles[i].SetActive(true);
             else progressCircles[i].SetActive(false);
