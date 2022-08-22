@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    private bool invincible;
+    public bool invincible;
     private GameObject imageHit;
 
     public bool[] isReserved = new bool[5];
@@ -23,9 +23,9 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         imageHit = GameObject.Find("Canvas").transform.Find("ImageHit").gameObject;
         imageHit.SetActive(true);
-        invincible = true;
         for (int i = 1; i <= 10; i++)
         {
+            invincible = true;
             float f = i % 2 == 0 ? 1f : 0.5f; 
             Color c = player.spriteRenderer.material.color;
             c.a = f;
@@ -46,13 +46,13 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             return;
         }
-        SetHp(player.Hp - value);
-        if (player.Hp <= 0)
+        if (player.Hp-value <= 0)
         {
             Die();
         }
         if (!invincible && value != 0 && player.Hp > 0)
-        { 
+        {
+            SetHp(player.Hp - value);
             StartCoroutine("DamagedEffect");
             SoundManager.Instance.PlayEffect("PlayerHit");
         }

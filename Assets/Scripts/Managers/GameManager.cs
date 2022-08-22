@@ -92,7 +92,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        currentBgmName = "Cake Shop";
+        currentBgmName = currentSceneName;
         SoundManager.Instance.PlayBgm(currentBgmName);
     }
 
@@ -224,6 +224,14 @@ public class GameManager : Singleton<GameManager>
                 return;
             }
         }
+
+        if(nextScene == "Cake Shop")
+        {
+            currentBgmName = nextScene;
+            SoundManager.Instance.PlayBgm(currentBgmName);
+            return;
+        }
+
 
         if(currentBgmName == nextScene)
         {
