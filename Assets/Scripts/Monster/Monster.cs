@@ -221,6 +221,7 @@ public abstract class Monster : MonoBehaviour
                 GameManager.Instance.MoveToEndingScene();
             }
         }
+        Destroy(bul);
         StartCoroutine(FadeOut());
         return;
     }
