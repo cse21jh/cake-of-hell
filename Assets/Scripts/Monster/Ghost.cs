@@ -11,7 +11,7 @@ public class Ghost : Monster
         itemCode.Add(4008);
         MaxHp = 60;
         Hp = 60;
-        Speed = Util.GetPlayerSpeed()*2;
+        Speed = Util.GetPlayerSpeed();
         AttackDamage = 40;
         AttackRange = 1;
         Eyesight = 7;

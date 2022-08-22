@@ -64,7 +64,7 @@ public class Dragon : Monster
     {
         if (CheckPlayer())
         {
-            var bul = Instantiate(bullet, transform.position + new Vector3(-1*lookLeft, 1, 0), Quaternion.identity);
+            bul.SetActive(true);
             Bullet temp = bul.GetComponent<Bullet>();
             Vector3 monsterPos = GetObjectPos();
             Vector3 playerPos = GetPlayerPos();

@@ -44,8 +44,8 @@ public class MudTower : Monster
     private IEnumerator AttackRoutine()
     {
         if (CheckPlayer())
-        {
-            var bul = Instantiate(bullet, transform.position, Quaternion.identity);
+        { 
+            bul.SetActive(true);
             Bullet temp = bul.GetComponent<Bullet>();
             Vector3 monsterPos = GetObjectPos();
             Vector3 playerPos = GetPlayerPos();

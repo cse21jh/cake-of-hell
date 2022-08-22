@@ -15,7 +15,7 @@ public class Tornado : Monster
         itemCode.Add(4006);
         MaxHp = 30;
         Hp = 30;
-        Speed = (Util.GetPlayerSpeed() * 2);
+        Speed = (Util.GetPlayerSpeed());
         AttackDamage = 24;
         AttackRange = 4;
         Eyesight = 4;

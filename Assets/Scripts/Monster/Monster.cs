@@ -27,7 +27,7 @@ public abstract class Monster : MonoBehaviour
     protected GameObject Item;
     protected GameObject dropItem;
     protected GameObject monsterHitBox;
-    protected GameObject bullet;
+    protected GameObject bul;
     protected List<int> itemCode = new List<int>();
 
     protected Sprite rSprite;
@@ -45,7 +45,9 @@ public abstract class Monster : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         Item = ResourceLoader.GetPrefab("Prefabs/Item/Item");
         monsterHitBox = Instantiate(ResourceLoader.GetPrefab("Prefabs/Monster/MonsterHitBox"), this.transform);
-        bullet = ResourceLoader.GetPrefab("Prefabs/Monster/Bullet");
+        bul = Instantiate(ResourceLoader.GetPrefab("Prefabs/Monster/Bullet"));
+        bul.GetComponent<Bullet>().host = this.gameObject;
+        bul.SetActive(false);
         monsterHitBox.GetComponent<MonsterHitBox>().damage = AttackDamage;
         lSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mobs")[MonsterNumber * 2];
         rSprite = ResourceLoader.GetPackedSprite("Sprites/Mob/mobs")[MonsterNumber * 2+1];

@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, duration);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -18,7 +17,7 @@ public class Bullet : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             PlayerManager.Instance.GetDamage(dmg);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -30,6 +29,8 @@ public class Bullet : MonoBehaviour
 
     public IEnumerator ShootBullet(Vector3 playerPos, int size = 1)
     {
+        transform.position = host.transform.position;
+        transform.localScale = new Vector3(1, 1, 1);
         AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
         Vector3 startPosition = transform.position;
         for (float t = 0; t <= duration-0.1f; t += Time.deltaTime)
@@ -47,8 +48,8 @@ public class Bullet : MonoBehaviour
             gameObject.AddComponent<PolygonCollider2D>();
             gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
         }
-        
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        gameObject.SetActive(false);
     }
 
 }

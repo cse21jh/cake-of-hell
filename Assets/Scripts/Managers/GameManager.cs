@@ -471,6 +471,10 @@ public class GameManager : Singleton<GameManager>
 
     public void ReStart()
     {
+        if(currentSceneName == "EndingScene")
+        {
+            return;
+        }
         if(TimeManager.Instance.isPrepareTime)
         {
             LoadScene("Cake Shop", true);

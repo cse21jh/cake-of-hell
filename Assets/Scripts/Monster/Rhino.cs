@@ -79,7 +79,7 @@ public class Rhino : Monster
 
     private IEnumerator AttackRoutine(Vector3 currentPlayerPosition)
     {
-        var bul = Instantiate(bullet, transform.position, Quaternion.identity);
+        bul.SetActive(true);
         Bullet temp = bul.GetComponent<Bullet>();
         Vector3 monsterPos = GetObjectPos();
         Vector3 playerPos = GetPlayerPos();
