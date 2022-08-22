@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
         hitBox.transform.position = (Vector2)transform.position + (mousePos - (Vector2)transform.position).normalized * AttackRange;
         hitBox.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        hitBox.transform.position = new Vector2(0,0);
+        hitBox.transform.position = gameObject.transform.position;
         hitBox.gameObject.SetActive(false);
     }
 

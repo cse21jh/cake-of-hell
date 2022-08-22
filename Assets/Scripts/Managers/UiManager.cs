@@ -36,7 +36,7 @@ public class UiManager : Singleton<UiManager>
                 OpenItemList();
             }
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && GameManager.Instance.currentSceneName != "MainMenu")
         {
             if(openItemList)
             {
