@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public float MaxHp { get; set; } = 120f;
     public float Hp { get; set; } = 120f;
     public float Speed { get; set; } = 4f;
-    public float RealSpeed { get; set; } = 4f;
+    public float RealSpeed { get; set; } = 4.5f;
     public float AttackDamage { get; set; } = 10f;
     public float AttackRange { get; set; } = 1.5f;
     public float Money { get; set; } = 100f;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     private GameObject hitBox;
 
-    private float coolTime = 1.0f;
+    private float coolTime = 0.5f;
     private float curCoolTime = 0;
 
     public Dictionary<int, int> NumberOfBase { get; set; } = new Dictionary<int, int>() ;
