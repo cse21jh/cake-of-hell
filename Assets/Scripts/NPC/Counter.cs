@@ -34,7 +34,7 @@ public class Counter : NPC
         GuestSprite.sprite = guestSprites[2 * SpriteNumber + 1];
         if(!TimeManager.Instance.isPrepareTime)
         {
-            GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0, 0);
+            GuestObject.transform.position = gameObject.transform.position + new Vector3(-2, 0.5f, 0);
             StartCoroutine(GuestLeave(0));
         }
     }
@@ -207,7 +207,7 @@ public class Counter : NPC
         hasOrder = false;
         yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
             GuestObject, 
-            gameObject.transform.position + new Vector3(-14, 0, 0),
+            gameObject.transform.position + new Vector3(-14, 0.5f, 0),
             3.0f
         ));
         HasGuest = false;

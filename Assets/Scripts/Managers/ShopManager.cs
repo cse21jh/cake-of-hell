@@ -34,7 +34,7 @@ public class ShopManager : MonoBehaviour
                 ct.GuestSprite.sprite = guestSprites[2 * ct.SpriteNumber + 1];
                 yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
                     ct.GuestObject, 
-                    ct.gameObject.transform.position + new Vector3(-2, 0, 0),
+                    ct.gameObject.transform.position + new Vector3(-2, 0.5f, 0),
                     3.0f
                 ));
                 ct.HasGuest = true;
