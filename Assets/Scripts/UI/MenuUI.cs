@@ -32,7 +32,7 @@ public class MenuUI : BaseUI, ISingleOpenUI
 
     public void Restart()
     {
-        UiManager.Instance.CloseUI(this);
+        Resume();
         GameManager.Instance.ReStart();
     }
 
