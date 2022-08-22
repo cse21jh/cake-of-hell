@@ -46,6 +46,7 @@ public class SoundManager : Singleton<SoundManager>
         EffectSoundDictionary.Add("Farming", Resources.Load<AudioClip>("Audio/BGM/farming_엉뚱한 작당모의"));
         EffectSoundDictionary.Add("Magician Cave", Resources.Load<AudioClip>("Audio/BGM/magician_니가 먼저 했잖아 (Short)"));
         EffectSoundDictionary.Add("Cake Shop", Resources.Load<AudioClip>("Audio/BGM/Shop_Fluffing a Duck"));
+        EffectSoundDictionary.Add("TutorialScene", Resources.Load<AudioClip>("Audio/BGM/story_The Epic Cinematic Background"));
         EffectSoundDictionary.Add("MainMenu", EffectSoundDictionary["Cake Shop"]);
     }
 

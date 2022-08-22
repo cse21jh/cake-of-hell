@@ -211,6 +211,13 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
+        if(nextScene == "TutorialScene")
+        {
+            currentBgmName = nextScene;
+            SoundManager.Instance.PlayBgm(currentBgmName);
+            return;
+        }
+
         if(nextScene.Contains("Map"))
         {
             if(currentBgmName == "Farming")
