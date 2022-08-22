@@ -26372,11 +26372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5365915887677583154, guid: 31aee127b9a68be47afa859c6fd82f6a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5365915887677583154, guid: 31aee127b9a68be47afa859c6fd82f6a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5365915887677583154, guid: 31aee127b9a68be47afa859c6fd82f6a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -26768,6 +26768,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 2301535091563347433, guid: 56805aabe993516479a22deedfd6c0a0, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56805aabe993516479a22deedfd6c0a0, type: 3}
 --- !u!1001 &4353790368257135095
@@ -26825,6 +26829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Counter0
       objectReference: {fileID: 0}
+    - target: {fileID: 4353790367984314530, guid: c9ac2eec6c4d36c4fb509d2f15ff5ee7, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9ac2eec6c4d36c4fb509d2f15ff5ee7, type: 3}
 --- !u!1001 &5469655027486018731
@@ -26834,6 +26842,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5469655027360500402, guid: ae3547681c1441f42b4b00eb0dbff160, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5469655027843907385, guid: ae3547681c1441f42b4b00eb0dbff160, type: 3}
       propertyPath: m_Name
       value: CakeTable1
@@ -26891,6 +26903,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7312802463693741643, guid: d37ced582d5de0a4c89b5e2065d974ce, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7312802463693741643, guid: d37ced582d5de0a4c89b5e2065d974ce, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7312802465168045044, guid: d37ced582d5de0a4c89b5e2065d974ce, type: 3}
       propertyPath: m_Name
       value: CakeTable0
@@ -27005,6 +27025,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8809875815458578367, guid: 9f805d96be6fe954bb8b2647e0fd6c59, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8809875815677619280, guid: 9f805d96be6fe954bb8b2647e0fd6c59, type: 3}
       propertyPath: m_RootOrder
       value: 7
