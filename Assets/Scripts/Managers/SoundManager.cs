@@ -34,10 +34,7 @@ public class SoundManager : Singleton<SoundManager>
 
         BGMVolume = 1f;
         EffectVolume = 0.3f;
-    }
 
-    void Start()
-    {
         EffectSoundDictionary.Add("Click", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-21"));
         EffectSoundDictionary.Add("MoveScene", Resources.Load<AudioClip>("Audio/CasualGameSounds/DM-CGS-26"));
         EffectSoundDictionary.Add("MonsterHit", Resources.Load<AudioClip>("Audio/Shapeforms Audio Free Sound Effects/PUNCH_DESIGNED_HEAVY_23"));
@@ -48,6 +45,11 @@ public class SoundManager : Singleton<SoundManager>
         EffectSoundDictionary.Add("Cake Shop", Resources.Load<AudioClip>("Audio/BGM/Shop_Fluffing a Duck"));
         EffectSoundDictionary.Add("TutorialScene", Resources.Load<AudioClip>("Audio/BGM/story_The Epic Cinematic Background"));
         EffectSoundDictionary.Add("MainMenu", EffectSoundDictionary["Cake Shop"]);
+    }
+
+    void Start()
+    {
+        
     }
 
     public void PlayEffect(string name)

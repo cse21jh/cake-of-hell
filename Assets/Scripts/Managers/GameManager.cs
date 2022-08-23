@@ -369,6 +369,7 @@ public class GameManager : Singleton<GameManager>
         {
             magicianSlotUpgrade.IsUnlocked = true;
         }
+        magicianSlotUpgrade.UpgradeFunc = UpgradeMagicianSlot();
 
         if (!unlockMapBUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 1)
         {
@@ -659,19 +660,19 @@ public class GameManager : Singleton<GameManager>
     {
         magicianSlotUpgrade = new Upgrade(3, 0, 700, "마법사 슬롯 추가", UpgradeMagicianSlot());
         upgradeList.Add(magicianSlotUpgrade);
-        cakeTableNumberUpgrade = new Upgrade(1, 0, 6000, "케이크 제작대 추가", UpgradeCakeTable(), true);
+        cakeTableNumberUpgrade = new Upgrade(1, 0, 600, "케이크 제작대 추가", UpgradeCakeTable(), true);
         upgradeList.Add(cakeTableNumberUpgrade);
         /*counterNumberUpgrade = new Upgrade(1, 0, 10000, "주문대 추가", UpgradeCakeTable(), true);
         upgradeList.Add(counterNumberUpgrade);*/
-        guestLeaveTimeUpgrade = new Upgrade(1, 0,4000, "손님 인내심 증가", UpgradeGuestLeaveTime(), true);
+        guestLeaveTimeUpgrade = new Upgrade(1, 0,400, "손님 인내심 증가", UpgradeGuestLeaveTime(), true);
         upgradeList.Add(guestLeaveTimeUpgrade);
-        unlockMapBUpgrade = new Upgrade(1, 0, 10000, "B등급 파밍장 해금", UpgradeMapB());
+        unlockMapBUpgrade = new Upgrade(1, 0, 1000, "B등급 파밍장 해금", UpgradeMapB());
         upgradeList.Add(unlockMapBUpgrade);
-        unlockMapAUpgrade = new Upgrade(1, 0, 15000, "A등급 파밍장 해금", UpgradeMapA());
+        unlockMapAUpgrade = new Upgrade(1, 0, 1500, "A등급 파밍장 해금", UpgradeMapA());
         upgradeList.Add(unlockMapAUpgrade);
-        unlockMapSUpgrade = new Upgrade(1, 0, 20000, "S등급 파밍장 해금", UpgradeMapS());
+        unlockMapSUpgrade = new Upgrade(1, 0, 2000, "S등급 파밍장 해금", UpgradeMapS());
         upgradeList.Add(unlockMapSUpgrade);
-        unlockMapSSUpgrade = new Upgrade(1, 0, 25000, "SS등급 파밍장 해금", UpgradeMapSS());
+        unlockMapSSUpgrade = new Upgrade(1, 0, 2500, "SS등급 파밍장 해금", UpgradeMapSS());
         upgradeList.Add(unlockMapSSUpgrade);
     }
 }
