@@ -72,11 +72,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(inventoryPage.Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
+                    inputCount = 1;
+                    numberSelect.SetNumber(1);
                     input.LoadItem(pair.Key, -1);
                     inputName.text = Util.GetItem(pair.Key).Name;
-                    inputCount = 1;
                     LoadOutput(-1);
-                    for(int i=0; i<3; i++) outputOthers[i].SetActive(false);
+                    for (int i=0; i<3; i++) outputOthers[i].SetActive(false);
                 });
             }
         }
@@ -154,8 +155,8 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         outputItem = Util.GetItem(recipeDefault.Output) as ProcessedItem;
         outputName.text = outputItem.Name;
         outputDesc.text = outputItem.FlavorText;
-        totalCost.text = recipeDefault.Price.ToString();
-        totalTime.text = recipeDefault.Duration.ToString();
+        totalCost.text = (recipeDefault.Price * inputCount).ToString();
+        totalTime.text = (recipeDefault.Duration * inputCount).ToString();
     }
 
     private void ToggleOutputList() 

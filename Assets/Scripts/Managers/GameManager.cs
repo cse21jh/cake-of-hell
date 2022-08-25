@@ -88,6 +88,7 @@ public class GameManager : Singleton<GameManager>
         currentSceneName = "MainMenu";
         AddMonsterInMap();
         AddUpgrade();
+        Screen.SetResolution(1920, 1080, true);
     }
 
     void Start()
