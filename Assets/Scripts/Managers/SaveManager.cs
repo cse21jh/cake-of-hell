@@ -65,6 +65,8 @@ public class SaveData
     public int unlockMapAUpgradeLevel;
     public int unlockMapSUpgradeLevel;
     public int unlockMapSSUpgradeLevel;
+
+    public float earnedMoney;
 }
 
 
@@ -153,6 +155,8 @@ public class SaveManager : Singleton<SaveManager>
                 GameManager.Instance.unlockMapSSUpgrade.CurrentLevel = saveData.unlockMapSSUpgradeLevel;
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.unlockMapSSUpgrade);
                 GameManager.Instance.CheckUnlock();
+
+                GameManager.Instance.earnedMoney = saveData.earnedMoney;
             }
         }
     }
@@ -213,6 +217,8 @@ public class SaveManager : Singleton<SaveManager>
         saveData.unlockMapAUpgradeLevel = GameManager.Instance.unlockMapAUpgrade.CurrentLevel;
         saveData.unlockMapSUpgradeLevel = GameManager.Instance.unlockMapSUpgrade.CurrentLevel;
         saveData.unlockMapSSUpgradeLevel = GameManager.Instance.unlockMapSSUpgrade.CurrentLevel;
+
+        saveData.earnedMoney = GameManager.Instance.earnedMoney;
 
         string json = JsonUtility.ToJson(saveData, true);
 

@@ -21,6 +21,8 @@ public class GameManager : Singleton<GameManager>
 
     public string currentBgmName;
 
+    public float earnedMoney = 0;
+
     private DialogUI unlockMapDialogUI;
     // About Ending Or UnLock
     public int numberOfSoldCake = 0;

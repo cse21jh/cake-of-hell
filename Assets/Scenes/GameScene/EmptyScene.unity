@@ -652,6 +652,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5927607476953968725, guid: ccbe4c40bf482f540bd8a6e5a7b7b841, type: 3}
+      propertyPath: isPrepareTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5927607476953968730, guid: ccbe4c40bf482f540bd8a6e5a7b7b841, type: 3}
       propertyPath: m_RootOrder
       value: 9

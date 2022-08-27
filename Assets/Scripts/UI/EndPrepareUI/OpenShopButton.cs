@@ -14,7 +14,7 @@ public class OpenShopButton : MonoBehaviour
     public void OnClickExit()
     {
         SoundManager.Instance.PlayEffect("Click");
-        endPrepareUI.Close();
         TimeManager.Instance.OpenShop();
+        endPrepareUI.Close();
     }
 }

@@ -16,7 +16,7 @@ public class TimeManager : Singleton<TimeManager>
     public int GuestLeaveTimeStart { get; private set; }
     public int GuestLeaveTimeEnd { get; private set; }
 
-    public bool isPrepareTime;
+    public bool isPrepareTime = true;
     public bool endPrepare = false;
     public bool restart = false;
 
@@ -41,7 +41,7 @@ public class TimeManager : Singleton<TimeManager>
     {
         if(!stopTimer)
         { 
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * Time.timeScale;
             if(huntTimeUI != null && cookTimeUI != null)
             {
                 huntTimeUI.TimeBarUpdate(timer/oneHour);
@@ -62,7 +62,6 @@ public class TimeManager : Singleton<TimeManager>
         {
             GameManager.Instance.killMonsterInADay = false;
             timer = 0f;
-            isPrepareTime = true;
             stopTimer = false;
             GameManager.Instance.soldCakeInADay = 0;
             UpdateGuestTimes();
@@ -77,7 +76,6 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log("Time to Open");
         timer = 12.0f * oneHour;
         stopTimer = false;
-        isPrepareTime = false;
         StartCoroutine(OpenShopCoroutine());
     }
 
@@ -86,11 +84,11 @@ public class TimeManager : Singleton<TimeManager>
         yield return null;
         PrepareOpenShop();
 
-        for(int i=0; i<oneHour*12*10; i++)
+        while(timer<oneHour*12)
         {
             if(restart)
             {
-                i = 0;
+                timer = 0;
                 restart = false;
             }
             if (endPrepare)
@@ -115,11 +113,11 @@ public class TimeManager : Singleton<TimeManager>
 
     public IEnumerator OpenShopCoroutine()
     {
-        for (int i=0; i<oneHour*12*10; i++)
+        while(timer<oneHour*24)
         {
             if (restart)
             {
-                i = 0;
+                timer = 12;
                 restart = false;
             }
             yield return new WaitForSeconds(0.1f);
@@ -138,7 +136,8 @@ public class TimeManager : Singleton<TimeManager>
     {
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
-        if(!GameManager.Instance.killMonsterInADay)
+        isPrepareTime = false;
+        if (!GameManager.Instance.killMonsterInADay)
         {
             GameManager.Instance.MoveToEndingScene();
         }
@@ -154,6 +153,7 @@ public class TimeManager : Singleton<TimeManager>
         Debug.Log("Time to Close");
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
+        isPrepareTime = true;
         endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
         if (endDayUI != null)
         { 
@@ -172,15 +172,15 @@ public class TimeManager : Singleton<TimeManager>
         int reputationPenalty = (int)((5 - reputation) * 2);
         if (!GameManager.Instance.unlockMapS)
         {
-            GuestEnterTimeStart = 50 + reputationPenalty;
-            GuestEnterTimeEnd = 55 + reputationPenalty;
+            GuestEnterTimeStart = 3 + reputationPenalty;
+            GuestEnterTimeEnd = 6 + reputationPenalty;
             GuestLeaveTimeStart = 40 + GameManager.Instance.addGuestLeaveTime;
             GuestLeaveTimeEnd = 45 + GameManager.Instance.addGuestLeaveTime;
         }
         else
         {
-            GuestEnterTimeStart = 45 + reputationPenalty;
-            GuestEnterTimeEnd = 50 + reputationPenalty;
+            GuestEnterTimeStart = 2 + reputationPenalty;
+            GuestEnterTimeEnd = 4 + reputationPenalty;
             GuestLeaveTimeStart = 35 + GameManager.Instance.addGuestLeaveTime;
             GuestLeaveTimeEnd = 40 + GameManager.Instance.addGuestLeaveTime;
         }
