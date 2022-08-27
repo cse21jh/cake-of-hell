@@ -374,24 +374,40 @@ public class GameManager : Singleton<GameManager>
         }
         magicianSlotUpgrade.UpgradeFunc = UpgradeMagicianSlot();
 
-        if (!unlockMapBUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 1)
+        if (!unlockMapBUpgrade.IsUnlocked && TimeManager.Instance.GetDay() == 1)
         {
             unlockMapBUpgrade.IsUnlocked = true;
         }
+        else
+        {
+            unlockMapBUpgrade.IsUnlocked = false;
+        }
 
-        if (!unlockMapAUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 5)
+        if (!unlockMapAUpgrade.IsUnlocked && TimeManager.Instance.GetDay() == 5)
         {
             unlockMapAUpgrade.IsUnlocked = true;
         }
+        else
+        {
+            unlockMapAUpgrade.IsUnlocked = false;
+        }
 
-        if (!unlockMapSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 12)
+        if (!unlockMapSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() == 12)
         {
             unlockMapSUpgrade.IsUnlocked = true;
         }
+        else
+        {
+            unlockMapSUpgrade.IsUnlocked = false;
+        }
 
-        if (!unlockMapSSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() >= 23)
+        if (!unlockMapSSUpgrade.IsUnlocked && TimeManager.Instance.GetDay() == 23)
         {
             unlockMapSSUpgrade.IsUnlocked = true;
+        }
+        else
+        {
+            unlockMapSSUpgrade.IsUnlocked = false;
         }
     }
 

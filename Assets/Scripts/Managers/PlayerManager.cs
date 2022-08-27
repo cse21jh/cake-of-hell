@@ -220,7 +220,11 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         foreach (var code in ItemManager.Instance.ItemCodeList)
         {
-            SetNumberOfItem(code, GetNumberOfItem(code) - GetNumberOfItemInADay(code));
+            int count = GetNumberOfItem(code) - GetNumberOfItemInADay(code);
+            if(count < 0)
+                SetNumberOfItem(code, 0);
+            else
+                SetNumberOfItem(code, count);
         }
     }
 
@@ -304,24 +308,29 @@ public class PlayerManager : Singleton<PlayerManager>
     public void Die()
     {
         GameManager.Instance.AddDieCount();
-        SetBackNumberOfItem();
-        ResetNumberOfItemInADay();
-        TimeManager.Instance.timer = 0;
-        TimeManager.Instance.restart = true;
-        StartCoroutine(GameManager.Instance.DieLoadScene("Cake Shop"));
+        DiePenalty();
         if(GameManager.Instance.dieCount >= 3)
         {
             GameManager.Instance.MoveToEndingScene();
+            return;
         }
+        StartCoroutine(GameManager.Instance.DieLoadScene("Cake Shop"));
         Debug.Log("Player Die");
         invincible = false;
     }
 
     public void DiePenalty()
     {
-        SetMoney(GetMoney() - 100);
+        foreach(var code in ItemManager.Instance.ItemCodeList)
+        {
+            if (code / 1000 == 4)
+            {
+                SetNumberOfItem(code,0);
+            }
+        }
     }
 
+    
     public void SetPlayerImage(int index)
     {
         player.spriteRenderer.sprite = player.playerImage[index];
