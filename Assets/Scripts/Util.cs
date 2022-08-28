@@ -58,8 +58,8 @@ public class Util
     public static void EarnMoney(float amount)
     {
         PlayerManager.Instance.SetMoneyInADay(PlayerManager.Instance.GetMoneyInADay() + amount);
-        PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney()+amount);
-        GameManager.Instance.EarnedMoney = GameManager.Instance.EarnedMoney + amount;
+        PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney() + amount);
+        if(!GameManager.Instance.IsWave) GameManager.Instance.EarnedMoney = GameManager.Instance.EarnedMoney + amount;
     }
 
     public static void SpendMoney(float amount)

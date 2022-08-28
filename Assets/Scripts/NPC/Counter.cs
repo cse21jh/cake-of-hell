@@ -74,7 +74,6 @@ public class Counter : NPC
                             if(GameManager.Instance.IsWave) 
                             {
                                 GameManager.Instance.WaveFailCount++;
-                                Debug.Log(GameManager.Instance.WaveFailCount);
                                 if(GameManager.Instance.WaveFailCount >= 10) 
                                 {
                                     EndWave();
@@ -192,11 +191,15 @@ public class Counter : NPC
             if(GameManager.Instance.IsWave) 
             {
                 GameManager.Instance.WaveSuccessCount++;
-                Debug.Log(GameManager.Instance.WaveSuccessCount);
                 if(GameManager.Instance.WaveSuccessCount >= 15) 
                 {
                     EndWave();
                 }
+            }
+            else if((int)GameManager.Instance.EarnedMoney / 1500 > GameManager.Instance.WaveLevel)
+            {
+                GameManager.Instance.WaveLevel = (int)GameManager.Instance.EarnedMoney / 1500;
+                StartWave();
             }
             StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
@@ -223,7 +226,6 @@ public class Counter : NPC
             if(GameManager.Instance.IsWave) 
             {
                 GameManager.Instance.WaveFailCount++;
-                Debug.Log(GameManager.Instance.WaveFailCount);
                 if(GameManager.Instance.WaveFailCount >= 10) 
                 {
                     EndWave();
@@ -250,13 +252,15 @@ public class Counter : NPC
 
     private void StartWave()
     {
+        //stop time
+        //show alarm
         GameManager.Instance.IsWave = true;
+        GameManager.Instance.WaveFailCount = 0;
+        GameManager.Instance.WaveSuccessCount = 0;
     }
 
     private void EndWave()
     {
         GameManager.Instance.IsWave = false;
-        GameManager.Instance.WaveFailCount = 0;
-        GameManager.Instance.WaveSuccessCount = 0;
     }
 }
