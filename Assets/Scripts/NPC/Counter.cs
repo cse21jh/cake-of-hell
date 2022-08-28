@@ -71,6 +71,15 @@ public class Counter : NPC
                         if(HasGuest)
                         {
                             isOrderDialogOn = false;
+                            if(GameManager.Instance.IsWave) 
+                            {
+                                GameManager.Instance.WaveFailCount++;
+                                Debug.Log(GameManager.Instance.WaveFailCount);
+                                if(GameManager.Instance.WaveFailCount >= 10) 
+                                {
+                                    EndWave();
+                                }
+                            }
                             GameManager.Instance.GivePenalty();
                             StartCoroutine(GuestGo());
                             EndInteract();
@@ -180,6 +189,15 @@ public class Counter : NPC
                     dialog.SetText("내가 원했던 딱 그 맛이네. 정말 맛있군!");
                     break;
             }
+            if(GameManager.Instance.IsWave) 
+            {
+                GameManager.Instance.WaveSuccessCount++;
+                Debug.Log(GameManager.Instance.WaveSuccessCount);
+                if(GameManager.Instance.WaveSuccessCount >= 15) 
+                {
+                    EndWave();
+                }
+            }
             StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
         }
@@ -189,8 +207,8 @@ public class Counter : NPC
     {
         yield return new WaitForSeconds(rand.Next
         (
-            TimeManager.Instance.GuestLeaveTimeStart,
-            TimeManager.Instance.GuestLeaveTimeEnd
+            GameManager.Instance.IsWave ? 20 : TimeManager.Instance.GuestLeaveTimeStart,
+            GameManager.Instance.IsWave ? 26 : TimeManager.Instance.GuestLeaveTimeEnd
         ));
 
         if(GuestNumber == num && HasGuest)
@@ -202,6 +220,15 @@ public class Counter : NPC
                 UiManager.Instance.CloseUI(cakelist);
             }
             GameManager.Instance.GivePenalty();
+            if(GameManager.Instance.IsWave) 
+            {
+                GameManager.Instance.WaveFailCount++;
+                Debug.Log(GameManager.Instance.WaveFailCount);
+                if(GameManager.Instance.WaveFailCount >= 10) 
+                {
+                    EndWave();
+                }
+            }
             StartCoroutine(GuestGo());
         }
     }
@@ -214,10 +241,22 @@ public class Counter : NPC
         yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
             GuestObject, 
             gameObject.transform.position + new Vector3(-14, 0.5f, 0),
-            3.0f
+            GameManager.Instance.IsWave ? 1.0f : 3.0f
         ));
         isGuestMoving = false;
         HasGuest = false;
         GuestObject.SetActive(false);
+    }
+
+    private void StartWave()
+    {
+        GameManager.Instance.IsWave = true;
+    }
+
+    private void EndWave()
+    {
+        GameManager.Instance.IsWave = false;
+        GameManager.Instance.WaveFailCount = 0;
+        GameManager.Instance.WaveSuccessCount = 0;
     }
 }

@@ -59,7 +59,7 @@ public class Util
     {
         PlayerManager.Instance.SetMoneyInADay(PlayerManager.Instance.GetMoneyInADay() + amount);
         PlayerManager.Instance.SetMoney(PlayerManager.Instance.GetMoney()+amount);
-        GameManager.Instance.earnedMoney = GameManager.Instance.earnedMoney + amount;
+        GameManager.Instance.EarnedMoney = GameManager.Instance.EarnedMoney + amount;
     }
 
     public static void SpendMoney(float amount)

@@ -39,16 +39,17 @@ public class ShopManager : MonoBehaviour
                 yield return StartCoroutine(ProcessManager.Instance.MoveProcess(
                     ct.GuestObject, 
                     ct.gameObject.transform.position + new Vector3(-2, 0.5f, 0),
-                    3.0f
+                    GameManager.Instance.IsWave ? 1.0f : 3.0f
                 ));
                 ct.HasGuest = true;
                 ct.GuestNumber++;
                 StartCoroutine(ct.GuestLeave(ct.GuestNumber));
             }
+
             yield return new WaitForSeconds(rand.Next
             (
-                TimeManager.Instance.GuestEnterTimeStart - 3,
-                TimeManager.Instance.GuestEnterTimeEnd - 3
+                GameManager.Instance.IsWave ? 1 : TimeManager.Instance.GuestEnterTimeStart - 3,
+                GameManager.Instance.IsWave ? 2 : TimeManager.Instance.GuestEnterTimeEnd - 3
             ));
         }
     }

@@ -21,7 +21,11 @@ public class GameManager : Singleton<GameManager>
 
     public string currentBgmName;
 
-    public float earnedMoney = 0;
+    public float EarnedMoney { get; set; } = 0;
+    public int WaveLevel { get; set; } = 0;
+    public bool IsWave { get; set; } = false;
+    public int WaveFailCount { get; set; } = 0;
+    public int WaveSuccessCount { get; set; } = 0;
 
     private DialogUI unlockMapDialogUI;
     // About Ending Or UnLock
@@ -493,13 +497,15 @@ public class GameManager : Singleton<GameManager>
         penaltyCount++;
         if (penaltyCount == 3)
         { 
-            Util.DecreaseReputation(1.0f);
+            Util.DecreaseReputation(IsWave ? 0.1f : 1.0f);
             penaltyCount = 0;
         }
         else
-            Util.DecreaseReputation();
+        {
+            Util.DecreaseReputation(IsWave ? 0.1f : 0.5f);
+        }
         cantAcceptOrderCount++;
-        if(cantAcceptOrderCount>=100)
+        if(cantAcceptOrderCount >= 100)
         {
             //MoveToEndingScene();
         }
