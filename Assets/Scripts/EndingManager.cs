@@ -37,56 +37,61 @@ public class EndingManager : MonoBehaviour
         }
         for(int i = 0; i<GameManager.Instance.killEachMonsterCount.Length;i++)
         {
-            if(GameManager.Instance.killEachMonsterCount[i]>=100)
+            if(GameManager.Instance.killEachMonsterCount[i]>=100 && !GameManager.Instance.shownEnding[3] )
             {
                 endingCount = 3;
                 return;
             }
-        }
-        /*if(GameManager.Instance.killMonsterCount >=1000)
+    }
+        /*if(GameManager.Instance.killMonsterCount >=1000 &&!GameManager.Instance.shownEnding[4])
         {
             endingCount = 4;
             return;
         }*/
-        if (GameManager.Instance.killSSMonsterCount >= 300)
+        if (GameManager.Instance.killSSMonsterCount >= 300 && !GameManager.Instance.shownEnding[5])
         {
             endingCount = 5;
             return;
         }
-        /*if (GameManager.Instance.cantAcceptOrderCount >= 100 || TimeManager.Instance.reputation <=0f)
+        /*if (TimeManager.Instance.reputation <=0f))
+        {
+            endingCount = 6;
+            return;
+        }*/
+        /*if ((GameManager.Instance.cantAcceptOrderCount >= 100 && !GameManager.Instance.shownEnding[6])
         {
             endingCount = 6;
             return;
         }*/
         // 7번은 아직 사냥꾼 존재 X
-        /*if(GameManager.Instance.processSSCount>=150)
+        /*if(GameManager.Instance.processSSCount>=150 && !GameManager.Instance.shownEnding[8])
         {
             endingCount = 8;
             return;
         }*/
-        /*if (GameManager.Instance.enterBlackHoleCount >= 100)
+        /*if (GameManager.Instance.enterBlackHoleCount >= 100 && !GameManager.Instance.shownEnding[9])
         {
             endingCount = 9;
             return;
         }*/
-        if (GameManager.Instance.numberOfSatisfiedCustomer >= 200)
+        if (GameManager.Instance.numberOfSatisfiedCustomer >= 200 && !GameManager.Instance.shownEnding[10])
         {
             endingCount = 10;
             return;
         }
-        if (GameManager.Instance.numberOfSatisfiedCustomer >= 100)
+        if (GameManager.Instance.numberOfSatisfiedCustomer >= 100 && !GameManager.Instance.shownEnding[11])
         {
             endingCount = 11;
             return;
         }
-        /*if (GameManager.Instance.cantAcceptOrderCount <= 30)
+        /*if (GameManager.Instance.cantAcceptOrderCount <= 30 && !GameManager.Instance.shownEnding[12])
         {
             endingCount = 12;
             return;
         }*/
         // 13번은 디자인 업그레이드 아직 X
         // 14번은 각 씬마다 시간 체크나 그런 부분이 힘듦. 일단 X
-        if(GameManager.Instance.numberOfSoldCake-GameManager.Instance.numberOfSatisfiedCustomer >= 150)
+        if (GameManager.Instance.numberOfSoldCake-GameManager.Instance.numberOfSatisfiedCustomer >= 150 && !GameManager.Instance.shownEnding[15])
         {
             endingCount = 15;
             return;
@@ -97,11 +102,13 @@ public class EndingManager : MonoBehaviour
 
     private void Ending()
     {
+        GameManager.Instance.shownEnding[endingCount] = true;
+        SaveManager.Instance.SaveShownEnding();
         switch(endingCount)
         {
             case 0:
                 Debug.Log("이거 버그임");
-                dialog.SetLongText(new string[] { "NDM에...빠진게...많습니다...죄송합니다...원래...무슨...엔딩이라도....나와야...하는데..." });
+                dialog.SetLongText(new string[] { "축하합니다! 모든 엔딩을 섭렵하셨습니다!... 혹은 버그이거나요.." });
                 break;
             case 1:
                 BackGround.sprite = EndingBackGround[0];

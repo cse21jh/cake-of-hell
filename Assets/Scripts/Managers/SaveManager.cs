@@ -68,6 +68,7 @@ public class SaveData
 
     public float earnedMoney;
     public int waveLevel;
+    public bool[] shownEnding = new bool[16];
 }
 
 
@@ -159,6 +160,7 @@ public class SaveManager : Singleton<SaveManager>
 
                 GameManager.Instance.EarnedMoney = saveData.earnedMoney;
                 GameManager.Instance.WaveLevel = saveData.waveLevel;
+                GameManager.Instance.shownEnding = saveData.shownEnding;
             }
         }
     }
@@ -222,6 +224,7 @@ public class SaveManager : Singleton<SaveManager>
 
         saveData.earnedMoney = GameManager.Instance.EarnedMoney;
         saveData.waveLevel = GameManager.Instance.WaveLevel;
+        saveData.shownEnding = GameManager.Instance.shownEnding;
 
         string json = JsonUtility.ToJson(saveData, true);
 
@@ -267,5 +270,23 @@ public class SaveManager : Singleton<SaveManager>
             return true;
         }
         return false;
+    }
+
+    public void SaveShownEnding()
+    {
+        SaveData saveData = new SaveData();
+
+        string loadJson = File.ReadAllText(path);
+        saveData = JsonUtility.FromJson<SaveData>(loadJson);
+
+        if(saveData != null)
+        {
+            saveData.shownEnding = GameManager.Instance.shownEnding;
+        }
+
+        string json = JsonUtility.ToJson(saveData, true);
+
+        if (path != null)
+            File.WriteAllText(path, json);
     }
 }

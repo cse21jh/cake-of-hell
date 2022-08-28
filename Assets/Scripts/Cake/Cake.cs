@@ -34,22 +34,6 @@ public class Cake
             price += ItemManager.Instance.GetPriceOfProcessedItem(IcingCode);
             correct++;
         }
-
-        if(correct==3)
-        {
-            GameManager.Instance.AddNumberOfSatisfiedCustomer();
-            if((GameManager.Instance.increaseReputationCount+=1) == 5)
-            {
-                Util.IncreaseReputation();
-                GameManager.Instance.increaseReputationCount = 0;
-            }
-        }
-        else
-        {
-            GameManager.Instance.increaseReputationCount = 0;
-        }
-        GameManager.Instance.AddNumberOfSoldCake();
-
         return price*((correct*0.2f)+1);
     }
 

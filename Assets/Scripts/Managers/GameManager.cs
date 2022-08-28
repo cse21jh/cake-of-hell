@@ -44,6 +44,7 @@ public class GameManager : Singleton<GameManager>
 
     public int[] killEachMonsterCount= new int[11];
 
+    public bool[] shownEnding = new bool[16];
 
     //About UnLock
     public bool unlockMapC;
@@ -505,7 +506,7 @@ public class GameManager : Singleton<GameManager>
             Util.DecreaseReputation(IsWave ? 0.1f : 0.5f);
         }
         cantAcceptOrderCount++;
-        if(cantAcceptOrderCount >= 100)
+        if(cantAcceptOrderCount >= 100 && !shownEnding[6])
         {
             //MoveToEndingScene();
         }

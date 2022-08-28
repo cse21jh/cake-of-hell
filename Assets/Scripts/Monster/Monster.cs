@@ -206,12 +206,12 @@ public abstract class Monster : MonoBehaviour
     {
         // ���⼭ ��� ������ ������ �Լ� ȣ��
         GameManager.Instance.killEachMonsterCount[MonsterNumber]++;
-        if(GameManager.Instance.killEachMonsterCount[MonsterNumber]>=100)
+        if(GameManager.Instance.killEachMonsterCount[MonsterNumber]>=100 && !GameManager.Instance.shownEnding[3])
         {
             GameManager.Instance.MoveToEndingScene();
         }
         GameManager.Instance.AddKillMonsterCount();
-        if (GameManager.Instance.killMonsterCount >= 1000)
+        if (GameManager.Instance.killMonsterCount >= 1000 && !GameManager.Instance.shownEnding[4])
         {
             //GameManager.Instance.MoveToEndingScene();
         }
@@ -219,7 +219,7 @@ public abstract class Monster : MonoBehaviour
         if (Rank == "SS")
         {
             GameManager.Instance.AddKillSSMonsterCount();
-            if (GameManager.Instance.killSSMonsterCount >= 3000)
+            if (GameManager.Instance.killSSMonsterCount >= 300 && !GameManager.Instance.shownEnding[5])
             {
                 GameManager.Instance.MoveToEndingScene();
             }

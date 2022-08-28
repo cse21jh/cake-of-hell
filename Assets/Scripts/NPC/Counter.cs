@@ -171,21 +171,32 @@ public class Counter : NPC
             float price = cake.GetPrice(orderBase, orderIcing, orderTopping);
             int satisfaction = cake.GetSatisfaction(orderBase, orderIcing, orderTopping);
             Util.EarnMoney(price);
+            GameManager.Instance.AddNumberOfSoldCake();
             UiManager.Instance.CloseUI(cakelist);
             UiManager.Instance.OpenUI(dialog);
             switch(satisfaction)
             {
                 case 0:
                     dialog.SetText("형편없군. 이런 것도 케이크라고 파는 건가?");
+                    GameManager.Instance.GivePenalty();
+                    GameManager.Instance.increaseReputationCount = 0;
                     break;
                 case 1:
                     dialog.SetText("못 먹을 정도는 아니지만, 기분이 썩 좋은 맛은 아니군.");
+                    GameManager.Instance.increaseReputationCount = 0;
                     break;
                 case 2:
                     dialog.SetText("어딘가 2% 부족하긴 하지만, 괜찮은 맛이야.");
+                    GameManager.Instance.increaseReputationCount = 0;
                     break;
                 case 3:
                     dialog.SetText("내가 원했던 딱 그 맛이네. 정말 맛있군!");
+                    GameManager.Instance.AddNumberOfSatisfiedCustomer();
+                    if ((GameManager.Instance.increaseReputationCount += 1) == 5)
+                    {
+                        Util.IncreaseReputation();
+                        GameManager.Instance.increaseReputationCount = 0;
+                    }
                     break;
             }
             if(GameManager.Instance.IsWave) 
