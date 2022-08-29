@@ -72,8 +72,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
                 itemSlots.Add(pair.Key, new ItemSlotComponent(inventoryPage.Container, pair.Key, pair.Value, true));
                 itemSlots[pair.Key].SetOnClick(() => 
                 {
-                    inputCount = 1;
-                    numberSelect.SetNumber(1);
+                    numberSelect.SetNumber((int)System.Math.Min
+                    (
+                        Util.CountItem(pair.Key), 
+                        PlayerManager.Instance.GetMoney() / (Util.GetItem(pair.Key) as RawItem).Price[0]
+                    ));
+                    inputCount = numberSelect.Count;
                     input.LoadItem(pair.Key, -1);
                     inputName.text = Util.GetItem(pair.Key).Name;
                     LoadOutput(-1);
@@ -155,6 +159,12 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         outputItem = Util.GetItem(recipeDefault.Output) as ProcessedItem;
         outputName.text = outputItem.Name;
         outputDesc.text = outputItem.FlavorText;
+        numberSelect.SetNumber((int)System.Math.Min
+        (
+            Util.CountItem(input.ItemCode), 
+            PlayerManager.Instance.GetMoney() / recipeDefault.Price
+        ));
+        inputCount = numberSelect.Count;
         totalCost.text = (recipeDefault.Price * inputCount).ToString();
         totalTime.text = (recipeDefault.Duration * inputCount).ToString();
     }
@@ -197,7 +207,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
 
     private bool IncreaseCount()
     {
-        if(inputCount < Util.CountItem(input.ItemCode))
+        if(inputCount < Util.CountItem(input.ItemCode) && recipeDefault.Price * inputCount <= PlayerManager.Instance.GetMoney())
         {
             inputCount++;
             totalCost.text = (recipeDefault.Price * inputCount).ToString();
@@ -222,7 +232,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
     private void Process() 
     {
         int idx = GetAvailableIndex();
-        if(input.HasItem() && PlayerManager.Instance.GetMoney() >= System.Convert.ToSingle(totalCost.text) && idx != -1)
+        if(input.HasItem() && inputCount > 0 && PlayerManager.Instance.GetMoney() >= System.Convert.ToSingle(totalCost.text) && idx != -1)
         {
             int inputCode = input.ItemCode;
             int outputCode = outputDefault.ItemCode;
