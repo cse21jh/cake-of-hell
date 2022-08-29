@@ -164,6 +164,9 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
     {
         gameObject.SetActive(true);
         UpdateSlots();
+        pagination.ShowPage(0);
+        matName.text = "";
+        matDesc.text = "";
         Debug.Log("Cake Table UI Opened!");
     }
 
