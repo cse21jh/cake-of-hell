@@ -69,6 +69,12 @@ public class SaveData
     public float earnedMoney;
     public int waveLevel;
     public bool[] shownEnding = new bool[16];
+    public int maxRevivalCount;
+    public int attackDamageUpgradeLevel;
+    public int speedUpgradeLevel;
+    public int maxHpUpgradeLevel;
+    public int maxRevivalCountUpgradeLevel;
+    public int designUpgradeLevel;
 }
 
 
@@ -160,6 +166,18 @@ public class SaveManager : Singleton<SaveManager>
                 GameManager.Instance.EarnedMoney = saveData.earnedMoney;
                 GameManager.Instance.WaveLevel = saveData.waveLevel;
                 GameManager.Instance.shownEnding = saveData.shownEnding;
+
+                GameManager.Instance.maxRevivalCount = saveData.maxRevivalCount;
+                GameManager.Instance.attackDamageUpgrade.CurrentLevel = saveData.attackDamageUpgradeLevel;
+                GameManager.Instance.upgradeList.Add(GameManager.Instance.attackDamageUpgrade);
+                GameManager.Instance.speedUpgrade.CurrentLevel = saveData.speedUpgradeLevel;
+                GameManager.Instance.upgradeList.Add(GameManager.Instance.speedUpgrade);
+                GameManager.Instance.maxHpUpgrade.CurrentLevel = saveData.maxHpUpgradeLevel;
+                GameManager.Instance.upgradeList.Add(GameManager.Instance.maxHpUpgrade);
+                GameManager.Instance.maxRevivalCountUpgrade.CurrentLevel = saveData.maxRevivalCountUpgradeLevel;
+                GameManager.Instance.upgradeList.Add(GameManager.Instance.maxRevivalCountUpgrade);
+                GameManager.Instance.designUpgrade.CurrentLevel = saveData.designUpgradeLevel;
+                GameManager.Instance.upgradeList.Add(GameManager.Instance.designUpgrade);
             }
         }
     }
@@ -224,6 +242,13 @@ public class SaveManager : Singleton<SaveManager>
         saveData.earnedMoney = GameManager.Instance.EarnedMoney;
         saveData.waveLevel = GameManager.Instance.WaveLevel;
         saveData.shownEnding = GameManager.Instance.shownEnding;
+
+        saveData.maxRevivalCount = GameManager.Instance.maxRevivalCount;
+        saveData.attackDamageUpgradeLevel = GameManager.Instance.attackDamageUpgrade.CurrentLevel;
+        saveData.speedUpgradeLevel = GameManager.Instance.speedUpgrade.CurrentLevel;
+        saveData.maxHpUpgradeLevel = GameManager.Instance.maxHpUpgrade.CurrentLevel;
+        saveData.maxRevivalCountUpgradeLevel = GameManager.Instance.maxRevivalCountUpgrade.CurrentLevel;
+        saveData.designUpgradeLevel = GameManager.Instance.designUpgrade.CurrentLevel;
 
         string json = JsonUtility.ToJson(saveData, true);
 

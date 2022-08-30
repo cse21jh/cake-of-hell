@@ -8,7 +8,7 @@ using TMPro;
 public class AddUpgradeButton : MonoBehaviour
 {
     private GameObject upgradeButton;
-    // Start is called before the first frame update
+
     void Start()
     {
         upgradeButton = Resources.Load<GameObject>("Prefabs/UI/UpgradeButton");
@@ -17,7 +17,8 @@ public class AddUpgradeButton : MonoBehaviour
             if (i.MaxLevel != i.CurrentLevel && i.IsUnlocked)
             {
                 GameObject upgrade = Instantiate(upgradeButton, this.transform);
-                string explain = i.UpgradeText + "\n" + i.Price.ToString();
+                string explain = i.UpgradeText + " (" + i.CurrentLevel.ToString() + "/" + i.MaxLevel.ToString()+
+                    ")\n" + i.Price.ToString();
                 upgrade.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = explain;
                 upgrade.gameObject.GetComponent<Button>().onClick.AddListener(()=>StartFunc(i.UpgradeFunc));
             }

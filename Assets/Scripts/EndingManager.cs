@@ -25,14 +25,16 @@ public class EndingManager : MonoBehaviour
 
     private void CheckEnding()
     {
-        if(GameManager.Instance.dieCount>=3)
+        if(GameManager.Instance.dieCount>=GameManager.Instance.maxRevivalCount)
         {
             endingCount = 1;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
         if(!GameManager.Instance.killMonsterInADay)
         {
             endingCount = 2;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
         for(int i = 0; i<GameManager.Instance.killEachMonsterCount.Length;i++)
@@ -40,17 +42,20 @@ public class EndingManager : MonoBehaviour
             if(GameManager.Instance.killEachMonsterCount[i]>=100 && !GameManager.Instance.shownEnding[3] )
             {
                 endingCount = 3;
+                GameManager.Instance.shownEnding[endingCount] = true;
                 return;
             }
     }
         /*if(GameManager.Instance.killMonsterCount >=1000 &&!GameManager.Instance.shownEnding[4])
         {
             endingCount = 4;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }*/
         if (GameManager.Instance.killSSMonsterCount >= 300 && !GameManager.Instance.shownEnding[5])
         {
             endingCount = 5;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
         /*if (TimeManager.Instance.reputation <=0f))
@@ -61,32 +66,38 @@ public class EndingManager : MonoBehaviour
         /*if ((GameManager.Instance.cantAcceptOrderCount >= 100 && !GameManager.Instance.shownEnding[6])
         {
             endingCount = 6;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }*/
         // 7번은 아직 사냥꾼 존재 X
         /*if(GameManager.Instance.processSSCount>=150 && !GameManager.Instance.shownEnding[8])
         {
             endingCount = 8;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }*/
         /*if (GameManager.Instance.enterBlackHoleCount >= 100 && !GameManager.Instance.shownEnding[9])
         {
             endingCount = 9;
+           GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }*/
         if (GameManager.Instance.numberOfSatisfiedCustomer >= 200 && !GameManager.Instance.shownEnding[10])
         {
             endingCount = 10;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
         if (GameManager.Instance.numberOfSatisfiedCustomer >= 100 && !GameManager.Instance.shownEnding[11])
         {
             endingCount = 11;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
         /*if (GameManager.Instance.cantAcceptOrderCount <= 30 && !GameManager.Instance.shownEnding[12])
         {
             endingCount = 12;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }*/
         // 13번은 디자인 업그레이드 아직 X
@@ -94,6 +105,7 @@ public class EndingManager : MonoBehaviour
         if (GameManager.Instance.numberOfSoldCake-GameManager.Instance.numberOfSatisfiedCustomer >= 150 && !GameManager.Instance.shownEnding[15])
         {
             endingCount = 15;
+            GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
     }
@@ -102,7 +114,6 @@ public class EndingManager : MonoBehaviour
 
     private void Ending()
     {
-        GameManager.Instance.shownEnding[endingCount] = true;
         SaveManager.Instance.SaveShownEnding();
         switch(endingCount)
         {

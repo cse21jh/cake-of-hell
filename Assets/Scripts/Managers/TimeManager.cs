@@ -166,6 +166,7 @@ public class TimeManager : Singleton<TimeManager>
         stopTimer = true;
         canvas = FindObjectOfType<Canvas>();
         isPrepareTime = true;
+        GameManager.Instance.CheckUpgradeUnlock();
         endDayUI = Instantiate(Resources.Load<GameObject>("Prefabs/UI/EndDayUI"), canvas.transform);
         if (endDayUI != null)
         { 

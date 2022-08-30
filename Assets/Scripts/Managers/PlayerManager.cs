@@ -309,7 +309,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         GameManager.Instance.AddDieCount();
         DiePenalty();
-        if(GameManager.Instance.dieCount >= 3)
+        if(GameManager.Instance.dieCount >= GameManager.Instance.maxRevivalCount)
         {
             GameManager.Instance.MoveToEndingScene();
             return;

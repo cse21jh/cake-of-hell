@@ -38,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     public int processSSCount = 0;
     public int cantAcceptOrderCount = 0;
     public int enterBlackHoleCount = 0;
+    public int maxRevivalCount = 3;
 
     public bool killMonsterInADay = false;
     
@@ -89,12 +90,18 @@ public class GameManager : Singleton<GameManager>
     public Upgrade unlockMapSUpgrade;
     public Upgrade unlockMapSSUpgrade;
 
+    public Upgrade attackDamageUpgrade;
+    public Upgrade speedUpgrade;
+    public Upgrade maxHpUpgrade;
+    public Upgrade maxRevivalCountUpgrade;
+    public Upgrade designUpgrade;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         currentSceneName = "MainMenu";
         AddMonsterInMap();
-        AddUpgrade();
+        AddUpgrades();
         Screen.SetResolution(1920, 1080, true);
     }
 
@@ -190,16 +197,28 @@ public class GameManager : Singleton<GameManager>
     public void LoadScene(string nextScene, bool onStartPoint = false)
     {
         SoundManager.Instance.PlayEffect("MoveScene");
-        SceneManager.LoadScene(nextScene);
-        currentSceneName = nextScene;
+        
         canMove = true;
         if (nextScene.Contains("Shop")) // input ShopName
         {
             PlayerManager.Instance.SetPlayerInShop(true);
+            switch(designUpgrade.CurrentLevel)
+            {
+                case 0:
+                    SceneManager.LoadScene("Cake Shop");
+                    break;
+                case 1:
+                    SceneManager.LoadScene("Cake Shop 1");
+                    break;
+                case 2:
+                    SceneManager.LoadScene("Cake Shop 2");
+                    break;
+            }
         }
         else
         {
             PlayerManager.Instance.SetPlayerInShop(false);
+            SceneManager.LoadScene(nextScene);
         }
 
         if (onStartPoint)
@@ -208,6 +227,7 @@ public class GameManager : Singleton<GameManager>
         }
         UiManager.Instance.openItemList = false;
         UiManager.Instance.openMenu = false;
+        currentSceneName = nextScene;
 
         CheckBgm(nextScene);
     }
@@ -378,7 +398,24 @@ public class GameManager : Singleton<GameManager>
             AlarmTexts.Add("SS 등급의 맵이 해금되었습니다!");
         }
 
-        if (!magicianSlotUpgrade.IsUnlocked && processCount >=200)
+        
+        if(AlarmTexts.Count != 0)
+        {
+            OpenAlarmUI(AlarmTexts);
+        }
+    }
+
+    private void OpenAlarmUI(List<string> alarmText)
+    {
+        var unlockMapAlarm = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/AlarmUI"), FindObjectOfType<Canvas>().transform);
+        unlockMapAlarmUI = unlockMapAlarm.GetComponent<AlarmUI>();
+        UiManager.Instance.OpenUI(unlockMapAlarmUI);
+        unlockMapAlarmUI.SetLongText(alarmText);
+    }
+
+    public void CheckUpgradeUnlock()
+    {
+        if (!magicianSlotUpgrade.IsUnlocked && processCount >= 200)
         {
             magicianSlotUpgrade.IsUnlocked = true;
         }
@@ -419,18 +456,25 @@ public class GameManager : Singleton<GameManager>
         {
             unlockMapSSUpgrade.IsUnlocked = false;
         }
-        if(AlarmTexts.Count != 0)
-        {
-            OpenAlarmUI(AlarmTexts);
-        }
-    }
 
-    private void OpenAlarmUI(List<string> alarmText)
-    {
-        var unlockMapAlarm = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/AlarmUI"), FindObjectOfType<Canvas>().transform);
-        unlockMapAlarmUI = unlockMapAlarm.GetComponent<AlarmUI>();
-        UiManager.Instance.OpenUI(unlockMapAlarmUI);
-        unlockMapAlarmUI.SetLongText(alarmText);
+        attackDamageUpgrade.UpgradeFunc = UpgradeAttackDamage();
+        speedUpgrade.UpgradeFunc = UpgradeSpeed();
+        maxHpUpgrade.UpgradeFunc = UpgradeMaxHp();
+        designUpgrade.UpgradeFunc = UpgradeDesign();
+
+        if (designUpgrade.CurrentLevel == 0 && numberOfSatisfiedCustomer >= 30)
+        {
+            designUpgrade.IsUnlocked = true;
+        }
+
+        if (designUpgrade.CurrentLevel == 1 && numberOfSatisfiedCustomer < 70)
+        {
+            if(numberOfSatisfiedCustomer<70)
+                designUpgrade.IsUnlocked = false;
+            else
+                designUpgrade.IsUnlocked = true;
+        }
+
     }
 
 
@@ -668,6 +712,63 @@ public class GameManager : Singleton<GameManager>
         yield return null;
     }
 
+    public IEnumerator UpgradeAttackDamage()
+    {
+        if (attackDamageUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            PlayerManager.Instance.SetAttackDamage(PlayerManager.Instance.GetAttackDamage() + 5f);
+            Util.SpendMoney(attackDamageUpgrade.Price);
+            attackDamageUpgrade.CurrentLevel++;
+            attackDamageUpgrade.Price = 2500 + (attackDamageUpgrade.CurrentLevel * 1000);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeSpeed()
+    {
+        if (speedUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            PlayerManager.Instance.SetRealSpeed(PlayerManager.Instance.GetRealSpeed() + 0.5f);
+            Util.SpendMoney(speedUpgrade.Price);
+            speedUpgrade.CurrentLevel++;
+            speedUpgrade.Price = 2500 + (speedUpgrade.CurrentLevel * 1000);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeMaxHp()
+    {
+        if (maxHpUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            PlayerManager.Instance.SetMaxHp(PlayerManager.Instance.GetMaxHp() + 10f);
+            Util.SpendMoney(maxHpUpgrade.Price);
+            maxHpUpgrade.CurrentLevel++;
+            maxHpUpgrade.Price = 2500 + (maxHpUpgrade.CurrentLevel * 1000);
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeMaxRevivalCount()
+    {
+        if (maxRevivalCountUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            maxRevivalCount++;
+            Util.SpendMoney(maxRevivalCountUpgrade.Price);
+            maxRevivalCountUpgrade.CurrentLevel++;
+        }
+        yield return null;
+    }
+
+    public IEnumerator UpgradeDesign()
+    {
+        if (designUpgrade.Price <= PlayerManager.Instance.GetMoney())
+        {
+            Util.SpendMoney(designUpgrade.Price);
+            designUpgrade.CurrentLevel++;
+            designUpgrade.Price = 10000 + (designUpgrade.CurrentLevel * 5000);
+        }
+        yield return null;
+    }
 
     private void AddMonsterInMap()
     {
@@ -689,7 +790,7 @@ public class GameManager : Singleton<GameManager>
         monsterInMapSS.Add(Resources.Load<GameObject>("Prefabs/Monster/MapSS/Dragon").GetComponent<Dragon>());
     }
 
-    private void AddUpgrade()
+    private void AddUpgrades()
     {
         magicianSlotUpgrade = new Upgrade(3, 0, 700, "마법사 슬롯 추가", UpgradeMagicianSlot());
         upgradeList.Add(magicianSlotUpgrade);
@@ -707,5 +808,17 @@ public class GameManager : Singleton<GameManager>
         upgradeList.Add(unlockMapSUpgrade);
         unlockMapSSUpgrade = new Upgrade(1, 0, 2500, "SS등급 파밍장 해금", UpgradeMapSS());
         upgradeList.Add(unlockMapSSUpgrade);
+        
+        attackDamageUpgrade = new Upgrade(6, 0, 2500, "공격력 증가", UpgradeAttackDamage(), true);
+        upgradeList.Add(attackDamageUpgrade);
+        speedUpgrade = new Upgrade(3, 0, 2500, "이동속도 증가", UpgradeSpeed(), true);
+        upgradeList.Add(speedUpgrade);
+        maxHpUpgrade = new Upgrade(3, 0, 2500, "최대 체력 증가", UpgradeMaxHp(), true);
+        upgradeList.Add(maxHpUpgrade);
+        maxRevivalCountUpgrade = new Upgrade(1, 0, 10000, "최대 부활 횟수 +1", UpgradeMaxRevivalCount(), true);
+        upgradeList.Add(maxRevivalCountUpgrade);
+        designUpgrade = new Upgrade(2, 0, 10000, "가게 리모델링", UpgradeDesign());
+        upgradeList.Add(designUpgrade);
     }
+
 }

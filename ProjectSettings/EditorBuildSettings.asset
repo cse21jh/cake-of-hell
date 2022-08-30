@@ -44,4 +44,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene/TutorialScene.unity
     guid: 6db394d4ea8c54d4b86799be45c7be96
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Cake Shop 2.unity
+    guid: 2dfef099f1f732a4eb8ec132d90285bb
+  - enabled: 1
+    path: Assets/Scenes/GameScene/Cake Shop 1.unity
+    guid: cebca0f1196421f42ac344657ac25b8d
   m_configObjects: {}
