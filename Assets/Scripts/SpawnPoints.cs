@@ -10,6 +10,7 @@ public class SpawnPoints : MonoBehaviour
     private List<Monster> monsterInMap = new List<Monster>();
 
     private List<GameObject> spawnPoint = new List<GameObject>();
+    private List<Monster> monster = new List<Monster>();
 
     void Awake()
     {
@@ -47,8 +48,25 @@ public class SpawnPoints : MonoBehaviour
     {
         for (int i = 0; i < spawnPoint.Count; i++)
         {
-            Monster monster = Instantiate(monsterInMap[Random.Range(0, monsterInMap.Count)]);
-            monster.transform.position = spawnPoint[i].transform.position;
+            monster.Add(Instantiate(monsterInMap[Random.Range(0, monsterInMap.Count)]));
+            monster[i].transform.position = spawnPoint[i].transform.position;
+        }
+        StartCoroutine(Respawn());
+    }
+
+    private IEnumerator Respawn()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(10f);
+            for(int i=0;i<spawnPoint.Count;i++)
+            {
+                if(monster[i] == null)
+                {
+                    monster[i] = Instantiate(monsterInMap[Random.Range(0, monsterInMap.Count)]);
+                    monster[i].transform.position = spawnPoint[i].transform.position;
+                }
+            }
         }
     }
 }
