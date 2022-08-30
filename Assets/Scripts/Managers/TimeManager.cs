@@ -19,6 +19,7 @@ public class TimeManager : Singleton<TimeManager>
     public bool isPrepareTime = true;
     public bool endPrepare = false;
     public bool restart = false;
+    public bool breakDay = false;
 
     public DayUI dayUI;
     public HuntTimeUI huntTimeUI;
@@ -86,6 +87,12 @@ public class TimeManager : Singleton<TimeManager>
 
         while(timer<oneHour*12)
         {
+            if(breakDay)
+            {
+                breakDay = true;
+                stopTimer = true;
+                yield break;
+            }
             if(restart)
             {
                 timer = 0;
@@ -119,6 +126,12 @@ public class TimeManager : Singleton<TimeManager>
             {
                 timer = 12;
                 restart = false;
+            }
+            if (breakDay)
+            {
+                breakDay = true;
+                stopTimer = true;
+                yield break;
             }
             yield return new WaitForSeconds(0.1f);
         }

@@ -13,7 +13,7 @@ public class OpenOption : MonoBehaviour
         option = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/Option/OptionMenu"), FindObjectOfType<Canvas>().transform);
         optionUI = option.GetComponent<OptionUI>();
         UiManager.Instance.CloseUI(optionUI);
-        gameObject.GetComponent<Button>().onClick.AddListener(()=>UiManager.Instance.OpenUI(optionUI));
+        gameObject.GetComponent<Button>().onClick.AddListener(OpenOptionUI);
     }
 
     void Update()
@@ -24,4 +24,9 @@ public class OpenOption : MonoBehaviour
         }
     }
 
+    private void OpenOptionUI()
+    {
+        SoundManager.Instance.PlayEffect("Click");
+        UiManager.Instance.OpenUI(optionUI);
+    }
 }

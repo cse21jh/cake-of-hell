@@ -15,6 +15,7 @@ public class MenuUI : BaseUI, ISingleOpenUI
         panel.GetChild(1).GetComponent<Button>().onClick.AddListener(Restart);
         panel.GetChild(2).GetComponent<Button>().onClick.AddListener(Option);
         panel.GetChild(3).GetComponent<Button>().onClick.AddListener(Quit);
+        panel.GetChild(4).GetComponent<Button>().onClick.AddListener(MainMenu);
     }
 
     public void Resume()
@@ -22,6 +23,7 @@ public class MenuUI : BaseUI, ISingleOpenUI
         Time.timeScale = 1f;
         pauseState = false;
         UiManager.Instance.CloseUI(this);
+        SoundManager.Instance.PlayEffect("Click");
     }
 
     public void Pause()
@@ -34,17 +36,29 @@ public class MenuUI : BaseUI, ISingleOpenUI
     {
         Resume();
         GameManager.Instance.ReStart();
+        SoundManager.Instance.PlayEffect("Click");
     }
 
     public void Option()
     {
         UiManager.Instance.CloseUI(this);
         UiManager.Instance.OpenUI(OptionMenu);
+        SoundManager.Instance.PlayEffect("Click");
     }
 
     public void Quit()
     {
+        SoundManager.Instance.PlayEffect("Click");
         Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SoundManager.Instance.PlayEffect("Click");
+        GameManager.Instance.LoadScene("MainMenu");
+        TimeManager.Instance.breakDay = true;
+        UiManager.Instance.alreadyOpenItemList = true;
+        GameManager.Instance.canMove = false;
     }
 
     public override void Open()
