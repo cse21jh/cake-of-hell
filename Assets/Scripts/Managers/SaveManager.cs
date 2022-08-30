@@ -156,7 +156,6 @@ public class SaveManager : Singleton<SaveManager>
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.unlockMapSUpgrade);
                 GameManager.Instance.unlockMapSSUpgrade.CurrentLevel = saveData.unlockMapSSUpgradeLevel;
                 GameManager.Instance.upgradeList.Add(GameManager.Instance.unlockMapSSUpgrade);
-                GameManager.Instance.CheckUnlock();
 
                 GameManager.Instance.EarnedMoney = saveData.earnedMoney;
                 GameManager.Instance.WaveLevel = saveData.waveLevel;

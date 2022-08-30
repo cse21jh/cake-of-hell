@@ -19,7 +19,6 @@ public class LoadGameButton : MonoBehaviour
         SaveManager.Instance.JsonLoad();
         UiManager.Instance.alreadyOpenItemList = false;
         GameManager.Instance.canMove = true;
-        GameManager.Instance.LoadScene(nextScene, true);
         TimeManager.Instance.StartDay();
     }
 }

@@ -14,6 +14,7 @@ public class NextDayButton : MonoBehaviour
     public void OnClickExit()
     {
         SoundManager.Instance.PlayEffect("Click");
+        SaveManager.Instance.JsonSave();
         endDayUI.Close();
         TimeManager.Instance.StartDay();
     }

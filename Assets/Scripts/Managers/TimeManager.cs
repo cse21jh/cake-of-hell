@@ -56,8 +56,6 @@ public class TimeManager : Singleton<TimeManager>
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         PlayerManager.Instance.ResetNumberOfItemInADay();
         PlayerManager.Instance.ResetMoneyInADay();
-        GameManager.Instance.LoadScene("Cake Shop", true);
-        SaveManager.Instance.JsonSave();
         SetDay(day + 1);
         if (day <= 30)
         {
@@ -72,7 +70,6 @@ public class TimeManager : Singleton<TimeManager>
 
     public void OpenShop()
     {
-        GameManager.Instance.LoadScene("Cake Shop", true);
         PlayerManager.Instance.SetPlayerImage(0);
         Debug.Log("Time to Open");
         timer = 12.0f * oneHour;
@@ -82,10 +79,12 @@ public class TimeManager : Singleton<TimeManager>
 
     public IEnumerator StartDayCoroutine()
     {
-        yield return null;
+        GameManager.Instance.LoadScene("Cake Shop", true);
         PrepareOpenShop();
+        yield return null;
+        GameManager.Instance.CheckUnlock();
 
-        while(timer<oneHour*12)
+        while (timer<oneHour*12)
         {
             if(breakDay)
             {
@@ -120,7 +119,8 @@ public class TimeManager : Singleton<TimeManager>
 
     public IEnumerator OpenShopCoroutine()
     {
-        while(timer<oneHour*24)
+        GameManager.Instance.LoadScene("Cake Shop", true);
+        while (timer<oneHour*24)
         {
             if (restart)
             {
@@ -141,7 +141,6 @@ public class TimeManager : Singleton<TimeManager>
 
     public void PrepareOpenShop()
     {
-        GameManager.Instance.CheckUnlock();
         Debug.Log("Time to Prepare");
     }
 

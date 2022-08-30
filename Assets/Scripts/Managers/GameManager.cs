@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
     public int WaveFailCount { get; set; } = 0;
     public int WaveSuccessCount { get; set; } = 0;
 
-    private DialogUI unlockMapDialogUI;
+    private AlarmUI unlockMapAlarmUI;
     // About Ending Or UnLock
     public int numberOfSoldCake = 0;
     public int numberOfSatisfiedCustomer = 0;
@@ -324,11 +324,12 @@ public class GameManager : Singleton<GameManager>
 
     public void CheckUnlock()
     {
+        List <string> AlarmTexts = new List<string>();
         if (!unlockMapC && (TimeManager.Instance.GetDay() >= 1))
         {
             unlockMapC = true;
             UnlockItemsOfMonsters(monsterInMapC);
-            OpenUnlockDialog("C");
+            AlarmTexts.Add("C 등급의 맵이 해금되었습니다!");
         }
 
         if (!unlockMapB && (numberOfSoldCake >= 60 || TimeManager.Instance.GetDay() >= 3))
@@ -336,7 +337,7 @@ public class GameManager : Singleton<GameManager>
             unlockMapB = true;
             unlockMapBUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapB);
-            OpenUnlockDialog("B");
+            AlarmTexts.Add("B 등급의 맵이 해금되었습니다!");
         }
 
         if (!unlockMapA && (numberOfSoldCake >= 140 || TimeManager.Instance.GetDay() >= 7))
@@ -344,12 +345,14 @@ public class GameManager : Singleton<GameManager>
             unlockMapA = true;
             unlockMapAUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapA);
-            OpenUnlockDialog("A");
+            AlarmTexts.Add("A 등급의 맵이 해금되었습니다!");
         }
 
         if (orderSystem==0 && (numberOfSoldCake >= 200 || TimeManager.Instance.GetDay() >= 10))
         {
             orderSystem = 1;
+            AlarmTexts.Add("이제부터는 키워드를 사용한 주문과 플레이버를 사용한 주문이 모두 등장합니다.");
+            AlarmTexts.Add("플레이버 텍스트에 관한 힌트는 재료에 대한 문장에 숨어있으니 잘 찾아보세요");
         }
 
         if (!unlockMapS && (numberOfSoldCake >= 300 || TimeManager.Instance.GetDay() >= 14))
@@ -357,12 +360,14 @@ public class GameManager : Singleton<GameManager>
             unlockMapS = true;
             unlockMapSUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapS);
-            OpenUnlockDialog("S");
+            AlarmTexts.Add("S 등급의 맵이 해금되었습니다!");
         }
 
         if (orderSystem == 1 && (numberOfSoldCake >= 400 || TimeManager.Instance.GetDay() >= 20))
         {
             orderSystem = 2;
+            AlarmTexts.Add("이제부터는 하나의 주문 안에 키워드와 플레이버 텍스트가 함께 숨어있습니다.\n" +
+                "헷갈리지 않게 주의하세요");
         }
 
         if (!unlockMapSS && (numberOfSoldCake >= 560 || TimeManager.Instance.GetDay() >= 25))
@@ -370,7 +375,7 @@ public class GameManager : Singleton<GameManager>
             unlockMapSS = true;
             unlockMapSSUpgrade.CurrentLevel++;
             UnlockItemsOfMonsters(monsterInMapSS);
-            OpenUnlockDialog("SS");
+            AlarmTexts.Add("SS 등급의 맵이 해금되었습니다!");
         }
 
         if (!magicianSlotUpgrade.IsUnlocked && processCount >=200)
@@ -414,18 +419,20 @@ public class GameManager : Singleton<GameManager>
         {
             unlockMapSSUpgrade.IsUnlocked = false;
         }
+        if(AlarmTexts.Count != 0)
+        {
+            OpenAlarmUI(AlarmTexts);
+        }
     }
 
-    private void OpenUnlockDialog(string Rank)
+    private void OpenAlarmUI(List<string> alarmText)
     {
-        var unlockMapDialog = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/DialogUI"), FindObjectOfType<Canvas>().transform);
-        unlockMapDialogUI = unlockMapDialog.GetComponent<DialogUI>();
-        UiManager.Instance.OpenUI(unlockMapDialogUI);
-        unlockMapDialogUI.HideYesNoButtons();
-        string[] text = new string[1];        
-        text[0] = Rank + "등급의 맵이 해금되었습니다";
-        unlockMapDialogUI.SetLongText(text);
+        var unlockMapAlarm = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/AlarmUI"), FindObjectOfType<Canvas>().transform);
+        unlockMapAlarmUI = unlockMapAlarm.GetComponent<AlarmUI>();
+        UiManager.Instance.OpenUI(unlockMapAlarmUI);
+        unlockMapAlarmUI.SetLongText(alarmText);
     }
+
 
     private void UnlockItemsOfMonsters(List<Monster> monsters) 
     {

@@ -9,6 +9,8 @@ public class AlarmUI : BaseUI, ISingleOpenUI
     private TMP_Text alarmText;
     private TMP_Text buttonText;
     private GameObject button;
+    private Queue<string> alarmQueue = new Queue<string>();
+
 
     public System.Action OnClickButton { get; set; } = null;
 
@@ -23,6 +25,31 @@ public class AlarmUI : BaseUI, ISingleOpenUI
     public void SetText(string text)
     {
         alarmText.text = text;
+    }
+
+    public void SetLongText(List<string> texts)
+    {
+        foreach (string text in texts)
+        {
+            alarmQueue.Enqueue(text);
+        }
+        button.GetComponent<Button>().onClick.AddListener(ShowNext);
+        ShowNext();
+    }
+
+    private void ShowNext()
+    {
+        string nextAlarm;
+
+        if (alarmQueue.TryDequeue(out nextAlarm))
+        {
+            SetText(nextAlarm);
+            SetButtonText("확인");
+        }
+        else
+        {
+            UiManager.Instance.CloseUI(this);
+        }
     }
 
     public void SetButtonText(string text)
