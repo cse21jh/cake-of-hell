@@ -53,6 +53,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public void StartDay()
     {
+        isPrepareTime = true;
         PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
         PlayerManager.Instance.ResetNumberOfItemInADay();
         PlayerManager.Instance.ResetMoneyInADay();
@@ -70,6 +71,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public void OpenShop()
     {
+        isPrepareTime = false;
         PlayerManager.Instance.SetPlayerImage(0);
         Debug.Log("Time to Open");
         timer = 12.0f * oneHour;
