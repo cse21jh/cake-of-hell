@@ -13,7 +13,7 @@ public class Tutorial : MonoBehaviour
     public GameObject TutorialScreen;
 
 
-    void Start()
+    void Awake()
     {
         tutorialBackgroundArr = ResourceLoader.GetPackedSprite("Sprites/Background/tutorial");
         ShowTutorial();
@@ -43,6 +43,7 @@ public class Tutorial : MonoBehaviour
     private void ShowNextBackground(int n)
     {
         TutorialScreen.GetComponent<Image>().sprite = tutorialBackgroundArr[n];
+        SoundManager.Instance.PlayEffect("Click");
         ShowTutorial();
     }
 }

@@ -56,9 +56,11 @@ public class MenuUI : BaseUI, ISingleOpenUI
     {
         SoundManager.Instance.PlayEffect("Click");
         GameManager.Instance.LoadScene("MainMenu");
-        TimeManager.Instance.breakDay = true;
         UiManager.Instance.alreadyOpenItemList = true;
         GameManager.Instance.canMove = false;
+
+        if(GameManager.Instance.currentSceneName != "StoryScene" && GameManager.Instance.currentSceneName != "TutorialScene")
+            TimeManager.Instance.breakDay = true;
     }
 
     public override void Open()

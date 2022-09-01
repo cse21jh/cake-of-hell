@@ -19,6 +19,7 @@ public class AlarmUI : BaseUI, ISingleOpenUI
         alarmText = GameObject.Find("AlarmText").GetComponent<TMP_Text>();
         buttonText = GameObject.Find("AlarmButtonText").GetComponent<TMP_Text>();
         button = GameObject.Find("AlarmButton");
+        button.GetComponent<Button>().onClick.AddListener(() => SoundManager.Instance.PlayEffect("Click"));
         button.GetComponent<Button>().onClick.AddListener(ButtonClicked);
     }
 
