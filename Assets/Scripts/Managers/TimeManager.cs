@@ -88,7 +88,7 @@ public class TimeManager : Singleton<TimeManager>
         {
             if(breakDay)
             {
-                breakDay = true;
+                breakDay = false;
                 stopTimer = true;
                 yield break;
             }
@@ -129,7 +129,7 @@ public class TimeManager : Singleton<TimeManager>
             }
             if (breakDay)
             {
-                breakDay = true;
+                breakDay = false;
                 stopTimer = true;
                 yield break;
             }

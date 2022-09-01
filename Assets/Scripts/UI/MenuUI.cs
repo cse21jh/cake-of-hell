@@ -58,8 +58,9 @@ public class MenuUI : BaseUI, ISingleOpenUI
         GameManager.Instance.LoadScene("MainMenu");
         UiManager.Instance.alreadyOpenItemList = true;
         GameManager.Instance.canMove = false;
+        Time.timeScale = 1f;
 
-        if(GameManager.Instance.currentSceneName != "StoryScene" && GameManager.Instance.currentSceneName != "TutorialScene")
+        if (GameManager.Instance.currentSceneName != "StoryScene" && GameManager.Instance.currentSceneName != "TutorialScene")
             TimeManager.Instance.breakDay = true;
     }
 
