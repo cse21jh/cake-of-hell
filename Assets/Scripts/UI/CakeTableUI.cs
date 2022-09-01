@@ -85,9 +85,9 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
             toppingInput.Clear(); 
             bigImgTopping.sprite = spriteNull; 
         });
-        baseInput.SetPosition(-275, -50);
-        icingInput.SetPosition(-200, -50);
-        toppingInput.SetPosition(-125, -50);
+        baseInput.SetPosition(-275, -110);
+        icingInput.SetPosition(-200, -110);
+        toppingInput.SetPosition(-125, -110);
 
         foreach(var pair in Util.GetItemNumbers(ItemType.Base)) 
         {
@@ -146,7 +146,7 @@ public class CakeTableUI : BaseUI, ISingleOpenUI
         {
             int ypos = 100 - 50 * i;
             cakes[i] = new CakeSlotComponent(gameObject.transform);
-            cakes[i].SetPosition(-370, ypos);
+            cakes[i].SetPosition(-360, ypos);
             if(PlayerManager.Instance.GetCake(i) != null) 
             {
                 cakes[i].SetCake(PlayerManager.Instance.GetCake(i));

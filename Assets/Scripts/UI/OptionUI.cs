@@ -10,8 +10,8 @@ public class OptionUI : BaseUI, ISingleOpenUI
 
     void Start()
     {
-        BGMVolume = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<Slider>();
-        effectVolume = gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<Slider>();
+        BGMVolume = gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<Slider>();
+        effectVolume = gameObject.transform.GetChild(0).transform.GetChild(2).GetComponent<Slider>();
         BGMVolume.value = SoundManager.Instance.BGMVolume;
         effectVolume.value = SoundManager.Instance.EffectVolume;
     }

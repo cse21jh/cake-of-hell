@@ -11,11 +11,11 @@ public class MenuUI : BaseUI, ISingleOpenUI
     void Start()
     {
         var panel = gameObject.transform.GetChild(0).transform;
-        panel.GetChild(0).GetComponent<Button>().onClick.AddListener(Resume);
-        panel.GetChild(1).GetComponent<Button>().onClick.AddListener(Restart);
-        panel.GetChild(2).GetComponent<Button>().onClick.AddListener(Option);
-        panel.GetChild(3).GetComponent<Button>().onClick.AddListener(Quit);
-        panel.GetChild(4).GetComponent<Button>().onClick.AddListener(MainMenu);
+        panel.GetChild(1).GetComponent<Button>().onClick.AddListener(Resume);
+        panel.GetChild(2).GetComponent<Button>().onClick.AddListener(Restart);
+        panel.GetChild(3).GetComponent<Button>().onClick.AddListener(Option);
+        panel.GetChild(4).GetComponent<Button>().onClick.AddListener(Quit);
+        panel.GetChild(5).GetComponent<Button>().onClick.AddListener(MainMenu);
     }
 
     public void Resume()

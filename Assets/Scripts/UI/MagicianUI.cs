@@ -102,7 +102,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
         {
             int j = i;
             processItems[j] = new ItemSlotComponent(gameObject.transform, 0, -1, true);
-            processItems[j].SetPosition(-375, 175 - 70 * j);
+            processItems[j].SetPosition(-365, 165 - 65 * j);
             processItems[j].SetOnClick(() => 
             {
                 if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem && j < UnlockedSlots)
