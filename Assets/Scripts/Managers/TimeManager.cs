@@ -237,7 +237,7 @@ public class TimeManager : Singleton<TimeManager>
         if (value <= 0)
         { 
             reputation = 0;
-            //GameManager.Instance.MoveToEndingScene();
+            GameManager.Instance.MoveToEndingScene();
         }
     }
 

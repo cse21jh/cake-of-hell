@@ -246,6 +246,10 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             if(ItemManager.Instance.GetProcessedItem(outputCode).Level == ItemLevel.SS)
             {
                 GameManager.Instance.processSSCount ++;
+                if(GameManager.Instance.processSSCount >= 150 && !GameManager.Instance.shownEnding[8])
+                {
+                    GameManager.Instance.MoveToEndingScene();
+                }
 
             }
             ProcessManager.Instance.AddMagicianProcess

@@ -18,7 +18,7 @@ public class EndingManager : MonoBehaviour
         BackGround = canvas.transform.Find("BackGround").gameObject.GetComponent<Image>();
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
         dialog.ExecuteAtEnd = GoToMainMenu;
-        EndingBackGround = ResourceLoader.GetPackedSprite("Sprites/BackGround/EndingBackGround");
+        EndingBackGround = ResourceLoader.GetPackedSprite("Sprites/BackGround/Ending BackGround");
         CheckEnding();
         Ending();
     }
@@ -46,36 +46,36 @@ public class EndingManager : MonoBehaviour
                 return;
             }
     }
-        /*if(GameManager.Instance.killMonsterCount >=1000 &&!GameManager.Instance.shownEnding[4])
+        if(GameManager.Instance.killMonsterCount >=1000 &&!GameManager.Instance.shownEnding[4])
         {
             endingCount = 4;
             GameManager.Instance.shownEnding[endingCount] = true;
             return;
-        }*/
+        }
         if (GameManager.Instance.killSSMonsterCount >= 300 && !GameManager.Instance.shownEnding[5])
         {
             endingCount = 5;
             GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
-        /*if (TimeManager.Instance.reputation <=0f))
+        if (TimeManager.Instance.reputation <=0f)
         {
             endingCount = 6;
             return;
-        }*/
-        /*if ((GameManager.Instance.cantAcceptOrderCount >= 100 && !GameManager.Instance.shownEnding[6])
+        }
+        if (GameManager.Instance.cantAcceptOrderCount >= 100 && !GameManager.Instance.shownEnding[6])
         {
             endingCount = 6;
             GameManager.Instance.shownEnding[endingCount] = true;
             return;
-        }*/
+        }
         // 7번은 아직 사냥꾼 존재 X
-        /*if(GameManager.Instance.processSSCount>=150 && !GameManager.Instance.shownEnding[8])
+        if(GameManager.Instance.processSSCount>=150 && !GameManager.Instance.shownEnding[8])
         {
             endingCount = 8;
             GameManager.Instance.shownEnding[endingCount] = true;
             return;
-        }*/
+        }
         /*if (GameManager.Instance.enterBlackHoleCount >= 100 && !GameManager.Instance.shownEnding[9])
         {
             endingCount = 9;
@@ -94,13 +94,18 @@ public class EndingManager : MonoBehaviour
             GameManager.Instance.shownEnding[endingCount] = true;
             return;
         }
-        /*if (GameManager.Instance.cantAcceptOrderCount <= 30 && !GameManager.Instance.shownEnding[12])
+        if (GameManager.Instance.cantAcceptOrderCount <= 30 && !GameManager.Instance.shownEnding[12])
         {
             endingCount = 12;
             GameManager.Instance.shownEnding[endingCount] = true;
             return;
-        }*/
-        // 13번은 디자인 업그레이드 아직 X
+        }
+        if (GameManager.Instance.designUpgrade.CurrentLevel == 2 && !GameManager.Instance.shownEnding[13] && PlayerManager.Instance.GetMoney()>=30000)
+        {
+            endingCount = 12;
+            GameManager.Instance.shownEnding[endingCount] = true;
+            return;
+        }
         // 14번은 각 씬마다 시간 체크나 그런 부분이 힘듦. 일단 X
         if (GameManager.Instance.numberOfSoldCake-GameManager.Instance.numberOfSatisfiedCustomer >= 150 && !GameManager.Instance.shownEnding[15])
         {
@@ -138,7 +143,7 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(new string[] { "몬스터가 멸종위기 직전이어서 몬스터를 사육하면서 제과제빵 일을 계속하다가 몬스터 사육으로 충분히 돈을 벌고 그 일이 적성에 더 잘 맞아서 몬스터 사육사로 직업을 바꾼다." });
                 break;
             case 4:
-                //BackGround.sprite = EndingBackGround[3];
+                BackGround.sprite = EndingBackGround[3];
                 sentence = new string[2];
                 sentence[0] = "플레이어는 몬스터 슬레이어라는 호칭을 얻고 그 능력을 인정받아 마왕에 의해 마계의 경찰청장으로 임명된다.";
                 sentence[1] = "플레이어는 마계 주민들의 안전을 담당하며 제 2의 인생을 시작한다.";
@@ -146,7 +151,7 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(sentence);
                 break;
             case 5:
-                BackGround.sprite = EndingBackGround[3];
+                BackGround.sprite = EndingBackGround[4];
                 sentence = new string[4];
                 sentence[0] = "SS등급 몬스터들은 화가 났다.";
                 sentence[1] = "플레이어가 여느 날과 다름 없이 가게를 나서는데 가게 밖 환경이 SS등급 세계의 환경이다.";
@@ -156,7 +161,7 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(sentence);
                 break;
             case 6:
-                //BackGround.sprite = EndingBackGround[5];
+                BackGround.sprite = EndingBackGround[5];
                 sentence = new string[2];
                 sentence[0] = "너무 많은 주문을 실패한 플레이어에 마계 주민들은 화가 나 마계의 SNS에서는 플레이어의 가게에 대한 단체 보이콧이 일어난다.";
                 sentence[1] = "그 결과 플레이어의 가게는 하루에 손님이 한두 명밖에 오지 않는 신세로 전락하고 결국 플레이어는 적자를 감당하지 못하고 폐업하고 백수 신세가 된다.";
@@ -166,7 +171,7 @@ public class EndingManager : MonoBehaviour
             case 7:
                 break;
             case 8:
-                //BackGround.sprite = EndingBackGround[6];
+                BackGround.sprite = EndingBackGround[7];
                 sentence = new string[4];
                 sentence[0] = "더이상 SS등급 재료를 만족하지 못한 플레이어는 마법사에게 조언을 구한다.";
                 sentence[1] = "마법사는 더 좋은 재료를 얻기 위해서는 미지의 세계로 가야 한다며 플레이어를 두고 미지의 세계로 가는 주술을 왼다.";
@@ -180,7 +185,7 @@ public class EndingManager : MonoBehaviour
                 //dialog.SetLongText(sentence);
                 //break;
             case 10:
-                BackGround.sprite = EndingBackGround[5];
+                BackGround.sprite = EndingBackGround[8];
                 sentence = new string[2];
                 sentence[0] = "마물을 조합하여 예쁜 마물 케이크로 만드는 것으로 유명해진 플레이어는 마왕의 성으로 들어가 마왕의 전속 제빵사로 임명받게 된다.";
                 sentence[1] = "마왕의 성에서 더 퀄리티 높고 많은 재료들과 다양한 방법으로 마왕과 그들의 측근들의 입맛에 맞추어 새로운 일을 시작하게 된다.";
@@ -188,7 +193,7 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(sentence);
                 break;
             case 11:
-                BackGround.sprite = EndingBackGround[6];
+                BackGround.sprite = EndingBackGround[9];
                 sentence = new string[2];
                 sentence[0] = "마물을 조합하여 고객들의 마음을 잘 알아주는 것으로 유명해진 플레이어는 영혼의 세계로 스카웃 제안을 받는다.";
                 sentence[1] = "영혼의 세계에서 다양한 영혼을 바탕으로 한 색다른 재료들로 일을 시작하게 된다.";
@@ -196,7 +201,7 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(sentence);
                 break;
             case 12:
-                //BackGround.sprite = EndingBackGround[10];
+                BackGround.sprite = EndingBackGround[10];
                 sentence = new string[2];
                 sentence[0] = "플레이어는 손님들의 주문을 미리 예상해 재료를 준비하는 제빵사로 유명해져 자신의 미래를 봐 달라고 찾아오는 손님이 많아진다.";
                 sentence[1] = "손님들의 미래를 봐 주다가 플레이어는 자신도 몰랐던 자신의 예언 능력을 깨닫게 되고 케이크 가게를 접고 마왕까지 찾아올 정도로 유명한 예언자로 새로운 인생을 살게 된다.";
@@ -204,13 +209,16 @@ public class EndingManager : MonoBehaviour
                 dialog.SetLongText(sentence);
                 break;
             case 13:
-                //BackGround.sprite = EndingBackGround[1];
-            //string
+                BackGround.sprite = EndingBackGround[11];
+                sentence = new string[2];
+                sentence[0] = "플레이어의 가게는 마계에서 가장 세련된 인테리어와 맛있는 케이크를 제공하는 가게로 유명해진다.";
+                sentence[1] = "마계 주민들의 성원에 힘입어 플레이어는 자신의 가게를 프랜차이즈화해 마계 곳곳에 분점을 내기 시작하고 10호점까지 성공적으로 운영하며 마계 제과제빵계의 최고 권위자가 된다.";
+                break;
             case 14:
             //BackGround.sprite = EndingBackGround[1];
             //string
             case 15:
-                BackGround.sprite = EndingBackGround[7];
+                BackGround.sprite = EndingBackGround[12];
                 dialog.SetLongText(new string[] { "마물 제빵사이지만 능력이 없다는 것을 알게 된 다른 마물이 제과제빵을 공부해서 맞은 편에 새로운 디저트 가게를 세우고 그 곳이 유명해져 플레이어의 가게는 망하게 된다." });
                 break;
         }

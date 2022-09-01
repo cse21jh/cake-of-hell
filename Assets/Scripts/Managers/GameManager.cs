@@ -467,7 +467,7 @@ public class GameManager : Singleton<GameManager>
             designUpgrade.IsUnlocked = true;
         }
 
-        if (designUpgrade.CurrentLevel == 1 && numberOfSatisfiedCustomer < 70)
+        if (designUpgrade.CurrentLevel == 1)
         {
             if(numberOfSatisfiedCustomer<70)
                 designUpgrade.IsUnlocked = false;
@@ -559,7 +559,7 @@ public class GameManager : Singleton<GameManager>
         cantAcceptOrderCount++;
         if(cantAcceptOrderCount >= 100 && !shownEnding[6])
         {
-            //MoveToEndingScene();
+            MoveToEndingScene();
         }
     }
 

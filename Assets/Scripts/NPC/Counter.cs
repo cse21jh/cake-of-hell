@@ -6,7 +6,8 @@ public class Counter : NPC
 {
     public GameObject CakeListObject;
     private System.Random rand;
-    private DialogUI dialog; 
+    private DialogUI dialog;
+    private AlarmUI alarm;
     private CakeListUI cakelist;
     private int orderBase, orderIcing, orderTopping;
     private bool hasOrder = false;
@@ -27,6 +28,10 @@ public class Counter : NPC
         rand = new System.Random();
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
         cakelist = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/CakeListUI"), canvas.transform).GetComponent<CakeListUI>();
+        alarm = Instantiate(ResourceLoader.GetPrefab("Prefabs/UI/AlarmUI"), canvas.transform).GetComponent<AlarmUI>();
+        alarm.Close();
+        alarm.SetText("손님 웨이브가 시작되었습니다!");
+        alarm.SetButtonText("확인");
         cakelist.SellCake = SellCake;
         GuestObject = Instantiate(ResourceLoader.GetPrefab("Prefabs/NPC/Guest"));
         GuestSprite = GuestObject.GetComponent<SpriteRenderer>();
@@ -210,7 +215,12 @@ public class Counter : NPC
             else if((int)GameManager.Instance.EarnedMoney / 1500 > GameManager.Instance.WaveLevel)
             {
                 GameManager.Instance.WaveLevel = (int)GameManager.Instance.EarnedMoney / 1500;
-                StartWave();
+                UiManager.Instance.OpenUI(alarm);
+                alarm.OnClickButton = () =>
+                {
+                    StartWave();
+                    UiManager.Instance.CloseUI(alarm);
+                };
             }
             StartCoroutine(GuestGo());
             Debug.Log(System.String.Format("현재 돈: {0}", PlayerManager.Instance.GetMoney()));
