@@ -546,7 +546,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GivePenalty()
     {
-        if(isPrepareTime)
+        if(TimeManager.Instance.isPrepareTime)
         {
             return;
         }
