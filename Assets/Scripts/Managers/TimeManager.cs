@@ -18,7 +18,7 @@ public class TimeManager : Singleton<TimeManager>
 
     public bool isPrepareTime = true;
     public bool endPrepare = false;
-    public bool restart = false;
+    public bool endShop = false;
     public bool breakDay = false;
 
     public DayUI dayUI;
@@ -58,8 +58,16 @@ public class TimeManager : Singleton<TimeManager>
         PlayerManager.Instance.ResetNumberOfItemInADay();
         PlayerManager.Instance.ResetMoneyInADay();
         SetDay(day + 1);
+
+        if(reputation <=0)
+        {
+            GameManager.Instance.MoveToEndingScene();
+            return;
+        }
+
         if (day <= 30)
         {
+            GameManager.Instance.LoadScene("Cake Shop", true);
             GameManager.Instance.killMonsterInADay = false;
             timer = 0f;
             stopTimer = false;
@@ -81,7 +89,6 @@ public class TimeManager : Singleton<TimeManager>
 
     public IEnumerator StartDayCoroutine()
     {
-        GameManager.Instance.LoadScene("Cake Shop", true);
         PrepareOpenShop();
         yield return null;
         GameManager.Instance.CheckUnlock();
@@ -93,11 +100,6 @@ public class TimeManager : Singleton<TimeManager>
                 breakDay = false;
                 stopTimer = true;
                 yield break;
-            }
-            if(restart)
-            {
-                timer = 0;
-                restart = false;
             }
             if (endPrepare)
             {
@@ -124,20 +126,20 @@ public class TimeManager : Singleton<TimeManager>
         GameManager.Instance.LoadScene("Cake Shop", true);
         while (timer<oneHour*24)
         {
-            if (restart)
-            {
-                timer = 12;
-                restart = false;
-            }
             if (breakDay)
             {
                 breakDay = false;
                 stopTimer = true;
                 yield break;
             }
+            if(endShop)
+            {
+                break;
+            }
             yield return new WaitForSeconds(0.1f);
         }
         CloseShop();
+        endShop = false;
         yield return null;
     }
 
@@ -239,7 +241,6 @@ public class TimeManager : Singleton<TimeManager>
         if (value <= 0)
         { 
             reputation = 0;
-            GameManager.Instance.MoveToEndingScene();
         }
     }
 
