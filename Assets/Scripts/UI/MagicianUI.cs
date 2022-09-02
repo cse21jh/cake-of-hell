@@ -105,7 +105,7 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             processItems[j].SetPosition(-365, 165 - 65 * j);
             processItems[j].SetOnClick(() => 
             {
-                if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem && j < UnlockedSlots)
+                if(Util.GetItem(processItems[j].ItemCode) is ProcessedItem && j < UnlockedSlots && TimeManager.Instance.isPrepareTime)
                 {
                     Util.AddItem(processItems[j].ItemCode, processItems[j].ItemCount);
                     processItems[j].Clear();
