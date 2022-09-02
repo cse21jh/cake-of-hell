@@ -19,6 +19,7 @@ public class EndingManager : MonoBehaviour
         dialog = canvas.transform.Find("DialogUI").GetComponent<DialogUI>();
         dialog.ExecuteAtEnd = GoToMainMenu;
         EndingBackGround = ResourceLoader.GetPackedSprite("Sprites/BackGround/Ending BackGround");
+        TimeManager.Instance.breakDay = false;
         CheckEnding();
         Ending();
     }

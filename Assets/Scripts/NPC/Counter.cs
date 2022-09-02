@@ -231,8 +231,8 @@ public class Counter : NPC
     {
         yield return new WaitForSeconds(rand.Next
         (
-            GameManager.Instance.IsWave ? 20 : TimeManager.Instance.GuestLeaveTimeStart,
-            GameManager.Instance.IsWave ? 26 : TimeManager.Instance.GuestLeaveTimeEnd
+            GameManager.Instance.IsWave ? 30 : TimeManager.Instance.GuestLeaveTimeStart,
+            GameManager.Instance.IsWave ? 36 : TimeManager.Instance.GuestLeaveTimeEnd
         ));
 
         if(GuestNumber == num && HasGuest)

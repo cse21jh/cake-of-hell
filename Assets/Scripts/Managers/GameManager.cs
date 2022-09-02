@@ -566,6 +566,7 @@ public class GameManager : Singleton<GameManager>
     public void MoveToEndingScene()
     {
         LoadScene("EndingScene");
+        TimeManager.Instance.breakDay = true;
         UiManager.Instance.alreadyOpenItemList = true;
     }
 
