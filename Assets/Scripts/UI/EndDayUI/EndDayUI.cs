@@ -13,7 +13,7 @@ public class EndDayUI : BaseUI, ISingleOpenUI
         numberOfSoldCake = GameObject.Find("NumberOfSoldCake").GetComponent<TMP_Text>();
         numberOfSoldCake.text = "X" + GameManager.Instance.soldCakeInADay.ToString();
         reputation = GameObject.Find("Reputation").GetComponent<TMP_Text>();
-        reputation.text = "가게 평판 : " + TimeManager.Instance.reputation.ToString() + " / 5";
+        reputation.text = "가게 평판 : " + TimeManager.Instance.reputation.ToString("0.0") + " / 5";
     }
 
     public override void Open()
