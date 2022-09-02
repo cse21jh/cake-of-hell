@@ -197,7 +197,7 @@ public class Counter : NPC
                 case 3:
                     dialog.SetText("내가 원했던 딱 그 맛이네. 정말 맛있군!");
                     GameManager.Instance.AddNumberOfSatisfiedCustomer();
-                    if ((GameManager.Instance.increaseReputationCount += 1) == 5)
+                    if ((GameManager.Instance.increaseReputationCount += 1) == 3)
                     {
                         Util.IncreaseReputation();
                         GameManager.Instance.increaseReputationCount = 0;

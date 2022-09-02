@@ -546,6 +546,10 @@ public class GameManager : Singleton<GameManager>
 
     public void GivePenalty()
     {
+        if(isPrepareTime)
+        {
+            return;
+        }
         penaltyCount++;
         if (penaltyCount == 3)
         { 
