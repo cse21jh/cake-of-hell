@@ -275,6 +275,8 @@ public class MagicianUI : BaseUI, ISingleOpenUI
             }
             inputCount = 1;
             numberSelect.SetNumber(1);
+            totalCost.text = (recipeDefault.Price * inputCount).ToString();
+            totalTime.text = (recipeDefault.Duration * inputCount).ToString();
 
             Debug.Log("Magician Trade Success!");
         }
