@@ -224,7 +224,7 @@ public abstract class Monster : MonoBehaviour
                 GameManager.Instance.MoveToEndingScene();
             }
         }
-        Destroy(bul);
+        StartCoroutineUnit(WaitRoutine(1.0f));
         StartCoroutine(FadeOut());
         return;
     }
@@ -272,8 +272,9 @@ public abstract class Monster : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         DropItem(Random.Range(1, 4));
+        Destroy(bul);
         Destroy(gameObject);
-        yield return null;
+        yield return null;        
     }
 
     public abstract List<int> GetItemCode();
