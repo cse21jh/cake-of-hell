@@ -583,37 +583,17 @@ public class GameManager : Singleton<GameManager>
 
     public void ReStart()
     {
-        if(currentSceneName == "EndingScene" || currentSceneName == "StoryScene")
+        if(currentSceneName == "EndingScene" || currentSceneName == "StoryScene" || currentSceneName == "TutorialScene")
         {
             return;
         }
-        if(TimeManager.Instance.isPrepareTime)
-        {
-            LoadScene("Cake Shop", true);
-            PlayerManager.Instance.SetHp(PlayerManager.Instance.GetMaxHp());
-            PlayerManager.Instance.SetBackNumberOfItem();
-            PlayerManager.Instance.ResetNumberOfItemInADay();
-            PlayerManager.Instance.SetBackMoney();
-            PlayerManager.Instance.ResetMoneyInADay();
-            killMonsterInADay = false;
-            TimeManager.Instance.timer = 0f;
-            TimeManager.Instance.restart = true;
-            TimeManager.Instance.stopTimer = false;
-            soldCakeInADay = 0;
-        }
-        else
-        {
-            LoadScene("Cake Shop", true);
-            PlayerManager.Instance.SetBackNumberOfItem();
-            PlayerManager.Instance.ResetNumberOfItemInADay();
-            PlayerManager.Instance.SetBackMoney();
-            PlayerManager.Instance.ResetMoneyInADay();
-            TimeManager.Instance.timer = 12.0f * TimeManager.Instance.oneHour;
-            TimeManager.Instance.stopTimer = false;
-            TimeManager.Instance.isPrepareTime = false;
-            TimeManager.Instance.restart = true;
-        }
+        TimeManager.Instance.breakDay = true;
+        SaveManager.Instance.JsonLoad();
+        LoadScene("Cake Shop", true);
+        Time.timeScale = 1f;
+        UiManager.Instance.openMenu = false;
         canMove = true;
+        TimeManager.Instance.StartDay();
     }
 
 

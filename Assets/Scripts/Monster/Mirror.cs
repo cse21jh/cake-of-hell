@@ -60,7 +60,7 @@ public class Mirror : Monster
             
             for (float t = 0; t <= 1; t += Time.deltaTime)
             {
-                monsterHitBox.transform.localScale = new Vector3(1f, monsterHitBox.transform.localScale.y+ (6 *Time.deltaTime)/3, 0);
+                monsterHitBox.transform.localScale = new Vector3(1f, monsterHitBox.transform.localScale.y+ (4 *Time.deltaTime)/2, 0);
                 monsterHitBox.transform.position = monsterHitBox.transform.position + (direction*Time.deltaTime*3);
                 yield return null;
             }
@@ -70,7 +70,9 @@ public class Mirror : Monster
             monsterHitBox.gameObject.SetActive(false);
             CheckSprite(GetPlayerPos());
             direction = (GetPlayerPos() - GetObjectPos()).normalized;
-            transform.position = GetPlayerPos() + 6 * direction;
+            Vector3 movePos = GetPlayerPos() + 6 * direction;
+            if(movePos.x>= -2 && movePos.x <= 65 && movePos.y <= 5 && movePos.y >= -26)
+                 transform.position = GetPlayerPos() + 6 * direction;
             yield return new WaitForSeconds(1.0f);
         }
         yield return null;
